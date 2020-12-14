@@ -12,7 +12,7 @@ const ProductsGrid = ({ images }) => {
   const handleDeleteImage = (image) => {
     // eslint-disable-next-line no-restricted-globals
     if (
-      confirm(
+      alert(
         `Are you really sure you want to delete the image\n"${image.name}"?`
       )
     ) {
