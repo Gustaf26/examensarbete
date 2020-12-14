@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { useAuth } from "../../contexts/AuthContext";
@@ -11,12 +11,12 @@ const Products = () => {
 
   return (
     <>
-      <h2 className="mb-3">All Albums</h2>
+      <h2 className="mb-3">All Clothes</h2>
 
       {loading ? (
         <BounceLoader color={"#888"} size={20} />
       ) : (
-        <ProductsGrid albums={albums} />
+        <ProductsGrid images={albums[0].images} />
       )}
 
       {currentUser && (

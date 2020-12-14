@@ -30,7 +30,7 @@ const App = () => {
                 <Home />
               </AuthRoute>
 
-              <Route path="/albums">
+              <Route path="/products">
                 <Route path="/">
                   <Products />
                 </Route>
@@ -39,7 +39,7 @@ const App = () => {
                   <CreateProduct />
                 </AuthRoute>
 
-                <Route path="/:albumId">
+                <Route path="/:productId">
                   <Product />
                 </Route>
               </Route>
