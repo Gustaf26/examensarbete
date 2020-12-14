@@ -31,17 +31,27 @@ const App = () => {
               </AuthRoute>
 
               <Route path="/products">
-                <Route path="/">
+                <Route path="/troussers">
                   <Products />
+                  <Route path="/:productId">
+                    <Product />
+                  </Route>
                 </Route>
-
+                <Route path="/jackets">
+                  <Products />
+                  <Route path="/:productId">
+                    <Product />
+                  </Route>
+                </Route>
+                <Route path="/t-shirts">
+                  <Products />
+                  <Route path="/:productId">
+                    <Product />
+                  </Route>
+                </Route>
                 <AuthRoute path="/create">
                   <CreateProduct />
                 </AuthRoute>
-
-                <Route path="/:productId">
-                  <Product />
-                </Route>
               </Route>
 
               <Route path="/forgot-password">

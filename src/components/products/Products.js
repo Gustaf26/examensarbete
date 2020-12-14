@@ -11,12 +11,14 @@ const Products = () => {
 
   return (
     <>
-      <h2 className="mb-3">All Clothes</h2>
+      <p className="mb-3">
+        All Clothes - {!loading && products && <span>{products[0].id}</span>}
+      </p>
 
       {loading ? (
         <BounceLoader color={"#888"} size={20} />
       ) : (
-        <ProductsGrid products={products[0].items} title={products[0].id} />
+        <ProductsGrid products={products[0].items} />
       )}
 
       {currentUser && (

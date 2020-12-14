@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
 import { useAuth } from "../../contexts/AuthContext";
 import useDeleteImage from "../../hooks/useDeleteImage";
 
-const ProductsGrid = ({ products, title }) => {
+const ProductsGrid = ({ products }) => {
   const [deleteImage, setDeleteImage] = useState(null);
+  const descriptionItems = useRef([]);
   const { currentUser } = useAuth();
   useDeleteImage(deleteImage);
-
-  console.log(products);
 
   const handleDeleteImage = (image) => {
     // eslint-disable-next-line no-restricted-globals
@@ -22,12 +21,15 @@ const ProductsGrid = ({ products, title }) => {
     }
   };
 
+  const showDescription = (item) => {
+    console.log(item);
+  };
+
   return (
     <SRLWrapper>
-      <h2>{title && title}</h2>
       <Row className="my-3">
         {products &&
-          products.map((item) => (
+          products.map((item, index) => (
             <Col sm={6} md={4} lg={3} key={item.id}>
               <Card className="mb-3">
                 <a
@@ -38,15 +40,22 @@ const ProductsGrid = ({ products, title }) => {
                   <Card.Img
                     variant="top"
                     src={item.thumbnail}
-                    title={item.ProductName}
+                    title={item.name}
                   />
                 </a>
                 <Card.Body>
                   <Card.Text className="text-muted small">
+                    <b>{item.name}</b>
+                  </Card.Text>
+                  <Card.Text className="text-muted small">
                     <b>Price: </b> {item.price} €
                   </Card.Text>
                   <Card.Text className="text-muted small">
-                    <b>Description: </b> {item.description}
+                    <b>Description: </b>{" "}
+                    <span ref={descriptionItems[index]}>
+                      {item.description.slice(0, 100)}... <b>(Read more)</b>
+                      {/* <b onClick={() => showDescription(item)}>(Read more)</b> */}
+                    </span>
                   </Card.Text>
                   <Button
                     variant="danger"

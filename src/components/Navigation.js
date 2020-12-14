@@ -10,8 +10,8 @@ const Navigation = () => {
 
   return (
     <div>
-      <Navbar bg="dark" variant="dark">
-        <Container>
+      <Navbar bg="info" variant="dark">
+        <Container className="py-3">
           <Link to="/" className="navbar-brand">
             <img
               alt="A photo album"
@@ -26,9 +26,17 @@ const Navigation = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <NavLink to="/products" className="nav-link">
-                Clothes
-              </NavLink>
+              <NavDropdown title="All clothes" id="basic-nav-dropdown">
+                <NavLink to="/products/troussers" className="dropdown-item">
+                  Troussers
+                </NavLink>
+                <NavLink to="/products/jackets" className="dropdown-item">
+                  Jackets
+                </NavLink>
+                <NavLink to="/products/t-shirts" className="dropdown-item">
+                  T-shirts
+                </NavLink>
+              </NavDropdown>
               {currentUser ? (
                 <NavDropdown
                   title={currentUser.displayName || currentUser.email}
