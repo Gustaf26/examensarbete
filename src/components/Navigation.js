@@ -27,7 +27,7 @@ const Navigation = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <NavLink to="/products" className="nav-link">
-                Albums
+                Clothes
               </NavLink>
               {currentUser ? (
                 <NavDropdown

@@ -4,12 +4,12 @@ import { SRLWrapper } from "simple-react-lightbox";
 import { useAuth } from "../../contexts/AuthContext";
 import useDeleteImage from "../../hooks/useDeleteImage";
 
-const ProductsGrid = ({ images }) => {
+const ProductsGrid = ({ products, title }) => {
   const [deleteImage, setDeleteImage] = useState(null);
   const { currentUser } = useAuth();
   useDeleteImage(deleteImage);
 
-  console.log(images);
+  console.log(products);
 
   const handleDeleteImage = (image) => {
     // eslint-disable-next-line no-restricted-globals
@@ -24,33 +24,39 @@ const ProductsGrid = ({ images }) => {
 
   return (
     <SRLWrapper>
+      <h2>{title && title}</h2>
       <Row className="my-3">
-        {images &&
-          images.map((image) => (
-            <Col sm={6} md={4} lg={3} key={image.id}>
+        {products &&
+          products.map((item) => (
+            <Col sm={6} md={4} lg={3} key={item.id}>
               <Card className="mb-3">
                 <a
-                  href={image.url}
+                  href={item.thumbnail}
                   title="View image in lightbox"
                   data-attribute="SRL"
                 >
-                  <Card.Img variant="top" src={image.url} title={image.name} />
+                  <Card.Img
+                    variant="top"
+                    src={item.thumbnail}
+                    title={item.ProductName}
+                  />
                 </a>
                 <Card.Body>
                   <Card.Text className="text-muted small">
-                    {image.name} ({Math.round(image.size / 1024)} kb)
+                    <b>Price: </b> {item.price} €
                   </Card.Text>
-                  {currentUser.uid === image.owner && (
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => {
-                        handleDeleteImage(image);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  )}
+                  <Card.Text className="text-muted small">
+                    <b>Description: </b> {item.description}
+                  </Card.Text>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => {
+                      handleDeleteImage(item);
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>

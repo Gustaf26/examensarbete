@@ -7,7 +7,7 @@ import ProductsGrid from "./ProductsGrid";
 
 const Products = () => {
   const { currentUser } = useAuth();
-  const { albums, loading } = useAlbums();
+  const { products, loading } = useAlbums();
 
   return (
     <>
@@ -16,12 +16,12 @@ const Products = () => {
       {loading ? (
         <BounceLoader color={"#888"} size={20} />
       ) : (
-        <ProductsGrid images={albums[0].images} />
+        <ProductsGrid products={products[0].items} title={products[0].id} />
       )}
 
       {currentUser && (
         <div className="mt-3">
-          <Link to="/albums/create" className="btn btn-primary">
+          <Link to="/products/create" className="btn btn-primary">
             Create a new product
           </Link>
         </div>
