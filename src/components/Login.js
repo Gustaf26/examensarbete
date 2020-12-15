@@ -11,6 +11,7 @@ const Login = () => {
   const { login, checkIfAdmin } = useAuth();
   const [adminChecked, setChecked] = useState(false);
   const [alert, setAlert] = useState(false);
+  const [adminAlert, setAdminAlert] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,13 +24,21 @@ const Login = () => {
       setLoading(true);
       if (adminChecked === true) {
         const adminBoolean = checkIfAdmin(emailRef.current.value);
-        console.log(adminBoolean);
         if (adminBoolean === false) {
           setAlert(true);
           setLoading(false);
           return;
         } else {
           setAlert(false);
+        }
+      } else if (adminChecked === false) {
+        const adminBoolean = checkIfAdmin(emailRef.current.value);
+        if (adminBoolean === true) {
+          setAdminAlert(true);
+          setLoading(false);
+          return;
+        } else {
+          setAdminAlert(false);
         }
       }
       await login(emailRef.current.value, passwordRef.current.value);
@@ -73,7 +82,15 @@ const Login = () => {
                 </Button>
               </Form>
               {alert === true ? (
-                <Alert variant="danger">You don´t have admin permissions</Alert>
+                <Alert variant="danger" className="mt-3">
+                  You don´t have admin permissions
+                </Alert>
+              ) : null}
+
+              {adminAlert === true ? (
+                <Alert variant="warning" className="mt-3">
+                  You are admin. Please check the admin-box
+                </Alert>
               ) : null}
               <div className="text-center mt-3">
                 <Link to="/forgot-password">Forgot Password?</Link>
