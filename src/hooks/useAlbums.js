@@ -1,31 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { db } from "../firebase";
 
-const useAlbums = () => {
-  const [products, setProducts] = useState([]);
+const useAlbums = (type) => {
+  //const [products, setProducts] = useState([]);
+  const products = useRef([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    products.current = [];
     // register a snapshot-listener on firestore for all available albums
+    console.log(type);
     const unsubscribe = db.collection("products").onSnapshot((res) => {
       setLoading(true);
       let snapshotProducts = [];
-      console.log(res);
       res.forEach((doc) => {
-        snapshotProducts.push({
-          id: doc.id,
-          ...doc.data(),
-        });
+        if (doc.id === type) {
+          snapshotProducts.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        }
       });
 
-      setProducts(snapshotProducts);
+      products.current = snapshotProducts;
       setLoading(false);
     });
-
     return unsubscribe;
-  }, []);
+  }, [type]);
 
-  return { products, loading };
+  return { products: products.current, loading };
 };
 
 export default useAlbums;

@@ -5,9 +5,9 @@ import { useAuth } from "../../contexts/AuthContext";
 import useAlbums from "../../hooks/useAlbums";
 import ProductsGrid from "./ProductsGrid";
 
-const Products = () => {
+const Products = ({ type }) => {
   const { currentUser } = useAuth();
-  const { products, loading } = useAlbums();
+  const { products, loading } = useAlbums(type);
 
   return (
     <>
