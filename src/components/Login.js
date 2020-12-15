@@ -10,6 +10,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { login, checkIfAdmin } = useAuth();
   const [adminChecked, setChecked] = useState(false);
+  const [alert, setAlert] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,10 +21,18 @@ const Login = () => {
     try {
       // try to log in the user with the specified credentials
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
       if (adminChecked === true) {
-        checkIfAdmin(emailRef.current.value);
+        const adminBoolean = checkIfAdmin(emailRef.current.value);
+        console.log(adminBoolean);
+        if (adminBoolean === false) {
+          setAlert(true);
+          setLoading(false);
+          return;
+        } else {
+          setAlert(false);
+        }
       }
+      await login(emailRef.current.value, passwordRef.current.value);
       navigate("/");
     } catch (e) {
       setError(
@@ -42,7 +51,6 @@ const Login = () => {
               <Card.Title>Log In</Card.Title>
 
               {error && <Alert variant="danger">{error}</Alert>}
-
               <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
@@ -64,6 +72,9 @@ const Login = () => {
                   Log In
                 </Button>
               </Form>
+              {alert === true ? (
+                <Alert variant="danger">You don´t have admin permissions</Alert>
+              ) : null}
               <div className="text-center mt-3">
                 <Link to="/forgot-password">Forgot Password?</Link>
               </div>

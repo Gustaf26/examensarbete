@@ -47,6 +47,10 @@ const AuthContextProvider = (props) => {
   const checkIfAdmin = (email) => {
     if (email.trim() === "gcs26@yahoo.com") {
       setAdmin(true);
+      return true;
+    } else {
+      setAdmin(false);
+      return false;
     }
   };
 

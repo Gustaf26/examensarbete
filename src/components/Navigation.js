@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -7,6 +7,15 @@ import logo from "../assets/images/logo.svg";
 
 const Navigation = () => {
   const { currentUser, admin } = useAuth();
+  const [createLink, setCreate] = useState(false);
+
+  useEffect(() => {
+    if (admin === true) {
+      setCreate(true);
+    } else {
+      setCreate(false);
+    }
+  }, [admin]);
 
   return (
     <div>
@@ -22,16 +31,13 @@ const Navigation = () => {
             />{" "}
             Work Out
           </Link>
-
+          {createLink === true ? (
+            <NavLink to="/products/create">Create product</NavLink>
+          ) : null}
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <NavDropdown title="All clothes" id="basic-nav-dropdown">
-                {admin && (
-                  <NavLink to="/products/create" className="dropdown-item">
-                    Create product
-                  </NavLink>
-                )}
                 <NavLink to="/products/troussers" className="dropdown-item">
                   Troussers
                 </NavLink>
