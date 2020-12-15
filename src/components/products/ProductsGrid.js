@@ -1,3 +1,4 @@
+import firebase from "firebase/app";
 import React, { useState, useRef, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
@@ -13,8 +14,16 @@ const ProductsGrid = ({ products, type }) => {
       const deletion = async () => {
         console.log("ddeleteing " + product.name);
         // delete document in firestore for this image
-        await db.collection("products").doc(`${type}`).delete(product.id);
+        // await db.collection("products").doc(`${type}`).delete(product.id);
+
+        const docRef = db.collection("products").doc(`${type}`);
+
+        // Remove the 'capital' field from the document
+        docRef.update({
+          items: firebase.firestore.FieldValue.arrayRemove("items.product.id"),
+        });
       };
+
       deletion();
     } catch (error) {
       console.log(error);
