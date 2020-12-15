@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import logo from "../assets/images/logo.svg";
 
 const Navigation = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, admin } = useAuth();
 
   return (
     <div>
@@ -27,6 +27,11 @@ const Navigation = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <NavDropdown title="All clothes" id="basic-nav-dropdown">
+                {admin && (
+                  <NavLink to="/products/create" className="dropdown-item">
+                    Create product
+                  </NavLink>
+                )}
                 <NavLink to="/products/troussers" className="dropdown-item">
                   Troussers
                 </NavLink>

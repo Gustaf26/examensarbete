@@ -49,6 +49,7 @@ const App = () => {
                     <Product />
                   </Route>
                 </Route>
+
                 <AuthRoute path="/create">
                   <CreateProduct />
                 </AuthRoute>
