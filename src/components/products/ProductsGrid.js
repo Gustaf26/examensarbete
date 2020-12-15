@@ -1,23 +1,23 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
 import { useAuth } from "../../contexts/AuthContext";
-import useDeleteImage from "../../hooks/useDeleteImage";
+import { db, storage } from "../../firebase";
 
-const ProductsGrid = ({ products }) => {
-  const [deleteImage, setDeleteImage] = useState(null);
+const ProductsGrid = ({ products, type }) => {
   const descriptionItems = useRef([]);
-  const { currentUser } = useAuth();
-  useDeleteImage(deleteImage);
+  const { currentUser, admin } = useAuth();
 
-  const handleDeleteImage = (image) => {
-    // eslint-disable-next-line no-restricted-globals
-    if (
-      alert(
-        `Are you really sure you want to delete the image\n"${image.name}"?`
-      )
-    ) {
-      setDeleteImage(image);
+  const handleDeleteProduct = (product) => {
+    try {
+      const deletion = async () => {
+        console.log("ddeleteing " + product.name);
+        // delete document in firestore for this image
+        await db.collection("products").doc(`${type}`).delete(product.id);
+      };
+      deletion();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -57,15 +57,17 @@ const ProductsGrid = ({ products }) => {
                       {/* <b onClick={() => showDescription(item)}>(Read more)</b> */}
                     </span>
                   </Card.Text>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => {
-                      handleDeleteImage(item);
-                    }}
-                  >
-                    Delete
-                  </Button>
+                  {admin && (
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => {
+                        handleDeleteProduct(item);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </Card.Body>
               </Card>
             </Col>

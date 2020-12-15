@@ -31,12 +31,14 @@ const Navigation = () => {
             />{" "}
             Work Out
           </Link>
-          {createLink === true ? (
-            <NavLink to="/products/create">Create product</NavLink>
-          ) : null}
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
+              {createLink === true ? (
+                <Nav.Link to="/products/create" className="mx-auto">
+                  Create product
+                </Nav.Link>
+              ) : null}
               <NavDropdown title="All clothes" id="basic-nav-dropdown">
                 <NavLink to="/products/troussers" className="dropdown-item">
                   Troussers

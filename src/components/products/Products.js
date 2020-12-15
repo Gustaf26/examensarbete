@@ -18,7 +18,7 @@ const Products = ({ type }) => {
       {loading ? (
         <BounceLoader color={"#888"} size={20} />
       ) : (
-        <ProductsGrid products={products[0].items} />
+        <ProductsGrid type={type} products={products[0].items} />
       )}
 
       {currentUser && (
