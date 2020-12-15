@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { db } from "../firebase";
 
 const useAlbums = (type) => {
-  //const [products, setProducts] = useState([]);
   const products = useRef([]);
   const [loading, setLoading] = useState(true);
 
