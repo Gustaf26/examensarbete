@@ -32,19 +32,19 @@ const App = () => {
 
               <Route path="/products">
                 <Route path="/troussers">
-                  <Products type="Troussers" />
+                  <Products type="troussers" />
                   <Route path="/:productId">
                     <Product />
                   </Route>
                 </Route>
                 <Route path="/jackets">
-                  <Products type="Jackets" />
+                  <Products type="jackets" />
                   <Route path="/:productId">
                     <Product />
                   </Route>
                 </Route>
                 <Route path="/t-shirts">
-                  <Products type="T-shirts" />
+                  <Products type="t-shirts" />
                   <Route path="/:productId">
                     <Product />
                   </Route>

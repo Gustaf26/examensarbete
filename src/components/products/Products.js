@@ -12,13 +12,13 @@ const Products = ({ type }) => {
   return (
     <>
       <p className="mb-3">
-        All Clothes - {!loading && products && <span>{products[0].id}</span>}
+        All Clothes - {!loading && products && <span>{type}</span>}
       </p>
 
       {loading ? (
         <BounceLoader color={"#888"} size={20} />
       ) : (
-        <ProductsGrid type={type} products={products[0].items} />
+        <ProductsGrid type={type} products={products} />
       )}
 
       {currentUser && (

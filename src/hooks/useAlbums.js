@@ -9,16 +9,14 @@ const useAlbums = (type) => {
     products.current = [];
     // register a snapshot-listener on firestore for all available albums
     console.log(type);
-    const unsubscribe = db.collection("products").onSnapshot((res) => {
+    const unsubscribe = db.collection(`${type}`).onSnapshot((res) => {
       setLoading(true);
       let snapshotProducts = [];
-      res.forEach((doc) => {
-        if (doc.id === type) {
-          snapshotProducts.push({
-            id: doc.id,
-            ...doc.data(),
-          });
-        }
+      res.docs.forEach((doc) => {
+        snapshotProducts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
       });
 
       products.current = snapshotProducts;

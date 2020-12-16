@@ -24,13 +24,7 @@ const ProductsGrid = ({ products, type }) => {
         //   });
         // };
 
-        db.collection("products")
-          .doc(`${type}`)
-          .delete({
-            items: {
-              0: {},
-            },
-          });
+        db.collection(`${type}`).doc(`${product.id}`).delete();
       };
 
       deletion();
@@ -42,6 +36,10 @@ const ProductsGrid = ({ products, type }) => {
   const showDescription = (item) => {
     console.log(item);
   };
+
+  useEffect(() => {
+    console.log(products);
+  }, []);
 
   return (
     <SRLWrapper>
