@@ -16,12 +16,21 @@ const ProductsGrid = ({ products, type }) => {
         // delete document in firestore for this image
         // await db.collection("products").doc(`${type}`).delete(product.id);
 
-        const docRef = db.collection("products").doc(`${type}`);
+        //   const docRef = db.collection("products").doc(`${type}`);
 
-        // Remove the 'capital' field from the document
-        docRef.update({
-          items: firebase.firestore.FieldValue.arrayRemove("items.product.id"),
-        });
+        //   // Remove the 'capital' field from the document
+        //   docRef.update({
+        //     items: firebase.firestore.FieldValue.arrayRemove("items.product.id"),
+        //   });
+        // };
+
+        db.collection("products")
+          .doc(`${type}`)
+          .delete({
+            items: {
+              0: {},
+            },
+          });
       };
 
       deletion();
