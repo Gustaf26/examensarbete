@@ -10,7 +10,7 @@ const CreateProduct = () => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [productOption, setProductOption] = useState("");
+  const [productOption, setProductOption] = useState(null);
   const [url, setUrl] = useState("");
   const [prodPrice, setPrice] = useState("");
   const { currentUser } = useAuth();
@@ -47,14 +47,17 @@ const CreateProduct = () => {
     setLoading(true);
 
     try {
-      const docRef = await db.collection(`${productOption}`).add({
+      const ranNumber = Math.floor(Math.random() * 10000);
+
+      const docRef = db.collection(`${productOption}`).doc(`${ranNumber}`).set({
         name: name,
         description: description,
         thumbnail: url,
         price: prodPrice,
+        id: ranNumber,
       });
 
-      navigate(`/albums/${docRef.id}`);
+      navigate(`/products/${productOption}/${ranNumber}`);
     } catch (e) {
       setError(e.message);
       setLoading(false);
@@ -129,10 +132,12 @@ const CreateProduct = () => {
                     </Form.Text>
                   )}
                 </Form.Group>
-                <UploadImageDropzone
-                  type={productOption ? productOption : null}
-                  changeUrl={handleUrl}
-                />
+                {productOption !== null && (
+                  <UploadImageDropzone
+                    type={productOption}
+                    changeUrl={handleUrl}
+                  />
+                )}
                 <Button disabled={loading} type="submit" className="mx-auto">
                   Create
                 </Button>
