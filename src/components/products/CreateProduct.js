@@ -11,6 +11,8 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [productOption, setProductOption] = useState("");
+  const [url, setUrl] = useState("");
+  const [prodPrice, setPrice] = useState("");
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -20,6 +22,17 @@ const CreateProduct = () => {
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
+  };
+
+  const handleUrl = (url) => {
+    if (url) {
+      setUrl(url);
+    }
+  };
+
+  const handlePrice = (e) => {
+    const newPrice = e.target.value;
+    setPrice(newPrice);
   };
 
   const handleSubmit = async (e) => {
@@ -34,9 +47,11 @@ const CreateProduct = () => {
     setLoading(true);
 
     try {
-      const docRef = await db.collection("albums").add({
-        name,
-        owner: currentUser.uid,
+      const docRef = await db.collection(`${productOption}`).add({
+        name: name,
+        description: description,
+        thumbnail: url,
+        price: prodPrice,
       });
 
       navigate(`/albums/${docRef.id}`);
@@ -100,8 +115,23 @@ const CreateProduct = () => {
                     <option>T-shirts</option>
                   </Form.Control>
                 </Form.Group>
+                <Form.Group id="price">
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type="title"
+                    onChange={handlePrice}
+                    value={prodPrice}
+                    required
+                  />
+                  {prodPrice && prodPrice === "0" && (
+                    <Form.Text className="text-danger">
+                      Please set the product price.
+                    </Form.Text>
+                  )}
+                </Form.Group>
                 <UploadImageDropzone
                   type={productOption ? productOption : null}
+                  changeUrl={handleUrl}
                 />
                 <Button disabled={loading} type="submit" className="mx-auto">
                   Create

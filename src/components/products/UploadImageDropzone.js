@@ -4,10 +4,13 @@ import ProgressBar from "react-bootstrap/esm/ProgressBar";
 import { useDropzone } from "react-dropzone";
 import useUploadImage from "../../hooks/useUploadImage";
 
-const UploadImageDropzone = ({ type }) => {
+const UploadImageDropzone = ({ type, changeUrl }) => {
   const [uploadFile, setUploadFile] = useState({ file: "", type: "" });
   const [message, setMessage] = useState(null);
-  const { uploadProgress, error, isSuccess } = useUploadImage(uploadFile);
+  const [url, setUrl] = useState("");
+  const { uploadProgress, error, isSuccess, imageUrl } = useUploadImage(
+    uploadFile
+  );
 
   useEffect(() => {
     if (error) {
@@ -32,8 +35,20 @@ const UploadImageDropzone = ({ type }) => {
       return;
     }
 
-    setUploadFile({ file: acceptedFiles[0], type: type });
+    setUploadFile({
+      file: acceptedFiles[0],
+      type: type,
+    });
   }, []);
+
+  useEffect(() => {
+    if (imageUrl) {
+      setUrl(imageUrl.current);
+    }
+    return () => {
+      setUrl("");
+    };
+  }, [imageUrl]);
 
   const {
     getRootProps,
@@ -55,7 +70,7 @@ const UploadImageDropzone = ({ type }) => {
         isDragAccept ? `drag-accept` : ``
       } ${isDragReject ? `drag-reject` : ``}`}
     >
-      <input {...getInputProps()} />
+      <input type="image" {...getInputProps()} onLoadedData={changeUrl(url)} />
       {isDragActive ? (
         isDragAccept ? (
           <p>Drop image</p>

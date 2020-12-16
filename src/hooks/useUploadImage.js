@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db, storage } from "../firebase";
 
 const useUploadImage = ({ file, type }) => {
   const [uploadProgress, setUploadProgress] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
+  const imageUrl = useRef("");
   const [error, setError] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -41,14 +42,7 @@ const useUploadImage = ({ file, type }) => {
       // retrieve URL to uploaded file
       snapshot.ref.getDownloadURL().then((url) => {
         // add uploaded file to db
-        const image = {
-          name: file.name,
-          path: snapshot.ref.fullPath,
-          size: file.size,
-          type: file.type,
-          url,
-        };
-        console.log(url);
+        imageUrl.current = url;
       });
     });
     //       db.collection("images")
@@ -73,7 +67,7 @@ const useUploadImage = ({ file, type }) => {
     //   });
   }, [file]);
 
-  return { uploadProgress, uploadedImage, error, isSuccess };
+  return { uploadProgress, uploadedImage, error, isSuccess, imageUrl };
 };
 
 export default useUploadImage;
