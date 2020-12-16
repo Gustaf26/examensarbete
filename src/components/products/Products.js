@@ -20,14 +20,6 @@ const Products = ({ type }) => {
       ) : (
         <ProductsGrid type={type} products={products} />
       )}
-
-      {currentUser && (
-        <div className="mt-3">
-          <Link to="/products/create" className="btn btn-primary">
-            Create a new product
-          </Link>
-        </div>
-      )}
     </>
   );
 };
