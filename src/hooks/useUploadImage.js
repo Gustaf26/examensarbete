@@ -1,12 +1,13 @@
-import { useState, useEffect, useRef } from "react";
-import { db, storage } from "../firebase";
+import { useState, useEffect } from "react";
+import { storage } from "../firebase";
+import { useCreate } from "../contexts/CreateContext";
 
-const useUploadImage = ({ file, type }) => {
+const useUploadImage = ({ file }) => {
   const [uploadProgress, setUploadProgress] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
-  const imageUrl = useRef("");
   const [error, setError] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { setImageUrl, productOption } = useCreate();
 
   useEffect(() => {
     if (!file) {
@@ -23,7 +24,7 @@ const useUploadImage = ({ file, type }) => {
     setIsSuccess(false);
 
     // get file reference
-    const fileRef = storage.ref(`${type}/${file.name}`);
+    const fileRef = storage.ref(`${productOption}/${file.name}`);
 
     // upload file to fileRef
     const uploadTask = fileRef.put(file);
@@ -42,32 +43,12 @@ const useUploadImage = ({ file, type }) => {
       // retrieve URL to uploaded file
       snapshot.ref.getDownloadURL().then((url) => {
         // add uploaded file to db
-        imageUrl.current = url;
+        setImageUrl(url);
       });
     });
-    //       db.collection("images")
-    //         .add(image)
-    //         .then(() => {
-    //           // let user know we're done
-    //           setIsSuccess(true);
-    //           setUploadProgress(null);
-
-    //           // file has been added to db, refresh list of files
-    //           setUploadedImage(image);
-    //           setIsSuccess(true);
-    //         });
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.error("File upload triggered an error!", error);
-    //     setError({
-    //       type: "warning",
-    //       msg: `Image could not be uploaded due to an error (${error.code})`,
-    //     });
-    //   });
   }, [file]);
 
-  return { uploadProgress, uploadedImage, error, isSuccess, imageUrl };
+  return { uploadProgress, uploadedImage, error, isSuccess };
 };
 
 export default useUploadImage;

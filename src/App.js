@@ -15,70 +15,72 @@ import NotFound from "./components/NotFound";
 import Signup from "./components/Signup";
 import UpdateProfile from "./components/UpdateProfile";
 import AuthContextProvider from "./contexts/AuthContext";
+import CreateContextProvider from "./contexts/CreateContext";
 import "./assets/scss/app.scss";
 
 const App = () => {
   return (
     <Router>
       <AuthContextProvider>
-        <SimpleReactLightbox>
-          <Navigation />
+        <CreateContextProvider>
+          <SimpleReactLightbox>
+            <Navigation />
 
-          <Container className="py-3">
-            <Routes>
-              <AuthRoute path="/">
-                <Home />
-              </AuthRoute>
-
-              <Route path="/products">
-                <Route path="/troussers">
-                  <Products type="troussers" />
-                  <Route path="/:productId">
-                    <Product />
-                  </Route>
-                </Route>
-                <Route path="/jackets">
-                  <Products type="jackets" />
-                  <Route path="/:productId">
-                    <Product />
-                  </Route>
-                </Route>
-                <Route path="/t-shirts">
-                  <Products type="t-shirts" />
-                  <Route path="/:productId">
-                    <Product />
-                  </Route>
-                </Route>
-
-                <AuthRoute path="/create">
-                  <CreateProduct />
+            <Container className="py-3">
+              <Routes>
+                <AuthRoute path="/">
+                  <Home />
                 </AuthRoute>
-              </Route>
 
-              <Route path="/forgot-password">
-                <ForgotPassword />
-              </Route>
+                <Route path="/products">
+                  <Route path="/troussers">
+                    <Products type="troussers" />
+                    <Route path="/:productId">
+                      <Product />
+                    </Route>
+                  </Route>
+                  <Route path="/jackets">
+                    <Products type="jackets" />
+                    <Route path="/:productId">
+                      <Product />
+                    </Route>
+                  </Route>
+                  <Route path="/t-shirts">
+                    <Products type="t-shirts" />
+                    <Route path="/:productId">
+                      <Product />
+                    </Route>
+                  </Route>
+                  <AuthRoute path="/create">
+                    <CreateProduct />
+                  </AuthRoute>
+                </Route>
 
-              <Route path="/login">
-                <Login />
-              </Route>
+                <Route path="/forgot-password">
+                  <ForgotPassword />
+                </Route>
 
-              <Route path="/logout">
-                <Logout />
-              </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
 
-              <Route path="/signup">
-                <Signup />
-              </Route>
+                <Route path="/logout">
+                  <Logout />
+                </Route>
 
-              <AuthRoute path="/update-profile">
-                <UpdateProfile />
-              </AuthRoute>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Container>
-        </SimpleReactLightbox>
+                <AuthRoute path="/update-profile">
+                  <UpdateProfile />
+                </AuthRoute>
+
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Container>
+          </SimpleReactLightbox>
+        </CreateContextProvider>
       </AuthContextProvider>
     </Router>
   );

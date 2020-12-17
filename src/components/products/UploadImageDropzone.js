@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import Alert from "react-bootstrap/Alert";
 import ProgressBar from "react-bootstrap/esm/ProgressBar";
 import { useDropzone } from "react-dropzone";
 import useUploadImage from "../../hooks/useUploadImage";
+import { useCreate } from "../../contexts/CreateContext";
 
-const UploadImageDropzone = ({ type, changeUrl }) => {
+const UploadImageDropzone = ({ type }) => {
   const [uploadFile, setUploadFile] = useState({ file: "", type: "" });
   const [message, setMessage] = useState(null);
-  const [url, setUrl] = useState("");
-  const { uploadProgress, error, isSuccess, imageUrl } = useUploadImage(
-    uploadFile
-  );
+  const { imageUrl } = useCreate();
+  const { uploadProgress, error, isSuccess } = useUploadImage(uploadFile);
 
   useEffect(() => {
     if (error) {
@@ -41,15 +40,6 @@ const UploadImageDropzone = ({ type, changeUrl }) => {
     });
   }, []);
 
-  useEffect(() => {
-    if (imageUrl) {
-      setUrl(imageUrl.current);
-    }
-    return () => {
-      setUrl("");
-    };
-  }, [imageUrl]);
-
   const {
     getRootProps,
     getInputProps,
@@ -70,7 +60,7 @@ const UploadImageDropzone = ({ type, changeUrl }) => {
         isDragAccept ? `drag-accept` : ``
       } ${isDragReject ? `drag-reject` : ``}`}
     >
-      <input type="image" {...getInputProps()} onLoadedData={changeUrl(url)} />
+      <input type="image" {...getInputProps()} />
       {isDragActive ? (
         isDragAccept ? (
           <p>Drop image</p>

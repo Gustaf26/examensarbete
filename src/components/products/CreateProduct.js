@@ -4,16 +4,16 @@ import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import { useCreate } from "../../contexts/CreateContext";
 
 const CreateProduct = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [productOption, setProductOption] = useState(null);
-  const [url, setUrl] = useState("");
   const [prodPrice, setPrice] = useState("");
   const { currentUser } = useAuth();
+  const { imageUrl, productOption, setProductOption } = useCreate();
   const navigate = useNavigate();
 
   const handleNameChange = (e) => {
@@ -22,12 +22,6 @@ const CreateProduct = () => {
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
-  };
-
-  const handleUrl = (url) => {
-    if (url) {
-      setUrl(url);
-    }
   };
 
   const handlePrice = (e) => {
@@ -52,7 +46,7 @@ const CreateProduct = () => {
       const docRef = db.collection(`${productOption}`).doc(`${ranNumber}`).set({
         name: name,
         description: description,
-        thumbnail: url,
+        thumbnail: imageUrl,
         price: prodPrice,
         id: ranNumber,
       });
@@ -132,12 +126,7 @@ const CreateProduct = () => {
                     </Form.Text>
                   )}
                 </Form.Group>
-                {productOption !== null && (
-                  <UploadImageDropzone
-                    type={productOption}
-                    changeUrl={handleUrl}
-                  />
-                )}
+                {productOption && <UploadImageDropzone type={productOption} />}
                 <Button disabled={loading} type="submit" className="mx-auto">
                   Create
                 </Button>
