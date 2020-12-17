@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
 import { useAuth } from "../../contexts/AuthContext";
+import { useCreate } from "../../contexts/CreateContext";
 import { db } from "../../firebase";
 
 const ProductsGrid = ({ products, type }) => {
   const descriptionItems = useRef([]);
   const { currentUser, admin } = useAuth();
+  const { setSingleProduct, setProductOption } = useCreate();
 
   const handleDeleteProduct = (product) => {
     try {
@@ -28,13 +30,9 @@ const ProductsGrid = ({ products, type }) => {
     console.log(item);
   };
 
-  useEffect(() => {
-    console.log(products);
-  }, []);
-
   return (
     <SRLWrapper>
-      <Row className="my-3">
+      <Row className="my-3" onLoad={() => setProductOption(type)}>
         {products &&
           products.map((item, index) => (
             <Col sm={6} md={4} lg={3} key={item.id}>
@@ -50,7 +48,8 @@ const ProductsGrid = ({ products, type }) => {
                     title={item.name}
                   />
                 </a>
-                <Card.Body>
+                <Card.Body onClick={() => setSingleProduct(item)}>
+                  {" "}
                   <Link to={`/products/${type}/${item.id}`}>
                     <Card.Text className="text-muted small">
                       <b>{item.name}</b>

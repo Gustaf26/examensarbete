@@ -11,12 +11,15 @@ const CreateContextProvider = (props) => {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [productOption, setProductOption] = useState(null);
+  const [singleProduct, setSingleProduct] = useState("");
 
   const contextValues = {
     setImageUrl,
     imageUrl,
     setProductOption,
     productOption,
+    setSingleProduct,
+    singleProduct,
   };
 
   return (
