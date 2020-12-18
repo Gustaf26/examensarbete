@@ -52,7 +52,7 @@ const App = () => {
           <SimpleReactLightbox>
             <Navigation />
 
-            <Container className="py-3">
+            <Container id="container" className="py-3">
               <Routes>
                 <AuthRoute path="/">
                   <Home />

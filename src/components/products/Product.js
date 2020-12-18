@@ -46,13 +46,13 @@ const Product = () => {
           {singleProduct ? singleProduct.name : null}
         </Breadcrumb.Item>
       </Breadcrumb>
-      <h2 className="mb-3 col-12 d-flex justify-content-center">
-        {" "}
-        {singleProduct && singleProduct.name}
-      </h2>
       {!singleProduct && <BounceLoader color={"#888"} size={20} />}
       {singleProduct && (
         <Card className="mb-3 col-6 mx-auto">
+          <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center">
+            {" "}
+            {singleProduct && singleProduct.name}
+          </h2>
           <p
             href={singleProduct.thumbnail}
             title="View image in lightbox"
