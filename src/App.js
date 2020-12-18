@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { db } from "./firebase";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SimpleReactLightbox from "simple-react-lightbox";
@@ -16,10 +17,33 @@ import NotFound from "./components/NotFound";
 import Signup from "./components/Signup";
 import UpdateProfile from "./components/UpdateProfile";
 import AuthContextProvider from "./contexts/AuthContext";
-import CreateContextProvider from "./contexts/CreateContext";
+import CreateContextProvider, { useCreate } from "./contexts/CreateContext";
 import "./assets/scss/app.scss";
 
 const App = () => {
+  const [productCategories, setCategories] = useState([]);
+
+  useEffect(() => {
+    db.collection("cloth-categories")
+      .get()
+      .then(function (querySnapshot) {
+        let snapshotCategories = [];
+        console.log(querySnapshot);
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          snapshotCategories.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        setCategories(snapshotCategories);
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  }, []);
+  // const { getCategories, productCategories } = useCreate();
+
   return (
     <Router>
       <AuthContextProvider>
@@ -36,24 +60,15 @@ const App = () => {
                   <CreateProduct />
                 </AdminRoute>
                 <Route path="/products">
-                  <Route path="/troussers">
-                    <Products type="troussers" />
-                    <Route path="/:productId">
-                      <Product />
-                    </Route>
-                  </Route>
-                  <Route path="/jackets">
-                    <Products type="jackets" />
-                    <Route path="/:productId">
-                      <Product />
-                    </Route>
-                  </Route>
-                  <Route path="/t-shirts">
-                    <Products type="t-shirts" />
-                    <Route path="/:productId">
-                      <Product />
-                    </Route>
-                  </Route>
+                  {productCategories &&
+                    productCategories.map((category) => (
+                      <Route path={`/${category.name}`}>
+                        <Products type={`${category.name}`} />
+                        <Route path="/:productId">
+                          <Product />
+                        </Route>
+                      </Route>
+                    ))}
                 </Route>
 
                 <Route path="/forgot-password">

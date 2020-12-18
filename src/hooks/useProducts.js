@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { db } from "../firebase";
 
-const useAlbums = (type) => {
+const useProducts = (type) => {
   const products = useRef([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,4 +28,4 @@ const useAlbums = (type) => {
   return { products: products.current, loading };
 };
 
-export default useAlbums;
+export default useProducts;

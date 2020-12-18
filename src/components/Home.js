@@ -15,7 +15,7 @@ const Home = () => {
       </h2>
       <Card className="mb-3 col-10 mx-auto ustify-content-center">
         <Card.Img
-          className="col-6 mx-auto"
+          className="col-lg-6 col-sm-12 col-md-9 mx-auto"
           variant="top"
           src="https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg"
         />

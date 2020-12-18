@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { useAuth } from "../../contexts/AuthContext";
-import useAlbums from "../../hooks/useAlbums";
+import useProducts from "../../hooks/useProducts";
 import ProductsGrid from "./ProductsGrid";
 import { Breadcrumb } from "react-bootstrap";
 
 const Products = ({ type }) => {
   const { currentUser } = useAuth();
-  const { products, loading } = useAlbums(type);
+  const { products, loading } = useProducts(type);
 
   return (
     <>

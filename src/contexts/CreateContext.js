@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+//import { db } from "../firebase";
+import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
 
 const CreateContext = createContext();
@@ -12,6 +13,7 @@ const CreateContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [productOption, setProductOption] = useState(null);
   const [singleProduct, setSingleProduct] = useState("");
+  const [productCategories, setCategories] = useState([]);
 
   const contextValues = {
     setImageUrl,
@@ -20,6 +22,7 @@ const CreateContextProvider = (props) => {
     productOption,
     setSingleProduct,
     singleProduct,
+    productCategories,
   };
 
   return (
