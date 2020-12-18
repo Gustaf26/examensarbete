@@ -6,6 +6,7 @@ import SimpleReactLightbox from "simple-react-lightbox";
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
 import CreateProduct from "./components/products/CreateProduct";
+import UpdateProduct from "./components/products/UpdateProduct";
 import AuthRoute from "./components/AuthRoute";
 import AdminRoute from "./components/AdminRoute";
 import ForgotPassword from "./components/ForgotPassword";
@@ -58,6 +59,9 @@ const App = () => {
                 </AuthRoute>
                 <AdminRoute path="/create">
                   <CreateProduct />
+                </AdminRoute>
+                <AdminRoute path="/update">
+                  <UpdateProduct />
                 </AdminRoute>
                 <Route path="/products">
                   {productCategories &&

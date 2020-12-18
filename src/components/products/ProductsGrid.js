@@ -1,6 +1,6 @@
 //import firebase from "firebase/app";
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
 import { useAuth } from "../../contexts/AuthContext";
@@ -9,8 +9,13 @@ import { db } from "../../firebase";
 
 const ProductsGrid = ({ products, type }) => {
   const descriptionItems = useRef([]);
+  const navigate = useNavigate();
   const { currentUser, admin } = useAuth();
   const { setSingleProduct, setProductOption } = useCreate();
+
+  const handleUpdateProduct = (product) => {
+    navigate(`/update`);
+  };
 
   const handleDeleteProduct = (product) => {
     try {
@@ -69,16 +74,28 @@ const ProductsGrid = ({ products, type }) => {
                     </Card.Text>
                   </Link>
                   {admin && (
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      className="col-12 mt-3 p-2"
-                      onClick={() => {
-                        handleDeleteProduct(item);
-                      }}
-                    >
-                      Delete
-                    </Button>
+                    <div>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        className="col-5 mt-3 ml-3 p-2"
+                        onClick={() => {
+                          handleDeleteProduct(item);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="col-5 mt-3 ml-2 p-2"
+                        onClick={() => {
+                          handleUpdateProduct(item);
+                        }}
+                      >
+                        Update
+                      </Button>
+                    </div>
                   )}
                 </Card.Body>
               </Card>

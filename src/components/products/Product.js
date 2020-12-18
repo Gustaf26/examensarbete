@@ -12,6 +12,10 @@ const Product = () => {
   const { admin } = useAuth();
   const navigate = useNavigate();
 
+  const handleUpdateProduct = (product) => {
+    navigate(`/update`);
+  };
+
   const handleDeleteProduct = (product) => {
     try {
       const deletion = async () => {
@@ -75,16 +79,28 @@ const Product = () => {
               </span>
             </Card.Text>
             {admin && (
-              <Button
-                variant="danger"
-                size="sm"
-                className="col-12 mt-3 p-2"
-                onClick={() => {
-                  handleDeleteProduct(singleProduct);
-                }}
-              >
-                Delete
-              </Button>
+              <div>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  className="col-12 mt-3 p-2"
+                  onClick={() => {
+                    handleDeleteProduct(singleProduct);
+                  }}
+                >
+                  Delete
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="col-12 mt-3 p-2"
+                  onClick={() => {
+                    handleUpdateProduct(singleProduct);
+                  }}
+                >
+                  Update
+                </Button>
+              </div>
             )}
           </Card.Body>
         </Card>

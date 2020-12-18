@@ -58,7 +58,7 @@ const Navigation = () => {
                       className="mx-4 my-auto"
                       variant="dark"
                     >
-                      Create product
+                      Create
                     </NavLink>
                   ) : null}
                   <NavDropdown title="All clothes" id="basic-nav-dropdown">
