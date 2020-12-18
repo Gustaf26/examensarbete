@@ -30,7 +30,7 @@ const Product = () => {
       {!singleProduct && <BounceLoader color={"#888"} size={20} />}
       {singleProduct && (
         <Card className="mb-3 col-6 mx-auto">
-          <a
+          <p
             href={singleProduct.thumbnail}
             title="View image in lightbox"
             data-attribute="SRL"
@@ -40,7 +40,7 @@ const Product = () => {
               src={singleProduct.thumbnail}
               title={singleProduct.name}
             />
-          </a>
+          </p>
           <Card.Body>
             <Card.Text className="text-muted small">
               <b>{singleProduct.name}</b>

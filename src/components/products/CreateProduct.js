@@ -13,7 +13,12 @@ const CreateProduct = () => {
   const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
   const { currentUser } = useAuth();
-  const { imageUrl, productOption, setProductOption } = useCreate();
+  const {
+    imageUrl,
+    productOption,
+    setProductOption,
+    setSingleProduct,
+  } = useCreate();
   const navigate = useNavigate();
 
   const handleNameChange = (e) => {
@@ -51,7 +56,15 @@ const CreateProduct = () => {
         id: ranNumber,
       });
 
-      navigate(`/products/${productOption}/${ranNumber}`);
+      db.collection(`${productOption}`)
+        .doc(`${ranNumber}`)
+        .get()
+        .then((doc) => {
+          setSingleProduct(doc.data());
+          setTimeout(() => {
+            navigate(`/products/${productOption}/${ranNumber}`);
+          }, 1000);
+        });
     } catch (e) {
       setError(e.message);
       setLoading(false);
