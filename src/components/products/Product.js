@@ -1,14 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { Card, Button, Breadcrumb } from "react-bootstrap";
 import { useCreate } from "../../contexts/CreateContext";
 import { useAuth } from "../../contexts/AuthContext";
+import { db } from "../../firebase";
 //import UploadProductImage from "./UploadProductImage";
 
 const Product = () => {
   const { singleProduct, productOption } = useCreate();
   const { admin } = useAuth();
+  const navigate = useNavigate();
+
+  const handleDeleteProduct = (product) => {
+    try {
+      const deletion = async () => {
+        console.log("ddeleteing " + product.name);
+
+        db.collection(`${productOption}`).doc(`${product.id}`).delete();
+        setTimeout(() => {
+          navigate(`/products/${productOption}`);
+        }, 1000);
+      };
+
+      deletion();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -60,9 +79,9 @@ const Product = () => {
                 variant="danger"
                 size="sm"
                 className="col-12 mt-3 p-2"
-                // onClick={() => {
-                //   handleDeleteProduct(item);
-                // }}
+                onClick={() => {
+                  handleDeleteProduct(singleProduct);
+                }}
               >
                 Delete
               </Button>
