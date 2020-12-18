@@ -16,7 +16,9 @@ const Products = ({ type }) => {
         All Clothes - {!loading && products && <span>{type}</span>}
       </p> */}
       <Breadcrumb className="mb-3">
-        <Breadcrumb.Item active>All Clothes</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/">Home</Link>
+        </Breadcrumb.Item>
         <Breadcrumb.Item active>{type}</Breadcrumb.Item>
       </Breadcrumb>
 

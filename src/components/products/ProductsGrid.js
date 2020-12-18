@@ -48,7 +48,10 @@ const ProductsGrid = ({ products, type }) => {
                     title={item.name}
                   />
                 </a>
-                <Card.Body onClick={() => setSingleProduct(item)}>
+                <Card.Body
+                  className="d-block"
+                  onClick={() => setSingleProduct(item)}
+                >
                   {" "}
                   <Link to={`/products/${type}/${item.id}`}>
                     <Card.Text className="text-muted small">
@@ -69,6 +72,7 @@ const ProductsGrid = ({ products, type }) => {
                     <Button
                       variant="danger"
                       size="sm"
+                      className="col-12 mt-3 p-2"
                       onClick={() => {
                         handleDeleteProduct(item);
                       }}

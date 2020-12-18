@@ -54,7 +54,7 @@ const Navigation = () => {
                 <Nav className="ml-auto">
                   {createLink === true ? (
                     <NavLink
-                      to="/products/create"
+                      to="/create"
                       className="mx-4 my-auto"
                       variant="dark"
                     >

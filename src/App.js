@@ -31,7 +31,9 @@ const App = () => {
                 <AuthRoute path="/">
                   <Home />
                 </AuthRoute>
-
+                <AuthRoute path="/create">
+                  <CreateProduct />
+                </AuthRoute>
                 <Route path="/products">
                   <Route path="/troussers">
                     <Products type="troussers" />
@@ -51,9 +53,6 @@ const App = () => {
                       <Product />
                     </Route>
                   </Route>
-                  <AuthRoute path="/create">
-                    <CreateProduct />
-                  </AuthRoute>
                 </Route>
 
                 <Route path="/forgot-password">

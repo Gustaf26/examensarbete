@@ -13,9 +13,11 @@ const Product = () => {
   return (
     <>
       <Breadcrumb className="mb-3">
-        <Breadcrumb.Item active>All Clothes</Breadcrumb.Item>
-        <Breadcrumb.Item href={`/products/${productOption}`}>
-          {productOption}
+        <Breadcrumb.Item>
+          <Link to="/">Home</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to={`/products/${productOption}`}>{productOption}</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item active>
           {singleProduct ? singleProduct.name : null}
@@ -57,6 +59,7 @@ const Product = () => {
               <Button
                 variant="danger"
                 size="sm"
+                className="col-12 mt-3 p-2"
                 // onClick={() => {
                 //   handleDeleteProduct(item);
                 // }}
