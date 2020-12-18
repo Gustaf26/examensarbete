@@ -6,6 +6,7 @@ import Product from "./components/products/Product";
 import Products from "./components/products/Products";
 import CreateProduct from "./components/products/CreateProduct";
 import AuthRoute from "./components/AuthRoute";
+import AdminRoute from "./components/AdminRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -31,9 +32,9 @@ const App = () => {
                 <AuthRoute path="/">
                   <Home />
                 </AuthRoute>
-                <AuthRoute path="/create">
+                <AdminRoute path="/create">
                   <CreateProduct />
-                </AuthRoute>
+                </AdminRoute>
                 <Route path="/products">
                   <Route path="/troussers">
                     <Products type="troussers" />
