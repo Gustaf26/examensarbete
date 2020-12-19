@@ -62,8 +62,8 @@ const CreateProduct = () => {
           .get()
           .then((doc) => {
             setSingleProduct(doc.data());
-            navigate(`/products/${productOption}/${ranNumber}`);
-          }, 2000);
+            navigate(`/products/${productOption}`);
+          }, 1000);
       });
     } catch (e) {
       setError(e.message);

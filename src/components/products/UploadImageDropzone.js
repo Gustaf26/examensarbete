@@ -60,7 +60,7 @@ const UploadImageDropzone = ({ type }) => {
         isDragAccept ? `drag-accept` : ``
       } ${isDragReject ? `drag-reject` : ``}`}
     >
-      <input type="image" {...getInputProps()} />
+      <input type="image" alt="drop-input for your file" {...getInputProps()} />
       {isDragActive ? (
         isDragAccept ? (
           <p>Drop image</p>
