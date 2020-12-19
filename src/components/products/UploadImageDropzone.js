@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Alert from "react-bootstrap/Alert";
 import ProgressBar from "react-bootstrap/esm/ProgressBar";
 import { useDropzone } from "react-dropzone";
 import useUploadImage from "../../hooks/useUploadImage";
-import { useCreate } from "../../contexts/CreateContext";
+//import { useCreate } from "../../contexts/CreateContext";
 
 const UploadImageDropzone = ({ type }) => {
   const [uploadFile, setUploadFile] = useState({ file: "", type: "" });
   const [message, setMessage] = useState(null);
-  const { imageUrl } = useCreate();
+  //const { imageUrl } = useCreate();
   const { uploadProgress, error, isSuccess } = useUploadImage(uploadFile);
 
   useEffect(() => {

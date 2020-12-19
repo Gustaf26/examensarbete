@@ -1,5 +1,5 @@
 //import firebase from "firebase/app";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
@@ -10,7 +10,7 @@ import { db } from "../../firebase";
 const ProductsGrid = ({ products, type }) => {
   const descriptionItems = useRef([]);
   const navigate = useNavigate();
-  const { currentUser, admin } = useAuth();
+  const { admin } = useAuth();
   const { setSingleProduct, setProductOption } = useCreate();
 
   const handleUpdateProduct = (product) => {
@@ -30,10 +30,6 @@ const ProductsGrid = ({ products, type }) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const showDescription = (item) => {
-    console.log(item);
   };
 
   return (
@@ -68,7 +64,7 @@ const ProductsGrid = ({ products, type }) => {
                     </Card.Text>
                     <Card.Text className="text-muted small">
                       <b>Description: </b>{" "}
-                      <span ref={descriptionItems[index]}>
+                      <span>
                         {item.description.slice(0, 100)}... <b>(Read more)</b>
                         {/* <b onClick={() => showDescription(item)}>(Read more)</b> */}
                       </span>

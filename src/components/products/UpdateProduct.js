@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UploadImageDropzone from "./UploadImageDropzone";
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
-import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 
 const UpdateProduct = () => {
@@ -12,13 +11,13 @@ const UpdateProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
-  const { currentUser } = useAuth();
   const {
     imageUrl,
     productOption,
     setProductOption,
     setSingleProduct,
     singleProduct,
+    productCategories,
   } = useCreate();
   const navigate = useNavigate();
 
@@ -35,6 +34,10 @@ const UpdateProduct = () => {
     setPrice(newPrice);
   };
 
+  useEffect(() => {
+    console.log(productCategories);
+  }, [productCategories]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,16 +50,13 @@ const UpdateProduct = () => {
     setLoading(true);
 
     try {
-      const docRef = db
-        .collection(`${productOption}`)
-        .doc(`${singleProduct.id}`)
-        .set({
-          name: name,
-          description: description,
-          thumbnail: imageUrl,
-          price: prodPrice,
-          id: singleProduct.id,
-        });
+      db.collection(`${productOption}`).doc(`${singleProduct.id}`).set({
+        name: name,
+        description: description,
+        thumbnail: imageUrl,
+        price: prodPrice,
+        id: singleProduct.id,
+      });
 
       db.collection(`${productOption}`)
         .doc(`${singleProduct.id}`)
@@ -119,22 +119,18 @@ const UpdateProduct = () => {
                 <Form.Group controlId="exampleForm.ControlSelect2">
                   <Form.Label>Choose product category</Form.Label>
                   <Form.Control
-                    // defaultValue={productOption
-                    //   .trim()
-                    //   .replace(
-                    //     productOption[0],
-                    //     productOption[0].toUpperCase()
-                    //   )}
+                    id="inlineFormCustomSelect"
+                    custom
                     as="select"
                     required
-                    multiple
                     onClick={(e) =>
                       setProductOption(e.target.value.toLowerCase())
                     }
                   >
-                    <option>Troussers</option>
-                    <option>Jackets</option>
-                    <option>T-shirts</option>
+                    {productCategories &&
+                      productCategories.map((category) => (
+                        <option>{category.name.toUpperCase()}</option>
+                      ))}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group id="price">

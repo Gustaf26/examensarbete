@@ -1,9 +1,9 @@
 import React from "react";
 import { Breadcrumb, Card } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+//import { useAuth } from "../contexts/AuthContext";
 
 const Home = () => {
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
 
   return (
     <div>

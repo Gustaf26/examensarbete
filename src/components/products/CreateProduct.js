@@ -3,7 +3,6 @@ import UploadImageDropzone from "./UploadImageDropzone";
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
-import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 
 const CreateProduct = () => {
@@ -12,12 +11,13 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
-  const { currentUser } = useAuth();
+
   const {
     imageUrl,
     productOption,
     setProductOption,
     setSingleProduct,
+    productCategories,
   } = useCreate();
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const CreateProduct = () => {
     try {
       const ranNumber = Math.floor(Math.random() * 10000);
 
-      const docRef = db.collection(`${productOption}`).doc(`${ranNumber}`).set({
+      db.collection(`${productOption}`).doc(`${ranNumber}`).set({
         name: name,
         description: description,
         thumbnail: imageUrl,
@@ -56,15 +56,15 @@ const CreateProduct = () => {
         id: ranNumber,
       });
 
-      db.collection(`${productOption}`)
-        .doc(`${ranNumber}`)
-        .get()
-        .then((doc) => {
-          setSingleProduct(doc.data());
-          setTimeout(() => {
+      setTimeout(() => {
+        db.collection(`${productOption}`)
+          .doc(`${ranNumber}`)
+          .get()
+          .then((doc) => {
+            setSingleProduct(doc.data());
             navigate(`/products/${productOption}/${ranNumber}`);
-          }, 1000);
-        });
+          }, 2000);
+      });
     } catch (e) {
       setError(e.message);
       setLoading(false);
@@ -110,19 +110,21 @@ const CreateProduct = () => {
                     </Form.Text>
                   )}
                 </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect2">
+                <Form.Group>
                   <Form.Label>Choose product category</Form.Label>
                   <Form.Control
                     as="select"
                     required
-                    multiple
+                    id="inlineFormCustomSelect"
+                    custom
                     onClick={(e) =>
                       setProductOption(e.target.value.toLowerCase())
                     }
                   >
-                    <option>Troussers</option>
-                    <option>Jackets</option>
-                    <option>T-shirts</option>
+                    {productCategories &&
+                      productCategories.map((category) => (
+                        <option>{category.name.toUpperCase()}</option>
+                      ))}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group id="price">

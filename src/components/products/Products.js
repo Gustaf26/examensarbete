@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { useAuth } from "../../contexts/AuthContext";
