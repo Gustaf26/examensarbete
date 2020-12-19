@@ -47,23 +47,24 @@ const UpdateProduct = () => {
     setLoading(true);
 
     try {
-      const ranNumber = Math.floor(Math.random() * 10000);
-
-      const docRef = db.collection(`${productOption}`).doc(`${ranNumber}`).set({
-        name: name,
-        description: description,
-        thumbnail: imageUrl,
-        price: prodPrice,
-        id: ranNumber,
-      });
+      const docRef = db
+        .collection(`${productOption}`)
+        .doc(`${singleProduct.id}`)
+        .set({
+          name: name,
+          description: description,
+          thumbnail: imageUrl,
+          price: prodPrice,
+          id: singleProduct.id,
+        });
 
       db.collection(`${productOption}`)
-        .doc(`${ranNumber}`)
+        .doc(`${singleProduct.id}`)
         .get()
         .then((doc) => {
           setSingleProduct(doc.data());
           setTimeout(() => {
-            navigate(`/products/${productOption}/${ranNumber}`);
+            navigate(`/products/${productOption}/${singleProduct.id}`);
           }, 1000);
         });
     } catch (e) {
@@ -88,7 +89,8 @@ const UpdateProduct = () => {
                   <Form.Control
                     type="title"
                     onChange={handleNameChange}
-                    value={singleProduct.name}
+                    value={name}
+                    placeholder={singleProduct.name}
                     required
                   />
                   {name && name.length < 4 && (
@@ -102,7 +104,8 @@ const UpdateProduct = () => {
                   <Form.Control
                     type="title"
                     onChange={handleDescriptionChange}
-                    value={singleProduct.description}
+                    value={description}
+                    placeholder={singleProduct.description}
                     required
                   />
                   {singleProduct.description &&
@@ -116,6 +119,12 @@ const UpdateProduct = () => {
                 <Form.Group controlId="exampleForm.ControlSelect2">
                   <Form.Label>Choose product category</Form.Label>
                   <Form.Control
+                    // defaultValue={productOption
+                    //   .trim()
+                    //   .replace(
+                    //     productOption[0],
+                    //     productOption[0].toUpperCase()
+                    //   )}
                     as="select"
                     required
                     multiple
@@ -133,7 +142,8 @@ const UpdateProduct = () => {
                   <Form.Control
                     type="title"
                     onChange={handlePrice}
-                    value={singleProduct.price}
+                    value={prodPrice}
+                    placeholder={singleProduct.price}
                     required
                   />
                   {prodPrice && prodPrice === "0" && (
