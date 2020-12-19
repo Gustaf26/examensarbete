@@ -95,11 +95,11 @@ const Login = () => {
               <div className="text-center mt-3">
                 <Link to="/forgot-password">Forgot Password?</Link>
               </div>
+              <div className="text-center mt-2">
+                Need an account? <Link to="/signup">Sign Up</Link>
+              </div>
             </Card.Body>
           </Card>
-          <div className="text-center mt-2">
-            Need an account? <Link to="/signup">Sign Up</Link>
-          </div>
         </Col>
       </Row>
     </>

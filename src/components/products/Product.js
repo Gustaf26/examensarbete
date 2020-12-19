@@ -8,11 +8,12 @@ import { db } from "../../firebase";
 //import UploadProductImage from "./UploadProductImage";
 
 const Product = () => {
-  const { singleProduct, productOption } = useCreate();
+  const { singleProduct, productOption, setSingleProduct } = useCreate();
   const { admin } = useAuth();
   const navigate = useNavigate();
 
   const handleUpdateProduct = (product) => {
+    setSingleProduct(product);
     navigate(`/update`);
   };
 

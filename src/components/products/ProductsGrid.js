@@ -14,6 +14,7 @@ const ProductsGrid = ({ products, type }) => {
   const { setSingleProduct, setProductOption } = useCreate();
 
   const handleUpdateProduct = (product) => {
+    setSingleProduct(product);
     navigate(`/update`);
   };
 

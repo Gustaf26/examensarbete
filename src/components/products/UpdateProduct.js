@@ -18,6 +18,7 @@ const UpdateProduct = () => {
     productOption,
     setProductOption,
     setSingleProduct,
+    singleProduct,
   } = useCreate();
   const navigate = useNavigate();
 
@@ -87,7 +88,7 @@ const UpdateProduct = () => {
                   <Form.Control
                     type="title"
                     onChange={handleNameChange}
-                    value={name}
+                    value={singleProduct.name}
                     required
                   />
                   {name && name.length < 4 && (
@@ -101,14 +102,16 @@ const UpdateProduct = () => {
                   <Form.Control
                     type="title"
                     onChange={handleDescriptionChange}
-                    value={description}
+                    value={singleProduct.description}
                     required
                   />
-                  {description && description.length < 20 && (
-                    <Form.Text className="text-danger">
-                      Please enter a description at least 20 characters long.
-                    </Form.Text>
-                  )}
+                  {singleProduct.description &&
+                    singleProduct.description.length < 20 && (
+                      <Form.Text className="text-danger">
+                        Please update with a description at least 20 characters
+                        long.
+                      </Form.Text>
+                    )}
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect2">
                   <Form.Label>Choose product category</Form.Label>
@@ -130,7 +133,7 @@ const UpdateProduct = () => {
                   <Form.Control
                     type="title"
                     onChange={handlePrice}
-                    value={prodPrice}
+                    value={singleProduct.price}
                     required
                   />
                   {prodPrice && prodPrice === "0" && (
@@ -141,7 +144,7 @@ const UpdateProduct = () => {
                 </Form.Group>
                 {productOption && <UploadImageDropzone type={productOption} />}
                 <Button disabled={loading} type="submit" className="mx-auto">
-                  Create
+                  Update
                 </Button>
               </Form>
             </Card.Body>
