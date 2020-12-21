@@ -1,5 +1,5 @@
-//import { db } from "../firebase";
-import { createContext, useContext, useState } from "react";
+import { db } from "../firebase";
+import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
 
 const CreateContext = createContext();
@@ -14,6 +14,23 @@ const CreateContextProvider = (props) => {
   const [productOption, setProductOption] = useState(null);
   const [singleProduct, setSingleProduct] = useState("");
   const [productCategories, setGlobalCategories] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    if (productCategories) {
+      let emptyArr = [];
+
+      productCategories.map((category) => {
+        db.collection(`${category.name}`)
+          .get()
+          .then((res) => {
+            res.docs.forEach((doc) =>
+              setAllProducts((prevProds) => [...prevProds, doc.data()])
+            );
+          });
+      });
+    }
+  }, [productCategories]);
 
   const contextValues = {
     setImageUrl,
@@ -24,6 +41,7 @@ const CreateContextProvider = (props) => {
     singleProduct,
     productCategories,
     setGlobalCategories,
+    allProducts,
   };
 
   return (

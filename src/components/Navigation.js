@@ -10,13 +10,33 @@ import {
   FormControl,
   Col,
 } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useCreate } from "../contexts/CreateContext";
 import logo from "../assets/images/logo.svg";
 
 const Navigation = () => {
   const { currentUser, admin } = useAuth();
   const [createLink, setCreate] = useState(false);
+  const [searchString, setSearch] = useState("");
+  const navigate = useNavigate();
+  const { allProducts } = useCreate();
+
+  const compareString = (e) => {
+    e.preventDefault();
+    allProducts.forEach((product) => {
+      if (
+        product.name.toLowerCase().includes(searchString.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchString.toLowerCase())
+      ) {
+        console.log(product);
+      }
+    });
+  };
+
+  const changeString = (e) => {
+    setSearch(e.target.value);
+  };
 
   useEffect(() => {
     if (admin === true) {
@@ -44,8 +64,9 @@ const Navigation = () => {
             <Col lg={8}>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <Form inline>
+                <Form onSubmit={compareString} inline>
                   <FormControl
+                    onChange={changeString}
                     type="text"
                     placeholder="Search"
                     className="mr-sm-1 ml-5 pr-lg-5"
