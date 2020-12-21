@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { db } from "./firebase";
-import { Container, ModalFooter } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SimpleReactLightbox from "simple-react-lightbox";
 import Product from "./components/products/Product";
@@ -61,6 +61,9 @@ const App = () => {
               <AdminRoute path="/update">
                 <UpdateProduct />
               </AdminRoute>
+              <Route path="/search-results">
+                <SearchResults />
+              </Route>
               <Route path="/products">
                 {productCategories &&
                   productCategories.map((category) => (
@@ -83,10 +86,6 @@ const App = () => {
 
               <Route path="/logout">
                 <Logout />
-              </Route>
-
-              <Route path="/search-results">
-                <SearchResults />
               </Route>
 
               <Route path="/signup">

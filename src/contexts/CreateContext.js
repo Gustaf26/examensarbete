@@ -19,8 +19,6 @@ const CreateContextProvider = (props) => {
 
   useEffect(() => {
     if (productCategories) {
-      let emptyArr = [];
-
       productCategories.map((category) => {
         db.collection(`${category.name}`)
           .get()

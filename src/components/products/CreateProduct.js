@@ -55,6 +55,7 @@ const CreateProduct = () => {
         thumbnail: imageUrl,
         price: prodPrice,
         id: ranNumber,
+        category: productOption,
       });
 
       const timingFunction = setInterval(() => {

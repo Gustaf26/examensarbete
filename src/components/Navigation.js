@@ -20,7 +20,7 @@ const Navigation = () => {
   const [createLink, setCreate] = useState(false);
   const [searchString, setSearch] = useState("");
   const navigate = useNavigate();
-  const { allProducts, setSearchResults, searchResults } = useCreate();
+  const { allProducts, setSearchResults } = useCreate();
 
   const compareString = (e) => {
     e.preventDefault();
