@@ -19,11 +19,18 @@ const Navigation = () => {
   const { currentUser, admin } = useAuth();
   const [createLink, setCreate] = useState(false);
   const [searchString, setSearch] = useState("");
-  const { allProducts, setSearchResults } = useCreate();
+  const {
+    allProducts,
+    setSearchResults,
+    getAllProducts,
+    productCategories,
+  } = useCreate();
   const navigate = useNavigate();
 
   const compareString = (e) => {
     e.preventDefault();
+
+    getAllProducts(productCategories);
 
     allProducts.forEach((product) => {
       if (
@@ -41,6 +48,7 @@ const Navigation = () => {
   const changeString = (e) => {
     setSearchResults([]);
     setSearch(e.target.value);
+
     navigate("/search-results");
   };
 

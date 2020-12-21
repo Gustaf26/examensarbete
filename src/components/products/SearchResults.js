@@ -22,11 +22,14 @@ const SearchResults = () => {
   };
 
   const handleDeleteProduct = (product) => {
+    console.log(product);
+
     try {
       const deletion = async () => {
-        console.log("ddeleteing " + product.name);
+        console.log("ddeleteing " + productOption + product.name);
 
-        db.collection(`${productOption}`).doc(`${product.id}`).delete();
+        await db.collection(`${productOption}`).doc(`${product.id}`).delete();
+        setSearchResults([]);
         navigate(`/products/${productOption}`);
       };
 

@@ -17,17 +17,20 @@ const CreateContextProvider = (props) => {
   const [allProducts, setAllProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
+  const getAllProducts = (categories) => {
+    categories.map((category) => {
+      db.collection(`${category.name}`)
+        .get()
+        .then((res) => {
+          res.docs.forEach((doc) =>
+            setAllProducts((prevProds) => [...prevProds, doc.data()])
+          );
+        });
+    });
+  };
   useEffect(() => {
     if (productCategories) {
-      productCategories.map((category) => {
-        db.collection(`${category.name}`)
-          .get()
-          .then((res) => {
-            res.docs.forEach((doc) =>
-              setAllProducts((prevProds) => [...prevProds, doc.data()])
-            );
-          });
-      });
+      getAllProducts(productCategories);
     }
   }, [productCategories]);
 
@@ -43,6 +46,7 @@ const CreateContextProvider = (props) => {
     allProducts,
     searchResults,
     setSearchResults,
+    getAllProducts,
   };
 
   return (
