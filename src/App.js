@@ -14,6 +14,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Navigation from "./components/Navigation";
+import SearchResults from "./components/products/SearchResults";
 import NotFound from "./components/NotFound";
 import Signup from "./components/Signup";
 import UpdateProfile from "./components/UpdateProfile";
@@ -82,6 +83,10 @@ const App = () => {
 
               <Route path="/logout">
                 <Logout />
+              </Route>
+
+              <Route path="/search-results">
+                <SearchResults />
               </Route>
 
               <Route path="/signup">

@@ -15,6 +15,7 @@ const CreateContextProvider = (props) => {
   const [singleProduct, setSingleProduct] = useState("");
   const [productCategories, setGlobalCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     if (productCategories) {
@@ -42,6 +43,8 @@ const CreateContextProvider = (props) => {
     productCategories,
     setGlobalCategories,
     allProducts,
+    searchResults,
+    setSearchResults,
   };
 
   return (

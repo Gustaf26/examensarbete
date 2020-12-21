@@ -20,7 +20,7 @@ const Navigation = () => {
   const [createLink, setCreate] = useState(false);
   const [searchString, setSearch] = useState("");
   const navigate = useNavigate();
-  const { allProducts } = useCreate();
+  const { allProducts, setSearchResults, searchResults } = useCreate();
 
   const compareString = (e) => {
     e.preventDefault();
@@ -29,13 +29,15 @@ const Navigation = () => {
         product.name.toLowerCase().includes(searchString.toLowerCase()) ||
         product.description.toLowerCase().includes(searchString.toLowerCase())
       ) {
-        console.log(product);
+        setSearchResults((prevProds) => [...prevProds, product]);
       }
     });
   };
 
   const changeString = (e) => {
+    setSearchResults([]);
     setSearch(e.target.value);
+    navigate("/search-results");
   };
 
   useEffect(() => {
