@@ -41,7 +41,9 @@ const Product = () => {
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <Link to={`/products/${productOption}`}>{productOption}</Link>
+          {productOption && (
+            <Link to={`/products/${productOption}`}>{productOption}</Link>
+          )}
         </Breadcrumb.Item>
         <Breadcrumb.Item active>
           {singleProduct ? singleProduct.name : null}

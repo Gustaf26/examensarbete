@@ -19,15 +19,19 @@ const Navigation = () => {
   const { currentUser, admin } = useAuth();
   const [createLink, setCreate] = useState(false);
   const [searchString, setSearch] = useState("");
-  const navigate = useNavigate();
   const { allProducts, setSearchResults } = useCreate();
+  const navigate = useNavigate();
 
   const compareString = (e) => {
     e.preventDefault();
+
     allProducts.forEach((product) => {
       if (
         product.name.toLowerCase().includes(searchString.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchString.toLowerCase())
+        product.description
+          .toLowerCase()
+          .includes(searchString.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchString.toLowerCase())
       ) {
         setSearchResults((prevProds) => [...prevProds, product]);
       }
