@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { db } from "./firebase";
-import { Container } from "react-bootstrap";
+import { Container, ModalFooter } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SimpleReactLightbox from "simple-react-lightbox";
 import Product from "./components/products/Product";
@@ -95,6 +95,22 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Container>
+          <footer className="p-3">
+            <div>
+              This site has no commercial aims and is part of an academic
+              development-project.
+            </div>
+            <div>
+              Prices and articles are not intended to have a real correspondence
+              with same articles in other "real websites"
+            </div>
+            <div>
+              If you are interested in these articles we recommend you to visit{" "}
+              <a href="https://www.siteking.co.uk">
+                https://www.siteking.co.uk/
+              </a>
+            </div>
+          </footer>
         </SimpleReactLightbox>
       </AuthContextProvider>
     </Router>
