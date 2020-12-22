@@ -13,7 +13,10 @@ const SearchResults = () => {
     searchResults,
     setSearchResults,
     productOption,
+    getAllProducts,
+    productCategories,
   } = useCreate();
+
   const { admin } = useAuth();
 
   const handleUpdateProduct = (product) => {
@@ -28,9 +31,13 @@ const SearchResults = () => {
       const deletion = async () => {
         console.log("ddeleteing " + productOption + product.name);
 
-        await db.collection(`${productOption}`).doc(`${product.id}`).delete();
-        setSearchResults([]);
-        navigate(`/products/${productOption}`);
+        await db
+          .collection(`${productOption}`)
+          .doc(`${product.id}`)
+          .delete()
+          .then(getAllProducts(productCategories))
+          .then(setSearchResults([]))
+          .then(navigate(`/products/${productOption}`));
       };
 
       deletion();

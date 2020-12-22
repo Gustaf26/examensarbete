@@ -23,7 +23,7 @@ const ProductsGrid = ({ products, type }) => {
       const deletion = async () => {
         console.log("ddeleteing " + product.name);
 
-        db.collection(`${type}`).doc(`${product.id}`).delete();
+        await db.collection(`${type}`).doc(`${product.id}`).delete();
       };
 
       deletion();

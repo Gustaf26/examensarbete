@@ -49,7 +49,7 @@ const CreateProduct = () => {
     try {
       const ranNumber = Math.floor(Math.random() * 10000);
 
-      db.collection(`${productOption}`).doc(`${ranNumber}`).set({
+      await db.collection(`${productOption}`).doc(`${ranNumber}`).set({
         name: name,
         description: description,
         thumbnail: imageUrl,
@@ -58,9 +58,10 @@ const CreateProduct = () => {
         category: productOption,
       });
 
-      const timingFunction = setInterval(() => {
+      const timingFunction = setInterval(async () => {
         setLoading(true);
-        db.collection(`${productOption}`)
+        await db
+          .collection(`${productOption}`)
           .doc(`${ranNumber}`)
           .get()
           .then((doc) => {
@@ -131,7 +132,9 @@ const CreateProduct = () => {
                     >
                       {productCategories &&
                         productCategories.map((category) => (
-                          <option>{category.name.toUpperCase()}</option>
+                          <option key={category.id}>
+                            {category.name.toUpperCase()}
+                          </option>
                         ))}
                     </Form.Control>
                   </Form.Group>
