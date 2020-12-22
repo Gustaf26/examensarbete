@@ -20,15 +20,12 @@ const CreateContextProvider = (props) => {
 
   const getAllProducts = (categories) => {
     setAllProducts([]);
-    categories.map(async (category) => {
-      await db
-        .collection(`${category.name}`)
-        .get()
-        .then((res) => {
-          res.docs.forEach((doc) =>
-            setAllProducts((prevProds) => [...prevProds, doc.data()])
-          );
-        });
+    categories.map((category) => {
+      db.collection(`${category.name}`).onSnapshot((res) => {
+        res.docs.forEach((doc) =>
+          setAllProducts((prevProds) => [...prevProds, doc.data()])
+        );
+      });
     });
   };
 

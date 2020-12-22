@@ -13,8 +13,6 @@ const SearchResults = () => {
     searchResults,
     setSearchResults,
     productOption,
-    getAllProducts,
-    productCategories,
   } = useCreate();
 
   const { admin } = useAuth();
