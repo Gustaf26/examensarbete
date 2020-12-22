@@ -47,6 +47,7 @@ const CreateContextProvider = (props) => {
     searchResults,
     setSearchResults,
     getAllProducts,
+    setAllProducts,
   };
 
   return (

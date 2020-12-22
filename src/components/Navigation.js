@@ -24,12 +24,14 @@ const Navigation = () => {
     setSearchResults,
     getAllProducts,
     productCategories,
+    setAllProducts,
   } = useCreate();
   const navigate = useNavigate();
 
   const compareString = (e) => {
     e.preventDefault();
 
+    setAllProducts([]);
     getAllProducts(productCategories);
 
     allProducts.forEach((product) => {

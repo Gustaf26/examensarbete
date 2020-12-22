@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { db } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { Row, Col, Card, Button, Breadcrumb } from "react-bootstrap";
@@ -38,6 +38,7 @@ const SearchResults = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <Breadcrumb className="mb-3">
@@ -53,7 +54,7 @@ const SearchResults = () => {
               sm={6}
               md={6}
               lg={3}
-              key={item.id + Math.floor(Math.random() * 100)}
+              key={item.id + Math.floor(Math.random() * 1000)}
             >
               <Card className="mb-3">
                 <a
