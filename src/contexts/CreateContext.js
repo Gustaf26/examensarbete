@@ -16,10 +16,13 @@ const CreateContextProvider = (props) => {
   const [productCategories, setGlobalCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [searchString, setSearchString] = useState("");
 
   const getAllProducts = (categories) => {
-    categories.map((category) => {
-      db.collection(`${category.name}`)
+    setAllProducts([]);
+    categories.map(async (category) => {
+      await db
+        .collection(`${category.name}`)
         .get()
         .then((res) => {
           res.docs.forEach((doc) =>
@@ -28,11 +31,31 @@ const CreateContextProvider = (props) => {
         });
     });
   };
+
   useEffect(() => {
-    if (productCategories) {
-      getAllProducts(productCategories);
-    }
+    getAllProducts(productCategories);
+    return setAllProducts([]);
   }, [productCategories]);
+
+  useEffect(() => {
+    getAllProducts(productCategories);
+    if (allProducts && searchString !== "") {
+      allProducts.map((product) => {
+        if (
+          (product.name &&
+            product.name.toLowerCase().includes(searchString.toLowerCase())) ||
+          (product.description &&
+            product.description
+              .toLowerCase()
+              .includes(searchString.toLowerCase())) ||
+          (product.category &&
+            product.category.toLowerCase().includes(searchString.toLowerCase()))
+        ) {
+          setSearchResults((prevProds) => [...prevProds, product]);
+        }
+      });
+    }
+  }, [searchString]);
 
   const contextValues = {
     setImageUrl,
@@ -43,6 +66,7 @@ const CreateContextProvider = (props) => {
     singleProduct,
     productCategories,
     setGlobalCategories,
+    setSearchString,
     allProducts,
     searchResults,
     setSearchResults,

@@ -35,7 +35,7 @@ const SearchResults = () => {
           .collection(`${productOption}`)
           .doc(`${product.id}`)
           .delete()
-          .then(getAllProducts(productCategories))
+          //.then(getAllProducts(productCategories))
           .then(setSearchResults([]))
           .then(navigate(`/products/${productOption}`));
       };
@@ -57,12 +57,7 @@ const SearchResults = () => {
       <Row className="my-3">
         {searchResults &&
           searchResults.map((item, index) => (
-            <Col
-              sm={6}
-              md={6}
-              lg={3}
-              key={item.id + Math.floor(Math.random() * 1000)}
-            >
+            <Col sm={6} md={6} lg={3} key={item.id}>
               <Card className="mb-3">
                 <a
                   href={item.thumbnail}

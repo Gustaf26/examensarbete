@@ -8,7 +8,13 @@ import { db } from "../../firebase";
 //import UploadProductImage from "./UploadProductImage";
 
 const Product = () => {
-  const { singleProduct, productOption, setSingleProduct } = useCreate();
+  const {
+    singleProduct,
+    productOption,
+    setSingleProduct,
+    getAllProducts,
+    productCategories,
+  } = useCreate();
   const { admin } = useAuth();
   const navigate = useNavigate();
 
@@ -24,6 +30,7 @@ const Product = () => {
 
         db.collection(`${productOption}`).doc(`${product.id}`).delete();
         setTimeout(() => {
+          getAllProducts(productCategories);
           navigate(`/products/${productOption}`);
         }, 1000);
       };

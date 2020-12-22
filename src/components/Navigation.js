@@ -18,38 +18,16 @@ import logo from "../assets/images/logo.svg";
 const Navigation = () => {
   const { currentUser, admin } = useAuth();
   const [createLink, setCreate] = useState(false);
-  const [searchString, setSearch] = useState("");
-  const {
-    allProducts,
-    setSearchResults,
-    getAllProducts,
-    productCategories,
-    setAllProducts,
-  } = useCreate();
+  const { setSearchResults, setSearchString } = useCreate();
   const navigate = useNavigate();
 
-  const compareString = (e) => {
+  const omitReload = (e) => {
     e.preventDefault();
-
-    setAllProducts([]);
-    getAllProducts(productCategories);
-
-    allProducts.forEach((product) => {
-      if (
-        product.name.toLowerCase().includes(searchString.toLowerCase()) ||
-        product.description
-          .toLowerCase()
-          .includes(searchString.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchString.toLowerCase())
-      ) {
-        setSearchResults((prevProds) => [...prevProds, product]);
-      }
-    });
   };
 
   const changeString = (e) => {
     setSearchResults([]);
-    setSearch(e.target.value);
+    setSearchString(e.target.value);
 
     navigate("/search-results");
   };
@@ -80,7 +58,7 @@ const Navigation = () => {
             <Col lg={8}>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <Form onSubmit={compareString} inline>
+                <Form onSubmit={omitReload} inline>
                   <FormControl
                     onChange={changeString}
                     type="text"
