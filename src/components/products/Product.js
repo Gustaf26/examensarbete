@@ -8,12 +8,7 @@ import { db } from "../../firebase";
 //import UploadProductImage from "./UploadProductImage";
 
 const Product = () => {
-  const {
-    singleProduct,
-    productOption,
-    setSingleProduct,
-    deleteCategory,
-  } = useCreate();
+  const { singleProduct, productOption, setSingleProduct } = useCreate();
   const { admin } = useAuth();
   const navigate = useNavigate();
 
@@ -26,12 +21,10 @@ const Product = () => {
     try {
       const deletion = async () => {
         console.log("ddeleteing " + product.name + "of" + productOption);
-        // deleteCategory(product);
 
         db.collection(`${productOption}`).doc(`${product.id}`).delete();
 
         setTimeout(() => {
-          // getAllProducts(productCategories);
           navigate(`/products/${productOption}`);
         }, 1000);
       };
@@ -86,7 +79,6 @@ const Product = () => {
               <b>Description: </b>{" "}
               <span>
                 {singleProduct.description.slice(0, 100)}... <b>(Read more)</b>
-                {/* <b onClick={() => showDescription(item)}>(Read more)</b> */}
               </span>
             </Card.Text>
             {admin && (

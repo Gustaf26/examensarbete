@@ -19,15 +19,6 @@ const CreateContextProvider = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
 
-  // const deleteCategory = (product) => {
-  //   allProducts.current.map((prod, index) => {
-  //     if (prod.name.toLowerCase() == product.name.toLowerCase()) {
-  //       allProducts.current.splice(index, 1);
-  //       console.log("DELETING");
-  //     }
-  //   });
-  // };
-
   useEffect(() => {
     allProducts.current = [];
     productCategories.map((category) => {
@@ -102,7 +93,6 @@ const CreateContextProvider = (props) => {
     allProducts,
     searchResults,
     setSearchResults,
-    //deleteCategory,
   };
 
   return (
