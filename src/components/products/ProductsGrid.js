@@ -1,5 +1,5 @@
 //import firebase from "firebase/app";
-import React, { useRef } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
@@ -8,7 +8,6 @@ import { useCreate } from "../../contexts/CreateContext";
 import { db } from "../../firebase";
 
 const ProductsGrid = ({ products, type }) => {
-  const descriptionItems = useRef([]);
   const navigate = useNavigate();
   const { admin } = useAuth();
   const { setSingleProduct, setProductOption } = useCreate();
@@ -36,7 +35,7 @@ const ProductsGrid = ({ products, type }) => {
     <SRLWrapper>
       <Row className="my-3" onLoad={() => setProductOption(type)}>
         {products &&
-          products.map((item, index) => (
+          products.map((item) => (
             <Col sm={6} md={4} lg={3} key={item.id}>
               <Card className="mb-3">
                 <a
@@ -66,7 +65,6 @@ const ProductsGrid = ({ products, type }) => {
                       <b>Description: </b>{" "}
                       <span>
                         {item.description.slice(0, 100)}... <b>(Read more)</b>
-                        {/* <b onClick={() => showDescription(item)}>(Read more)</b> */}
                       </span>
                     </Card.Text>
                   </Link>

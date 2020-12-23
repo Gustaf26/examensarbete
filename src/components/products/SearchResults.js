@@ -33,7 +33,6 @@ const SearchResults = () => {
           .collection(`${productOption}`)
           .doc(`${product.id}`)
           .delete()
-          //.then(getAllProducts(productCategories))
           .then(setSearchResults([]))
           .then(navigate(`/products/${productOption}`));
       };
@@ -87,7 +86,6 @@ const SearchResults = () => {
                       <b>Description: </b>{" "}
                       <span>
                         {item.description.slice(0, 100)}... <b>(Read more)</b>
-                        {/* <b onClick={() => showDescription(item)}>(Read more)</b> */}
                       </span>
                     </Card.Text>
                   </Link>

@@ -47,7 +47,7 @@ const Navigation = () => {
           <Row className="justify-content-end py-3 m-left-3" lg={12}>
             <Link to="/" className="navbar-brand m-left-3">
               <img
-                alt="A photo album"
+                alt="A logo"
                 src={logo}
                 width="30"
                 height="30"
