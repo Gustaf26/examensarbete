@@ -26,7 +26,7 @@ const Product = () => {
     try {
       const deletion = async () => {
         console.log("ddeleteing " + product.name + "of" + productOption);
-        deleteCategory(product);
+        // deleteCategory(product);
 
         db.collection(`${productOption}`).doc(`${product.id}`).delete();
 

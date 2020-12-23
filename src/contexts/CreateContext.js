@@ -19,15 +19,15 @@ const CreateContextProvider = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
 
-  const deleteCategory = (product) => {
-    allProducts.current.map((prod, index) => {
-      console.log(prod.category, productOption);
-      if (prod.category === product.category) {
-        allProducts.current.splice(index, 1);
-        console.log("DELETING");
-      }
-    });
-  };
+  // const deleteCategory = (product) => {
+  //   allProducts.current.map((prod, index) => {
+  //     if (prod.name.toLowerCase() == product.name.toLowerCase()) {
+  //       allProducts.current.splice(index, 1);
+  //       console.log("DELETING");
+  //     }
+  //   });
+  // };
+
   useEffect(() => {
     allProducts.current = [];
     productCategories.map((category) => {
@@ -52,6 +52,10 @@ const CreateContextProvider = (props) => {
                 prod.id === product.id &&
                 prod.category.toLowerCase() === product.category.toLowerCase()
               ) {
+                allProducts.current.splice(index, 1);
+              }
+
+              if (prod.name === product.name) {
                 allProducts.current.splice(index, 1);
               }
             });
@@ -98,7 +102,7 @@ const CreateContextProvider = (props) => {
     allProducts,
     searchResults,
     setSearchResults,
-    deleteCategory,
+    //deleteCategory,
   };
 
   return (
