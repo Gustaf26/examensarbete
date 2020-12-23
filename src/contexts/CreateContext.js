@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { db } from "../firebase";
 import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
@@ -14,30 +15,46 @@ const CreateContextProvider = (props) => {
   const [productOption, setProductOption] = useState(null);
   const [singleProduct, setSingleProduct] = useState("");
   const [productCategories, setGlobalCategories] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
+  const allProducts = useRef([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
 
-  const getAllProducts = (categories) => {
-    setAllProducts([]);
-    categories.map((category) => {
-      db.collection(`${category.name}`).onSnapshot((res) => {
-        res.docs.forEach((doc) =>
-          setAllProducts((prevProds) => [...prevProds, doc.data()])
-        );
-      });
-    });
-  };
-
   useEffect(() => {
-    getAllProducts(productCategories);
-    return setAllProducts([]);
+    allProducts.current = [];
+    productCategories.map((category) => {
+      const unsubscribe = db
+        .collection(`${category.name}`)
+        .onSnapshot((querySnapshot) => {
+          let snapshotProducts = [];
+          querySnapshot.forEach((doc) => {
+            snapshotProducts.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+
+            snapshotProducts.map((product, index) => {
+              allProducts.current.map((currentProduct) => {
+                if (
+                  currentProduct.name.toLowerCase() ===
+                  product.name.toLowerCase()
+                ) {
+                  snapshotProducts.splice(index, 1);
+                }
+              });
+            });
+          });
+          allProducts.current.push(...snapshotProducts);
+        });
+    });
+    return () => {
+      allProducts.current = [];
+    };
   }, [productCategories]);
 
   useEffect(() => {
-    getAllProducts(productCategories);
+    //  getAllProducts(productCategories);
     if (allProducts && searchString !== "") {
-      allProducts.map((product) => {
+      allProducts.current.map((product) => {
         if (
           (product.name &&
             product.name.toLowerCase().includes(searchString.toLowerCase())) ||
@@ -67,8 +84,6 @@ const CreateContextProvider = (props) => {
     allProducts,
     searchResults,
     setSearchResults,
-    getAllProducts,
-    setAllProducts,
   };
 
   return (

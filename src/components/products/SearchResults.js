@@ -55,7 +55,7 @@ const SearchResults = () => {
       <Row className="my-3">
         {searchResults &&
           searchResults.map((item, index) => (
-            <Col sm={6} md={6} lg={3} key={item.id}>
+            <Col sm={6} md={6} lg={3} key={index}>
               <Card className="mb-3">
                 <a
                   href={item.thumbnail}

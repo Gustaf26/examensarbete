@@ -19,7 +19,7 @@ const CreateProduct = () => {
     setProductOption,
     setSingleProduct,
     productCategories,
-    setAllProducts,
+    // setAllProducts,
   } = useCreate();
   const navigate = useNavigate();
 
@@ -67,7 +67,7 @@ const CreateProduct = () => {
           .get()
           .then((doc) => {
             if (doc.data()) {
-              setAllProducts([]);
+              // setAllProducts([]);
               setSingleProduct(doc.data());
               navigate(`/products/${productOption}/${ranNumber}`);
               setLoading(false);

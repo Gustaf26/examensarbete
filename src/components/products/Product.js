@@ -8,13 +8,7 @@ import { db } from "../../firebase";
 //import UploadProductImage from "./UploadProductImage";
 
 const Product = () => {
-  const {
-    singleProduct,
-    productOption,
-    setSingleProduct,
-    getAllProducts,
-    productCategories,
-  } = useCreate();
+  const { singleProduct, productOption, setSingleProduct } = useCreate();
   const { admin } = useAuth();
   const navigate = useNavigate();
 
@@ -26,11 +20,12 @@ const Product = () => {
   const handleDeleteProduct = (product) => {
     try {
       const deletion = async () => {
-        console.log("ddeleteing " + product.name);
+        console.log("ddeleteing " + product.name + "of" + productOption);
 
         db.collection(`${productOption}`).doc(`${product.id}`).delete();
+
         setTimeout(() => {
-          getAllProducts(productCategories);
+          // getAllProducts(productCategories);
           navigate(`/products/${productOption}`);
         }, 1000);
       };
