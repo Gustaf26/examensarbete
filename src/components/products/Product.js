@@ -8,7 +8,12 @@ import { db } from "../../firebase";
 //import UploadProductImage from "./UploadProductImage";
 
 const Product = () => {
-  const { singleProduct, productOption, setSingleProduct } = useCreate();
+  const {
+    singleProduct,
+    productOption,
+    setSingleProduct,
+    deleteCategory,
+  } = useCreate();
   const { admin } = useAuth();
   const navigate = useNavigate();
 
@@ -21,6 +26,7 @@ const Product = () => {
     try {
       const deletion = async () => {
         console.log("ddeleteing " + product.name + "of" + productOption);
+        deleteCategory(product);
 
         db.collection(`${productOption}`).doc(`${product.id}`).delete();
 

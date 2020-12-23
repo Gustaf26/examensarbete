@@ -19,31 +19,46 @@ const CreateContextProvider = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
 
+  const deleteCategory = (product) => {
+    allProducts.current.map((prod, index) => {
+      console.log(prod.category, productOption);
+      if (prod.category === product.category) {
+        allProducts.current.splice(index, 1);
+        console.log("DELETING");
+      }
+    });
+  };
   useEffect(() => {
     allProducts.current = [];
     productCategories.map((category) => {
+      let snapshotProducts = [];
+
       const unsubscribe = db
         .collection(`${category.name}`)
         .onSnapshot((querySnapshot) => {
-          let snapshotProducts = [];
           querySnapshot.forEach((doc) => {
             snapshotProducts.push({
               id: doc.id,
               ...doc.data(),
             });
+          });
+          let emptyArr;
+          emptyArr = [...snapshotProducts];
+          console.log(emptyArr);
 
-            snapshotProducts.map((product, index) => {
-              allProducts.current.map((currentProduct) => {
-                if (
-                  currentProduct.name.toLowerCase() ===
-                  product.name.toLowerCase()
-                ) {
-                  snapshotProducts.splice(index, 1);
-                }
-              });
+          emptyArr.map((product) => {
+            allProducts.current.map((prod, index) => {
+              if (
+                prod.id === product.id &&
+                prod.category.toLowerCase() === product.category.toLowerCase()
+              ) {
+                allProducts.current.splice(index, 1);
+              }
             });
           });
+
           allProducts.current.push(...snapshotProducts);
+          snapshotProducts = [];
         });
     });
     return () => {
@@ -52,7 +67,6 @@ const CreateContextProvider = (props) => {
   }, [productCategories]);
 
   useEffect(() => {
-    //  getAllProducts(productCategories);
     if (allProducts && searchString !== "") {
       allProducts.current.map((product) => {
         if (
@@ -84,6 +98,7 @@ const CreateContextProvider = (props) => {
     allProducts,
     searchResults,
     setSearchResults,
+    deleteCategory,
   };
 
   return (
