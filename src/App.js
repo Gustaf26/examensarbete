@@ -67,7 +67,7 @@ const App = () => {
               <Route path="/products">
                 {productCategories &&
                   productCategories.map((category) => (
-                    <Route path={`/${category.name}`}>
+                    <Route path={`/${category.name}`} key={category.name}>
                       <Products type={`${category.name}`} />
                       <Route path="/:productId">
                         <Product />

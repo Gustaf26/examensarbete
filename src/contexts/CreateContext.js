@@ -37,23 +37,25 @@ const CreateContextProvider = (props) => {
           emptyArr = [...snapshotProducts];
           console.log(emptyArr);
 
-          emptyArr.map((product) => {
-            allProducts.current.map((prod, index) => {
-              //DeLeting stale data from allProducts
-              if (
-                prod.id === product.id &&
-                prod.category.toLowerCase() === product.category.toLowerCase()
-              ) {
-                allProducts.current.splice(index, 1);
-              }
+          if (emptyArr.length > 1) {
+            emptyArr.map((product) => {
+              allProducts.current.map((prod, index) => {
+                //DeLeting stale data from allProducts
+                if (
+                  product.category &&
+                  prod.category.toLowerCase() === product.category.toLowerCase()
+                ) {
+                  allProducts.current.splice(index, 1);
+                }
 
-              if (prod.name === product.name) {
-                allProducts.current.splice(index, 1);
-              }
+                if (prod.name === product.name) {
+                  allProducts.current.splice(index, 1);
+                }
+              });
             });
-          });
+          }
 
-          allProducts.current.push(...snapshotProducts);
+          allProducts.current.push(...emptyArr);
           snapshotProducts = [];
         });
     });

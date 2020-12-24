@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { db, storage } from "../firebase";
+import { db } from "../firebase";
 
 const useDeleteProduct = (product) => {
   const [productForDeletion, setProduct] = useState({});
