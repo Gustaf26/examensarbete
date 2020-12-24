@@ -39,6 +39,7 @@ const CreateContextProvider = (props) => {
 
           emptyArr.map((product) => {
             allProducts.current.map((prod, index) => {
+              //DeLeting stale data from allProducts
               if (
                 prod.id === product.id &&
                 prod.category.toLowerCase() === product.category.toLowerCase()
