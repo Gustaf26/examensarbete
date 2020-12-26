@@ -56,6 +56,7 @@ const UpdateProduct = () => {
         thumbnail: imageUrl,
         price: prodPrice,
         id: singleProduct.id,
+        category: productOption,
       });
 
       db.collection(`${productOption}`)
