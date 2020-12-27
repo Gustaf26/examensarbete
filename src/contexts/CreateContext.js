@@ -24,40 +24,38 @@ const CreateContextProvider = (props) => {
     productCategories.map((category) => {
       let snapshotProducts = [];
 
-      const unsubscribe = db
-        .collection(`${category.name}`)
-        .onSnapshot((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            snapshotProducts.push({
-              id: doc.id,
-              ...doc.data(),
+      db.collection(`${category.name}`).onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          snapshotProducts.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        let emptyArr;
+        emptyArr = [...snapshotProducts];
+        console.log(emptyArr);
+
+        if (emptyArr.length > 1) {
+          emptyArr.map((product) => {
+            allProducts.current.map((prod, index) => {
+              //DeLeting stale data from allProducts
+              if (
+                product.category &&
+                prod.category.toLowerCase() === product.category.toLowerCase()
+              ) {
+                allProducts.current.splice(index, 1);
+              }
+
+              if (prod.name === product.name) {
+                allProducts.current.splice(index, 1);
+              }
             });
           });
-          let emptyArr;
-          emptyArr = [...snapshotProducts];
-          console.log(emptyArr);
+        }
 
-          if (emptyArr.length > 1) {
-            emptyArr.map((product) => {
-              allProducts.current.map((prod, index) => {
-                //DeLeting stale data from allProducts
-                if (
-                  product.category &&
-                  prod.category.toLowerCase() === product.category.toLowerCase()
-                ) {
-                  allProducts.current.splice(index, 1);
-                }
-
-                if (prod.name === product.name) {
-                  allProducts.current.splice(index, 1);
-                }
-              });
-            });
-          }
-
-          allProducts.current.push(...emptyArr);
-          snapshotProducts = [];
-        });
+        allProducts.current.push(...emptyArr);
+        snapshotProducts = [];
+      });
     });
     return () => {
       allProducts.current = [];

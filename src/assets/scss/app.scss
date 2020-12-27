@@ -10,8 +10,12 @@ body {
   background-size: 100% 190vh;
 }
 
+#container {
+  min-height: 150vh;
+}
+
 footer {
-  position: relative;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -22,4 +26,5 @@ footer {
   align-items: center;
   height: 20vh;
   color: white;
+  opacity: 0.8;
 }
