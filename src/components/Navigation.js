@@ -13,6 +13,7 @@ import {
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
+import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import logo from "../assets/images/logo.svg";
 
 const Navigation = () => {
@@ -45,17 +46,19 @@ const Navigation = () => {
       <Navbar bg="info" variant="dark">
         <Container>
           <Row className="justify-content-end py-3 m-left-3" lg={12}>
-            <Link to="/" className="navbar-brand m-left-3">
-              <img
-                alt="A logo"
-                src={logo}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />{" "}
-              Work Out
-            </Link>
-            <Col lg={8}>
+            <Col lg={3}>
+              <Link to="/" className="navbar-brand m-left-3">
+                <img
+                  alt="A logo"
+                  src={logo}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{" "}
+                Work Out
+              </Link>
+            </Col>
+            <Col sm={12} md={10} lg={8} className="mx-auto">
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Form onSubmit={omitReload} inline>
@@ -63,10 +66,10 @@ const Navigation = () => {
                     onChange={changeString}
                     type="text"
                     placeholder="Search"
-                    className="mr-sm-1 ml-5 pr-lg-5"
+                    className="mr-sm-1 ml-5"
                   />
                 </Form>
-                <Nav className="ml-auto">
+                <Nav className="mx-5">
                   {createLink === true ? (
                     <NavLink
                       to="/create"
@@ -76,7 +79,11 @@ const Navigation = () => {
                       Create
                     </NavLink>
                   ) : null}
-                  <NavDropdown title="All clothes" id="basic-nav-dropdown">
+                  <NavDropdown
+                    title="All clothes"
+                    id="basic-nav-dropdown"
+                    className="mx-lg-2"
+                  >
                     <NavLink to="/products/troussers" className="dropdown-item">
                       Troussers
                     </NavLink>
@@ -88,18 +95,29 @@ const Navigation = () => {
                     </NavLink>
                   </NavDropdown>
                   {currentUser ? (
-                    <NavDropdown
-                      title={currentUser.displayName || currentUser.email}
-                      id="basic-nav-dropdown"
-                    >
-                      <NavLink to="/update-profile" className="dropdown-item">
-                        Update Profile
-                      </NavLink>
-                      <NavDropdown.Divider />
-                      <NavLink to="/logout" className="dropdown-item">
-                        Log Out
-                      </NavLink>
-                    </NavDropdown>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <NavDropdown
+                        title={currentUser.displayName || currentUser.email}
+                        id="basic-nav-dropdown"
+                        className="mx-lg-2"
+                      >
+                        <NavLink to="/update-profile" className="dropdown-item">
+                          Update Profile
+                        </NavLink>
+                        <NavDropdown.Divider />
+                        <NavLink to="/logout" className="dropdown-item">
+                          Log Out
+                        </NavLink>
+                      </NavDropdown>
+                      {!admin && (
+                        <ShoppingBasket
+                          id="basket-icon"
+                          color="primary"
+                          className="mx-lg-3 p-1"
+                          rounded
+                        />
+                      )}
+                    </div>
                   ) : (
                     <NavLink to="/login" className="nav-link">
                       Login

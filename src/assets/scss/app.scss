@@ -14,6 +14,21 @@ body {
   min-height: 150vh;
 }
 
+h2 {
+  font-size: x-large;
+}
+
+#basic-navbar-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#basket-icon {
+  font-size: xx-large;
+  border: 1px dotted white;
+}
+
 footer {
   position: fixed;
   bottom: 0;
@@ -27,4 +42,10 @@ footer {
   height: 20vh;
   color: white;
   opacity: 0.8;
+}
+
+@media screen and (min-width: 600px) {
+  #basic-navbar-nav {
+    flex-wrap: nowrap;
+  }
 }
