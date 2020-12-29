@@ -31,6 +31,7 @@ const CreateContextProvider = (props) => {
       (prod) => prod.id === Number(prodId) && prod.category === category
     );
     if (preliminaryProd.length) {
+      setProductOption(category);
       setSingleProduct(preliminaryProd[0]);
     }
   };
