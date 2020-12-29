@@ -18,9 +18,26 @@ const CreateContextProvider = (props) => {
   const allProducts = useRef([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
+  const [location, setLocation] = useState("");
+  const [prodId, setProdId] = useState("");
+
+  const getSingleProduct = () => {
+    const firstDash = location.indexOf("/");
+    const secondDash = location.lastIndexOf("/");
+    const semiPath = location.slice(firstDash, secondDash);
+    const category = semiPath.replace("/products/", "");
+
+    let preliminaryProd = allProducts.current.filter(
+      (prod) => prod.id === Number(prodId) && prod.category === category
+    );
+    if (preliminaryProd.length) {
+      setSingleProduct(preliminaryProd[0]);
+    }
+  };
 
   useEffect(() => {
     allProducts.current = [];
+
     productCategories.map((category) => {
       let snapshotProducts = [];
 
@@ -54,13 +71,18 @@ const CreateContextProvider = (props) => {
         }
 
         allProducts.current.push(...emptyArr);
+
+        if (prodId) {
+          getSingleProduct();
+        }
+
         snapshotProducts = [];
       });
     });
     return () => {
       allProducts.current = [];
     };
-  }, [productCategories]);
+  }, [productCategories, prodId]);
 
   useEffect(() => {
     if (allProducts && searchString !== "") {
@@ -94,6 +116,9 @@ const CreateContextProvider = (props) => {
     allProducts,
     searchResults,
     setSearchResults,
+    getSingleProduct,
+    setProdId,
+    setLocation,
   };
 
   return (

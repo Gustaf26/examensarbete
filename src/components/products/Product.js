@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { Card, Button, Breadcrumb } from "react-bootstrap";
 import { useCreate } from "../../contexts/CreateContext";
@@ -8,9 +8,24 @@ import { db } from "../../firebase";
 //import UploadProductImage from "./UploadProductImage";
 
 const Product = () => {
-  const { singleProduct, productOption, setSingleProduct } = useCreate();
+  const {
+    singleProduct,
+    productOption,
+    setSingleProduct,
+    setLocation,
+    setProdId,
+  } = useCreate();
   const { admin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { productId } = useParams();
+
+  useEffect(() => {
+    if (!singleProduct) {
+      setLocation(location.pathname);
+      setProdId(productId);
+    }
+  }, []);
 
   const handleUpdateProduct = (product) => {
     setSingleProduct(product);
@@ -78,7 +93,9 @@ const Product = () => {
             <Card.Text className="text-muted small">
               <b>Description: </b>{" "}
               <span>
-                {singleProduct.description.slice(0, 100)}... <b>(Read more)</b>
+                {singleProduct.description &&
+                  singleProduct.description.slice(0, 30)}
+                ... <b>(Read more)</b>
               </span>
             </Card.Text>
             {admin && (
