@@ -30,19 +30,34 @@ h2 {
   border-radius: 5px;
 }
 
-footer {
+#footer {
+  display: flex;
   position: fixed;
-  bottom: 0;
+  bottom: -1;
   left: 0;
   right: 0;
   background-color: #0d0d0d;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 20vh;
+  height: 0vh;
   color: white;
   opacity: 0.8;
+
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+}
+
+#footer.show {
+  bottom: 0;
+  height: 20vh;
+
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
 }
 
 @media screen and (min-width: 600px) {

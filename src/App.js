@@ -44,6 +44,20 @@ const App = () => {
       });
   }, []);
 
+  const showFooter = (e) => {
+    if (document.documentElement && document.documentElement.scrollTop > 200) {
+      document.getElementById("footer").className = "show";
+    } else {
+      document.getElementById("footer").className = "";
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", (e) => {
+      showFooter(e);
+    });
+  });
+
   return (
     <Router>
       <AuthContextProvider>
@@ -99,7 +113,7 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Container>
-          <footer className="p-3">
+          <footer id="footer" className="p-3">
             <div>
               This site has no commercial aims and is part of an academic
               development-project.
