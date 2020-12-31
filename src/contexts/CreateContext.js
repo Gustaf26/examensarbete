@@ -73,6 +73,14 @@ const CreateContextProvider = (props) => {
 
         allProducts.current.push(...emptyArr);
 
+        if (
+          allProducts.current.length &&
+          location === "/search-results" &&
+          searchString === ""
+        ) {
+          setSearchString(JSON.parse(window.localStorage.getItem("search")));
+        }
+
         if (prodId) {
           getSingleProduct();
         }
@@ -80,13 +88,14 @@ const CreateContextProvider = (props) => {
         snapshotProducts = [];
       });
     });
+
     return () => {
       allProducts.current = [];
     };
   }, [productCategories, prodId]);
 
   useEffect(() => {
-    if (allProducts && searchString !== "") {
+    if (allProducts.current.length && searchString !== "") {
       allProducts.current.map((product) => {
         if (
           (product.name &&
@@ -120,6 +129,7 @@ const CreateContextProvider = (props) => {
     getSingleProduct,
     setProdId,
     setLocation,
+    searchString,
   };
 
   return (

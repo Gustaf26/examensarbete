@@ -58,7 +58,9 @@ const AuthContextProvider = (props) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       // auth state changed (by a user either logging in or out)
       setCurrentUser(user);
-      checkIfAdmin(user.email);
+      if (user) {
+        checkIfAdmin(user.email);
+      }
       setLoading(false);
     });
 

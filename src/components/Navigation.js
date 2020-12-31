@@ -29,7 +29,7 @@ const Navigation = () => {
   const changeString = (e) => {
     setSearchResults([]);
     setSearchString(e.target.value);
-
+    localStorage.setItem("search", JSON.stringify(e.target.value));
     navigate("/search-results");
   };
 

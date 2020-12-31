@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { db } from "../../firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Row, Col, Card, Button, Breadcrumb } from "react-bootstrap";
 import { useCreate } from "../../contexts/CreateContext";
 import { useAuth } from "../../contexts/AuthContext";
@@ -13,9 +13,11 @@ const SearchResults = () => {
     searchResults,
     setSearchResults,
     productOption,
+    setLocation,
   } = useCreate();
 
   const { admin } = useAuth();
+  const location = useLocation();
 
   const handleUpdateProduct = (product) => {
     setSingleProduct(product);
@@ -42,6 +44,10 @@ const SearchResults = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setLocation(location.pathname);
+  }, []);
 
   return (
     <>
