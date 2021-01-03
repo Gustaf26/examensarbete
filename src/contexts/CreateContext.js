@@ -73,14 +73,16 @@ const CreateContextProvider = (props) => {
 
         allProducts.current.push(...emptyArr);
 
+        // Getting search string from local Storage on reload when all products available
         if (
-          allProducts.current.length &&
+          allProducts.current.length > 10 &&
           location === "/search-results" &&
           searchString === ""
         ) {
           setSearchString(JSON.parse(window.localStorage.getItem("search")));
         }
 
+        // Function to fetch product when routing to /products/:productId
         if (prodId) {
           getSingleProduct();
         }
