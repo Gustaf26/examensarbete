@@ -93,9 +93,7 @@ const Product = () => {
             <Card.Text className="text-muted small">
               <b>Description: </b>{" "}
               <span>
-                {singleProduct.description &&
-                  singleProduct.description.slice(0, 30)}
-                ... <b>(Read more)</b>
+                {singleProduct.description && singleProduct.description}
               </span>
             </Card.Text>
             {admin && (
