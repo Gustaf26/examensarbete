@@ -43,11 +43,11 @@ const Navigation = () => {
 
   return (
     <div>
-      <Navbar bg="info" variant="dark">
+      <Navbar id="navigation">
         <Container>
           <Row className="justify-content-end py-3 m-left-3" lg={12}>
             <Col lg={3}>
-              <Link to="/" className="navbar-brand m-left-3">
+              <Link to="/" className="navbar-brand m-left-3 nav-item">
                 <img
                   alt="A logo"
                   src={logo}
@@ -74,7 +74,8 @@ const Navigation = () => {
                     <NavLink
                       to="/create"
                       className="mx-4 my-auto"
-                      variant="dark"
+                      variant="light"
+                      href="e-commerce.catala-sverdrup.se"
                     >
                       Create
                     </NavLink>

@@ -6,8 +6,13 @@
 @import "dropzone";
 
 body {
-  background-image: url("https://images.pexels.com/photos/38293/workers-construction-site-hardhats-38293.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+  // background-image: url("https://images.pexels.com/photos/38293/workers-construction-site-hardhats-38293.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+  background-color: rgb(252, 248, 248);
   background-size: 100% 190vh;
+}
+
+#navigation {
+  background-color: rgb(241, 241, 241);
 }
 
 #container {
@@ -24,6 +29,10 @@ h2 {
   flex-wrap: wrap;
 }
 
+.nav-item {
+  color: lightgray;
+}
+
 #basket-icon {
   font-size: xx-large;
   border: 1px dotted white;
@@ -36,12 +45,12 @@ h2 {
   bottom: -1;
   left: 0;
   right: 0;
-  background-color: #0d0d0d;
+  background-color: #eeeeee;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 0vh;
-  color: white;
+  color: black;
   opacity: 0.8;
 
   -moz-transition: all 0.5s ease-in-out;

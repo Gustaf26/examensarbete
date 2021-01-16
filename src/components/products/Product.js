@@ -5,7 +5,7 @@ import { Card, Button, Breadcrumb } from "react-bootstrap";
 import { useCreate } from "../../contexts/CreateContext";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
-//import UploadProductImage from "./UploadProductImage";
+import "../../assets/scss/app.scss";
 
 const Product = () => {
   const {
@@ -67,7 +67,7 @@ const Product = () => {
       </Breadcrumb>
       {!singleProduct && <BounceLoader color={"#888"} size={20} />}
       {singleProduct && (
-        <Card className="mb-3 col-6 mx-auto">
+        <Card className="mb-3 col-6 mx-auto singleCard">
           <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center">
             {" "}
             {singleProduct && singleProduct.name}
