@@ -46,8 +46,8 @@ const Navigation = () => {
       <Navbar id="navigation">
         <Container>
           <Row className="justify-content-end py-3 m-left-3" lg={12}>
-            <Col lg={3}>
-              <a href="/" className="navbar-brand m-left-3 nav-item">
+            <Col lg={3} sm={12} id="logo">
+              <a href="/" className="navbar-brand m-left-3">
                 <img
                   alt="A logo"
                   src="https://img.icons8.com/office/16/000000/supplier.png"
@@ -65,14 +65,14 @@ const Navigation = () => {
                     onChange={changeString}
                     type="text"
                     placeholder="Search"
-                    className="mr-sm-1 ml-5"
+                    className="mr-sm-1 ml-5 navitem"
                   />
                 </Form>
-                <Nav className="mx-5">
+                <Nav className="mx-3">
                   {createLink === true ? (
                     <NavLink
                       to="/create"
-                      className="mx-4 my-auto"
+                      className="mx-4 my-auto navitem"
                       variant="light"
                       href="e-commerce.catala-sverdrup.se"
                     >
@@ -82,7 +82,7 @@ const Navigation = () => {
                   <NavDropdown
                     title="All clothes"
                     id="basic-nav-dropdown"
-                    className="mx-lg-2"
+                    className="mx-lg-2 navitem"
                   >
                     <NavLink to="/products/troussers" className="dropdown-item">
                       Troussers
@@ -99,7 +99,7 @@ const Navigation = () => {
                       <NavDropdown
                         title={currentUser.displayName || currentUser.email}
                         id="basic-nav-dropdown"
-                        className="mx-lg-2"
+                        className="mx-lg-2 navitem"
                       >
                         <NavLink to="/update-profile" className="dropdown-item">
                           Update Profile
@@ -119,7 +119,7 @@ const Navigation = () => {
                       )}
                     </div>
                   ) : (
-                    <NavLink to="/login" className="nav-link">
+                    <NavLink to="/login" className="nav-link navitem">
                       Login
                     </NavLink>
                   )}

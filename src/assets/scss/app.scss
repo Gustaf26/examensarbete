@@ -69,7 +69,22 @@ h2 {
   -webkit-transition: all 0.5s ease-in-out;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 1000px) {
+  .navitem {
+    margin: 1rem 0 1rem 0;
+    font-size: medium;
+  }
+  #logo {
+    margin-left: 35vw;
+  }
+
+  footer {
+    font-size: x-small;
+    max-height: 15vh;
+  }
+}
+
+@media screen and (min-width: 1000px) {
   #basic-navbar-nav {
     flex-wrap: nowrap;
   }

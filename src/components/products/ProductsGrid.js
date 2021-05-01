@@ -33,7 +33,7 @@ const ProductsGrid = ({ products, type }) => {
 
   return (
     <SRLWrapper>
-      <Row className="my-3" onLoad={() => setProductOption(type)}>
+      <Row className="mt-3 mb-5" onLoad={() => setProductOption(type)}>
         {products &&
           products.map((item) => (
             <Col sm={6} md={4} lg={3} key={item.id}>

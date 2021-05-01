@@ -113,7 +113,7 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Container>
-          <footer id="footer" className="p-3">
+          <footer id="footer" className="p-2">
             <div>
               This site has no commercial aims and is part of an academic
               development-project.
