@@ -39,6 +39,10 @@ h2 {
   border-radius: 5px;
 }
 
+.singleCard {
+  margin-bottom: 5rem;
+}
+
 #footer {
   display: flex;
   position: fixed;
@@ -87,5 +91,9 @@ h2 {
 @media screen and (min-width: 1000px) {
   #basic-navbar-nav {
     flex-wrap: nowrap;
+  }
+  footer {
+    font-size: x-small;
+    max-height: 8vh;
   }
 }

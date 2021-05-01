@@ -67,8 +67,8 @@ const Product = () => {
       </Breadcrumb>
       {!singleProduct && <BounceLoader color={"#888"} size={20} />}
       {singleProduct && (
-        <Card className="mb-3 col-6 mx-auto singleCard">
-          <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center">
+        <Card className="mb-3 col-6 mx-auto mb-5 singleCard">
+          <h2 className="mb-3 mt-3col-12 d-flex justify-content-center">
             {" "}
             {singleProduct && singleProduct.name}
           </h2>
