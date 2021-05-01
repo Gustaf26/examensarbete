@@ -47,18 +47,17 @@ const Navigation = () => {
         <Container>
           <Row className="justify-content-end py-3 m-left-3" lg={12}>
             <Col lg={3}>
-              <Link to="/" className="navbar-brand m-left-3 nav-item">
+              <a href="/" className="navbar-brand m-left-3 nav-item">
                 <img
                   alt="A logo"
-                  src={logo}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
+                  src="https://img.icons8.com/office/16/000000/supplier.png"
+                  width="50"
+                  height="50"
+                  className="d-inline-block align-top ml-5 rounded-circle"
                 />{" "}
-                Work Out
-              </Link>
+              </a>
             </Col>
-            <Col sm={12} md={10} lg={8} className="mx-auto">
+            <Col sm={12} md={10} lg={8} className="mx-auto my-auto">
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Form onSubmit={omitReload} inline>
