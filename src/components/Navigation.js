@@ -34,12 +34,12 @@ const Navigation = () => {
   };
 
   useEffect(() => {
-    if (admin === true) {
+    if (admin === true && currentUser) {
       setCreate(true);
     } else {
       setCreate(false);
     }
-  }, [admin]);
+  }, [admin, currentUser]);
 
   return (
     <div>

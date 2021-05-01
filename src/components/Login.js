@@ -9,7 +9,7 @@ const Login = () => {
   const passwordRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { login, checkIfAdmin } = useAuth();
+  const { login, checkIfAdmin, setAdmin } = useAuth();
   const [adminChecked, setChecked] = useState(false);
   const [alert, setAlert] = useState(false);
   const [adminAlert, setAdminAlert] = useState(false);
