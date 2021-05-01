@@ -102,6 +102,7 @@ const UpdateProfile = () => {
                     type="password"
                     // ref={passwordConfirmRef}
                     onChange={(e) => setPassConfirmRef(e.target.value)}
+                    defaultValue=""
                   />
                 </Form.Group>
 
