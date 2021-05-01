@@ -31,15 +31,15 @@ const AuthContextProvider = (props) => {
   };
 
   const updateEmail = (email) => {
-    return currentUser.updateEmail(email);
+    return auth.currentUser.updateEmail(email);
   };
 
   const updatePassword = (password) => {
-    return currentUser.updatePassword(password);
+    return auth.currentUser.updatePassword(password);
   };
 
   const updateProfile = (name) => {
-    return currentUser.updateProfile({
+    return auth.currentUser.updateProfile({
       displayName: name,
     });
   };
