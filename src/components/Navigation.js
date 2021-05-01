@@ -53,7 +53,7 @@ const Navigation = () => {
                   src="https://img.icons8.com/office/16/000000/supplier.png"
                   width="50"
                   height="50"
-                  className="d-inline-block align-top ml-5 rounded-circle"
+                  className="d-inline-block align-top ml-5 rounded-circle border border-info shadow-box-example z-depth-5"
                 />{" "}
               </a>
             </Col>
