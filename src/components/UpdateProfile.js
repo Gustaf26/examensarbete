@@ -92,7 +92,7 @@ const UpdateProfile = () => {
                   <Form.Control
                     // ref={passwordRef}
                     onChange={(e) => setPassRef(e.target.value)}
-                    defaultValue=""
+                    placeholder="Enter a new password"
                   />
                 </Form.Group>
 
@@ -102,7 +102,7 @@ const UpdateProfile = () => {
                     type="password"
                     // ref={passwordConfirmRef}
                     onChange={(e) => setPassConfirmRef(e.target.value)}
-                    defaultValue=""
+                    placeholder="Confirm the new password"
                   />
                 </Form.Group>
 
