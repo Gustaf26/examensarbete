@@ -93,6 +93,7 @@ const UpdateProfile = () => {
                     // ref={passwordRef}
                     onChange={(e) => setPassRef(e.target.value)}
                     placeholder="Enter a new password"
+                    required
                   />
                 </Form.Group>
 
@@ -103,6 +104,7 @@ const UpdateProfile = () => {
                     // ref={passwordConfirmRef}
                     onChange={(e) => setPassConfirmRef(e.target.value)}
                     placeholder="Confirm the new password"
+                    required
                   />
                 </Form.Group>
 
