@@ -41,7 +41,7 @@ const UpdateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name.length < 4 || description < 20 || !productOption) {
+    if (name.length < 4 || description < 20 || !imageUrl) {
       setError("You are missing some of the required upload parameters");
       return;
     }
@@ -74,88 +74,100 @@ const UpdateProduct = () => {
     }
   };
 
+  useEffect(() => {
+    setProductOption("troussers");
+  }, []);
+
   return (
     <>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Update a product entry</Card.Title>
+          {singleProduct ? (
+            <Card>
+              <Card.Body>
+                <Card.Title>Update a product entry</Card.Title>
 
-              {error && <Alert variant="danger">{error}</Alert>}
+                {error && <Alert variant="danger">{error}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group id="title">
-                  <Form.Label>Product name</Form.Label>
-                  <Form.Control
-                    type="title"
-                    onChange={handleNameChange}
-                    value={name}
-                    placeholder={singleProduct.name}
-                    required
-                  />
-                  {name && name.length < 4 && (
-                    <Form.Text className="text-danger">
-                      Please enter a name at least 4 characters long.
-                    </Form.Text>
-                  )}
-                </Form.Group>
-                <Form.Group id="description">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    type="title"
-                    onChange={handleDescriptionChange}
-                    value={description}
-                    placeholder={singleProduct.description}
-                    required
-                  />
-                  {singleProduct.description &&
-                    singleProduct.description.length < 20 && (
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group id="title">
+                    <Form.Label>Product name</Form.Label>
+                    <Form.Control
+                      type="title"
+                      onChange={handleNameChange}
+                      value={name}
+                      placeholder={singleProduct.name}
+                      required
+                    />
+                    {name && name.length < 4 && (
                       <Form.Text className="text-danger">
-                        Please update with a description at least 20 characters
-                        long.
+                        Please enter a name at least 4 characters long.
                       </Form.Text>
                     )}
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect2">
-                  <Form.Label>Choose product category</Form.Label>
-                  <Form.Control
-                    id="inlineFormCustomSelect"
-                    custom
-                    as="select"
-                    required
-                    onClick={(e) =>
-                      setProductOption(e.target.value.toLowerCase())
-                    }
-                  >
-                    {productCategories &&
-                      productCategories.map((category) => (
-                        <option>{category.name.toUpperCase()}</option>
-                      ))}
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group id="price">
-                  <Form.Label>Price</Form.Label>
-                  <Form.Control
-                    type="title"
-                    onChange={handlePrice}
-                    value={prodPrice}
-                    placeholder={singleProduct.price}
-                    required
-                  />
-                  {prodPrice && prodPrice === "0" && (
-                    <Form.Text className="text-danger">
-                      Please set the product price.
-                    </Form.Text>
+                  </Form.Group>
+                  <Form.Group id="description">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      type="title"
+                      onChange={handleDescriptionChange}
+                      value={description}
+                      placeholder={singleProduct.description}
+                      required
+                    />
+                    {singleProduct.description &&
+                      singleProduct.description.length < 20 && (
+                        <Form.Text className="text-danger">
+                          Please update with a description at least 20
+                          characters long.
+                        </Form.Text>
+                      )}
+                  </Form.Group>
+                  <Form.Group controlId="exampleForm.ControlSelect2">
+                    <Form.Label>Choose product category</Form.Label>
+                    <Form.Control
+                      id="inlineFormCustomSelect"
+                      custom
+                      as="select"
+                      required
+                      onClick={(e) =>
+                        setProductOption(e.target.value.toLowerCase())
+                      }
+                    >
+                      {productCategories &&
+                        productCategories.map((category) => (
+                          <option>{category.name.toUpperCase()}</option>
+                        ))}
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group id="price">
+                    <Form.Label>Price</Form.Label>
+                    <Form.Control
+                      type="title"
+                      onChange={handlePrice}
+                      value={prodPrice}
+                      placeholder={singleProduct.price}
+                      required
+                    />
+                    {prodPrice && prodPrice === "0" && (
+                      <Form.Text className="text-danger">
+                        Please set the product price.
+                      </Form.Text>
+                    )}
+                  </Form.Group>
+                  {productOption && (
+                    <UploadImageDropzone type={productOption} />
                   )}
-                </Form.Group>
-                {productOption && <UploadImageDropzone type={productOption} />}
-                <Button disabled={loading} type="submit" className="mx-auto">
-                  Update
-                </Button>
-              </Form>
-            </Card.Body>
-          </Card>
+                  <Button disabled={loading} type="submit" className="mx-auto">
+                    Update
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          ) : (
+            <Alert variant="warning">
+              An error just occurred. Please navigate back to the products list
+            </Alert>
+          )}
         </Col>
       </Row>
     </>
