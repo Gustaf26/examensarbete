@@ -38,7 +38,7 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name.length < 4 || description < 20 || !productOption.length) {
+    if (name.length < 4 || description < 20 || !imageUrl) {
       setError("You are missing some of the required upload parameters");
       return;
     }
@@ -80,7 +80,7 @@ const CreateProduct = () => {
   };
 
   useEffect(() => {
-    setProductOption([]);
+    setProductOption("troussers");
   }, []);
 
   return (
