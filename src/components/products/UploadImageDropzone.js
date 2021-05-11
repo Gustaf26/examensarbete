@@ -43,10 +43,12 @@ const UploadImageDropzone = ({ type }) => {
     getInputProps,
     isDragActive,
     acceptedFiles,
+    fileRejections,
     isDragAccept,
     isDragReject,
   } = useDropzone({
     accept: "image/gif, image/jpeg, image/png",
+    maxFiles: 1,
     onDrop,
   });
 
@@ -79,7 +81,25 @@ const UploadImageDropzone = ({ type }) => {
           </ul>
         </div>
       )}
-
+      {fileRejections.length > 0 && (
+        <div className="rejected-files mt-2">
+          <p>Rejected files</p>
+          <ul className="list-unstyled">
+            {fileRejections.map(({ file, errors }) => {
+              return (
+                <li key={file.path}>
+                  {file.path} - {file.size} bytes
+                  <ul className="list-unstyled">
+                    {errors.map((e) => (
+                      <li key={e.code}>{e.message}</li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
       {/* Output upload status */}
       {uploadProgress !== null && uploadProgress !== 100 && (
         <ProgressBar variant="success" animated now={uploadProgress} />
