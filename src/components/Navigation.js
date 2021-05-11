@@ -47,15 +47,17 @@ const Navigation = () => {
         <Container>
           <Row className="justify-content-end py-3 m-left-3" lg={12}>
             <Col lg={3} sm={12} id="logo">
-              <a href="/" className="navbar-brand m-left-3">
-                <img
-                  alt="A logo"
-                  src="https://img.icons8.com/office/16/000000/supplier.png"
-                  width="50"
-                  height="50"
-                  className="d-inline-block align-top ml-5 rounded-circle border border-info shadow-box-example z-depth-5"
-                />{" "}
-              </a>
+              <Nav>
+                <NavLink to="/" className="navbar-brand m-left-3">
+                  <img
+                    alt="A logo"
+                    src="https://img.icons8.com/office/16/000000/supplier.png"
+                    width="50"
+                    height="50"
+                    className="d-inline-block align-top ml-5 rounded-circle border border-info shadow-box-example z-depth-5"
+                  />{" "}
+                </NavLink>
+              </Nav>
             </Col>
             <Col sm={12} md={10} lg={8} className="mx-auto my-auto">
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
