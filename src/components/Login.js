@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useCreate } from "../contexts/CreateContext";
 
 const Login = () => {
   const emailRef = useRef();
@@ -14,11 +15,14 @@ const Login = () => {
   const [alert, setAlert] = useState(false);
   const [adminAlert, setAdminAlert] = useState(false);
   const navigate = useNavigate();
+  const { setCurrentPassword } = useCreate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError(null);
+
+    setCurrentPassword(passwordRef.current.value);
 
     try {
       // try to log in the user with the specified credentials

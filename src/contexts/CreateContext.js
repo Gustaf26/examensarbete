@@ -20,6 +20,7 @@ const CreateContextProvider = (props) => {
   const [searchString, setSearchString] = useState("");
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
 
   const getSingleProduct = () => {
     const firstDash = location.indexOf("/");
@@ -132,6 +133,8 @@ const CreateContextProvider = (props) => {
     setProdId,
     setLocation,
     searchString,
+    currentPassword,
+    setCurrentPassword,
   };
 
   return (

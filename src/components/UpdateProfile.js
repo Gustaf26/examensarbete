@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
+import { useCreate } from "../contexts/CreateContext";
 
 const UpdateProfile = () => {
   const { currentUser, updateEmail, updatePassword, updateProfile } = useAuth();
@@ -11,6 +12,7 @@ const UpdateProfile = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { currentPassword } = useCreate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,6 +56,11 @@ const UpdateProfile = () => {
     }
   };
 
+  useEffect(() => {
+    setPassRef(currentPassword);
+    setPassConfirmRef(currentPassword);
+  }, []);
+
   return (
     <>
       <Row>
@@ -87,23 +94,26 @@ const UpdateProfile = () => {
                   />
                 </Form.Group>
 
-                <Form.Group id="password">
-                  <Form.Label type="text">Password</Form.Label>
+                <Form.Group>
+                  <Form.Label type="password">Password</Form.Label>
                   <Form.Control
-                    // ref={passwordRef}
+                    id="password"
                     onChange={(e) => setPassRef(e.target.value)}
                     placeholder="Enter a new password"
+                    defaultValue={currentPassword}
                     required
                   />
                 </Form.Group>
 
-                <Form.Group id="password-confirm">
+                <Form.Group>
                   <Form.Label>Password Confirmation</Form.Label>
                   <Form.Control
+                    id="password-confirm"
                     type="password"
                     // ref={passwordConfirmRef}
                     onChange={(e) => setPassConfirmRef(e.target.value)}
                     placeholder="Confirm the new password"
+                    defaultValue={currentPassword}
                     required
                   />
                 </Form.Group>
