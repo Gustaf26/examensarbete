@@ -12,7 +12,7 @@ const UpdateProfile = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { currentPassword } = useCreate();
+  const { currentPassword, setCurrentPassword } = useCreate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +46,8 @@ const UpdateProfile = () => {
       if (passwordRef) {
         await updatePassword(passwordRef);
       }
+
+      setCurrentPassword(passwordRef);
 
       // profit!
       setMessage("Profile successfully updated");
