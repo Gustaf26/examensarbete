@@ -29,6 +29,7 @@ const UploadImageDropzone = ({ type }) => {
     setMessage(null);
 
     if (acceptedFiles.length === 0) {
+      alert("You can only upload one file for a product");
       return;
     }
 
