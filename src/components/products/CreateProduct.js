@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UploadImageDropzone from "./UploadImageDropzone";
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { BounceLoader } from "react-spinners";
@@ -38,7 +38,7 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name.length < 4 || description < 20 || !productOption) {
+    if (name.length < 4 || description < 20 || !productOption.length) {
       setError("You are missing some of the required upload parameters");
       return;
     }
@@ -78,6 +78,10 @@ const CreateProduct = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setProductOption([]);
+  }, []);
 
   return (
     <>
