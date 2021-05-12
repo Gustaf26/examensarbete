@@ -59,8 +59,13 @@ const UpdateProfile = () => {
   };
 
   useEffect(() => {
-    setPassRef(currentPassword);
-    setPassConfirmRef(currentPassword);
+    let passwordInStorage = localStorage.getItem("currentPass");
+    if (currentPassword) {
+      setPassRef(currentPassword);
+      setPassConfirmRef(currentPassword);
+    } else if (passwordInStorage) {
+      setCurrentPassword(passwordInStorage);
+    }
   }, []);
 
   return (

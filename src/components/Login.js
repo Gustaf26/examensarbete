@@ -23,6 +23,7 @@ const Login = () => {
     setError(null);
 
     setCurrentPassword(passwordRef.current.value);
+    localStorage.setItem("currentPass", passwordRef.current.value);
 
     try {
       // try to log in the user with the specified credentials
