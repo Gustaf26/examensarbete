@@ -178,8 +178,8 @@ const UpdateProduct = () => {
                   {productOption && (
                     <UploadImageDropzone type={productOption} />
                   )}
-                  <Form.Text className="text-warning mb-5">
-                    If no photo uploaded, you are keeping the same original
+                  <Form.Text className="text-warning mb-3">
+                    If no photo is uploaded, you are keeping the same original
                     photo
                   </Form.Text>
                   <Button
