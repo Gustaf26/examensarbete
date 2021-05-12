@@ -76,7 +76,7 @@ const UpdateProduct = () => {
   };
 
   useEffect(() => {
-    setProductOption("troussers");
+    setProductOption(singleProduct.category);
     setName(singleProduct.name);
     setDescription(singleProduct.description);
     setPrice(singleProduct.price);
@@ -130,7 +130,7 @@ const UpdateProduct = () => {
                   <Form.Group controlId="exampleForm.ControlSelect2">
                     <Form.Label>Choose product category</Form.Label>
                     <Form.Control
-                      id="inlineFormCustomSelect"
+                      // id="inlineFormCustomSelect"
                       custom
                       as="select"
                       required
@@ -139,13 +139,26 @@ const UpdateProduct = () => {
                       }
                     >
                       {productCategories &&
-                        productCategories.map((category) => (
-                          <option>{category.name.toUpperCase()}</option>
-                        ))}
+                        productCategories.map((category, i) => {
+                          if (category.name === singleProduct.category) {
+                            return (
+                              <option key={i}>
+                                {category.name.toUpperCase()}
+                              </option>
+                            );
+                          }
+                        })}
+                      {productCategories &&
+                        productCategories.map((category, i) => {
+                          if (category.name !== singleProduct.category) {
+                            return (
+                              <option key={i}>
+                                {category.name.toUpperCase()}
+                              </option>
+                            );
+                          }
+                        })}
                     </Form.Control>
-                    <Form.Text className="text-danger">
-                      Please note that troussers are default option
-                    </Form.Text>
                   </Form.Group>
                   <Form.Group id="price">
                     <Form.Label>Price</Form.Label>
@@ -165,6 +178,10 @@ const UpdateProduct = () => {
                   {productOption && (
                     <UploadImageDropzone type={productOption} />
                   )}
+                  <Form.Text className="text-warning my-2">
+                    If no photo uploaded, you are keeping the same original
+                    photo
+                  </Form.Text>
                   <Button disabled={loading} type="submit" className="mx-auto">
                     Update
                   </Button>
