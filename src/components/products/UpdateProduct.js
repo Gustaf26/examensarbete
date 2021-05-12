@@ -18,6 +18,7 @@ const UpdateProduct = () => {
     setSingleProduct,
     singleProduct,
     productCategories,
+    setImageUrl,
   } = useCreate();
   const navigate = useNavigate();
 
@@ -76,6 +77,10 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     setProductOption("troussers");
+    setName(singleProduct.name);
+    setDescription(singleProduct.description);
+    setPrice(singleProduct.price);
+    setImageUrl(singleProduct.thumbnail);
   }, []);
 
   return (
@@ -95,8 +100,8 @@ const UpdateProduct = () => {
                     <Form.Control
                       type="title"
                       onChange={handleNameChange}
-                      value={name}
-                      placeholder={singleProduct.name}
+                      // value={name}
+                      defaultValue={singleProduct.name}
                       required
                     />
                     {name && name.length < 4 && (
@@ -110,8 +115,8 @@ const UpdateProduct = () => {
                     <Form.Control
                       type="title"
                       onChange={handleDescriptionChange}
-                      value={description}
-                      placeholder={singleProduct.description}
+                      // value={description}
+                      defaultValue={singleProduct.description}
                       required
                     />
                     {singleProduct.description &&
@@ -144,8 +149,8 @@ const UpdateProduct = () => {
                     <Form.Control
                       type="title"
                       onChange={handlePrice}
-                      value={prodPrice}
-                      placeholder={singleProduct.price}
+                      // value={prodPrice}
+                      defaultValue={singleProduct.price}
                       required
                     />
                     {prodPrice && prodPrice === "0" && (
