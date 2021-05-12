@@ -143,6 +143,9 @@ const UpdateProduct = () => {
                           <option>{category.name.toUpperCase()}</option>
                         ))}
                     </Form.Control>
+                    <Form.Text className="text-danger">
+                      Please note that troussers are default option
+                    </Form.Text>
                   </Form.Group>
                   <Form.Group id="price">
                     <Form.Label>Price</Form.Label>

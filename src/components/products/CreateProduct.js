@@ -19,6 +19,7 @@ const CreateProduct = () => {
     setProductOption,
     setSingleProduct,
     productCategories,
+    setImageUrl,
   } = useCreate();
   const navigate = useNavigate();
 
@@ -81,6 +82,7 @@ const CreateProduct = () => {
 
   useEffect(() => {
     setProductOption("troussers");
+    setImageUrl("");
   }, []);
 
   return (
@@ -141,6 +143,9 @@ const CreateProduct = () => {
                           </option>
                         ))}
                     </Form.Control>
+                    <Form.Text className="text-danger">
+                      Please note that troussers are default option
+                    </Form.Text>
                   </Form.Group>
                   <Form.Group id="price">
                     <Form.Label>Price</Form.Label>
