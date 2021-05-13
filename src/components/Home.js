@@ -10,7 +10,7 @@ const Home = () => {
       <Breadcrumb className="mb-3">
         <Breadcrumb.Item active>Home</Breadcrumb.Item>
       </Breadcrumb>
-      <Card className="mb-3 col-10 mx-auto ustify-content-center">
+      <Card className="mb-3 col-10 mx-auto mb-5 ustify-content-center">
         <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center">
           WELCOME TO WORK OUT!
         </h2>
