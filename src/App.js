@@ -66,9 +66,9 @@ const App = () => {
 
           <Container id="container" className="py-3">
             <Routes>
-              <AuthRoute path="/">
+              <Route path="/">
                 <Home />
-              </AuthRoute>
+              </Route>
               <AdminRoute path="/create">
                 <CreateProduct />
               </AdminRoute>
