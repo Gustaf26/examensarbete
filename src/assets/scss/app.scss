@@ -183,6 +183,9 @@ h2 {
     border-radius: 50px;
     background-color: rgb(233, 230, 230);
     border: 1px dotted grey;
+    font-style: bold;
+    padding-left: 2.5rem;
+    padding-top: 0.05rem;
   }
   #basic-navbar-nav {
     flex-wrap: nowrap;
@@ -192,9 +195,9 @@ h2 {
   }
   #search-icon {
     position: absolute;
-    margin-top: 0.2rem;
-    margin-left: 3.5rem;
-    font-size: xx-large;
+    margin-top: 0.1rem;
+    margin-left: 3.7rem;
+    font-size: x-large;
     color: darkgray;
   }
   .navitem .nav-item {
