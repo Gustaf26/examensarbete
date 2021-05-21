@@ -20,6 +20,7 @@ export default function SimpleMenu() {
       <MenuIcon
         id="hamburger-icon"
         fontSize="large"
+        color="disabled"
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}

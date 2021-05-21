@@ -46,6 +46,10 @@ h2 {
   padding-left: 1rem;
 }
 
+.create-button {
+  color: rgb(116, 115, 115);
+}
+
 #basket-icon {
   font-size: xx-large;
   border: 1px dotted white;
@@ -169,9 +173,13 @@ h2 {
     flex-wrap: nowrap;
     margin-right: 0;
     margin-left: 10px;
-    width: 30vw;
+    width: 40vw;
   }
-  .navitem {
+  .navitem .nav-item {
+    min-width: 135px;
+    // margin-left: -5rem;
+  }
+  .navitem.signin {
     min-width: 150px;
   }
   footer {

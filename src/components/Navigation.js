@@ -92,9 +92,7 @@ const Navigation = () => {
                     {createLink === true ? (
                       <NavLink
                         to="/create"
-                        className="ml-3 mr-5 my-auto"
-                        variant="light"
-                        href="e-commerce.catala-sverdrup.se"
+                        className="ml-4 mr-3 my-auto create-button"
                       >
                         Create
                       </NavLink>
@@ -102,7 +100,7 @@ const Navigation = () => {
                     <NavDropdown
                       title="All clothes"
                       id="basic-nav-dropdown"
-                      className="mx-lg-2 navitem"
+                      className="ml-3 navitem"
                     >
                       <NavLink
                         to="/products/troussers"
@@ -150,7 +148,10 @@ const Navigation = () => {
                         )}
                       </div>
                     ) : (
-                      <NavLink to="/login" className="nav-link navitem">
+                      <NavLink
+                        to="/login"
+                        className="nav-link signin navitem ml-3"
+                      >
                         Sign In / Register
                       </NavLink>
                     )}
