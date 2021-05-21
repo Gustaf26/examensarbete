@@ -103,6 +103,9 @@ h2 {
     margin-left: -6vw;
     flex-wrap: wrap;
   }
+  #hamburger-icon {
+    font-size: xx-large;
+  }
   .navitem {
     max-width: 80px;
   }
@@ -123,14 +126,21 @@ h2 {
     background-color: rgb(233, 230, 230);
     border: 1px dotted grey;
     position: absolute;
-    margin-top: -20%;
+    margin-top: -7%;
     right: -3%;
+  }
+  #custom-menu {
+    position: absolute;
+    margin-left: 550px;
+    padding: 0;
+    margin-right: 0;
+    margin-top: -10%;
   }
   #basic-navbar-nav {
     flex-wrap: nowrap;
     margin-right: 0;
     width: 30vw;
-    margin-left: 10vw;
+    margin-left: 5vw;
   }
 
   .navitem {

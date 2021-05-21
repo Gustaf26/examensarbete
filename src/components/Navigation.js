@@ -15,10 +15,12 @@ import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import logo from "../assets/images/logo.svg";
+import SimpleMenu from "./SimpleMenu";
 
 const Navigation = () => {
   const { currentUser, admin } = useAuth();
   const [createLink, setCreate] = useState(false);
+  const [customMenu, setCustMenu] = useState(false);
   const { setSearchResults, setSearchString } = useCreate();
   const navigate = useNavigate();
 
@@ -41,6 +43,21 @@ const Navigation = () => {
     }
   }, [admin, currentUser]);
 
+  useEffect(() => {
+    if (window.innerWidth < 1000) {
+      setCustMenu(true);
+    }
+
+    window.addEventListener("resize", function (event) {
+      if (window.innerWidth > 1000) {
+        setCustMenu(false);
+      }
+      if (window.innerWidth < 1000) {
+        setCustMenu(true);
+      }
+    });
+  });
+
   return (
     <div>
       <Navbar id="navigation">
@@ -49,13 +66,6 @@ const Navigation = () => {
             <Col lg={4} sm={12}>
               <Nav>
                 <NavLink to="/" id="logo" className="navbar-brand m-left-3">
-                  {/* <img
-                    alt="A logo"
-                    src="https://img.icons8.com/office/16/000000/supplier.png"
-                    width="50"
-                    height="50"
-                    className="d-inline-block align-top ml-5 rounded-circle border border-info shadow-box-example z-depth-5"
-                  />{" "} */}
                   Work Out
                 </NavLink>
               </Nav>
@@ -77,64 +87,76 @@ const Navigation = () => {
                     className="mr-sm-1 ml-5 navitem"
                   />
                 </Form>
-                <Nav className="mx-3" id="nav-links">
-                  {createLink === true ? (
-                    <NavLink
-                      to="/create"
-                      className="ml-3 mr-5 my-auto"
-                      variant="light"
-                      href="e-commerce.catala-sverdrup.se"
-                    >
-                      Create
-                    </NavLink>
-                  ) : null}
-                  <NavDropdown
-                    title="All clothes"
-                    id="basic-nav-dropdown"
-                    className="mx-lg-2 navitem"
-                  >
-                    <NavLink to="/products/troussers" className="dropdown-item">
-                      Troussers
-                    </NavLink>
-                    <NavDropdown.Divider />
-                    <NavLink to="/products/jackets" className="dropdown-item">
-                      Jackets
-                    </NavLink>
-                    <NavDropdown.Divider />
-                    <NavLink to="/products/t-shirts" className="dropdown-item">
-                      T-shirts
-                    </NavLink>
-                  </NavDropdown>
-                  {currentUser ? (
-                    <div className="d-flex align-items-center justify-content-between">
-                      <NavDropdown
-                        title={currentUser.displayName || currentUser.email}
-                        id="basic-nav-dropdown"
-                        className="mx-lg-2 navitem"
+                {!customMenu && (
+                  <Nav className="mx-3" id="nav-links">
+                    {createLink === true ? (
+                      <NavLink
+                        to="/create"
+                        className="ml-3 mr-5 my-auto"
+                        variant="light"
+                        href="e-commerce.catala-sverdrup.se"
                       >
-                        <NavLink to="/update-profile" className="dropdown-item">
-                          Update Profile
-                        </NavLink>
-                        <NavDropdown.Divider />
-                        <NavLink to="/logout" className="dropdown-item">
-                          Log Out
-                        </NavLink>
-                      </NavDropdown>
-                      {!admin && (
-                        <ShoppingBasket
-                          id="basket-icon"
-                          color="primary"
-                          className="mx-lg-3 p-1"
-                          rounded
-                        />
-                      )}
-                    </div>
-                  ) : (
-                    <NavLink to="/login" className="nav-link navitem">
-                      Sign In / Register
-                    </NavLink>
-                  )}
-                </Nav>
+                        Create
+                      </NavLink>
+                    ) : null}
+                    <NavDropdown
+                      title="All clothes"
+                      id="basic-nav-dropdown"
+                      className="mx-lg-2 navitem"
+                    >
+                      <NavLink
+                        to="/products/troussers"
+                        className="dropdown-item"
+                      >
+                        Troussers
+                      </NavLink>
+                      <NavDropdown.Divider />
+                      <NavLink to="/products/jackets" className="dropdown-item">
+                        Jackets
+                      </NavLink>
+                      <NavDropdown.Divider />
+                      <NavLink
+                        to="/products/t-shirts"
+                        className="dropdown-item"
+                      >
+                        T-shirts
+                      </NavLink>
+                    </NavDropdown>
+                    {currentUser ? (
+                      <div className="d-flex align-items-center justify-content-between">
+                        <NavDropdown
+                          title={currentUser.displayName || currentUser.email}
+                          id="basic-nav-dropdown"
+                          className="mx-lg-2 navitem"
+                        >
+                          <NavLink
+                            to="/update-profile"
+                            className="dropdown-item"
+                          >
+                            Update Profile
+                          </NavLink>
+                          <NavDropdown.Divider />
+                          <NavLink to="/logout" className="dropdown-item">
+                            Log Out
+                          </NavLink>
+                        </NavDropdown>
+                        {!admin && (
+                          <ShoppingBasket
+                            id="basket-icon"
+                            color="primary"
+                            className="mx-lg-3 p-1"
+                            rounded
+                          />
+                        )}
+                      </div>
+                    ) : (
+                      <NavLink to="/login" className="nav-link navitem">
+                        Sign In / Register
+                      </NavLink>
+                    )}
+                  </Nav>
+                )}
+                {customMenu && <SimpleMenu />}
               </Navbar.Collapse>
             </Col>
           </Row>
