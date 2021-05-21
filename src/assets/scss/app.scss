@@ -99,20 +99,24 @@ h2 {
   .singleCard {
     min-width: 80vw;
   }
+  #logo {
+    font-size: x-large;
+  }
   #product-search {
-    width: 30vw;
-    height: 3rem;
-    border-radius: 50px;
+    max-width: 20vw;
+    max-height: 2rem;
+    border-radius: 50;
     background-color: rgb(233, 230, 230);
     border: 1px dotted grey;
-    position: absolute;
     margin-top: -30%;
+    margin-right: 10%;
+    padding-left: 1rem;
   }
   #search-icon {
     display: none;
   }
   #basic-navbar-nav {
-    margin-left: -6vw;
+    margin-left: -9vw;
     flex-wrap: wrap;
   }
   #hamburger-icon {
@@ -123,17 +127,23 @@ h2 {
   }
 }
 
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  #product-search {
+    margin-right: 1rem;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .navitem {
     margin: 1rem 0 1rem 0;
     font-size: medium;
   }
   #logo {
-    margin-left: 12vw;
+    margin-left: 7vw;
   }
   #product-search {
-    min-width: 30vw;
-    height: 3rem;
+    max-width: 30vw;
+    height: 2.5rem;
     border-radius: 50px;
     background-color: rgb(233, 230, 230);
     border: 1px dotted grey;
@@ -141,17 +151,14 @@ h2 {
     margin-top: -7%;
     right: -3%;
   }
+
   #search-icon {
-    position: absolute;
-    margin-top: 0.2rem;
-    margin-left: 3.5rem;
-    font-size: xx-large;
-    color: darkgray;
+    display: none;
   }
   #custom-menu {
     position: absolute;
-    margin-left: 550px;
-    padding: 0;
+    margin-left: 70vw;
+    padding-left: 5%;
     margin-right: 0;
     margin-top: -10%;
   }
@@ -159,7 +166,7 @@ h2 {
     flex-wrap: nowrap;
     margin-right: 0;
     width: 30vw;
-    margin-left: 5vw;
+    margin-left: 2vw;
   }
 
   .navitem {

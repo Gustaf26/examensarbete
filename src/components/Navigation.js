@@ -86,7 +86,7 @@ const Navigation = () => {
                     type="text"
                     id="product-search"
                     placeholder="Search product"
-                    className="mr-sm-1 ml-5 navitem"
+                    className="mr-sm-3 ml-5 navitem"
                   />
                   <SearchIcon id="search-icon" />
                 </Form>
