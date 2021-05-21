@@ -45,36 +45,43 @@ const Navigation = () => {
     <div>
       <Navbar id="navigation">
         <Container>
-          <Row className="justify-content-end py-3 m-left-3" lg={12}>
-            <Col lg={3} sm={12} id="logo">
+          <Row className="py-3 m-left-3 d-flex" id="nav-row">
+            <Col lg={4} sm={12}>
               <Nav>
-                <NavLink to="/" className="navbar-brand m-left-3">
-                  <img
+                <NavLink to="/" id="logo" className="navbar-brand m-left-3">
+                  {/* <img
                     alt="A logo"
                     src="https://img.icons8.com/office/16/000000/supplier.png"
                     width="50"
                     height="50"
                     className="d-inline-block align-top ml-5 rounded-circle border border-info shadow-box-example z-depth-5"
-                  />{" "}
+                  />{" "} */}
+                  Work Out
                 </NavLink>
               </Nav>
             </Col>
-            <Col sm={12} md={10} lg={8} className="mx-auto my-auto">
+            <Col
+              sm={12}
+              md={10}
+              lg={6}
+              className="mx-auto my-auto justify-content-end"
+            >
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Form onSubmit={omitReload} inline>
                   <FormControl
                     onChange={changeString}
                     type="text"
-                    placeholder="Search"
+                    id="product-search"
+                    placeholder="Search product"
                     className="mr-sm-1 ml-5 navitem"
                   />
                 </Form>
-                <Nav className="mx-3">
+                <Nav className="mx-3" id="nav-links">
                   {createLink === true ? (
                     <NavLink
                       to="/create"
-                      className="mx-4 my-auto navitem"
+                      className="ml-3 mr-5 my-auto"
                       variant="light"
                       href="e-commerce.catala-sverdrup.se"
                     >
@@ -89,9 +96,11 @@ const Navigation = () => {
                     <NavLink to="/products/troussers" className="dropdown-item">
                       Troussers
                     </NavLink>
+                    <NavDropdown.Divider />
                     <NavLink to="/products/jackets" className="dropdown-item">
                       Jackets
                     </NavLink>
+                    <NavDropdown.Divider />
                     <NavLink to="/products/t-shirts" className="dropdown-item">
                       T-shirts
                     </NavLink>
@@ -122,7 +131,7 @@ const Navigation = () => {
                     </div>
                   ) : (
                     <NavLink to="/login" className="nav-link navitem">
-                      Login
+                      Sign In / Register
                     </NavLink>
                   )}
                 </Nav>

@@ -21,16 +21,29 @@ body {
 
 h2 {
   font-size: x-large;
+  font-family: "Helvetica";
+}
+
+#nav-row {
+  position: relative;
+}
+
+#logo {
+  font-family: "Pacifico", cursive;
+  color: rgb(70, 69, 69);
+  font-size: xx-large;
 }
 
 #basic-navbar-nav {
   display: flex;
-  justify-content: center;
+  // justify-content: flex-end;
+  margin-right: 0;
   flex-wrap: wrap;
 }
 
-.nav-item {
+.navitem {
   color: lightgray;
+  padding-left: 1rem;
 }
 
 #basket-icon {
@@ -77,6 +90,22 @@ h2 {
   .singleCard {
     min-width: 80vw;
   }
+  #product-search {
+    width: 30vw;
+    height: 3rem;
+    border-radius: 50px;
+    background-color: rgb(233, 230, 230);
+    border: 1px dotted grey;
+    position: absolute;
+    margin-top: -30%;
+  }
+  #basic-navbar-nav {
+    margin-left: -6vw;
+    flex-wrap: wrap;
+  }
+  .navitem {
+    max-width: 80px;
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -85,7 +114,27 @@ h2 {
     font-size: medium;
   }
   #logo {
-    margin-left: 35vw;
+    margin-left: 12vw;
+  }
+  #product-search {
+    min-width: 30vw;
+    height: 3rem;
+    border-radius: 50px;
+    background-color: rgb(233, 230, 230);
+    border: 1px dotted grey;
+    position: absolute;
+    margin-top: -20%;
+    right: -3%;
+  }
+  #basic-navbar-nav {
+    flex-wrap: nowrap;
+    margin-right: 0;
+    width: 30vw;
+    margin-left: 10vw;
+  }
+
+  .navitem {
+    min-width: 150px;
   }
 
   footer {
@@ -95,8 +144,25 @@ h2 {
 }
 
 @media screen and (min-width: 1000px) {
+  #logo {
+    margin-left: 5vw;
+  }
+
+  #product-search {
+    min-width: 20vw;
+    height: 3rem;
+    border-radius: 50px;
+    background-color: rgb(233, 230, 230);
+    border: 1px dotted grey;
+  }
   #basic-navbar-nav {
     flex-wrap: nowrap;
+    margin-right: 0;
+    margin-left: 10px;
+    width: 30vw;
+  }
+  .navitem {
+    min-width: 150px;
   }
   footer {
     font-size: x-small;
