@@ -14,7 +14,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
-import logo from "../assets/images/logo.svg";
+import SearchIcon from "@material-ui/icons/Search";
 import SimpleMenu from "./SimpleMenu";
 
 const Navigation = () => {
@@ -83,9 +83,10 @@ const Navigation = () => {
                     onChange={changeString}
                     type="text"
                     id="product-search"
-                    placeholder="Search product"
+                    placeholder="     Search product"
                     className="mr-sm-1 ml-5 navitem"
                   />
+                  <SearchIcon id="search-icon" />
                 </Form>
                 {!customMenu && (
                   <Nav className="mx-3" id="nav-links">

@@ -56,6 +56,11 @@ h2 {
   border-radius: 5px;
 }
 
+.main-card {
+  background-color: rgb(253, 246, 246);
+  box-shadow: 5px 5px 10px grey;
+}
+
 .singleCard {
   margin-bottom: 5rem;
 }
@@ -103,6 +108,9 @@ h2 {
     position: absolute;
     margin-top: -30%;
   }
+  #search-icon {
+    display: none;
+  }
   #basic-navbar-nav {
     margin-left: -6vw;
     flex-wrap: wrap;
@@ -132,6 +140,13 @@ h2 {
     position: absolute;
     margin-top: -7%;
     right: -3%;
+  }
+  #search-icon {
+    position: absolute;
+    margin-top: 0.2rem;
+    margin-left: 3.5rem;
+    font-size: xx-large;
+    color: darkgray;
   }
   #custom-menu {
     position: absolute;
@@ -174,6 +189,13 @@ h2 {
     margin-right: 0;
     margin-left: 10px;
     width: 40vw;
+  }
+  #search-icon {
+    position: absolute;
+    margin-top: 0.2rem;
+    margin-left: 3.5rem;
+    font-size: xx-large;
+    color: darkgray;
   }
   .navitem .nav-item {
     min-width: 135px;
