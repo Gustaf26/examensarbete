@@ -63,56 +63,57 @@ const App = () => {
       <AuthContextProvider>
         <SimpleReactLightbox>
           <Navigation />
-
-          <Container id="container" className="py-3">
-            <Routes>
-              <Route path="/">
-                <Home />
-              </Route>
-              <AdminRoute path="/create">
-                <CreateProduct />
-              </AdminRoute>
-              <AdminRoute path="/update">
-                <UpdateProduct />
-              </AdminRoute>
-              <Route path="/search-results">
-                <SearchResults />
-              </Route>
-              <Route path="/products">
-                {productCategories &&
-                  productCategories.map((category) => (
-                    <Route path={`/${category.name}`} key={category.name}>
-                      <Products type={`${category.name}`} />
-                      <Route path="/:productId">
-                        <Product />
+          <div id="main-div">
+            <Container id="container" className="py-3">
+              <Routes>
+                <Route path="/">
+                  <Home />
+                </Route>
+                <AdminRoute path="/create">
+                  <CreateProduct />
+                </AdminRoute>
+                <AdminRoute path="/update">
+                  <UpdateProduct />
+                </AdminRoute>
+                <Route path="/search-results">
+                  <SearchResults />
+                </Route>
+                <Route path="/products">
+                  {productCategories &&
+                    productCategories.map((category) => (
+                      <Route path={`/${category.name}`} key={category.name}>
+                        <Products type={`${category.name}`} />
+                        <Route path="/:productId">
+                          <Product />
+                        </Route>
                       </Route>
-                    </Route>
-                  ))}
-              </Route>
+                    ))}
+                </Route>
 
-              <Route path="/forgot-password">
-                <ForgotPassword />
-              </Route>
+                <Route path="/forgot-password">
+                  <ForgotPassword />
+                </Route>
 
-              <Route path="/login">
-                <Login />
-              </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
 
-              <Route path="/logout">
-                <Logout />
-              </Route>
+                <Route path="/logout">
+                  <Logout />
+                </Route>
 
-              <Route path="/signup">
-                <Signup />
-              </Route>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
 
-              <AuthRoute path="/update-profile">
-                <UpdateProfile />
-              </AuthRoute>
+                <AuthRoute path="/update-profile">
+                  <UpdateProfile />
+                </AuthRoute>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Container>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Container>
+          </div>
           <footer id="footer" className="p-2">
             <div>
               This site has no commercial aims and is part of an academic

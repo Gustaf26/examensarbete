@@ -9,14 +9,15 @@ body {
   // background-image: url("https://images.pexels.com/photos/38293/workers-construction-site-hardhats-38293.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
   background-color: rgb(252, 248, 248);
   background-size: 100% 190vh;
+  background-image: url("../images/verkstad.jpg");
 }
 
 #navigation {
-  background-color: rgb(241, 241, 241);
+  background-color: rgba(241, 241, 241, 0.2);
 }
 
 #container {
-  min-height: 150vh;
+  height: 150vh;
 }
 
 h2 {
@@ -30,8 +31,11 @@ h2 {
 
 #logo {
   font-family: "Pacifico", cursive;
-  color: rgb(70, 69, 69);
+  color: rgb(78, 77, 77);
   font-size: xx-large;
+  background-color: rgba(219, 217, 217, 0.5);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 15%;
 }
 
 #basic-navbar-nav {
@@ -41,9 +45,19 @@ h2 {
   flex-wrap: wrap;
 }
 
+#clothes-drop-title,
+#login-link {
+  color: white;
+}
+
+#clothes-drop-title:hover,
+#login-link:hover {
+  color: rgb(80, 79, 79);
+}
+
 .navitem {
-  color: lightgray;
   padding-left: 1rem;
+  color: rgb(212, 209, 209);
 }
 
 .create-button {
@@ -51,23 +65,33 @@ h2 {
 }
 
 .navitem:first-child:hover {
-  color: rgb(38, 1, 247);
   background-color: rgb(224, 229, 230);
   font-style: bold;
   border-radius: 20px 0 0 20px;
 }
 
 .navitem:last-child:hover {
-  color: rgb(38, 1, 247);
   background-color: rgb(224, 229, 230);
   font-style: bold;
   border-radius: 0 20px 20px 0;
+}
+
+#product-search {
+  color: white;
+}
+
+#product-search::placeholder {
+  color: whitesmoke;
 }
 
 #basket-icon {
   font-size: xx-large;
   border: 1px dotted white;
   border-radius: 5px;
+}
+
+#hamburger-icon {
+  color: white;
 }
 
 .main-card {
@@ -121,10 +145,15 @@ h2 {
     max-height: 2rem;
     border-radius: 50;
     background-color: rgb(233, 230, 230);
-    border: 1px dotted grey;
+    border: 1px solid rgb(218, 215, 215);
     margin-top: -30%;
     margin-right: 10%;
     padding-left: 1rem;
+    color: white;
+  }
+
+  #product-search::placeholder {
+    color: whitesmoke;
   }
   #search-icon {
     display: none;
@@ -135,6 +164,7 @@ h2 {
   }
   #hamburger-icon {
     font-size: xx-large;
+    margin-left: 20%;
   }
   .navitem {
     max-width: 80px;
@@ -144,6 +174,9 @@ h2 {
 @media screen and (min-width: 600px) and (max-width: 900px) {
   #product-search {
     margin-right: 1rem;
+  }
+  #hamburger-icon {
+    margin-left: 20%;
   }
 }
 
@@ -159,11 +192,16 @@ h2 {
     max-width: 30vw;
     height: 2.5rem;
     border-radius: 50px;
-    background-color: rgb(233, 230, 230);
-    border: 1px dotted grey;
+    background-color: rgba(233, 230, 230, 0);
+    border: 2px solid rgb(218, 215, 215);
     position: absolute;
     margin-top: -7%;
     right: -3%;
+    color: white;
+  }
+
+  #product-search::placeholder {
+    color: whitesmoke;
   }
 
   #search-icon {
@@ -221,6 +259,7 @@ h2 {
     font-size: x-large;
     color: darkgray;
   }
+
   .navitem .nav-item {
     min-width: 135px;
     // margin-left: -5rem;

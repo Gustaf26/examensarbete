@@ -104,6 +104,7 @@ const Navigation = () => {
                       title="All clothes"
                       id="basic-nav-dropdown"
                       className="ml-3 navitem"
+                      id="clothes-drop-title"
                     >
                       <NavLink
                         to="/products/troussers"
@@ -154,6 +155,7 @@ const Navigation = () => {
                       <NavLink
                         to="/login"
                         className="nav-link signin navitem ml-3"
+                        id="login-link"
                       >
                         Sign In / Register
                       </NavLink>
