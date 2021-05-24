@@ -42,7 +42,7 @@ const Signup = () => {
     <>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <Card>
+          <Card id="signup-form">
             <Card.Body>
               <Card.Title>Sign Up</Card.Title>
 

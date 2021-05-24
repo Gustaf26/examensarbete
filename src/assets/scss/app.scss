@@ -17,7 +17,7 @@ body {
 }
 
 #container {
-  height: 150vh;
+  height: 190vh;
 }
 
 h2 {
@@ -92,6 +92,12 @@ h2 {
 
 #hamburger-icon {
   color: white;
+}
+
+#login-form,
+#signup-form {
+  background-color: rgba(192, 190, 190, 0.7);
+  margin-top: 8vh;
 }
 
 .main-card {
