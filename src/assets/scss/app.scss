@@ -76,6 +76,14 @@ h2 {
   border-radius: 0 20px 20px 0;
 }
 
+#basic-nav-dropdown {
+  color: white;
+}
+
+#basic-nav-dropdown:hover {
+  color: rgb(80, 79, 79);
+}
+
 #product-search {
   color: white;
 }
@@ -95,7 +103,8 @@ h2 {
 }
 
 #login-form,
-#signup-form {
+#signup-form,
+#update-profile-form {
   background-color: rgba(192, 190, 190, 0.7);
   margin-top: 8vh;
 }

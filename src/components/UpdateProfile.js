@@ -72,7 +72,7 @@ const UpdateProfile = () => {
     <>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <Card>
+          <Card id="update-profile-form">
             <Card.Body>
               <Card.Title>Update Profile</Card.Title>
 
