@@ -50,6 +50,20 @@ h2 {
   color: rgb(116, 115, 115);
 }
 
+.navitem:first-child:hover {
+  color: rgb(38, 1, 247);
+  background-color: rgb(224, 229, 230);
+  font-style: bold;
+  border-radius: 20px 0 0 20px;
+}
+
+.navitem:last-child:hover {
+  color: rgb(38, 1, 247);
+  background-color: rgb(224, 229, 230);
+  font-style: bold;
+  border-radius: 0 20px 20px 0;
+}
+
 #basket-icon {
   font-size: xx-large;
   border: 1px dotted white;
@@ -188,8 +202,8 @@ h2 {
     min-width: 20vw;
     height: 3rem;
     border-radius: 50px;
-    background-color: rgb(233, 230, 230);
-    border: 1px dotted grey;
+    background-color: rgba(233, 230, 230, 0);
+    border: 2px solid rgb(218, 215, 215);
     font-style: bold;
     padding-left: 2.5rem;
     padding-top: 0.05rem;
@@ -214,6 +228,7 @@ h2 {
   .navitem.signin {
     min-width: 150px;
   }
+
   footer {
     font-size: x-small;
     max-height: 8vh;
