@@ -149,7 +149,25 @@ h2 {
   -webkit-transition: all 0.5s ease-in-out;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 200px) and (max-width: 490px) {
+  #logo {
+    font-size: xx-small;
+  }
+
+  #product-search {
+    margin-top: 3rem;
+    max-width: 20vw;
+    max-height: 1.5rem;
+    font-size: x-small;
+  }
+
+  #hamburger-icon {
+    font-size: large;
+    margin-left: 2rem;
+  }
+}
+
+@media screen and (min-width: 491px) and (max-width: 600px) {
   .singleCard {
     min-width: 80vw;
   }
