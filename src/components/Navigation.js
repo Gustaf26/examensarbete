@@ -85,7 +85,7 @@ const Navigation = () => {
                     onChange={changeString}
                     type="text"
                     id="product-search"
-                    placeholder="  Search product"
+                    placeholder=" Search product"
                     className="mr-sm-3 ml-5 navitem"
                   />
                   <SearchIcon id="search-icon" />
