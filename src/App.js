@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { db } from "./firebase";
+import { collection, query, getDocs } from "firebase/firestore";
+
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SimpleReactLightbox from "simple-react-lightbox";
+// import SimpleReactLightbox from "simple-react-lightbox";
+import { initLightboxJS } from 'lightbox.js-react'
+import { SlideshowLightbox } from 'lightbox.js-react'
+import 'lightbox.js-react/dist/index.css'
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
 import CreateProduct from "./components/products/CreateProduct";
@@ -26,22 +31,32 @@ const App = () => {
   const { productCategories, setGlobalCategories } = useCreate();
 
   useEffect(() => {
-    db.collection("cloth-categories")
-      .get()
-      .then(function (querySnapshot) {
-        let snapshotCategories = [];
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          snapshotCategories.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+    initLightboxJS("Insert your License Key here", "Insert plan type here");
+    const q = query(collection(db, "cloth-categories"));
+
+    let querySnap;
+
+    let snapshotCategories = []
+    const getData = async () => {
+      querySnap = await getDocs(q)
+
+      querySnap.forEach(function (doc) {
+        // doc.data() is never undefined for query doc snapshots
+        snapshotCategories.push({
+          id: doc.id,
+          ...doc.data(),
         });
-        setGlobalCategories(snapshotCategories);
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
       });
+
+      console.log(snapshotCategories);
+      setGlobalCategories(snapshotCategories);
+
+    }
+
+    getData()
+    // .catch(function (error) {
+    //   console.log("Error getting documents: ", error);
+    // });
   }, []);
 
   const showFooter = (e) => {
@@ -61,7 +76,7 @@ const App = () => {
   return (
     <Router>
       <AuthContextProvider>
-        <SimpleReactLightbox>
+        <SlideshowLightbox>
           <Navigation />
           <div id="main-div">
             <Container id="container" className="py-3">
@@ -130,7 +145,7 @@ const App = () => {
               </a>
             </div>
           </footer>
-        </SimpleReactLightbox>
+        </SlideshowLightbox>
       </AuthContextProvider>
     </Router>
   );

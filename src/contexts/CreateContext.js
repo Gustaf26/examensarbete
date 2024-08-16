@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { db } from "../firebase";
+import { collection, query, getDocs } from "firebase/firestore";
+
 import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
 
@@ -40,11 +42,16 @@ const CreateContextProvider = (props) => {
   useEffect(() => {
     allProducts.current = [];
 
-    productCategories.map((category) => {
-      let snapshotProducts = [];
+    const getProds = () => {
 
-      db.collection(`${category.name}`).onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
+      productCategories.forEach(async (category) => {
+        let snapshotProducts = [];
+
+        const q = query(collection(db, `${category.name}`));
+
+        const querySnap = await getDocs(q);
+
+        querySnap.forEach((doc) => {
           snapshotProducts.push({
             id: doc.id,
             ...doc.data(),
@@ -55,7 +62,7 @@ const CreateContextProvider = (props) => {
         console.log(emptyArr);
 
         if (emptyArr.length > 1) {
-          emptyArr.map((product) => {
+          emptyArr.forEach((product) => {
             allProducts.current.map((prod, index) => {
               //DeLeting stale data from allProducts
               if (
@@ -90,7 +97,11 @@ const CreateContextProvider = (props) => {
 
         snapshotProducts = [];
       });
-    });
+
+    }
+
+    getProds()
+
 
     return () => {
       allProducts.current = [];

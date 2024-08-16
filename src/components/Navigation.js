@@ -13,8 +13,8 @@ import {
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
-import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
-import SearchIcon from "@material-ui/icons/Search";
+import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
+import SearchIcon from "@mui/icons-material/Search";
 import SimpleMenu from "./SimpleMenu";
 
 const Navigation = () => {

@@ -1,5 +1,10 @@
-import firebase from "firebase/app";
-import "firebase/auth";
+
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
+
 import "firebase/firestore";
 import "firebase/storage";
 
@@ -14,16 +19,21 @@ const firebaseConfig = {
   databaseURL: process.env.REACT_APP_DATABASE_URL,
 };
 
-// init firebase
-firebase.initializeApp(firebaseConfig);
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 // get firebase auth instance
-const auth = firebase.auth();
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
 
-// get firebase firestore instance
-const db = firebase.firestore();
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
 
-// get firebase storage instance
-const storage = firebase.storage();
+const storage = getStorage(app, 'gs://recept-65be8.appspot.com');
 
-export { auth, db, storage, firebase as default };
+export { auth, db, storage, app as default };
