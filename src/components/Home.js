@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Breadcrumb, Card } from "react-bootstrap";
 //import { useAuth } from "../contexts/AuthContext";
 
@@ -6,7 +6,7 @@ const Home = () => {
   // const { currentUser } = useAuth();
 
   return (
-    <div>
+    <>
       <Breadcrumb className="mb-3">
         <Breadcrumb.Item active>Home</Breadcrumb.Item>
       </Breadcrumb>
@@ -33,7 +33,7 @@ const Home = () => {
           </Card.Text>
         </Card.Body>
       </Card>
-    </div>
+    </>
   );
 };
 

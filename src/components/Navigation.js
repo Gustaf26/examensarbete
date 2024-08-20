@@ -61,7 +61,7 @@ const Navigation = () => {
   });
 
   return (
-    <div>
+    <>
       <Navbar id="navigation">
         <Container>
           <Row className="py-3 m-left-3 d-flex" id="nav-row">
@@ -80,7 +80,7 @@ const Navigation = () => {
             >
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <Form onSubmit={omitReload} inline>
+                <Form onSubmit={omitReload}>
                   <FormControl
                     onChange={changeString}
                     type="text"
@@ -104,7 +104,7 @@ const Navigation = () => {
                       title="All clothes"
                       id="basic-nav-dropdown"
                       className="ml-3 navitem"
-                      id="clothes-drop-title"
+                    // id="clothes-drop-title"
                     >
                       <NavLink
                         to="/products/troussers"
@@ -168,7 +168,7 @@ const Navigation = () => {
           </Row>
         </Container>
       </Navbar>
-    </div>
+    </>
   );
 };
 

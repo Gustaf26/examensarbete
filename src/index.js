@@ -6,8 +6,8 @@ import "./assets/scss/app.scss";
 
 
 const root = createRoot(document.getElementById("root"))
-root.render(<React.StrictMode>
+root.render(
   <CreateContextProvider>
     <App />
   </CreateContextProvider>
-</React.StrictMode>)
+)
