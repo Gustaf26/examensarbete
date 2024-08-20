@@ -1,36 +1,41 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { useCreate } from "../contexts/CreateContext";
+// import { useCreate } from "../contexts/CreateContext";
 
 const Signup = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
+  // const emailRef = useRef();
+  // const passwordRef = useRef();
+  // const passwordConfirmRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
-  const { setCurrentPassword } = useCreate();
+  // const { setCurrentPassword } = useCreate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let email = e.target[0].value
+    let passOne = e.target[1].value
+    let passTwo = e.target[2].value
+
+
     // make sure user has entered the same password in both input fields
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+    if (passOne !== passTwo) {
       setError("The passwords does not match");
       return;
     }
 
-    setCurrentPassword(passwordRef.current.value);
+    // setCurrentPassword(passwordRef.current.value);
 
     setError(null);
 
     try {
       // try to sign up the user with the specified credentials
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(email, passOne);
       navigate("/");
     } catch (e) {
       setError(e.message);
@@ -51,19 +56,19 @@ const Signup = () => {
               <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" ref={emailRef} required />
+                  <Form.Control type="email" name='emailRef' required />
                 </Form.Group>
 
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" ref={passwordRef} required />
+                  <Form.Control type="password" name='passwordRef' required />
                 </Form.Group>
 
                 <Form.Group id="password-confirm">
                   <Form.Label>Password Confirmation</Form.Label>
                   <Form.Control
                     type="password"
-                    ref={passwordConfirmRef}
+                    name='passwordConfirmRef'
                     required
                   />
                 </Form.Group>

@@ -3,7 +3,7 @@ import { db } from "./firebase";
 import { collection, query, getDocs } from "firebase/firestore";
 
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 // import SimpleReactLightbox from "simple-react-lightbox";
 // import { initLightboxJS } from 'lightbox.js-react'
 // import { SlideshowLightbox } from 'lightbox.js-react'
@@ -22,13 +22,15 @@ import Navigation from "./components/Navigation";
 import SearchResults from "./components/products/SearchResults";
 import NotFound from "./components/NotFound";
 import Signup from "./components/Signup";
-// import UpdateProfile from "./components/UpdateProfile";
-import AuthContextProvider from "./contexts/AuthContext";
+import UpdateProfile from "./components/UpdateProfile";
+// import AuthContextProvider from "./contexts/AuthContext";
 import { useCreate } from "./contexts/CreateContext";
+import { useAuth } from './contexts/AuthContext'
 import "./assets/scss/app.scss";
 
 const App = () => {
   const { productCategories, setGlobalCategories } = useCreate();
+  const { admin, currentUser } = useAuth();
 
   useEffect(() => {
     // initLightboxJS("Insert your License Key here", "Insert plan type here");
@@ -75,51 +77,47 @@ const App = () => {
 
   return (
     <Router>
-      <AuthContextProvider>
-        <Navigation />
-        <div id="main-div">
-          <Container id="container" className="py-3">
-            <Routes>
-              <Route index to="/*" element={<Home />} />
-              <Route path="create" element={<CreateProduct />} />
-              <Route path="update" element={<UpdateProduct />} />
-              <Route path="search-results" element={<SearchResults />} />
-              <Route path="/products/*">
-                {productCategories &&
-                  productCategories.map((category, i) => (
-                    <>
-                      <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
-                      <Route path={`:productId`} element={<Product />} />
-                    </>))}
-              </Route>
-              <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="login" element={<Login />} />
-              <Route path="logout" element={<Logout />} />
-              <Route path="signup" element={<Signup />} />
-              {/* <AuthRoute path="/update-profile">
-                    <UpdateProfile />
-                  </AuthRoute> */}
-              <Route to="*" element={<NotFound />} />
-            </Routes>
-          </Container>
+      <Navigation />
+      <div id="main-div">
+        <Container id="container" className="py-3">
+          <Routes>
+            <Route index to="/*" element={<Home />} />
+            <Route path="create" element={<CreateProduct />} />
+            <Route path="update" element={<UpdateProduct />} />
+            <Route path="search-results" element={<SearchResults />} />
+            <Route path="/products/*">
+              {productCategories &&
+                productCategories.map((category, i) => (
+                  <>
+                    <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
+                    <Route path={`${category.name}/:productId`} element={<Product />} />
+                  </>))}
+            </Route>
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="login" element={<Login />} />
+            <Route path="logout" element={<Logout />} />
+            <Route path="signup" element={<Signup />} />
+            {(admin || currentUser) && <Route path="/update-profile" element={<UpdateProfile />} />}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Container>
+      </div>
+      <footer id="footer" className="p-2">
+        <div>
+          This site has no commercial aims and is part of an academic
+          development-project.
         </div>
-        <footer id="footer" className="p-2">
-          <div>
-            This site has no commercial aims and is part of an academic
-            development-project.
-          </div>
-          <div>
-            Prices and articles are not intended to have a real correspondence
-            with same articles in other "real websites"
-          </div>
-          <div>
-            If you are interested in these articles we recommend you to visit{" "}
-            <a href="https://www.siteking.co.uk">
-              https://www.siteking.co.uk/
-            </a>
-          </div>
-        </footer>
-      </AuthContextProvider>
+        <div>
+          Prices and articles are not intended to have a real correspondence
+          with same articles in other "real websites"
+        </div>
+        <div>
+          If you are interested in these articles we recommend you to visit{" "}
+          <a href="https://www.siteking.co.uk">
+            https://www.siteking.co.uk/
+          </a>
+        </div>
+      </footer>
     </Router >
   );
 };

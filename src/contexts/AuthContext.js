@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+// import { auth } from "../firebase";
 import { BounceLoader } from "react-spinners";
+import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+
 
 const AuthContext = createContext();
 
@@ -12,22 +14,55 @@ const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState(false);
+  const auth = getAuth();
+
 
   const login = (email, password) => {
-    return auth.signInWithEmailAndPassword(email, password);
+
+    let userLoggingIn;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        userLoggingIn = userCredential.user;
+        return userLoggingIn
+        // ...
+      })
+      .catch((error) => {
+        console.log(error)
+      });
   };
 
   const logout = () => {
     setAdmin(false);
-    return auth.signOut();
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      setCurrentUser(null)
+    }).catch((error) => {
+      // An error happened.
+      console.log(error)
+    });
   };
 
   const resetPassword = (email) => {
-    return auth.sendPasswordResetEmail(email);
+    return sendPasswordResetEmail(email);
   };
 
   const signup = (email, password) => {
-    return auth.createUserWithEmailAndPassword(email, password);
+
+    let newUser;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up 
+        newUser = userCredential.user;
+        return newUser;
+      })
+      .catch((error) => {
+        console.log(error)
+      }
+      )
+
   };
 
   const updateEmail = (email) => {

@@ -7,9 +7,8 @@
 
 body {
   background-color: rgb(252, 248, 248);
-  background-size: auto;
-  background-image: url("../images/verkstad.jpg");
-  background-repeat: no-repeat !important;
+  padding: 0;
+  margin: 0;
 }
 
 #navigation {
@@ -17,7 +16,13 @@ body {
 }
 
 #container {
-  height: 190vh;
+  height: fit-content;
+  min-height: 100vh;
+  width: 100vw;
+  background-size: auto;
+  // background-image: url("../images/verkstad.jpg");
+  // background-repeat: no-repeat !important;
+  // object-fit: cover;
 }
 
 h2 {
@@ -179,9 +184,11 @@ h2 {
   .singleCard {
     min-width: 80vw;
   }
+
   #logo {
     font-size: large;
   }
+
   #product-search {
     max-width: 20vw;
     max-height: 2rem;
@@ -198,17 +205,21 @@ h2 {
   #product-search::placeholder {
     color: whitesmoke;
   }
+
   #search-icon {
     display: none;
   }
+
   #basic-navbar-nav {
     margin-left: -9vw;
     flex-wrap: wrap;
   }
+
   #hamburger-icon {
     font-size: xx-large;
     margin-left: 20%;
   }
+
   .navitem {
     max-width: 80px;
   }
@@ -219,9 +230,11 @@ h2 {
     margin-top: -1.5rem;
     margin-right: 1rem;
   }
+
   #hamburger-icon {
     margin-left: 20%;
   }
+
   #logo {
     font-size: large;
   }
@@ -232,6 +245,7 @@ h2 {
     margin: 1rem 0 1rem 0;
     font-size: medium;
   }
+
   #logo {
     margin-left: 7vw;
   }
@@ -243,6 +257,7 @@ h2 {
   #search-icon {
     display: none;
   }
+
   #custom-menu {
     position: absolute;
     margin-left: 70vw;
@@ -250,6 +265,7 @@ h2 {
     margin-right: 0;
     margin-top: -10%;
   }
+
   #basic-navbar-nav {
     flex-wrap: nowrap;
     margin-right: 0;
@@ -272,6 +288,7 @@ h2 {
     background-size: auto;
     background-repeat: repeat;
   }
+
   #logo {
     margin-left: 5vw;
   }
@@ -287,12 +304,14 @@ h2 {
     right: -3%;
     color: white;
   }
+
   #basic-navbar-nav {
     flex-wrap: nowrap;
     margin-right: 0;
     margin-left: 10px;
     width: 40vw;
   }
+
   #search-icon {
     // position: absolute;
     // margin-top: 0.1rem;
@@ -306,6 +325,7 @@ h2 {
     min-width: 135px;
     // margin-left: -5rem;
   }
+
   .navitem.signin {
     min-width: 150px;
   }

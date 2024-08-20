@@ -15,6 +15,7 @@ const Product = () => {
     setLocation,
     setProdId,
   } = useCreate();
+
   const { admin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,7 +36,7 @@ const Product = () => {
   const handleDeleteProduct = (product) => {
     try {
       const deletion = async () => {
-        console.log("ddeleteing " + product.name + "of" + productOption);
+        console.log("deleteing " + product.name + "of" + productOption);
 
         db.collection(`${productOption}`).doc(`${product.id}`).delete();
 

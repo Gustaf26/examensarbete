@@ -14,7 +14,7 @@ const Products = ({ type }) => {
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
-        <Breadcrumb.Item active>{type}</Breadcrumb.Item>
+        <span>{type}</span>
       </Breadcrumb>
 
       {loading ? (
