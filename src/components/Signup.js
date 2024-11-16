@@ -35,7 +35,11 @@ const Signup = () => {
     try {
       // try to sign up the user with the specified credentials
       setLoading(true);
-      await signup(email, passOne);
+      let message = await signup(email, passOne);
+      if (message.error) {
+        alert(error)
+        navigate('/signup')
+      }
       navigate("/");
     } catch (e) {
       setError(e.message);

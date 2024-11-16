@@ -34,35 +34,32 @@ const App = () => {
 
   useEffect(() => {
     // initLightboxJS("Insert your License Key here", "Insert plan type here");
-    const q = query(collection(db, "cloth-categories"));
-
-    let querySnap;
-
     let snapshotCategories = []
-    const getData = async () => {
-      querySnap = await getDocs(q)
+    const getProds = async () => {
 
-      querySnap.forEach(function (doc) {
-        // doc.data() is never undefined for query doc snapshots
-        snapshotCategories.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
 
-      console.log(snapshotCategories);
-      setGlobalCategories(snapshotCategories);
+      await fetch('http://127.0.0.1:8000/products/view_cats')
+        .then(res => res.json())
+        .then(res => {
+          let querySnap = res.categories
 
+          querySnap.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            snapshotCategories.push(
+              doc.data);
+            console.log(doc)
+          });
+          setGlobalCategories(snapshotCategories);
+        })
+        .catch(err => console.log(err))
     }
 
-    getData()
-    // .catch(function (error) {
-    //   console.log("Error getting documents: ", error);
-    // });
+    getProds()
+
   }, []);
 
   const showFooter = (e) => {
-    if (document.documentElement && document.documentElement.scrollTop > 200) {
+    if (document.documentElement && document.documentElement.scrollTop > 100) {
       document.getElementById("footer").className = "show";
     } else {
       document.getElementById("footer").className = "";
@@ -85,7 +82,7 @@ const App = () => {
             <Route path="create" element={<CreateProduct />} />
             <Route path="update" element={<UpdateProduct />} />
             <Route path="search-results" element={<SearchResults />} />
-            <Route path="/products/*">
+            <Route path="products/*">
               {productCategories &&
                 productCategories.map((category, i) => (
                   <>

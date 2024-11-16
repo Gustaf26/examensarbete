@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth, currentUser } from "../contexts/AuthContext";
 
 const Logout = () => {
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
       localStorage.removeItem("currentPass");
-      await logout();
+      await logout(currentUser.email);
       navigate("/login");
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

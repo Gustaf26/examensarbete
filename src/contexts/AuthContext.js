@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import { auth } from "../firebase";
 import { BounceLoader } from "react-spinners";
-import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, signOut, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 
 const AuthContext = createContext();
@@ -16,52 +15,65 @@ const AuthContextProvider = (props) => {
   const [admin, setAdmin] = useState(false);
   const auth = getAuth();
 
+  const login = async (email, password) => {
 
-  const login = (email, password) => {
+    let userEmail;
 
-    let userLoggingIn;
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        userLoggingIn = userCredential.user;
-        return userLoggingIn
-        // ...
+    await fetch('http://127.0.0.1:8000/auth/sign-in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.email) {
+          userEmail = res.email
+        }
       })
-      .catch((error) => {
-        console.log(error)
-      });
+      .catch(err => console.log(err))
+
+    return userEmail
   };
 
-  const logout = () => {
-    setAdmin(false);
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      setCurrentUser(null)
-    }).catch((error) => {
-      // An error happened.
-      console.log(error)
-    });
+  const logout = async (email) => {
+
+    await fetch('http://127.0.0.1:8000/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res) {
+          setAdmin(false);
+          setCurrentUser(null)
+        }
+      })
+      .catch(err => console.log(err))
   };
 
   const resetPassword = (email) => {
     return sendPasswordResetEmail(email);
   };
 
-  const signup = (email, password) => {
+  const signup = async (email, password) => {
 
-    let newUser;
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up 
-        newUser = userCredential.user;
-        return newUser;
+    await fetch('http://127.0.0.1:8000/auth/sign-in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        return res
       })
-      .catch((error) => {
-        console.log(error)
-      }
-      )
+      .catch(err => console.log(err))
 
   };
 
@@ -114,6 +126,7 @@ const AuthContextProvider = (props) => {
     updatePassword,
     updateProfile,
     checkIfAdmin,
+    setCurrentUser
   };
 
   return (

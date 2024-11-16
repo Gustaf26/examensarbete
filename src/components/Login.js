@@ -1,55 +1,70 @@
-import firebaseLocalStorage from "../firebase";
-import React, { useRef, useState } from "react";
+// import firebaseLocalStorage from "../firebase";
+import React, { useRef, useState, useEffect } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { useCreate } from "../contexts/CreateContext";
+// import { useCreate } from "../contexts/CreateContext";
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { login, checkIfAdmin, setAdmin } = useAuth();
+  const { login, checkIfAdmin, setAdmin, currentUser, setCurrentUser } = useAuth();
   const [adminChecked, setChecked] = useState(false);
   const [alert, setAlert] = useState(false);
   const [adminAlert, setAdminAlert] = useState(false);
   const navigate = useNavigate();
-  const { setCurrentPassword } = useCreate();
+
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      navigate("/");
+    }
+
+  }, [currentUser])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+    let email = e.target[0].value
+    let passOne = e.target[1].value
+    let admin = e.target[2].checked
+
     setError(null);
 
-    setCurrentPassword(passwordRef.current.value);
-    localStorage.setItem("currentPass", passwordRef.current.value);
-
-    try {
-      // try to log in the user with the specified credentials
-      setLoading(true);
-      if (adminChecked === true) {
-        const adminBoolean = checkIfAdmin(emailRef.current.value);
-        if (adminBoolean === false) {
-          setAlert(true);
-          setLoading(false);
-          return;
-        } else {
-          setAlert(false);
-        }
-      } else if (adminChecked === false) {
-        const adminBoolean = checkIfAdmin(emailRef.current.value);
-        if (adminBoolean === true) {
-          setAdminAlert(true);
-          setLoading(false);
-          return;
-        } else {
-          setAdminAlert(false);
-        }
+    // try to log in the user with the specified credentials
+    setLoading(true);
+    if (admin) {
+      const adminBoolean = checkIfAdmin(email);
+      if (adminBoolean === false) {
+        setAlert(true);
+        setLoading(false);
+        return;
+      } else {
+        setAlert(false);
       }
-      await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
-    } catch (e) {
+    } else if (adminChecked === false) {
+      const adminBoolean = checkIfAdmin(email);
+      if (adminBoolean === true) {
+        setAdminAlert(true);
+        setLoading(false);
+        return;
+      } else {
+        setAdminAlert(false);
+      }
+    }
+    const userEmail = await login(email, passOne);
+    console.log(userEmail)
+    if (userEmail) {
+      setCurrentUser({ email: userEmail })
+      setError(null)
+      setLoading(false)
+      navigate('/products/troussers')
+      return
+    }
+    else {
       setError(
         "Could not log in. Please check your email address and your password."
       );
@@ -99,7 +114,7 @@ const Login = () => {
                     onChange={() => setChecked(!adminChecked)}
                   />
                 </Form.Group>
-                <Button disabled={loading} type="submit">
+                <Button type="submit">
                   Log In
                 </Button>
               </Form>

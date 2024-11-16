@@ -1,7 +1,4 @@
-import { useEffect, useState, useRef } from "react";
-import { collection, query, onSnapshot } from "firebase/firestore";
-
-import { db } from "../firebase";
+import { useEffect, useState } from "react";
 
 
 const useProducts = (type) => {
@@ -9,28 +6,31 @@ const useProducts = (type) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    products.current = [];
-    // register a snapshot-listener on firestore for all available albums
 
-    let unsubscribe;
-
-    const q = query(collection(db, `${type}`));
-    unsubscribe = onSnapshot(q, (querySnapshot) => {
-      setLoading(true);
-      let snapshotProducts = [];
-      querySnapshot.forEach((doc) => {
-        snapshotProducts.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-
-      setProducts([...snapshotProducts]);
-      setLoading(false);
-    });
+    let snapshotProducts = []
+    const getProds = async () => {
 
 
-    return unsubscribe;
+      await fetch(`http://127.0.0.1:8000/products/category/${type}`)
+        .then(res => res.json())
+        .then(res => {
+          let querySnap = res.products
+
+          querySnap.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            snapshotProducts.push(
+              doc.data);
+            setProducts([...snapshotProducts]);
+            setLoading(false);
+          });
+
+        })
+        .catch(err => console.log(err))
+    }
+
+    getProds()
+
+
   }, [type]);
 
   return { products: products, loading };

@@ -1,6 +1,4 @@
-import { useRef } from "react";
-import { db } from "../firebase";
-import { collection, query, getDocs } from "firebase/firestore";
+
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
@@ -17,7 +15,7 @@ const CreateContextProvider = (props) => {
   const [productOption, setProductOption] = useState(null);
   const [singleProduct, setSingleProduct] = useState("");
   const [productCategories, setGlobalCategories] = useState([]);
-  const allProducts = useRef([]);
+  const [allProducts, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
   const [location, setLocation] = useState("");
@@ -40,77 +38,70 @@ const CreateContextProvider = (props) => {
   };
 
   useEffect(() => {
-    allProducts.current = [];
+    let snapshotProducts = [];
+    productCategories.forEach(async (category) => {
 
-    const getProds = () => {
+      await fetch(`http://127.0.0.1:8000/products/category/${category.name}`)
+        .then(res => res.json())
+        .then(res => {
+          let querySnap = res.products
 
-      productCategories.forEach(async (category) => {
-        let snapshotProducts = [];
+          querySnap.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            snapshotProducts.push(
+              doc.data);
+            let emptyArr;
+            emptyArr = [...snapshotProducts];
+            console.log(emptyArr);
 
-        const q = query(collection(db, `${category.name}`));
+            if (emptyArr?.length > 1) {
+              emptyArr.forEach((product) => {
+                emptyArr.map((prod, index) => {
+                  //DeLeting stale data from allProducts
+                  if (
+                    product.category &&
+                    prod.category.toLowerCase() === product.category.toLowerCase()
+                  ) {
+                    emptyArr.splice(index, 1);
+                  }
 
-        const querySnap = await getDocs(q);
+                  if (prod.name === product.name) {
+                    emptyArr.splice(index, 1);
+                  }
+                });
+              });
+            }
 
-        querySnap.forEach((doc) => {
-          snapshotProducts.push({
-            id: doc.id,
-            ...doc.data(),
+
+            // Getting search string from local Storage on reload in search-results-route when all products available
+            if (
+              emptyArr.length > 10 &&
+              location === "/search-results" &&
+              searchString === ""
+            ) {
+              setSearchString(JSON.parse(window.localStorage.getItem("search")));
+            }
+
+            // Function to fetch product when routing to /products/{category}/:productId
+            if (prodId) {
+              getSingleProduct();
+            }
+
+            setProducts(prev => [prev, ...emptyArr])
           });
-        });
-        let emptyArr;
-        emptyArr = [...snapshotProducts];
-        console.log(emptyArr);
-
-        if (emptyArr.length > 1) {
-          emptyArr.forEach((product) => {
-            allProducts.current.map((prod, index) => {
-              //DeLeting stale data from allProducts
-              if (
-                product.category &&
-                prod.category.toLowerCase() === product.category.toLowerCase()
-              ) {
-                allProducts.current.splice(index, 1);
-              }
-
-              if (prod.name === product.name) {
-                allProducts.current.splice(index, 1);
-              }
-            });
-          });
-        }
-
-        allProducts.current.push(...emptyArr);
-
-        // Getting search string from local Storage on reload in search-results-route when all products available
-        if (
-          allProducts.current.length > 10 &&
-          location === "/search-results" &&
-          searchString === ""
-        ) {
-          setSearchString(JSON.parse(window.localStorage.getItem("search")));
-        }
-
-        // Function to fetch product when routing to /products/{category}/:productId
-        if (prodId) {
-          getSingleProduct();
-        }
-
-        snapshotProducts = [];
-      });
-
-    }
-
-    getProds()
-
+          setLoading(false);
+        })
+        .catch(err => console.log(err))
+    })
 
     return () => {
-      allProducts.current = [];
+      snapshotProducts = [];
     };
   }, [productCategories, prodId]);
 
   useEffect(() => {
-    if (allProducts.current.length && searchString !== "") {
-      allProducts.current.map((product) => {
+    if (allProducts.length && searchString !== "") {
+      allProducts.map((product) => {
         if (
           (product.name &&
             product.name.toLowerCase().includes(searchString.toLowerCase())) ||
