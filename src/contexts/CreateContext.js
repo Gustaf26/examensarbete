@@ -52,26 +52,15 @@ const CreateContextProvider = (props) => {
               doc.data);
             let emptyArr;
             emptyArr = [...snapshotProducts];
+
+
+            // Deleting duplicates from snapshots data
+            snapshotProducts.forEach((prod) => {
+              if (!emptyArr.includes(prod)) {
+                emptyArr.push(prod)
+              }
+            })
             console.log(emptyArr);
-
-            if (emptyArr?.length > 1) {
-              emptyArr.forEach((product) => {
-                emptyArr.map((prod, index) => {
-                  //DeLeting stale data from allProducts
-                  if (
-                    product.category &&
-                    prod.category.toLowerCase() === product.category.toLowerCase()
-                  ) {
-                    emptyArr.splice(index, 1);
-                  }
-
-                  if (prod.name === product.name) {
-                    emptyArr.splice(index, 1);
-                  }
-                });
-              });
-            }
-
 
             // Getting search string from local Storage on reload in search-results-route when all products available
             if (
@@ -87,7 +76,7 @@ const CreateContextProvider = (props) => {
               getSingleProduct();
             }
 
-            setProducts(prev => [prev, ...emptyArr])
+            setProducts([...emptyArr])
           });
           setLoading(false);
         })
