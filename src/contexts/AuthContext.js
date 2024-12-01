@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
-import { getAuth, signOut, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 
 const AuthContext = createContext();
@@ -15,9 +15,24 @@ const AuthContextProvider = (props) => {
   const [admin, setAdmin] = useState(false);
   const auth = getAuth();
 
-  const login = async (email, password) => {
+  // const generateToken = async () => {
 
-    let userEmail;
+  //   await fetch('http://127.0.0.1:8000/auth/generate-token', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       if (res) {
+  //         console.log(res)
+  //       }
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
+  const login = async (email, password) => {
 
     await fetch('http://127.0.0.1:8000/auth/sign-in', {
       method: 'POST',
@@ -28,13 +43,13 @@ const AuthContextProvider = (props) => {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.email) {
-          userEmail = res.email
+        if (res) {
+          setCurrentUser({ email: res.email, uid: res.localId })
         }
+        console.log(res)
       })
       .catch(err => console.log(err))
 
-    return userEmail
   };
 
   const logout = async (email) => {
@@ -77,19 +92,31 @@ const AuthContextProvider = (props) => {
 
   };
 
-  const updateEmail = (email) => {
-    return auth.currentUser.updateEmail(email);
+  const updateProfileData = async (email, password, display_name) => {
+
+    await fetch('http://127.0.0.1:8000/auth/update-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ uid: currentUser.uid, email, password, display_name }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        return res
+      })
+      .catch(err => console.log(err))
   };
 
-  const updatePassword = (password) => {
-    return auth.currentUser.updatePassword(password);
-  };
+  // const updatePassword = (password) => {
+  //   return auth.currentUser.updatePassword(password);
+  // };
 
-  const updateProfile = (name) => {
-    return auth.currentUser.updateProfile({
-      displayName: name,
-    });
-  };
+  // const updateProfile = (name) => {
+  //   return auth.currentUser.updateProfile({
+  //     displayName: name,
+  //   });
+  // };
 
   const checkIfAdmin = (email) => {
     if (email.trim() === "gcs26@yahoo.com") {
@@ -112,7 +139,14 @@ const AuthContextProvider = (props) => {
     });
 
     return unsubscribe;
-  }, []);
+  }, [auth]);
+
+  // useEffect(() => {
+  //   const token = generateToken()
+  //   if (token?.token) {
+  //     localStorage.setItem(JSON.stringify({ token: token.token }))
+  //   }
+  // }, [])
 
   const contextValues = {
     currentUser,
@@ -122,9 +156,7 @@ const AuthContextProvider = (props) => {
     logout,
     resetPassword,
     signup,
-    updateEmail,
-    updatePassword,
-    updateProfile,
+    updateProfileData,
     checkIfAdmin,
     setCurrentUser
   };

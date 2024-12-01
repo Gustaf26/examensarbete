@@ -55,10 +55,9 @@ const Login = () => {
         setAdminAlert(false);
       }
     }
-    const userEmail = await login(email, passOne);
-    console.log(userEmail)
-    if (userEmail) {
-      setCurrentUser({ email: userEmail })
+    const user = await login(email, passOne);
+    console.log(user)
+    if (user) {
       setError(null)
       setLoading(false)
       navigate('/products/troussers')
