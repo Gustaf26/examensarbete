@@ -44,7 +44,7 @@ const AuthContextProvider = (props) => {
       .then(res => res.json())
       .then(res => {
         if (res) {
-          setCurrentUser({ email: res.email, uid: res.localId })
+          setCurrentUser({ email: res.email, uid: res.uid })
         }
         console.log(res)
       })
@@ -103,7 +103,7 @@ const AuthContextProvider = (props) => {
     })
       .then(res => res.json())
       .then(res => {
-        return res
+        return res.msg
       })
       .catch(err => console.log(err))
   };

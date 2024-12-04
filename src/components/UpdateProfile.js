@@ -37,7 +37,7 @@ const UpdateProfile = () => {
 
       console.log(msg)
       // profit!
-      setMessage("Profile successfully updated");
+      setMessage(msg.msg);
       setLoading(false);
     } catch (e) {
       setError(e.err);
