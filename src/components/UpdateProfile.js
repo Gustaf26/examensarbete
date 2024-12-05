@@ -1,60 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { useCreate } from "../contexts/CreateContext";
 
 const UpdateProfile = () => {
   const { updateProfileData } = useAuth();
-  // const [displayNameRef, setNameRef] = useState("");
-  // const [passwordRef, setPassRef] = useState("");
-  // const [passwordConfirmRef, setPassConfirmRef] = useState("");
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
-  // const [emailRef, setEmailRef] = useState(currentUser.email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError(null);
-    const updateTasks = [];
+    // disable update-button while updating is in progress
+    setLoading(true);
 
-    try {
-      // disable update-button while updating is in progress
-      setLoading(true);
+    let name = e.target[0].value
+    let mail = e.target[1].value
+    let password1 = e.target[2].value
+    let password2 = e.target[3].value
 
-      let name = e.target[0].value
-      let mail = e.target[1].value
-      let password1 = e.target[2].value
-      let password2 = e.target[3].value
-
-      if (password1 !== password2) {
-        throw Error({ err: 'passwords don´t match' })
-      }
-
-      const msg = updateProfileData(mail, password1, name)
-
-      console.log(msg)
-      // profit!
-      setMessage(msg.msg);
-      setLoading(false);
-    } catch (e) {
-      setError(e.err);
-      setLoading(false);
+    if (password1 !== password2) {
+      setError('Passwords don´t match')
+      return
     }
-  };
 
-  // useEffect(() => {
-  //   let passwordInStorage = localStorage.getItem("currentPass");
-  //   if (currentPassword) {
-  //     setPassRef(currentPassword);
-  //     setPassConfirmRef(currentPassword);
-  //   } else if (passwordInStorage) {
-  //     setCurrentPassword(passwordInStorage);
-  //   }
-  // }, []);
 
+    // profit!
+    const msg = await updateProfileData(mail, password1, name)
+    if (msg.error) setError(msg.error)
+    else setMessage(msg.msg)
+
+    setLoading(false);
+
+  }
   return (
     <>
       <Row>
@@ -66,12 +46,12 @@ const UpdateProfile = () => {
               {error && <Alert variant="danger">{error}</Alert>}
               {message && <Alert variant="success">{message}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} onChange={() => { setMessage(''); setError(null); setLoading(false) }}>
                 <Form.Group id="displayName">
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    defaultValue={currentUser.displayName}
+                    defaultValue={currentUser.display_name}
                   />
                 </Form.Group>
 

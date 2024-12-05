@@ -86,7 +86,7 @@ const Login = () => {
               <Card.Title>Log In</Card.Title>
 
               {error && <Alert variant="danger">{error}</Alert>}
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control

@@ -80,10 +80,10 @@ const CreateProduct = () => {
     }
   };
 
-  useEffect(() => {
-    setProductOption("troussers");
-    setImageUrl("");
-  }, []);
+  // useEffect(() => {
+  //   setProductOption("troussers");
+  //   setImageUrl("");
+  // }, []);
 
   return (
     <>

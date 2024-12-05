@@ -79,8 +79,8 @@ const App = () => {
         <Container id="container" className="py-3">
           <Routes>
             <Route index to="/*" element={<Home />} />
-            <Route path="create" element={<CreateProduct />} />
-            <Route path="update" element={<UpdateProduct />} />
+            {admin && <Route path="create" element={<CreateProduct />} />}
+            {admin && <Route path="update" element={<UpdateProduct />} />}
             <Route path="search-results" element={<SearchResults />} />
             <Route path="products/*">
               {productCategories &&

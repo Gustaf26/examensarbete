@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+// import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 
 const AuthContext = createContext();
@@ -13,24 +13,7 @@ const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState(false);
-  const auth = getAuth();
-
-  // const generateToken = async () => {
-
-  //   await fetch('http://127.0.0.1:8000/auth/generate-token', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       if (res) {
-  //         console.log(res)
-  //       }
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+  // const auth = getAuth();
 
   const login = async (email, password) => {
 
@@ -44,7 +27,7 @@ const AuthContextProvider = (props) => {
       .then(res => res.json())
       .then(res => {
         if (res) {
-          setCurrentUser({ email: res.email, uid: res.uid })
+          setCurrentUser({ email: res.email, uid: res.uid, display_name: res.display_name, token: res.token })
         }
         console.log(res)
       })
@@ -71,9 +54,9 @@ const AuthContextProvider = (props) => {
       .catch(err => console.log(err))
   };
 
-  const resetPassword = (email) => {
-    return sendPasswordResetEmail(email);
-  };
+  // const resetPassword = (email) => {
+  //   return sendPasswordResetEmail(email);
+  // };
 
   const signup = async (email, password) => {
 
@@ -94,7 +77,7 @@ const AuthContextProvider = (props) => {
 
   const updateProfileData = async (email, password, display_name) => {
 
-    await fetch('http://127.0.0.1:8000/auth/update-user', {
+    let message = await fetch('http://127.0.0.1:8000/auth/update-user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,20 +86,17 @@ const AuthContextProvider = (props) => {
     })
       .then(res => res.json())
       .then(res => {
-        return res.msg
+        if (res.msg !== "") {
+          setCurrentUser((prev) => { return { ...prev, email: res.email, uid: res.uid, display_name: res.display_name } })
+        }
+        return { msg: res.msg, error: res.error }
       })
-      .catch(err => console.log(err))
+      .finally(res => { return res })
+      .catch(err => err)
+
+    if (message) return message
   };
 
-  // const updatePassword = (password) => {
-  //   return auth.currentUser.updatePassword(password);
-  // };
-
-  // const updateProfile = (name) => {
-  //   return auth.currentUser.updateProfile({
-  //     displayName: name,
-  //   });
-  // };
 
   const checkIfAdmin = (email) => {
     if (email.trim() === "gcs26@yahoo.com") {
@@ -129,24 +109,19 @@ const AuthContextProvider = (props) => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      // auth state changed (by a user either logging in or out)
-      setCurrentUser(user);
-      if (user) {
-        checkIfAdmin(user.email);
-      }
-      setLoading(false);
-    });
+    // const unsubscribe = auth.onAuthStateChanged((user) => {
+    //   // auth state changed (by a user either logging in or out)
+    //   setCurrentUser(user);
+    //   if (user) {
+    //     checkIfAdmin(user.email);
+    //   }
+    //   setLoading(false);
+    // });
 
-    return unsubscribe;
-  }, [auth]);
+    // return unsubscribe;
+    setLoading(false);
+  }, [currentUser]);
 
-  // useEffect(() => {
-  //   const token = generateToken()
-  //   if (token?.token) {
-  //     localStorage.setItem(JSON.stringify({ token: token.token }))
-  //   }
-  // }, [])
 
   const contextValues = {
     currentUser,
@@ -154,7 +129,7 @@ const AuthContextProvider = (props) => {
     admin,
     login,
     logout,
-    resetPassword,
+    // resetPassword,
     signup,
     updateProfileData,
     checkIfAdmin,
