@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
-// import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-
 
 const AuthContext = createContext();
 
@@ -13,7 +11,6 @@ const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState(false);
-  // const auth = getAuth();
 
   const login = async (email, password) => {
 
@@ -28,8 +25,8 @@ const AuthContextProvider = (props) => {
       .then(res => {
         if (res) {
           setCurrentUser({ email: res.email, uid: res.uid, display_name: res.display_name, token: res.token })
+          console.log(res)
         }
-        console.log(res)
       })
       .catch(err => console.log(err))
 
@@ -117,6 +114,8 @@ const AuthContextProvider = (props) => {
     //   }
     //   setLoading(false);
     // });
+
+
 
     // return unsubscribe;
     setLoading(false);

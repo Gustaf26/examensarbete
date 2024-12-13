@@ -1,19 +1,16 @@
 import React, { useEffect } from "react";
-import { db } from "./firebase";
-import { collection, query, getDocs } from "firebase/firestore";
+// import { db } from "./firebase";
+// import { collection, query, getDocs } from "firebase/firestore";
 
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-// import SimpleReactLightbox from "simple-react-lightbox";
-// import { initLightboxJS } from 'lightbox.js-react'
-// import { SlideshowLightbox } from 'lightbox.js-react'
+
 import 'lightbox.js-react/dist/index.css'
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
 import CreateProduct from "./components/products/CreateProduct";
 import UpdateProduct from "./components/products/UpdateProduct";
-// import AuthRoute from "./components/AuthRoute";
-// import AdminRoute from "./components/AdminRoute";
+import CMSNav from './cms_components/CMSNav'
 import ForgotPassword from "./components/ForgotPassword";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -74,7 +71,7 @@ const App = () => {
 
   return (
     <Router>
-      <Navigation />
+      {!admin && <Navigation />}
       <div id="main-div">
         <Container id="container" className="py-3">
           <Routes>
@@ -82,6 +79,7 @@ const App = () => {
             {admin && <Route path="create" element={<CreateProduct />} />}
             {admin && <Route path="update" element={<UpdateProduct />} />}
             <Route path="search-results" element={<SearchResults />} />
+
             <Route path="products/*">
               {productCategories &&
                 productCategories.map((category, i) => (
@@ -89,7 +87,13 @@ const App = () => {
                     <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
                     <Route path={`${category.name}/:productId`} element={<Product />} />
                   </>))}
+
             </Route>
+
+            {admin && currentUser && (<Route path="cms/*" element={<CMSNav />}>
+              <Route path="create" element={<CreateProduct />} />
+            </Route>)}
+
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="login" element={<Login />} />
             <Route path="logout" element={<Logout />} />
@@ -97,6 +101,7 @@ const App = () => {
             {(admin || currentUser) && <Route path="/update-profile" element={<UpdateProfile />} />}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {admin && currentUser && <Navigate to="/cms"></Navigate>}
         </Container>
       </div>
       <footer id="footer" className="p-2">
