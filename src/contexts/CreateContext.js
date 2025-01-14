@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
+import { db } from '../firebase/index'
+import { collection, getDocs } from "firebase/firestore";
 
 const CreateContext = createContext();
 
@@ -41,46 +43,41 @@ const CreateContextProvider = (props) => {
     let snapshotProducts = [];
     productCategories.forEach(async (category) => {
 
-      await fetch(`http://127.0.0.1:8000/products/category/${category.name}`)
-        .then(res => res.json())
-        .then(res => {
-          let querySnap = res.products
+      const querySnapshot = await getDocs(collection(db, category));
 
-          querySnap.forEach(function (doc) {
-            // doc.data() is never undefined for query doc snapshots
-            snapshotProducts.push(
-              doc.data);
-            let emptyArr;
-            emptyArr = [...snapshotProducts];
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+        snapshotProducts.push(doc.data())
+      })
+      let emptyArr;
+      emptyArr = [...snapshotProducts];
 
 
-            // Deleting duplicates from snapshots data
-            snapshotProducts.forEach((prod) => {
-              if (!emptyArr.includes(prod)) {
-                emptyArr.push(prod)
-              }
-            })
-            console.log(emptyArr);
+      // Deleting duplicates from snapshots data
+      snapshotProducts.forEach((prod) => {
+        if (!emptyArr.includes(prod)) {
+          emptyArr.push(prod)
+        }
+      })
+      console.log(emptyArr);
 
-            // Getting search string from local Storage on reload in search-results-route when all products available
-            if (
-              emptyArr.length > 10 &&
-              location === "/search-results" &&
-              searchString === ""
-            ) {
-              setSearchString(JSON.parse(window.localStorage.getItem("search")));
-            }
+      // Getting search string from local Storage on reload in search-results-route when all products available
+      if (
+        emptyArr.length > 10 &&
+        location === "/search-results" &&
+        searchString === ""
+      ) {
+        setSearchString(JSON.parse(window.localStorage.getItem("search")));
+      }
 
-            // Function to fetch product when routing to /products/{category}/:productId
-            if (prodId) {
-              getSingleProduct();
-            }
+      // Function to fetch product when routing to /products/{category}/:productId
+      if (prodId) {
+        getSingleProduct();
+      }
 
-            setProducts([...emptyArr])
-          });
-          setLoading(false);
-        })
-        .catch(err => console.log(err))
+      setProducts([...emptyArr])
+
+      setLoading(false);
     })
 
     return () => {

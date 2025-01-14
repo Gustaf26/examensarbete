@@ -30,25 +30,10 @@ const App = () => {
   const { admin, currentUser } = useAuth();
 
   useEffect(() => {
-    // initLightboxJS("Insert your License Key here", "Insert plan type here");
-    let snapshotCategories = []
+
     const getProds = async () => {
 
-
-      await fetch('http://127.0.0.1:8000/products/view_cats')
-        .then(res => res.json())
-        .then(res => {
-          let querySnap = res.categories
-
-          querySnap.forEach(function (doc) {
-            // doc.data() is never undefined for query doc snapshots
-            snapshotCategories.push(
-              doc.data);
-            console.log(doc)
-          });
-          setGlobalCategories(snapshotCategories);
-        })
-        .catch(err => console.log(err))
+      setGlobalCategories(['t-shirts', 'troussers', 'jackets']);
     }
 
     getProds()
