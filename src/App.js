@@ -33,7 +33,7 @@ const App = () => {
 
     const getProds = async () => {
 
-      setGlobalCategories(['t-shirts', 'troussers', 'jackets']);
+      setGlobalCategories([{ name: 't-shirts' }, { name: 'troussers' }, { name: 'jackets' }]);
     }
 
     getProds()

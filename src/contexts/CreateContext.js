@@ -43,7 +43,7 @@ const CreateContextProvider = (props) => {
     let snapshotProducts = [];
     productCategories.forEach(async (category) => {
 
-      const querySnapshot = await getDocs(collection(db, category));
+      const querySnapshot = await getDocs(collection(db, category.name));
 
       querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data()}`);

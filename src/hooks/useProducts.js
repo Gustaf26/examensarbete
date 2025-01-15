@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../firebase/index'
 
 const useProducts = (type) => {
   const [products, setProducts] = useState([]);
@@ -10,22 +11,14 @@ const useProducts = (type) => {
     let snapshotProducts = []
     const getProds = async () => {
 
+      const querySnapshot = await getDocs(collection(db, type));
 
-      await fetch(`http://127.0.0.1:8000/products/category/${type}`)
-        .then(res => res.json())
-        .then(res => {
-          let querySnap = res.products
-
-          querySnap.forEach(function (doc) {
-            // doc.data() is never undefined for query doc snapshots
-            snapshotProducts.push(
-              doc.data);
-            setProducts([...snapshotProducts]);
-            setLoading(false);
-          });
-
-        })
-        .catch(err => console.log(err))
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+        snapshotProducts.push(doc.data())
+      })
+      setProducts([...snapshotProducts]);
+      setLoading(false);
     }
 
     getProds()
