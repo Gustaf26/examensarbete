@@ -1,7 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut
+} from "firebase/auth";
+
 
 const AuthContext = createContext();
+const auth = getAuth();
 
 const useAuth = () => {
   return useContext(AuthContext);
@@ -14,41 +22,64 @@ const AuthContextProvider = (props) => {
 
   const login = async (email, password) => {
 
-    await fetch('http://127.0.0.1:8000/auth/sign-in', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res) {
-          setCurrentUser({ email: res.email, uid: res.uid, display_name: res.display_name, token: res.token })
-          console.log(res)
-        }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+        console.log(user)
+        setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
       })
-      .catch(err => console.log(err))
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ code: errorCode, msg: errorMessage })
+
+      });
+
+    // await fetch('http://127.0.0.1:8000/auth/sign-in', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ email, password }),
+    // })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     if (res) {
+    //       setCurrentUser({ email: res.email, uid: res.uid, display_name: res.display_name, token: res.token })
+    //       console.log(res)
+    //     }
+    //   })
+    //   .catch(err => console.log(err))
 
   };
 
   const logout = async (email) => {
 
-    await fetch('http://127.0.0.1:8000/auth/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res) {
-          setAdmin(false);
-          setCurrentUser(null)
-        }
-      })
-      .catch(err => console.log(err))
+    await signOut(auth, email).then((res) => {
+      // Sign-out successful.
+      setCurrentUser(null)
+    }).catch((error) => {
+      // An error happened.
+    });
+
+    // await fetch('http://127.0.0.1:8000/auth/logout', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ email }),
+    // })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     if (res) {
+    //       setAdmin(false);
+    //       setCurrentUser(null)
+    //     }
+    //   })
+    //   .catch(err => console.log(err))
   };
 
   // const resetPassword = (email) => {
@@ -57,18 +88,33 @@ const AuthContextProvider = (props) => {
 
   const signup = async (email, password) => {
 
-    await fetch('http://127.0.0.1:8000/auth/sign-in', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        return res
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up 
+        const user = userCredential.user;
+        // ...
+        setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
+
       })
-      .catch(err => console.log(err))
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        console.log({ code: errorCode, msg: errorMessage })
+      });
+
+    // await fetch('http://127.0.0.1:8000/auth/sign-in', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ email, password }),
+    // })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     return res
+    //   })
+    //   .catch(err => console.log(err))
 
   };
 
