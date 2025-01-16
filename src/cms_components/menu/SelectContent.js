@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom'
 import MuiAvatar from '@mui/material/Avatar';
 import MuiListItemAvatar from '@mui/material/ListItemAvatar';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,10 +28,16 @@ const ListItemAvatar = styled(MuiListItemAvatar)({
 });
 
 export default function SelectContent() {
-    const [company, setCompany] = React.useState('');
+    const [company, setCompany] = React.useState(0);
+    const navigate = useNavigate()
 
     const handleChange = (event) => {
+        event.preventDefault()
         setCompany(event.target.value);
+        if (event.target.value === 0) {
+            // alert('Hello')
+            navigate('/cms/products/jackets')
+        }
     };
 
     return (
@@ -57,13 +64,13 @@ export default function SelectContent() {
             }}
         >
             <ListSubheader sx={{ pt: 0 }}>Production</ListSubheader>
-            <MenuItem value="">
+            <MenuItem value={0}>
                 <ListItemAvatar>
                     <Avatar alt="Sitemark web">
                         <DevicesRoundedIcon sx={{ fontSize: '1rem' }} />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="Sitemark-web" secondary="Web app" />
+                <ListItemText primary="Your CMS" secondary="Web app" />
             </MenuItem>
             <MenuItem value={10}>
                 <ListItemAvatar>
@@ -71,7 +78,7 @@ export default function SelectContent() {
                         <SmartphoneRoundedIcon sx={{ fontSize: '1rem' }} />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="Sitemark-app" secondary="Mobile application" />
+                <ListItemText primary="Your CMS" secondary="Mobile application" />
             </MenuItem>
             <MenuItem value={20}>
                 <ListItemAvatar>
@@ -79,7 +86,7 @@ export default function SelectContent() {
                         <DevicesRoundedIcon sx={{ fontSize: '1rem' }} />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="Sitemark-Store" secondary="Web app" />
+                <ListItemText primary="Your CMS" secondary="Web app" />
             </MenuItem>
             <ListSubheader>Development</ListSubheader>
             <MenuItem value={30}>

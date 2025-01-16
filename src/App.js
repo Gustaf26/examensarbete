@@ -20,7 +20,6 @@ import SearchResults from "./components/products/SearchResults";
 import NotFound from "./components/NotFound";
 import Signup from "./components/Signup";
 import UpdateProfile from "./components/UpdateProfile";
-// import AuthContextProvider from "./contexts/AuthContext";
 import { useCreate } from "./contexts/CreateContext";
 import { useAuth } from './contexts/AuthContext'
 import "./assets/scss/app.scss";
@@ -77,6 +76,15 @@ const App = () => {
 
             {admin && currentUser && (<Route path="cms/*" element={<CMSNav />}>
               <Route path="create" element={<CreateProduct />} />
+              <Route path="cms/products/*">
+                {productCategories &&
+                  productCategories.map((category, i) => (
+                    <>
+                      <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
+                      <Route path={`${category.name}/:productId`} element={<Product />} />
+                    </>))}
+
+              </Route>
             </Route>)}
 
             <Route path="forgot-password" element={<ForgotPassword />} />
@@ -86,7 +94,7 @@ const App = () => {
             {(admin || currentUser) && <Route path="/update-profile" element={<UpdateProfile />} />}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {admin && currentUser && <Navigate to="/cms"></Navigate>}
+          {/* {admin && currentUser && <Navigate to="/cms"></Navigate>} */}
         </Container>
       </div>
       <footer id="footer" className="p-2">

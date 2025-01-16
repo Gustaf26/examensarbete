@@ -11,18 +11,31 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import MenuButton from './MenuButton';
 
+import { useAuth } from '../../contexts/AuthContext'
+import { useNavigate } from "react-router-dom";
+
 const MenuItem = styled(MuiMenuItem)({
     margin: '2px 0',
 });
 
 export default function OptionsMenu() {
+
+    const { logout, currentUser } = useAuth()
+    const navigate = useNavigate();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+    const handleClose = async (e) => {
+
         setAnchorEl(null);
+
+        if (e.target.innerHTML === 'Logout') {
+            await logout(currentUser.email)
+            navigate("/login");
+        }
     };
     return (
         <React.Fragment>

@@ -8,6 +8,8 @@ import {
 } from "firebase/auth";
 
 
+
+
 const AuthContext = createContext();
 const auth = getAuth();
 
@@ -21,7 +23,6 @@ const AuthContextProvider = (props) => {
   const [admin, setAdmin] = useState(false);
 
   const login = async (email, password) => {
-
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -38,22 +39,6 @@ const AuthContextProvider = (props) => {
 
       });
 
-    // await fetch('http://127.0.0.1:8000/auth/sign-in', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ email, password }),
-    // })
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     if (res) {
-    //       setCurrentUser({ email: res.email, uid: res.uid, display_name: res.display_name, token: res.token })
-    //       console.log(res)
-    //     }
-    //   })
-    //   .catch(err => console.log(err))
-
   };
 
   const logout = async (email) => {
@@ -61,25 +46,11 @@ const AuthContextProvider = (props) => {
     await signOut(auth, email).then((res) => {
       // Sign-out successful.
       setCurrentUser(null)
+      setAdmin(false)
     }).catch((error) => {
       // An error happened.
     });
 
-    // await fetch('http://127.0.0.1:8000/auth/logout', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ email }),
-    // })
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     if (res) {
-    //       setAdmin(false);
-    //       setCurrentUser(null)
-    //     }
-    //   })
-    //   .catch(err => console.log(err))
   };
 
   // const resetPassword = (email) => {
@@ -103,18 +74,6 @@ const AuthContextProvider = (props) => {
         console.log({ code: errorCode, msg: errorMessage })
       });
 
-    // await fetch('http://127.0.0.1:8000/auth/sign-in', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ email, password }),
-    // })
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     return res
-    //   })
-    //   .catch(err => console.log(err))
 
   };
 
@@ -151,20 +110,19 @@ const AuthContextProvider = (props) => {
     }
   };
 
+
+  // This effect is responsible for keeping the "session" in the browser for the user
   useEffect(() => {
-    // const unsubscribe = auth.onAuthStateChanged((user) => {
-    //   // auth state changed (by a user either logging in or out)
-    //   setCurrentUser(user);
-    //   if (user) {
-    //     checkIfAdmin(user.email);
-    //   }
-    //   setLoading(false);
-    // });
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      // auth state changed (by a user either logging in or out)
+      setCurrentUser(user);
+      if (user) {
+        checkIfAdmin(user.email);
+      }
+      setLoading(false);
+    });
 
-
-
-    // return unsubscribe;
-    setLoading(false);
+    return unsubscribe;
   }, [currentUser]);
 
 
@@ -193,4 +151,4 @@ const AuthContextProvider = (props) => {
   );
 };
 
-export { AuthContext, useAuth, AuthContextProvider as default };
+export { useAuth, AuthContextProvider as default };
