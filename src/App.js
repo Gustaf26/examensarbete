@@ -58,42 +58,46 @@ const App = () => {
       {!admin && <Navigation />}
       <div id="main-div">
         <Container id="container" className="py-3">
-          <Routes>
-            <Route index to="/*" element={<Home />} />
-            {admin && <Route path="create" element={<CreateProduct />} />}
-            {admin && <Route path="update" element={<UpdateProduct />} />}
-            <Route path="search-results" element={<SearchResults />} />
-
-            <Route path="products/*">
-              {productCategories &&
-                productCategories.map((category, i) => (
-                  <>
-                    <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
-                    <Route path={`${category.name}/:productId`} element={<Product />} />
-                  </>))}
-
-            </Route>
-
-            {admin && currentUser && (<Route path="cms/*" element={<CMSNav />}>
-              <Route path="create" element={<CreateProduct />} />
-              <Route path="cms/products/*">
+          {!admin && (
+            <Routes>
+              <Route index to="/*" element={<Home />} />
+              <Route path="search-results" element={<SearchResults />} />
+              <Route path="products/*">
                 {productCategories &&
                   productCategories.map((category, i) => (
                     <>
                       <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
                       <Route path={`${category.name}/:productId`} element={<Product />} />
                     </>))}
-
               </Route>
-            </Route>)}
-
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="login" element={<Login />} />
-            <Route path="logout" element={<Logout />} />
-            <Route path="signup" element={<Signup />} />
-            {(admin || currentUser) && <Route path="/update-profile" element={<UpdateProfile />} />}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="login" element={<Login />} />
+              <Route path="logout" element={<Logout />} />
+              <Route path="signup" element={<Signup />} />
+              {(admin || currentUser) && <Route path="/update-profile" element={<UpdateProfile />} />}
+              <Route path="*" element={<NotFound />} />
+            </Routes>)}
+          <>
+            {admin && currentUser && (<>
+              < CMSNav />
+              <Routes>
+                <Route path="cms/*">
+                  <Route path="index" element={<Home />} />
+                  {/* <Route path="create" element={<CreateProduct />} /> */}
+                  <Route path="products/*">
+                    {productCategories &&
+                      productCategories.map((category, i) => (
+                        <>
+                          <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
+                          <Route path={`${category.name}/:productId`} key="single-product" element={<Product />} />
+                        </>))}
+                    <Route path="update" element={<UpdateProduct />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
+                </Route>
+              </Routes>
+            </>)}
+          </>
           {/* {admin && currentUser && <Navigate to="/cms"></Navigate>} */}
         </Container>
       </div>

@@ -75,7 +75,10 @@ export default function CMSNav() {
                 <p style={{ color: 'white', zIndex: 100, position: 'absolute', left: '32px', bottom: "27px", margin: 0 }}>
                     {currentUser.email.slice(0, 1).toUpperCase()}
                 </p>
-                <Box sx={{ mr: 'auto' }}>
+                <Box sx={{ mr: 'auto', display: 'flex', flexDirection: 'column' }}>
+                    <Typography variant="body" sx={{ fontWeight: 500, lineHeight: '16px' }}>
+                        {currentUser.displayName}
+                    </Typography>
                     <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                         {currentUser.email}
                     </Typography>

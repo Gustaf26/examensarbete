@@ -35,7 +35,6 @@ export default function SelectContent() {
         event.preventDefault()
         setCompany(event.target.value);
         if (event.target.value === 0) {
-            // alert('Hello')
             navigate('/cms/products/jackets')
         }
     };
@@ -79,14 +78,6 @@ export default function SelectContent() {
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Your CMS" secondary="Mobile application" />
-            </MenuItem>
-            <MenuItem value={20}>
-                <ListItemAvatar>
-                    <Avatar alt="Sitemark Store">
-                        <DevicesRoundedIcon sx={{ fontSize: '1rem' }} />
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="Your CMS" secondary="Web app" />
             </MenuItem>
             <ListSubheader>Development</ListSubheader>
             <MenuItem value={30}>

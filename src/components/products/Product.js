@@ -30,7 +30,7 @@ const Product = () => {
 
   const handleUpdateProduct = (product) => {
     setSingleProduct(product);
-    navigate(`/update`);
+    navigate(`cms/products/update`);
   };
 
   const handleDeleteProduct = (product) => {
@@ -55,11 +55,11 @@ const Product = () => {
     <>
       <Breadcrumb className="mb-3">
         <Breadcrumb.Item>
-          <Link to="/">Home</Link>
+          <Link to={admin ? '/cms/index' : "/"}>Home</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
           {productOption && (
-            <Link to={`/products/${productOption}`}>{productOption}</Link>
+            <Link to={admin ? `/cms/products/${productOption}` : `/products/${productOption}`}>{productOption}</Link>
           )}
         </Breadcrumb.Item>
         <Breadcrumb.Item active>

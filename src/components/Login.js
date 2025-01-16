@@ -10,7 +10,7 @@ const Login = () => {
   const passwordRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { login, checkIfAdmin, setAdmin, currentUser, setCurrentUser } = useAuth();
+  const { login, checkIfAdmin, setAdmin, admin, currentUser, setCurrentUser } = useAuth();
   const [adminChecked, setChecked] = useState(false);
   const [alert, setAlert] = useState(false);
   const [adminAlert, setAdminAlert] = useState(false);
@@ -18,8 +18,11 @@ const Login = () => {
 
 
   useEffect(() => {
-    if (currentUser?.email) {
+    if (currentUser?.email && !admin) {
       navigate("/");
+    }
+    else if (admin) {
+      navigate('/cms')
     }
 
   }, [currentUser])
@@ -56,7 +59,7 @@ const Login = () => {
       }
     }
     const user = await login(email, passOne);
-    console.log(user)
+
     if (user) {
       setError(null)
       setLoading(false)
