@@ -10,7 +10,7 @@ const Login = () => {
   const passwordRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { login, checkIfAdmin, setAdmin, currentUser, setCurrentUser } = useAuth();
+  const { login, checkIfAdmin, setAdmin, admin, currentUser, setCurrentUser } = useAuth();
   const [adminChecked, setChecked] = useState(false);
   const [alert, setAlert] = useState(false);
   const [adminAlert, setAdminAlert] = useState(false);
@@ -18,8 +18,11 @@ const Login = () => {
 
 
   useEffect(() => {
-    if (currentUser?.email) {
+    if (currentUser?.email && !admin) {
       navigate("/");
+    }
+    else if (admin) {
+      navigate('/cms')
     }
 
   }, [currentUser])
@@ -55,10 +58,9 @@ const Login = () => {
         setAdminAlert(false);
       }
     }
-    const userEmail = await login(email, passOne);
-    console.log(userEmail)
-    if (userEmail) {
-      setCurrentUser({ email: userEmail })
+    const user = await login(email, passOne);
+
+    if (user) {
       setError(null)
       setLoading(false)
       navigate('/products/troussers')
@@ -87,7 +89,7 @@ const Login = () => {
               <Card.Title>Log In</Card.Title>
 
               {error && <Alert variant="danger">{error}</Alert>}
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control

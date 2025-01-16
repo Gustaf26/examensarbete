@@ -36,7 +36,7 @@ const Navigation = () => {
   };
 
   useEffect(() => {
-    if (admin === true && currentUser) {
+    if (admin === true) {
       setCreate(true);
     } else {
       setCreate(false);
@@ -62,112 +62,119 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar id="navigation">
-        <Container>
-          <Row className="py-3 m-left-3 d-flex" id="nav-row">
-            <Col lg={4} sm={12}>
-              <Nav>
-                <NavLink to="/" id="logo" className="navbar-brand m-left-3">
-                  Work Out
-                </NavLink>
-              </Nav>
-            </Col>
+      {/* <Navbar id="navigation">
+        <Container className="w-100 d-flex align-items-center">
+          {/* <Row className="py-3 m-left-0 d-flex align-items-center" id="nav-row">
+            <Col lg={4} md={3} sm={6}> */}
+      <Nav id="navigation" className="mx-auto d-flex align-items-center justify-content-around">
+        <div id="nav-container">
+          <Nav.Item className="navitem">
+            <NavLink to="/" id="logo" className="navbar-brand">
+              Work Out
+            </NavLink>
+          </Nav.Item>
+          {/* </Col>
             <Col
               sm={12}
               md={10}
               lg={6}
-              className="mx-auto my-auto justify-content-end"
-            >
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Form onSubmit={omitReload}>
-                  <FormControl
-                    onChange={changeString}
-                    type="text"
-                    id="product-search"
-                    placeholder=" Search product"
-                    className="mr-sm-3 ml-5 navitem"
-                  />
-                  <SearchIcon id="search-icon" />
-                </Form>
-                {!customMenu && (
-                  <Nav className="mx-3" id="nav-links">
-                    {createLink === true ? (
-                      <NavLink
-                        to="/create"
-                        className="ml-4 mr-3 my-auto create-button"
-                      >
-                        Create
-                      </NavLink>
-                    ) : null}
-                    <NavDropdown
-                      title="All clothes"
-                      id="basic-nav-dropdown"
-                      className="ml-3 navitem"
-                    // id="clothes-drop-title"
+              className="h-200 d-flex mx-auto my-auto align-items-center justify-content-end"
+            > */}
+          <Nav.Item className="navitem">
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav" className="navitem"> */}
+            <Form onSubmit={omitReload}>
+              <FormControl
+                onChange={changeString}
+                type="text"
+                id="product-search"
+                placeholder="Search product"
+              // className="mr-sm-3 ml-5"
+              />
+              {/* <SearchIcon id="search-icon" /> */}
+            </Form>
+            {/* </Navbar.Collapse> */}
+          </Nav.Item>
+          {!customMenu && (
+            <Nav.Item className="mx-3 navitem d-flex" id="nav-links">
+              {createLink === true ? (
+                <NavLink
+                  to="/create"
+                  className="ml-4 mr-3 my-auto create-button"
+                >
+                  Create
+                </NavLink>
+              ) : null}
+              <NavDropdown
+                title="All clothes"
+                id="basic-nav-dropdown"
+                className="ml-3 navitem"
+              // id="clothes-drop-title"
+              >
+                <NavLink
+                  to="/products/troussers"
+                  className="dropdown-item"
+                >
+                  Troussers
+                </NavLink>
+                <NavDropdown.Divider />
+                <NavLink to="/products/jackets" className="dropdown-item">
+                  Jackets
+                </NavLink>
+                <NavDropdown.Divider />
+                <NavLink
+                  to="/products/t-shirts"
+                  className="dropdown-item"
+                >
+                  T-shirts
+                </NavLink>
+              </NavDropdown>
+              {currentUser ? (
+                <div className="d-flex align-items-center justify-content-between">
+                  <NavDropdown
+                    title={currentUser.display_name ? currentUser.display_name : currentUser.email}
+                    id="basic-nav-dropdown"
+                    className="mx-lg-2 navitem"
+                  >
+                    <NavLink
+                      to="/update-profile"
+                      className="dropdown-item"
                     >
-                      <NavLink
-                        to="/products/troussers"
-                        className="dropdown-item"
-                      >
-                        Troussers
-                      </NavLink>
-                      <NavDropdown.Divider />
-                      <NavLink to="/products/jackets" className="dropdown-item">
-                        Jackets
-                      </NavLink>
-                      <NavDropdown.Divider />
-                      <NavLink
-                        to="/products/t-shirts"
-                        className="dropdown-item"
-                      >
-                        T-shirts
-                      </NavLink>
-                    </NavDropdown>
-                    {currentUser ? (
-                      <div className="d-flex align-items-center justify-content-between">
-                        <NavDropdown
-                          title={currentUser.displayName || currentUser.email}
-                          id="basic-nav-dropdown"
-                          className="mx-lg-2 navitem"
-                        >
-                          <NavLink
-                            to="/update-profile"
-                            className="dropdown-item"
-                          >
-                            Update Profile
-                          </NavLink>
-                          <NavDropdown.Divider />
-                          <NavLink to="/logout" className="dropdown-item">
-                            Log Out
-                          </NavLink>
-                        </NavDropdown>
-                        {!admin && (
-                          <ShoppingBasket
-                            id="basket-icon"
-                            color="primary"
-                            className="mx-lg-3 p-1"
-                            rounded
-                          />
-                        )}
-                      </div>
-                    ) : (
-                      <NavLink
-                        to="/login"
-                        className="nav-link signin navitem ml-3"
-                        id="login-link"
-                      >
-                        Sign In / Register
-                      </NavLink>
-                    )}
-                  </Nav>
-                )}
-                {customMenu && <SimpleMenu />}
-              </Navbar.Collapse>
-            </Col>
-          </Row>
-        </Container>
-      </Navbar>
+                      Update Profile
+                    </NavLink>
+                    <NavDropdown.Divider />
+                    <NavLink to="/logout" className="dropdown-item">
+                      Log Out
+                    </NavLink>
+                  </NavDropdown>
+                  {!admin && (
+                    <ShoppingBasket
+                      id="basket-icon"
+                      color="primary"
+                      className="mx-lg-3 p-1"
+                      rounded
+                    />
+                  )}
+                </div>
+              ) : (
+                <NavLink
+                  to="/login"
+                  className="nav-link signin navitem ml-3"
+                  id="login-link"
+                >
+                  Sign In / Register
+                </NavLink>
+              )}
+            </Nav.Item>
+          )}
+          {customMenu && <Nav.Item><SimpleMenu /></Nav.Item>}
+          {/* </Nav> */}
+          {/* </Col>
+          </Row> */}
+        </div>
+      </Nav>
+      {/* </Container>
+      </Navbar> */}
     </>
   );
 };

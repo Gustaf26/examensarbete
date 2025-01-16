@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
+import { db } from '../firebase/index'
+import { collection, getDocs } from "firebase/firestore";
 
 const CreateContext = createContext();
 
@@ -20,7 +22,7 @@ const CreateContextProvider = (props) => {
   const [searchString, setSearchString] = useState("");
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
+  // const [currentPassword, setCurrentPassword] = useState("");
 
   const getSingleProduct = () => {
     const firstDash = location.indexOf("/");
@@ -41,57 +43,40 @@ const CreateContextProvider = (props) => {
     let snapshotProducts = [];
     productCategories.forEach(async (category) => {
 
-      await fetch(`http://127.0.0.1:8000/products/category/${category.name}`)
-        .then(res => res.json())
-        .then(res => {
-          let querySnap = res.products
+      const querySnapshot = await getDocs(collection(db, category.name));
 
-          querySnap.forEach(function (doc) {
-            // doc.data() is never undefined for query doc snapshots
-            snapshotProducts.push(
-              doc.data);
-            let emptyArr;
-            emptyArr = [...snapshotProducts];
-            console.log(emptyArr);
-
-            if (emptyArr?.length > 1) {
-              emptyArr.forEach((product) => {
-                emptyArr.map((prod, index) => {
-                  //DeLeting stale data from allProducts
-                  if (
-                    product.category &&
-                    prod.category.toLowerCase() === product.category.toLowerCase()
-                  ) {
-                    emptyArr.splice(index, 1);
-                  }
-
-                  if (prod.name === product.name) {
-                    emptyArr.splice(index, 1);
-                  }
-                });
-              });
-            }
+      querySnapshot.forEach((doc) => {
+        snapshotProducts.push(doc.data())
+      })
+      let emptyArr;
+      emptyArr = [...snapshotProducts];
 
 
-            // Getting search string from local Storage on reload in search-results-route when all products available
-            if (
-              emptyArr.length > 10 &&
-              location === "/search-results" &&
-              searchString === ""
-            ) {
-              setSearchString(JSON.parse(window.localStorage.getItem("search")));
-            }
+      // Deleting duplicates from snapshots data
+      snapshotProducts.forEach((prod) => {
+        if (!emptyArr.includes(prod)) {
+          emptyArr.push(prod)
+        }
+      })
+      console.log(emptyArr);
 
-            // Function to fetch product when routing to /products/{category}/:productId
-            if (prodId) {
-              getSingleProduct();
-            }
+      // Getting search string from local Storage on reload in search-results-route when all products available
+      if (
+        emptyArr.length > 10 &&
+        location === "/search-results" &&
+        searchString === ""
+      ) {
+        setSearchString(JSON.parse(window.localStorage.getItem("search")));
+      }
 
-            setProducts(prev => [prev, ...emptyArr])
-          });
-          setLoading(false);
-        })
-        .catch(err => console.log(err))
+      // Function to fetch product when routing to /products/{category}/:productId
+      if (prodId) {
+        getSingleProduct();
+      }
+
+      setProducts([...emptyArr])
+
+      setLoading(false);
     })
 
     return () => {
@@ -135,8 +120,8 @@ const CreateContextProvider = (props) => {
     setProdId,
     setLocation,
     searchString,
-    currentPassword,
-    setCurrentPassword,
+    // currentPassword,
+    // setCurrentPassword,
   };
 
   return (

@@ -9,7 +9,7 @@ const Logout = () => {
 
   useEffect(() => {
     (async () => {
-      localStorage.removeItem("currentPass");
+      // localStorage.removeItem("currentPass");
       await logout(currentUser.email);
       navigate("/login");
     })();

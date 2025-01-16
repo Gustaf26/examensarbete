@@ -11,8 +11,21 @@ body {
   margin: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 #navigation {
   background-color: rgba(116, 116, 116, 0.6);
+  height: 100px;
+
+  & #nav-container {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 }
 
 #container {
@@ -37,17 +50,17 @@ h2 {
 #logo {
   font-family: "Pacifico", cursive;
   color: rgb(78, 77, 77);
-  font-size: xx-large;
+  // font-size: xx-large;
   background-color: rgba(219, 217, 217, 0.5);
   padding: 0.5rem 1rem 0.5rem 1rem;
-  border-radius: 15%;
+  border-radius: 5px;
 }
 
 #basic-navbar-nav {
   display: flex;
   // justify-content: flex-end;
   margin-right: 0;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
 }
 
 #clothes-drop-title,
@@ -90,14 +103,11 @@ h2 {
 }
 
 #product-search {
-  max-width: 30vw;
+  min-width: 300px;
   height: 2.5rem;
   border-radius: 50px;
   background-color: rgba(233, 230, 230, 0);
   border: 2px solid rgb(218, 215, 215);
-  position: absolute;
-  margin-top: -7%;
-  right: -3%;
   color: white;
 }
 
@@ -144,6 +154,7 @@ h2 {
   height: 0vh;
   color: black;
   opacity: 0.8;
+  width: calc(100% - 20px);
 
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -186,7 +197,7 @@ h2 {
   }
 
   #logo {
-    font-size: large;
+    font-size: small;
   }
 
   #product-search {
@@ -236,7 +247,7 @@ h2 {
   }
 
   #logo {
-    font-size: large;
+    font-size: 0.8em;
   }
 }
 
@@ -269,7 +280,7 @@ h2 {
   #basic-navbar-nav {
     flex-wrap: nowrap;
     margin-right: 0;
-    width: 30vw;
+    // width: 30vw;
     margin-left: 2vw;
   }
 
@@ -283,6 +294,7 @@ h2 {
   }
 }
 
+
 @media screen and (min-width: 1000px) {
   body {
     background-size: auto;
@@ -294,14 +306,14 @@ h2 {
   }
 
   #product-search {
-    max-width: 30vw;
+    // max-width: 30vw;
     height: 2.5rem;
-    border-radius: 50px;
+    border-radius: 15px;
     background-color: rgba(233, 230, 230, 0);
     border: 2px solid rgb(218, 215, 215);
     position: relative;
     margin-top: 0.15rem;
-    right: -3%;
+    // right: -3%;
     color: white;
   }
 

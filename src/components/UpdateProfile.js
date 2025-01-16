@@ -1,73 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { useCreate } from "../contexts/CreateContext";
 
 const UpdateProfile = () => {
-  const { currentUser, updateEmail, updatePassword, updateProfile } = useAuth();
-  const [displayNameRef, setNameRef] = useState("");
-  const [emailRef, setEmailRef] = useState(currentUser.email);
-  const [passwordRef, setPassRef] = useState("");
-  const [passwordConfirmRef, setPassConfirmRef] = useState("");
+  const { updateProfileData } = useAuth();
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { currentPassword, setCurrentPassword } = useCreate();
+  const { currentUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // make sure user has entered the same password in both input fields
-    if (passwordRef !== passwordConfirmRef) {
-      return setError("The passwords don´t match");
-    }
-
     setError(null);
-    const updateTasks = [];
+    // disable update-button while updating is in progress
+    setLoading(true);
 
-    try {
-      // disable update-button while updating is in progress
-      setLoading(true);
+    let name = e.target[0].value
+    let mail = e.target[1].value
+    let password1 = e.target[2].value
+    let password2 = e.target[3].value
 
-      // update displayName if user has changed it
-      if (displayNameRef && displayNameRef !== currentUser.displayName) {
-        updateTasks.push(updateProfile(displayNameRef));
-      }
-
-      // update email if user has changed it
-      if (emailRef && emailRef !== currentUser.email) {
-        updateTasks.push(updateEmail(emailRef));
-      }
-
-      // wait for all updateTasks to finish
-      await Promise.all(updateTasks);
-
-      // update password if user has provided a new password
-      if (passwordRef) {
-        await updatePassword(passwordRef);
-      }
-
-      setCurrentPassword(passwordRef);
-
-      // profit!
-      setMessage("Profile successfully updated");
-      setLoading(false);
-    } catch (e) {
-      setError("Error updating profile. Try logging out and in again.");
-      setLoading(false);
+    if (password1 !== password2) {
+      setError('Passwords don´t match')
+      return
     }
-  };
 
-  useEffect(() => {
-    let passwordInStorage = localStorage.getItem("currentPass");
-    if (currentPassword) {
-      setPassRef(currentPassword);
-      setPassConfirmRef(currentPassword);
-    } else if (passwordInStorage) {
-      setCurrentPassword(passwordInStorage);
-    }
-  }, []);
 
+    // profit!
+    const msg = await updateProfileData(mail, password1, name)
+    if (msg.error) setError(msg.error)
+    else setMessage(msg.msg)
+
+    setLoading(false);
+
+  }
   return (
     <>
       <Row>
@@ -79,14 +46,12 @@ const UpdateProfile = () => {
               {error && <Alert variant="danger">{error}</Alert>}
               {message && <Alert variant="success">{message}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} onChange={() => { setMessage(''); setError(null); setLoading(false) }}>
                 <Form.Group id="displayName">
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    onChange={(e) => setNameRef(e.target.value)}
-                    // ref={displayNameRef}
-                    defaultValue={currentUser.displayName}
+                    defaultValue={currentUser.display_name}
                   />
                 </Form.Group>
 
@@ -94,8 +59,6 @@ const UpdateProfile = () => {
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
-                    // ref={emailRef}
-                    onChange={(e) => setEmailRef(e.target.value)}
                     defaultValue={currentUser.email}
                     required
                   />
@@ -105,26 +68,20 @@ const UpdateProfile = () => {
                   <Form.Label type="password">Password</Form.Label>
                   <Form.Control
                     id="password"
-                    onChange={(e) => setPassRef(e.target.value)}
                     placeholder="Enter a new password"
-                    defaultValue={currentPassword}
                     required
                   />
                 </Form.Group>
-
                 <Form.Group>
                   <Form.Label>Password Confirmation</Form.Label>
                   <Form.Control
                     id="password-confirm"
                     type="password"
-                    // ref={passwordConfirmRef}
-                    onChange={(e) => setPassConfirmRef(e.target.value)}
                     placeholder="Confirm the new password"
-                    defaultValue={currentPassword}
+                    // defaultValue={currentPassword}
                     required
                   />
                 </Form.Group>
-
                 <Button disabled={loading} type="submit">
                   Update
                 </Button>

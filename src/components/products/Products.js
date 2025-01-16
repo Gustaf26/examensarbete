@@ -4,15 +4,16 @@ import { BounceLoader } from "react-spinners";
 import useProducts from "../../hooks/useProducts";
 import ProductsGrid from "./ProductsGrid";
 import { Breadcrumb } from "react-bootstrap";
+import { useAuth } from '../../contexts/AuthContext'
 
 const Products = ({ type }) => {
   const { products, loading } = useProducts(type);
-
+  const { admin } = useAuth();
   return (
     <>
       <Breadcrumb className="mb-3">
         <Breadcrumb.Item>
-          <Link to="/">Home</Link>
+          <Link to={admin ? "/cms/index" : "/"}>Home</Link>
         </Breadcrumb.Item>
         <span>{type}</span>
       </Breadcrumb>

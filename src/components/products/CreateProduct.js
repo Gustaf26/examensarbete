@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import UploadImageDropzone from "./UploadImageDropzone";
+// import UploadImageDropzone from "./UploadImageDropzone";
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { BounceLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../firebase";
+import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 
 const CreateProduct = () => {
@@ -12,6 +12,7 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
+  const { currentUser } = useAuth();
 
   const {
     imageUrl,
@@ -19,8 +20,9 @@ const CreateProduct = () => {
     setProductOption,
     setSingleProduct,
     productCategories,
-    setImageUrl,
+    // setImageUrl,
   } = useCreate();
+
   const navigate = useNavigate();
 
   const handleNameChange = (e) => {
@@ -39,51 +41,44 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name.length < 4 || description < 20 || !imageUrl) {
+    if (name.length < 4 || description < 20) {
       setError("You are missing some of the required upload parameters");
       return;
     }
 
     setError(false);
     setLoading(true);
+    const ranNumber = Math.floor(Math.random() * 10000);
 
-    try {
-      const ranNumber = Math.floor(Math.random() * 10000);
-
-      await db.collection(`${productOption}`).doc(`${ranNumber}`).set({
-        name: name,
-        description: description,
-        thumbnail: imageUrl,
-        price: prodPrice,
-        id: ranNumber,
-        category: productOption,
-      });
-
-      const timingFunction = setInterval(async () => {
-        setLoading(true);
-        await db
-          .collection(`${productOption}`)
-          .doc(`${ranNumber}`)
-          .get()
-          .then((doc) => {
-            if (doc.data()) {
-              setSingleProduct(doc.data());
-              navigate(`/products/${productOption}/${ranNumber}`);
-              setLoading(false);
-              clearInterval(timingFunction);
-            }
-          }, 2000);
-      });
-    } catch (e) {
-      setError(e.message);
-      setLoading(false);
-    }
+    // fetch('http://127.0.0.1:8000/products/create-prod', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `Bearer ${currentUser.token}`
+    //   },
+    //   body: JSON.stringify({
+    //     name: name,
+    //     description: description,
+    //     thumbnail: imageUrl,
+    //     price: prodPrice,
+    //     id: ranNumber,
+    //     category: productOption,
+    //   }),
+    // })
+    // .then(res => res.json())
+    // .then(res => {
+    //   // if (res) {
+    //   //   setSingleProduct(res.product);
+    //   //   navigate(`/products/${productOption}/${ranNumber}`);
+    //   //   setLoading(false);
+    //   //   // clearInterval(timingFunction);
+    //   // }
+    //   console.log(res)
+    // })
+    // .catch(err => console.log(err))
   };
 
-  useEffect(() => {
-    setProductOption("troussers");
-    setImageUrl("");
-  }, []);
+
 
   return (
     <>
@@ -161,9 +156,9 @@ const CreateProduct = () => {
                       </Form.Text>
                     )}
                   </Form.Group>
-                  {productOption && (
+                  {/* {productOption && (
                     <UploadImageDropzone type={productOption} />
-                  )}
+                  )} */}
                   <Button disabled={loading} type="submit" className="mx-auto">
                     Create
                   </Button>
