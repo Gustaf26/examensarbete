@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 // import { collection, query, getDocs } from "firebase/firestore";
 
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import 'lightbox.js-react/dist/index.css'
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
-import CreateProduct from "./components/products/CreateProduct";
+// import CreateProduct from "./components/products/CreateProduct";
 import UpdateProduct from "./components/products/UpdateProduct";
 import CMSNav from './cms_components/CMSNav'
 import ForgotPassword from "./components/ForgotPassword";
