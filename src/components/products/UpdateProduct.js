@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import UploadImageDropzone from "./UploadImageDropzone";
+// import UploadImageDropzone from "./UploadImageDropzone";
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../firebase";
+import { db } from "../../firebase/index";
 import { useCreate } from "../../contexts/CreateContext";
+
+import { doc, setDoc } from "firebase/firestore";
 
 const UpdateProduct = () => {
   const [error, setError] = useState(false);
@@ -51,29 +53,28 @@ const UpdateProduct = () => {
     setLoading(true);
 
     try {
-      db.collection(`${productOption}`).doc(`${singleProduct.id}`).set({
+
+      let updatedProduct = {
         name: name,
         description: description,
         thumbnail: imageUrl,
         price: prodPrice,
         id: singleProduct.id,
-        category: productOption,
-      });
+        category: productOption
+      }
 
-      db.collection(`${productOption}`)
-        .doc(`${singleProduct.id}`)
-        .get()
-        .then((doc) => {
-          setSingleProduct(doc.data());
-          setTimeout(() => {
-            navigate(`/products/${productOption}/${singleProduct.id}`);
-          }, 1000);
-        });
-    } catch (e) {
-      setError(e.message);
-      setLoading(false);
+      await setDoc(doc(db, productOption, singleProduct.id.toString()), updatedProduct)
+
+      setTimeout(() => {
+        setSingleProduct(updatedProduct)
+        navigate(`/cms/products/${productOption}/${singleProduct.id}`, { replace: true });
+      }, 1000);
     }
-  };
+
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     setProductOption(singleProduct.category);
@@ -93,7 +94,7 @@ const UpdateProduct = () => {
                 <Card.Title>Update a product entry</Card.Title>
 
                 {error && <Alert variant="danger">{error}</Alert>}
-
+                <Card.Img src={singleProduct.img} />
                 <Form onSubmit={handleSubmit}>
                   <Form.Group id="title">
                     <Form.Label>Product name</Form.Label>
@@ -112,13 +113,13 @@ const UpdateProduct = () => {
                   </Form.Group>
                   <Form.Group id="description">
                     <Form.Label>Description</Form.Label>
-                    <Form.Control
+                    <textarea style={{ width: '100%', height: '200px', overflowY: 'scroll', border: '0.5px solid lightgrey', borderRadius: '8px' }}
                       type="title"
                       onChange={handleDescriptionChange}
                       // value={description}
                       defaultValue={singleProduct.description}
                       required
-                    />
+                    ></textarea>
                     {singleProduct.description &&
                       singleProduct.description.length < 20 && (
                         <Form.Text className="text-danger">
@@ -175,20 +176,22 @@ const UpdateProduct = () => {
                       </Form.Text>
                     )}
                   </Form.Group>
-                  {productOption && (
+                  {/* {productOption && (
                     <UploadImageDropzone type={productOption} />
-                  )}
-                  <Form.Text className="text-warning mb-3">
-                    If no photo is uploaded, you are keeping the same original
-                    photo
-                  </Form.Text>
-                  <Button
-                    disabled={loading}
-                    type="submit"
-                    className="mx-auto my-3"
-                  >
-                    Update
-                  </Button>
+                  )} */}
+                  <Form.Group className="d-flex mt-3 justify-content-between align-items-center">
+                    <Form.Text className="text-danger mt-0">
+                      If no photo is uploaded, you are keeping the same original
+                      photo
+                    </Form.Text>
+                    <Button
+                      disabled={loading}
+                      type="submit"
+                      className="mx-0"
+                    >
+                      Update
+                    </Button>
+                  </Form.Group>
                 </Form>
               </Card.Body>
             </Card>

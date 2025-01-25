@@ -30,7 +30,7 @@ const Product = () => {
 
   const handleUpdateProduct = (product) => {
     setSingleProduct(product);
-    navigate(`cms/products/update`);
+    navigate(`/cms/products/update`, { replace: true });
   };
 
   const handleDeleteProduct = (product) => {

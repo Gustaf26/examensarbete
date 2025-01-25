@@ -14,7 +14,7 @@ const ProductsGrid = ({ products, type }) => {
 
   const handleUpdateProduct = (product) => {
     setSingleProduct(product);
-    navigate(`/update`);
+    navigate(`/cms/products/update`, { replace: true });
   };
 
   const handleDeleteProduct = (product) => {
