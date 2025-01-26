@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom'
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -13,10 +15,10 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 
 const mainListItems = [
-    { text: 'Home', icon: <HomeRoundedIcon /> },
-    { text: 'Analytics', icon: <AnalyticsRoundedIcon /> },
-    { text: 'Users', icon: <PeopleRoundedIcon /> },
-    { text: 'Products', icon: <CheckroomIcon /> },
+    { text: 'Home', icon: <HomeRoundedIcon />, url: 'cms/index' },
+    { text: 'Analytics', icon: <AnalyticsRoundedIcon />, url: 'cms/index' },
+    { text: 'Users', icon: <PeopleRoundedIcon />, url: 'cms/index' },
+    { text: 'Products', icon: <CheckroomIcon />, url: '/cms/products/troussers' },
 ];
 
 const secondaryListItems = [
@@ -26,12 +28,16 @@ const secondaryListItems = [
 ];
 
 export default function MenuContent() {
+
+    const navigate = useNavigate()
+
+
     return (
         <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
             <List dense>
                 {mainListItems.map((item, index) => (
                     <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                        <ListItemButton selected={index === 0}>
+                        <ListItemButton selected={index === 0} onClick={() => navigate(item.url)}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
                         </ListItemButton>

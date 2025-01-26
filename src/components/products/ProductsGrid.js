@@ -10,7 +10,17 @@ import { db } from "../../firebase";
 const ProductsGrid = ({ products, type }) => {
   const navigate = useNavigate();
   const { admin } = useAuth();
-  const { setSingleProduct, setProductOption } = useCreate();
+  const { setSingleProduct, setProductOption, mobile } = useCreate();
+
+  const containerStyles = {
+    border: mobile ? '2px solid lightgrey' : 'none',
+    width: mobile ? '400px' : '1000px',
+    margin: mobile ? '0 auto' : '10px',
+    padding: '0',
+    overflowY: mobile ? 'scroll' : 'none',
+    maxHeight: mobile ? '600px' : 'none',
+    borderRadius: '3px'
+  }
 
   const handleUpdateProduct = (product) => {
     setSingleProduct(product);
@@ -33,11 +43,11 @@ const ProductsGrid = ({ products, type }) => {
 
   return (
     // <SRLWrapper>
-    <Row className="mt-3 mb-5" onLoad={() => setProductOption(type)}>
+    <Row style={containerStyles} className="mt-5 mb-5" onLoad={() => setProductOption(type)}>
       {products &&
         products.map((item) => (
-          <Col sm={6} md={4} lg={3} key={item.id}>
-            <Card className="mb-3">
+          <Col className="p-0" sm={6} md={4} lg={mobile ? 12 : 3} key={item.id}>
+            <Card className="mb-5">
               <a
                 href={item.thumbnail}
                 title="View image in lightbox"
@@ -54,7 +64,7 @@ const ProductsGrid = ({ products, type }) => {
                 onClick={() => setSingleProduct(item)}
               >
                 {" "}
-                <Link to={`/products/${type}/${item.id}`}>
+                <Link to={admin ? `/cms/products/${type}/${item.id}` : `products/${type}/${item.id}`} >
                   <Card.Text className="text-muted small">
                     <b>{item.name}</b>
                   </Card.Text>
@@ -69,11 +79,11 @@ const ProductsGrid = ({ products, type }) => {
                   </Card.Text>
                 </Link>
                 {admin && (
-                  <div>
+                  <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
                     <Button
                       variant="danger"
                       size="sm"
-                      className="col-5 mt-3 ml-3 p-2"
+                      className="col-5 mt-3 mr-1 p-2"
                       onClick={() => {
                         handleDeleteProduct(item);
                       }}
@@ -83,7 +93,7 @@ const ProductsGrid = ({ products, type }) => {
                     <Button
                       variant="secondary"
                       size="sm"
-                      className="col-5 mt-3 ml-2 p-2"
+                      className="col-5 mt-3 ml-3 p-2"
                       onClick={() => {
                         handleUpdateProduct(item);
                       }}

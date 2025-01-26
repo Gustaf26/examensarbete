@@ -14,6 +14,7 @@ import CardAlert from './menu/CardAlert';
 import OptionsMenu from './menu/OptionsMenu';
 import { useAuth } from '../contexts/AuthContext'
 
+
 const drawerWidth = 240;
 
 const Drawer = styled(MuiDrawer)({
@@ -30,7 +31,6 @@ const Drawer = styled(MuiDrawer)({
 export default function CMSNav() {
 
     const { currentUser } = useAuth()
-
 
     return (
         <Drawer

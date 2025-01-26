@@ -13,6 +13,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import SmartphoneRoundedIcon from '@mui/icons-material/SmartphoneRounded';
 import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
+import { useCreate } from '../../contexts/CreateContext'
 
 const Avatar = styled(MuiAvatar)(({ theme }) => ({
     width: 28,
@@ -31,12 +32,17 @@ export default function SelectContent() {
     const [company, setCompany] = React.useState(0);
     const navigate = useNavigate()
 
+
+    const { setMobile, mobile } = useCreate()
+
     const handleChange = (event) => {
         event.preventDefault()
         setCompany(event.target.value);
         if (event.target.value === 0) {
-            navigate('/cms/products/jackets')
+            setMobile(false)
         }
+
+        else { setMobile(true); }
     };
 
     return (

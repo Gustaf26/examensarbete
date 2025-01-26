@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 // import { collection, query, getDocs } from "firebase/firestore";
 
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import 'lightbox.js-react/dist/index.css'
 import Product from "./components/products/Product";
@@ -98,7 +98,7 @@ const App = () => {
               </Routes>
             </>)}
           </>
-          {/* {admin && currentUser && <Navigate to="/cms"></Navigate>} */}
+          {/* {admin && currentUser && <Navigate to="/cms/index"></Navigate>} */}
         </Container>
       </div>
       <footer id="footer" className="p-2">
