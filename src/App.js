@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import 'lightbox.js-react/dist/index.css'
+// import 'lightbox.js-react/dist/index.css'
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
 // import CreateProduct from "./components/products/CreateProduct";

@@ -1,8 +1,12 @@
 //import firebase from "firebase/app";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { Row, Col, Card, Button } from "react-bootstrap";
-// import { SRLWrapper } from "simple-react-lightbox";
+
+import Icon from '@mui/material/Icon';
+
+
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 import { db } from "../../firebase";
@@ -16,10 +20,12 @@ const ProductsGrid = ({ products, type }) => {
     border: mobile ? '2px solid lightgrey' : 'none',
     width: mobile ? '400px' : '1000px',
     margin: mobile ? '0 auto' : '10px',
-    padding: '0',
+    padding: '0 10px 10px 10px',
     overflowY: mobile ? 'scroll' : 'none',
-    maxHeight: mobile ? '600px' : 'none',
-    borderRadius: '3px'
+    maxHeight: mobile ? '750px' : 'none',
+    borderRadius: '3px',
+    position: 'relative',
+    backgroundColor: 'rgb(239, 238, 238)'
   }
 
   const handleUpdateProduct = (product) => {
@@ -44,6 +50,9 @@ const ProductsGrid = ({ products, type }) => {
   return (
     // <SRLWrapper>
     <Row style={containerStyles} className="mt-5 mb-5" onLoad={() => setProductOption(type)}>
+
+      <Icon style={{ width: '20px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '0', position: 'sticky', top: `0`, left: '-10px', backgroundColor: 'lightgrey' }} color='info'>device_unknown</Icon>
+
       {products &&
         products.map((item) => (
           <Col className="p-0" sm={6} md={4} lg={mobile ? 12 : 3} key={item.id}>
