@@ -18,14 +18,11 @@ const Login = () => {
 
 
   useEffect(() => {
-    if (currentUser?.email && !admin) {
-      navigate("/");
-    }
-    else if (admin) {
-      navigate('/cms')
+    if (admin) {
+      navigate('/cms/index', { replace: true })
     }
 
-  }, [currentUser])
+  }, [admin])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +35,7 @@ const Login = () => {
     setError(null);
 
     // try to log in the user with the specified credentials
+    // Check if user is admin manually
     setLoading(true);
     if (admin) {
       const adminBoolean = checkIfAdmin(email);
@@ -63,8 +61,14 @@ const Login = () => {
     if (user) {
       setError(null)
       setLoading(false)
-      navigate('/products/troussers')
-      return
+      let admin = checkIfAdmin(user.email)
+      if (admin) {
+        navigate('/cms/index', { replace: true })
+      }
+      else {
+        navigate('/products/troussers')
+        return
+      }
     }
     else {
       setError(

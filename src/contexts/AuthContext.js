@@ -22,22 +22,26 @@ const AuthContextProvider = (props) => {
   const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState(false);
 
+  const signIn = (auth, email, password) => signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+      console.log(user)
+      setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
+      return { email: user.email, uid: user.uid, display_name: user.display_name, token: user.token }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log({ code: errorCode, msg: errorMessage })
+
+    });
+
   const login = async (email, password) => {
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-        console.log(user)
-        setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({ code: errorCode, msg: errorMessage })
-
-      });
+    const user = await signIn(auth, email, password)
+    return user
 
   };
 
@@ -117,7 +121,7 @@ const AuthContextProvider = (props) => {
       // auth state changed (by a user either logging in or out)
       setCurrentUser(user);
       if (user) {
-        checkIfAdmin(user.email);
+        setAdmin(checkIfAdmin(user.email));
       }
       setLoading(false);
     });

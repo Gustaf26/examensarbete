@@ -39,6 +39,8 @@ const App = () => {
 
   }, []);
 
+
+
   const showFooter = (e) => {
     if (document.documentElement && document.documentElement.scrollTop > 100) {
       document.getElementById("footer").className = "show";

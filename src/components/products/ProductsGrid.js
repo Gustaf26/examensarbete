@@ -25,7 +25,7 @@ const ProductsGrid = ({ products, type }) => {
     maxHeight: mobile ? '750px' : 'none',
     borderRadius: '3px',
     position: 'relative',
-    backgroundColor: 'rgb(239, 238, 238)'
+    backgroundColor: mobile ? 'rgb(239, 238, 238)' : ''
   }
 
   const handleUpdateProduct = (product) => {
