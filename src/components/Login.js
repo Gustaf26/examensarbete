@@ -17,53 +17,39 @@ const Login = () => {
   const navigate = useNavigate();
 
 
-  useEffect(() => {
-    if (admin) {
-      navigate('/cms/index', { replace: true })
-    }
-
-  }, [admin])
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
 
     let email = e.target[0].value
     let passOne = e.target[1].value
-    let admin = e.target[2].checked
+    let adminCheck = e.target[2].checked
 
     setError(null);
 
     // try to log in the user with the specified credentials
-    // Check if user is admin manually
+
+
     setLoading(true);
-    if (admin) {
-      const adminBoolean = checkIfAdmin(email);
-      if (adminBoolean === false) {
-        setAlert(true);
-        setLoading(false);
-        return;
-      } else {
-        setAlert(false);
-      }
-    } else if (adminChecked === false) {
-      const adminBoolean = checkIfAdmin(email);
-      if (adminBoolean === true) {
-        setAdminAlert(true);
-        setLoading(false);
-        return;
-      } else {
-        setAdminAlert(false);
-      }
-    }
     const user = await login(email, passOne);
 
     if (user) {
       setError(null)
       setLoading(false)
+
+      // Check if user is admin manually
       let admin = checkIfAdmin(user.email)
       if (admin) {
-        navigate('/cms/index', { replace: true })
+        console.log(adminCheck)
+        if (adminCheck === false) {
+          setAdminAlert(true);
+          setLoading(false);
+          return;
+        } else {
+          setAdminAlert(false);
+          setAdmin(true);
+          navigate('/cms/index', { replace: true })
+        }
       }
       else {
         navigate('/products/troussers')

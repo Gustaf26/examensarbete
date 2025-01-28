@@ -106,7 +106,7 @@ const AuthContextProvider = (props) => {
 
   const checkIfAdmin = (email) => {
     if (email.trim() === "gcs26@yahoo.com") {
-      setAdmin(true);
+      // setAdmin(true);
       return true;
     } else {
       setAdmin(false);
@@ -120,9 +120,9 @@ const AuthContextProvider = (props) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       // auth state changed (by a user either logging in or out)
       setCurrentUser(user);
-      if (user) {
-        setAdmin(checkIfAdmin(user.email));
-      }
+      // if (user) {
+      //   setAdmin(checkIfAdmin(user.email));
+      // }
       setLoading(false);
     });
 
@@ -136,7 +136,7 @@ const AuthContextProvider = (props) => {
     admin,
     login,
     logout,
-    // resetPassword,
+    setAdmin,
     signup,
     updateProfileData,
     checkIfAdmin,
