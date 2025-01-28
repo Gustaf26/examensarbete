@@ -5,6 +5,8 @@ import { BounceLoader } from "react-spinners";
 import { db } from '../firebase/index'
 import { collection, getDocs } from "firebase/firestore";
 
+import { useAuth } from './AuthContext'
+
 const CreateContext = createContext();
 
 const useCreate = () => {
@@ -23,12 +25,24 @@ const CreateContextProvider = (props) => {
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
 
+  const { admin } = useAuth()
+
 
   const getSingleProduct = () => {
-    const firstDash = location.indexOf("/");
-    const secondDash = location.lastIndexOf("/");
-    const semiPath = location.slice(firstDash, secondDash);
-    const category = semiPath.replace("/products/", "");
+
+    let firstDash;
+    let secondDash;
+    let semiPath;
+    let category;
+
+    if (!admin) {
+
+      firstDash = location.indexOf("/");
+      secondDash = location.lastIndexOf("/");
+      semiPath = location.slice(firstDash, secondDash);
+      category = semiPath.replace("/products/", "");
+    }
+
 
     let preliminaryProd = allProducts.current.filter(
       (prod) => prod.id === Number(prodId) && prod.category === category

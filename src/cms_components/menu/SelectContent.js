@@ -34,13 +34,14 @@ export default function SelectContent() {
     const [company, setCompany] = React.useState(0);
 
 
-    const { setMobile } = useMobile()
+    const { setMobile, setMobileDisplays } = useMobile()
 
     const handleChange = (event) => {
         event.preventDefault()
         setCompany(event.target.value);
         if (event.target.value === 0) {
             setMobile(false)
+            setMobileDisplays(false)
         }
 
         else { setMobile(true); }

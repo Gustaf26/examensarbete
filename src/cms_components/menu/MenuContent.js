@@ -30,6 +30,7 @@ const secondaryListItems = [
 export default function MenuContent() {
 
     const navigate = useNavigate()
+    const [itemSelected, setItemSelected] = React.useState(0)
 
 
     return (
@@ -37,7 +38,7 @@ export default function MenuContent() {
             <List dense>
                 {mainListItems.map((item, index) => (
                     <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                        <ListItemButton selected={index === 0} onClick={() => navigate(item.url)}>
+                        <ListItemButton selected={index === itemSelected} onClick={() => { setItemSelected(index); navigate(item.url) }}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
                         </ListItemButton>
