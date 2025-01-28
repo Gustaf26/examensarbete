@@ -20,8 +20,11 @@ import SearchResults from "./components/products/SearchResults";
 import NotFound from "./components/NotFound";
 import Signup from "./components/Signup";
 import UpdateProfile from "./components/UpdateProfile";
+
 import { useCreate } from "./contexts/CreateContext";
 import { useAuth } from './contexts/AuthContext'
+import { MobileContextProvider } from './contexts/MobileContext'
+
 import "./assets/scss/app.scss";
 
 const App = () => {
@@ -59,7 +62,7 @@ const App = () => {
     <Router>
       {!admin && <Navigation />}
       <div id="main-div">
-        <Container id="container" className="py-3">
+        <Container id="container" className="py-3"><MobileContextProvider>
           {!admin && (
             <Routes>
               <Route index to="/*" element={<Home />} />
@@ -81,6 +84,7 @@ const App = () => {
             </Routes>)}
           <>
             {admin && currentUser && (<>
+
               < CMSNav />
               <Routes>
                 <Route path="cms/*">
@@ -100,7 +104,7 @@ const App = () => {
               </Routes>
             </>)}
           </>
-          {/* {admin && currentUser && <Navigate to="/cms/index"></Navigate>} */}
+        </MobileContextProvider>
         </Container>
       </div>
       <footer id="footer" className="p-2">

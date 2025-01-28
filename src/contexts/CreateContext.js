@@ -22,7 +22,6 @@ const CreateContextProvider = (props) => {
   const [searchString, setSearchString] = useState("");
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
-  const [mobile, setMobile] = useState(false)
 
 
   const getSingleProduct = () => {
@@ -105,8 +104,6 @@ const CreateContextProvider = (props) => {
   }, [searchString]);
 
   const contextValues = {
-    setMobile,
-    mobile,
     setImageUrl,
     imageUrl,
     setProductOption,
