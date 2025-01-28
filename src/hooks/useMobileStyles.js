@@ -15,7 +15,8 @@ const useMobileStyles = () => {
         height: mobile ? `${mobileHeight}px` : 'none',
         borderRadius: '20px',
         position: 'relative',
-        backgroundColor: mobile ? 'rgb(255, 255, 255)' : ''
+        backgroundColor: mobile ? 'rgb(255, 255, 255)' : '',
+        transition: '0.5s',
     }
 
     return containerStyles
