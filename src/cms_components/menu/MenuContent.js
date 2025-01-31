@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate, Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useCreate } from '../../contexts/CreateContext'
 
@@ -13,7 +13,8 @@ import Stack from '@mui/material/Stack';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
-import CheckroomIcon from '@mui/icons-material/Checkroom'; import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import { MenuItem } from '@mui/material';
@@ -36,12 +37,13 @@ export default function MenuContent() {
     const navigate = useNavigate()
     const [itemSelected, setItemSelected] = React.useState(0)
     const { productCategories } = useCreate()
-    const [standardProdOption, setStandardProdOption] = React.useState('')
+    const [selectedProdCategory, setSelectedCategory] = React.useState('troussers')
 
-    // React.useEffect(() => {
-    //     setStandardProdOption('troussers')
+    React.useEffect(() => {
 
-    // }, [])
+        if (itemSelected === 3) navigate(`cms/products/${selectedProdCategory}`)
+
+    }, [selectedProdCategory, itemSelected])
 
     return (
         <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
@@ -56,8 +58,8 @@ export default function MenuContent() {
                             <Select
                                 labelId="company-select"
                                 id="company-simple-select"
-                                defaultValue={'troussers'}
-                                onChange={(e) => { navigate(`cms/products/${e.target.value}`) }}
+                                defaultValue={selectedProdCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
                                 inputProps={{ 'aria-label': 'Select company' }}
                                 fullWidth
                                 sx={{
@@ -83,7 +85,6 @@ export default function MenuContent() {
                                     </MenuItem>)
                                 })}
                             </Select>)}
-                        {/* {standardProdOption && itemSelected === 3 && <Navigate to={`/cms/products/${standardProdOption}`} />} */}
                     </ListItem>
                 ))}
             </List>

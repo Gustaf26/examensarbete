@@ -1,20 +1,15 @@
 //import firebase from "firebase/app";
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Row, Col, Card, Button } from "react-bootstrap";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Icon from '@mui/material/Icon';
-
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
-import { useMobile } from './../../contexts/MobileContext'
+import { useMobile } from "../../contexts/MobileContext";
 
+import MobileList from '../../cms_components/MobileList'
 import useMobileStyles from '../../hooks/useMobileStyles'
 
 import { db } from "../../firebase";
@@ -22,24 +17,22 @@ import { db } from "../../firebase";
 const ProductsGrid = ({ products, type }) => {
   const navigate = useNavigate();
   const { admin } = useAuth();
-  const { setSingleProduct, setProductOption, setProdId } = useCreate();
-  const { mobile, mobileDisplays, setMobileDisplays, setMobileWidth, mobileHeight, setMobileHeight } = useMobile()
+  const { setSingleProduct, setProductOption } = useCreate();
+  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight } = useMobile()
 
   const containerStyles = useMobileStyles()
 
-  const [selectedIndex, setSelectedIndex] = useState(0)
-
   const handleUpdateProduct = (product) => {
-    setSingleProduct(product);
+
     navigate(`/cms/products/update/`, { replace: true });
   };
 
   const handleDeleteProduct = (product) => {
     try {
-      const deletion = async () => {
+      const deletion = () => {
         console.log("ddeleteing " + product.name);
-
-        await db.collection(`${type}`).doc(`${product.id}`).delete();
+        alert('I don´t want to delete products, sorry')
+        // await db.collection(`${type}`).doc(`${product.id}`).delete();
       };
 
       deletion();
@@ -51,25 +44,10 @@ const ProductsGrid = ({ products, type }) => {
   return (
     <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
       <div style={mobile ? containerStyles : null}>
-        {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
 
-        {mobileDisplays && <List style={{ position: 'absolute', backgroundColor: 'rgba(255, 255, 255,0.9)', paddingLeft: '0', borderRadius: '5px', right: '20px', top: `0`, left: '0', listStyleType: 'none', zIndex: '3' }}>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton id="0" selected={selectedIndex === '0'} onClick={(e) => { setSelectedIndex('0'); setMobileWidth(500); setMobileHeight(600) }} className="mobile-displays-item" >
-              <ListItemText primary={'Samsung'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton id="0" selected={selectedIndex === '1'} onClick={(e) => { setSelectedIndex('1'); setMobileWidth(450); setMobileHeight(650) }} className="mobile-displays-item" >
-              <ListItemText primary={'Apple'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton id="0" selected={selectedIndex === '2'} onClick={(e) => { setSelectedIndex('2'); setMobileWidth(350); setMobileHeight(700) }} className="mobile-displays-item" >
-              <ListItemText primary={'Sony'} />
-            </ListItemButton>
-          </ListItem>
-        </List>}
+        {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+        {mobileDisplays && <MobileList />}
+
         <Row className="mb-5" style={{
           overflowY: mobile ? 'scroll' : 'hidden', height: mobile ? `${mobileHeight - 20}px` : '', marginTop: '0px'
         }} onLoad={() => setProductOption(type)}>
@@ -90,27 +68,32 @@ const ProductsGrid = ({ products, type }) => {
                   </a>
                   <Card.Body
                     className="d-block"
-                    onClick={() => { setSingleProduct(item); if (admin) navigate(`/cms/products/${item.category}/${item.id}`, { replace: true }) }}
+                    onClick={(e) => {
+                      setSingleProduct(item);
+                      if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
+                      else if (admin) navigate(`/cms/products/${item.category}/${item.id}`, { replace: true })
+                    }}
                   >
                     {" "}
-                    <Link to={admin ? `/ cms / products / ${type} /${item.id}` : `products/${type}/${item.id}`} >
-                      <Card.Text className="text-muted small">
-                        <b>{item.name}</b>
-                      </Card.Text>
-                      <Card.Text className="text-muted small">
-                        <b>Price: </b> {item.price} €
-                      </Card.Text>
-                      <Card.Text className="text-muted small">
-                        <b>Description: </b>{" "}
-                        <span>
-                          {item.description.slice(0, 100)}... <b>(Read more)</b>
-                        </span>
-                      </Card.Text>
-                    </Link>
+                    {/* <Link to={admin ? `/ cms / products / ${type} /${item.id}` : `products/${type}/${item.id}`} > */}
+                    <Card.Text className="text-muted small">
+                      <b>{item.name}</b>
+                    </Card.Text>
+                    <Card.Text className="text-muted small">
+                      <b>Price: </b> {item.price} €
+                    </Card.Text>
+                    <Card.Text className="text-muted small">
+                      <b>Description: </b>{" "}
+                      <span>
+                        {item.description.slice(0, 100)}... <b>(Read more)</b>
+                      </span>
+                    </Card.Text>
+                    {/* </Link> */}
                     {
                       admin && (
                         <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
                           <Button
+                            id="deleteProduct"
                             variant="danger"
                             size="sm"
                             className="col-5 mt-3 mr-1 p-2"
@@ -121,6 +104,7 @@ const ProductsGrid = ({ products, type }) => {
                             Delete
                           </Button>
                           <Button
+                            id="updateProduct"
                             variant="secondary"
                             size="sm"
                             className="col-5 mt-3 ml-3 p-2"
