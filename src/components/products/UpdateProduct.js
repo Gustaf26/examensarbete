@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { db } from "../../firebase/index";
 import { doc, setDoc } from "firebase/firestore";
 
-import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
+import { Row, Col, Card, Form, Button, Alert, Breadcrumb } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
 
 import { useCreate } from "../../contexts/CreateContext";
@@ -34,6 +34,7 @@ const UpdateProduct = () => {
     singleProduct,
     productCategories,
     setImageUrl,
+    admin
   } = useCreate();
 
   const navigate = useNavigate();
@@ -97,19 +98,29 @@ const UpdateProduct = () => {
   return (
     <>
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-        <Row style={mobile ? { ...containerStyles, margin: '3rem auto' } : { margin: '3rem auto', justifyContent: 'center' }}>
+        <Breadcrumb className="mb-3">
+          <Breadcrumb.Item>
+            <Link to={admin ? "/cms/index" : "/"}>Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            {productOption && (
+              <Link to={`/cms/products/${productOption}`}></Link>
+            )}
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
           {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
-          <Col lg={mobile ? 12 : 6} md={{ span: 6 }} style={mobile ? { padding: '0', overflowY: 'scroll', height: `${mobileHeight - 20}px` } : { marginTop: '-40px', width: '400px', height: '500px' }}>
+          <Col lg={mobile ? 12 : 6} md={{ span: 6 }} style={mobile ? { padding: '10px', overflowY: 'scroll', height: mobile ? `${mobileHeight - 20}px` : '80%' } : { marginTop: '-40px', width: '400px', height: '500px' }}>
             {singleProduct ? (
-              <Card>
-                <Card.Body>
-                  <Card.Title style={{ textAlign: 'center' }}>Update a product entry</Card.Title>
+              <Card className="my-3 pl-2" style={{ height: mobile ? 'fit-content' : `${mobileHeight - 20}px`, overflowY: mobile ? 'hidden' : 'scroll' }}>
+                <Card.Body className="p-2">
+                  <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>
                   {error && <Alert variant="danger">{error}</Alert>}
                   <Card.Img src={singleProduct.thumbnail} />
                   <Form onSubmit={handleSubmit}>
                     <Form.Group id="title">
-                      <Form.Label>Product name</Form.Label>
+                      <Form.Label className="p-2">Product name</Form.Label>
                       <Form.Control
                         type="title"
                         onChange={handleNameChange}
@@ -124,8 +135,8 @@ const UpdateProduct = () => {
                       )}
                     </Form.Group>
                     <Form.Group id="description">
-                      <Form.Label>Description</Form.Label>
-                      <textarea style={{ width: '100%', height: '200px', overflowY: 'scroll', border: '0.5px solid lightgrey', borderRadius: '8px' }}
+                      <Form.Label className="p-2">Description</Form.Label>
+                      <textarea className="p-2" style={{ width: '100%', height: '200px', overflowY: 'scroll', border: '0.5px solid lightgrey', borderRadius: '8px' }}
                         type="title"
                         onChange={handleDescriptionChange}
                         // value={description}
@@ -141,7 +152,7 @@ const UpdateProduct = () => {
                         )}
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect2">
-                      <Form.Label>Choose product category</Form.Label>
+                      <Form.Label className="p-2">Choose product category</Form.Label>
                       <Form.Control
                         // id="inlineFormCustomSelect"
                         custom

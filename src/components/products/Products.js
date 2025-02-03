@@ -1,25 +1,34 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+
 import { BounceLoader } from "react-spinners";
+import { Breadcrumb } from "react-bootstrap";
+
 import useProducts from "../../hooks/useProducts";
 import ProductsGrid from "./ProductsGrid";
-import { Breadcrumb } from "react-bootstrap";
+import Navigation from '../Navigation'
+
 import { useAuth } from '../../contexts/AuthContext'
-import { useCreate } from '../../contexts/CreateContext'
+import { useMobile } from '../../contexts/MobileContext'
 
 
 const Products = ({ type }) => {
   const { products, loading } = useProducts(type);
   const { admin } = useAuth();
-  const { mobile } = useCreate()
+  const { mobile } = useMobile()
 
   return (
     <>
+      {!mobile && <Navigation />}
       <Breadcrumb className="mb-3">
         <Breadcrumb.Item>
           <Link to={admin ? "/cms/index" : "/"}>Home</Link>
         </Breadcrumb.Item>
-        <span>{type}</span>
+        <Breadcrumb.Item>
+          {type && (
+            <Link to={admin ? `/cms/products/${type}` : `/products/${type}`}>{type}</Link>
+          )}
+        </Breadcrumb.Item>
       </Breadcrumb>
 
       {loading ? (

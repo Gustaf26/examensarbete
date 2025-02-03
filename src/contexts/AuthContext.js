@@ -1,17 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
+
 import { BounceLoader } from "react-spinners";
 import {
-  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut
 } from "firebase/auth";
 
+import { getAuth } from '../firebase/index'
 
-
+const auth = getAuth()
 
 const AuthContext = createContext();
-const auth = getAuth();
 
 const useAuth = () => {
   return useContext(AuthContext);
@@ -21,6 +21,7 @@ const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState(false);
+
 
   const signIn = (auth, email, password) => signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -117,17 +118,21 @@ const AuthContextProvider = (props) => {
 
   // This effect is responsible for keeping the "session" in the browser for the user
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+
+    let unsubscribe
+
+    unsubscribe = auth.onAuthStateChanged((user) => {
       // auth state changed (by a user either logging in or out)
       setCurrentUser(user);
-      // if (user) {
-      //   setAdmin(checkIfAdmin(user.email));
-      // }
+      if (user) {
+        setAdmin(checkIfAdmin(user.email));
+      }
       setLoading(false);
     });
 
     return unsubscribe;
   }, [currentUser]);
+
 
 
   const contextValues = {

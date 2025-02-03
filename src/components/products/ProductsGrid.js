@@ -12,7 +12,7 @@ import { useMobile } from "../../contexts/MobileContext";
 import MobileList from '../../cms_components/MobileList'
 import useMobileStyles from '../../hooks/useMobileStyles'
 
-import { db } from "../../firebase";
+import Navigation from '../Navigation'
 
 const ProductsGrid = ({ products, type }) => {
   const navigate = useNavigate();
@@ -44,17 +44,16 @@ const ProductsGrid = ({ products, type }) => {
   return (
     <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
       <div style={mobile ? containerStyles : null}>
-
+        {mobile && <Navigation />}
         {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
         {mobileDisplays && <MobileList />}
-
-        <Row className="mb-5" style={{
-          overflowY: mobile ? 'scroll' : 'hidden', height: mobile ? `${mobileHeight - 20}px` : '', marginTop: '0px'
-        }} onLoad={() => setProductOption(type)}>
+        <Row className="mb-5" style={mobile ? {
+          overflowY: 'scroll', height: `${mobileHeight - 20}px`, marginTop: '0px'
+        } : { overflowY: 'hidden', display: 'flex', justifyContent: 'center' }} onLoad={() => setProductOption(type)}>
           {products &&
             products.map((item) => (
-              <Col className="pl-2 pr-2" sm={6} md={4} lg={mobile ? 12 : 3} key={item.id}>
-                <Card className="mb-2 mt-0">
+              <Col style={mobile ? { width: '100%' } : { width: '300px' }} className="pl-2 pr-2" lg={mobile ? 12 : 4} key={item.id}>
+                <Card className="mb-2 mt-0 p-2">
                   <a
                     href={item.thumbnail}
                     title="View image in lightbox"

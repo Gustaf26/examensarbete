@@ -13,7 +13,7 @@ const MobileList = () => {
     const [selectedIndex, setSelectedIndex] = useState(0)
 
     return (
-        <List style={{ position: 'absolute', backgroundColor: 'rgba(255, 255, 255,0.9)', paddingLeft: '0', borderRadius: '5px', right: '20px', top: `0`, left: '0', listStyleType: 'none', zIndex: '3' }}>
+        <List style={{ zIndex: '4', position: 'absolute', backgroundColor: 'rgba(255, 255, 255,0.9)', paddingLeft: '0', borderTopLeftRadius: '15px', width: 'calc(100% - 20px)', right: '0', top: `0`, left: '0', height: 'fit-content', listStyleType: 'none' }}>
             <ListItem disablePadding sx={{ display: 'block' }}>
                 <ListItemButton id="0" selected={selectedIndex === '0'} onClick={(e) => { setSelectedIndex('0'); setMobileWidth(500); setMobileHeight(600) }} className="mobile-displays-item" >
                     <ListItemText primary={'Samsung'} />

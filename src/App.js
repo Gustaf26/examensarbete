@@ -60,52 +60,35 @@ const App = () => {
 
   return (
     <Router>
-      {!admin && <Navigation />}
-      <div id="main-div">
-        <Container id="container" className="py-3"><MobileContextProvider>
-          {!admin && (
+      {/* <Navigation style={admin ? { marginLeft: '280px', width: 'calc(100% - 240px)' } : {}} /> */}
+      <div id="main-div" style={{ width: '100vw', position: 'relative' }}>
+        <MobileContextProvider>
+          {admin && < CMSNav />}
+          <Container id="container" style={admin ? { marginLeft: '240px', maxWidth: 'calc(100vw - 320px)', flexWrap: 'wrap' } : {}} className="py-3">
             <Routes>
-              <Route index to="/*" element={<Home />} />
-              <Route path="search-results" element={<SearchResults />} />
-              <Route path="products/*">
-                {productCategories &&
-                  productCategories.map((category, i) => (
-                    <>
-                      <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
-                      <Route path={`${category.name}/:productId`} element={<Product />} />
-                    </>))}
-              </Route>
-              <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="login" element={<Login />} />
-              <Route path="logout" element={<Logout />} />
-              <Route path="signup" element={<Signup />} />
-              {(admin || currentUser) && <Route path="/update-profile" element={<UpdateProfile />} />}
-              <Route path="*" element={<NotFound />} />
-            </Routes>)}
-          <>
-            {admin && currentUser && (<>
-
-              < CMSNav />
-              <Routes>
-                <Route path="cms/*">
-                  <Route path="index" element={<Home />} />
-                  {/* <Route path="create" element={<CreateProduct />} /> */}
-                  <Route path="products/*">
-                    {productCategories &&
-                      productCategories.map((category, i) => (
-                        <>
-                          <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
-                          <Route path={`${category.name}/:productId`} key="single-product" element={<Product />} />
-                        </>))}
-                    <Route path="update" element={<UpdateProduct />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Route>
+              <Route path="/" element={<Home />} />
+              <Route path={admin ? 'cms/*' : "/"}>
+                <Route path='index' element={<Home />} />
+                <Route path="search-results" element={<SearchResults />} />
+                <Route path={'products/*'}>
+                  {productCategories &&
+                    productCategories.map((category, i) => (
+                      <>
+                        <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
+                        <Route path={`${category.name}/:productId`} element={<Product />} />
+                        {admin && <Route path={`update`} element={<UpdateProduct />} />}
+                      </>))}
                 </Route>
-              </Routes>
-            </>)}
-          </>
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="login" element={<Login />} />
+                <Route path="logout" element={<Logout />} />
+                <Route path="signup" element={<Signup />} />
+                <Route path="update-profile" element={<UpdateProfile />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Container>
         </MobileContextProvider>
-        </Container>
       </div>
       <footer id="footer" className="p-2">
         <div>
