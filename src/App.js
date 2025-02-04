@@ -64,7 +64,8 @@ const App = () => {
       <div id="main-div" style={{ width: '100vw', position: 'relative' }}>
         <MobileContextProvider>
           {admin && < CMSNav />}
-          <Container id="container" style={admin ? { marginLeft: '240px', maxWidth: 'calc(100vw - 320px)', flexWrap: 'wrap' } : {}} className="py-3">
+          {!admin && <Navigation />}
+          <Container id="container" style={admin ? { marginLeft: '240px', maxWidth: 'calc(100vw - 240px)', flexWrap: 'wrap' } : { width: '100%' }} className="p-0">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path={admin ? 'cms/*' : "/"}>

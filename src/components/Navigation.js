@@ -1,16 +1,12 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
 import {
-  Navbar,
   Nav,
   NavDropdown,
-  Container,
   Form,
-  Row,
   FormControl,
-  Col,
 } from "react-bootstrap";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
@@ -18,7 +14,6 @@ import { useMobile } from '../contexts/MobileContext'
 
 import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
 import MenuIcon from '@mui/icons-material/Menu';
-import SimpleMenu from "./SimpleMenu";
 
 const Navigation = () => {
   const { currentUser, admin } = useAuth();
@@ -26,8 +21,8 @@ const Navigation = () => {
   const [customMenu, setCustMenu] = useState(false);
   const { setSearchResults, setSearchString } = useCreate();
   const navigate = useNavigate();
-  const { mobile } = useMobile()
-  const [menuShowing, setMenuShowing] = useState(true)
+  const { mobile, setMobile, menuShowing, setMenuShowing } = useMobile()
+
 
   const showMenu = () => {
     setMenuShowing(!menuShowing)
@@ -64,9 +59,16 @@ const Navigation = () => {
     window.addEventListener("resize", function (e) {
       if (window.innerWidth > 1000) {
         setCustMenu(false);
+        setMobile(false)
       }
-      if (e.offsetX < 1000) {
+      if (window.innerWidth < 1110) {
         setCustMenu(true);
+        setMenuShowing(false)
+        setMobile(true)
+      }
+      else {
+        setMenuShowing(true)
+        setMobile(false)
       }
     });
     // let inputEl = document.getElementById("product-search");
@@ -74,20 +76,27 @@ const Navigation = () => {
   }, [mobile]);
 
   return (
-    <div style={mobile ? { position: 'absolute', backgroundColor: 'rgba(103, 101, 101,0.8)', height: menuShowing ? '200px' : '', color: 'white', width: 'calc(100% - 20px)', borderTopLeftRadius: '15px', zIndex: '3', top: '0', left: '0' } : {}}>
-      {!menuShowing ? (<div style={{ padding: '10px', color: 'white' }}>
+    <div style={mobile && admin ? {
+      position: 'absolute', backgroundColor: 'rgba(220, 217, 217, 0.9)', height: menuShowing ? 'fit-content' : '', width: 'calc(100% - 20px)',
+      borderTopLeftRadius: '15px', zIndex: '3', top: '0', left: '0'
+    } : { width: '100%', height: 'fit-content' }}>
+      {!menuShowing ? (<div style={{ color: 'white', padding: '10px 20px', backgroundColor: 'rgba(220, 217, 217, 0.9)' }}>
         <MenuIcon variant="light" onClick={showMenu} />
       </div>) : (
-        <Nav onClick={showMenu} id="navigation" className="mx-auto d-flex align-items-center justify-content-around">
-          <div id="nav-container" style={mobile ? { justifyContent: 'space-around', color: 'white', alignItems: 'center', flexDirection: 'column', width: '100%' } : {}}>
-            <Nav.Item className="navitem">
-              <NavLink to={admin ? 'cms/index' : "/"} id={!mobile && "logo"} className="navbar-brand">
-                Work Out
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item className="navitem">
-              <Form onSubmit={omitReload}>
+        <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
+          display: 'flex', height: 'fit-content',
+          backgroundColor: 'rgba(220, 217, 217, 0.9)', alignItems: 'center', justifyContent: 'center', padding: '10px', width: '100%', flexDirection: 'column'
+        } : { padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+          <Nav.Item style={mobile ? { width: '100%' } : null} className="d-flex justify-content-center align-items-center navitem">
+            <NavLink to={"/"} style={{ textAlign: 'center' }} id={!mobile && "logo"} className="navbar-brand">
+              Work Out
+            </NavLink>
+          </Nav.Item>
+          < div id="nav-container" style={mobile ? { justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column', height: '75%', width: '100%' } : { display: 'flex', alignItems: 'center' }}>
+            <Nav.Item className="d-flex align-items-center navitem mx-5">
+              <Form style={mobile ? { width: '100%', textAlign: 'center' } : { width: '400px' }} onSubmit={omitReload}>
                 <FormControl
+                  style={mobile ? { minWidth: '200px' } : null}
                   onChange={changeString}
                   type="text"
                   id="product-search"
@@ -99,40 +108,44 @@ const Navigation = () => {
               title="All clothes"
               id="basic-nav-dropdown"
               className="ml-3 navitem"
+              variant="disabled"
+              style={mobile ? { width: '100%', textAlign: 'center' } : null}
             >
               <NavLink
-                to={admin ? 'cms/products/troussers' : "/products/troussers"}
+                to={admin ? '/cms/products/troussers' : "/products/troussers"}
                 className="dropdown-item"
               >
                 Troussers
               </NavLink>
               <NavDropdown.Divider />
-              <NavLink to={admin ? 'cms/products/jackets' : "/products/jackets"} className="dropdown-item">
+              <NavLink to={admin ? '/cms/products/jackets' : "/products/jackets"} className="dropdown-item">
                 Jackets
               </NavLink>
               <NavDropdown.Divider />
               <NavLink
-                to={admin ? 'cms/products/t-shirts' : "/products/t-shirts"}
+                to={admin ? '/cms/products/t-shirts' : "/products/t-shirts"}
                 className="dropdown-item"
               >
                 T-shirts
               </NavLink>
             </NavDropdown>
             {currentUser ? (
-              <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex align-items-center justify-content-center w-40">
                 <NavDropdown
+                  style={mobile ? { width: '100%', textAlign: 'center' } : {}}
                   title={currentUser.display_name ? currentUser.display_name : currentUser.email}
                   id="basic-nav-dropdown"
                   className="mx-lg-2 navitem"
                 >
                   <NavLink
+                    style={mobile ? { width: '100%', textAlign: 'center' } : {}}
                     to={admin ? 'cms/update-profile' : "/update-profile"}
                     className="dropdown-item"
                   >
                     Update Profile
                   </NavLink>
                   <NavDropdown.Divider />
-                  <NavLink to={admin ? 'cms/logout' : "/logout"} className="dropdown-item">
+                  <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}} to={admin ? 'cms/logout' : "/logout"} className=" dropdown-item">
                     Log Out
                   </NavLink>
                 </NavDropdown>
@@ -147,6 +160,7 @@ const Navigation = () => {
               </div>
             ) : (
               <NavLink
+                style={mobile ? { width: '100%', textAlign: 'center' } : {}}
                 to={admin ? 'cms/login' : "/login"}
                 className="nav-link signin navitem ml-3"
                 id="login-link"
@@ -159,7 +173,7 @@ const Navigation = () => {
           </div>
         </Nav >)
       }
-    </div>
+    </div >
   );
 };
 

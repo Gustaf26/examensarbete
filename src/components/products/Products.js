@@ -19,8 +19,8 @@ const Products = ({ type }) => {
 
   return (
     <>
-      {!mobile && <Navigation />}
-      <Breadcrumb className="mb-3">
+      {!mobile && admin && <Navigation />}
+      <Breadcrumb className="m-3">
         <Breadcrumb.Item>
           <Link to={admin ? "/cms/index" : "/"}>Home</Link>
         </Breadcrumb.Item>

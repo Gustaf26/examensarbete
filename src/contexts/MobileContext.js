@@ -13,6 +13,7 @@ const MobileContextProvider = (props) => {
     const [mobileWidth, setMobileWidth] = useState(400);
     const [mobileHeight, setMobileHeight] = useState(750);
     const [mobile, setMobile] = useState(false)
+    const [menuShowing, setMenuShowing] = useState(true)
 
     const contextValues = {
         setMobile,
@@ -22,7 +23,8 @@ const MobileContextProvider = (props) => {
         mobileHeight,
         mobileWidth,
         setMobileHeight,
-        setMobileWidth
+        setMobileWidth,
+        menuShowing, setMenuShowing
     };
 
     return (

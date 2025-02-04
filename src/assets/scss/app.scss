@@ -17,13 +17,12 @@ body {
 
 #navigation {
   background-color: rgba(116, 116, 116, 0.6);
-  height: 100px;
 
   & #nav-container {
     width: 80%;
     height: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
   }
 }
@@ -53,9 +52,8 @@ h2 {
 #logo {
   font-family: "Pacifico", cursive;
   color: rgb(78, 77, 77);
-  // font-size: xx-large;
-  background-color: rgba(219, 217, 217, 0.5);
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 1px solid grey;
+  padding: 10px 1rem;
   border-radius: 5px;
 }
 
@@ -76,16 +74,13 @@ h2 {
   color: rgb(80, 79, 79);
 }
 
-.navitem {
-  padding: 10px;
-  color: rgb(212, 209, 209);
-  height: 50px;
-  line-height: 0.8;
-  margin-top: 5px !important;
-}
 
 .create-button {
   color: rgb(116, 115, 115);
+}
+
+.navitem {
+  text-align: center;
 }
 
 .navitem:hover {
@@ -94,14 +89,9 @@ h2 {
   // border-radius: 20px 0 0 20px;
 }
 
-// .navitem:last-child:hover {
-//   background-color: rgb(224, 229, 230);
-//   font-style: bold;
-//   // border-radius: 0 20px 20px 0;
-// }
 
 #basic-nav-dropdown {
-  color: white;
+  color: rgb(107, 107, 107);
 }
 
 #basic-nav-dropdown:hover {
@@ -110,15 +100,16 @@ h2 {
 
 #product-search {
   min-width: 300px;
-  height: 2.5rem;
-  border-radius: 50px;
-  background-color: rgba(233, 230, 230, 0);
-  border: 2px solid rgb(218, 215, 215);
-  color: white;
+  padding-left: 20px;
+  border-radius: 5px;
+  background-color: rgba(250, 248, 248, 0.8);
+  border: 1px solid rgb(163, 163, 163);
+  color: rgb(107, 107, 107) !important;
+  vertical-align: top;
 }
 
 #product-search::placeholder {
-  color: whitesmoke;
+  color: rgb(146, 146, 146) !important;
 }
 
 #basket-icon {
@@ -272,6 +263,16 @@ h2 {
 }
 
 @media screen and (min-width: 600px) and (max-width: 900px) {
+
+  #nav-container {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   #product-search {
     margin-top: -1.5rem;
     margin-right: 1rem;
@@ -286,15 +287,24 @@ h2 {
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1100px) {
+
+  #navigation {
+    flex-direction: column;
+  }
+
+  #nav-container {
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+  }
+
   .navitem {
     margin: 1rem 0 1rem 0;
     font-size: medium;
   }
 
-  #logo {
-    margin-left: 7vw;
-  }
+
 
   #product-search::placeholder {
     color: whitesmoke;
@@ -330,26 +340,20 @@ h2 {
 }
 
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1100px) {
   body {
     background-size: auto;
     background-repeat: repeat;
   }
 
-  #logo {
-    margin-left: 5vw;
-  }
+  // #logo {
+  //   margin-left: 5vw;
+  // }
 
   #product-search {
-    // max-width: 30vw;
     height: 2.5rem;
     border-radius: 15px;
-    background-color: rgba(233, 230, 230, 0);
-    border: 2px solid rgb(218, 215, 215);
     position: relative;
-    margin-top: 0.15rem;
-    // right: -3%;
-    color: white;
   }
 
   #basic-navbar-nav {

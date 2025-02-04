@@ -34,7 +34,7 @@ export default function SelectContent() {
     const [company, setCompany] = React.useState(0);
 
 
-    const { setMobile, setMobileDisplays } = useMobile()
+    const { setMobile, setMobileDisplays, mobile } = useMobile()
 
     const handleChange = (event) => {
         event.preventDefault()
@@ -51,7 +51,7 @@ export default function SelectContent() {
         <Select
             labelId="company-select"
             id="company-simple-select"
-            value={company}
+            value={mobile ? 10 : company}
             onChange={handleChange}
             displayEmpty
             inputProps={{ 'aria-label': 'Select company' }}
