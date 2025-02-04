@@ -64,10 +64,6 @@ h2 {
   // flex-wrap: wrap;
 }
 
-#clothes-drop-title,
-#login-link {
-  color: white;
-}
 
 #clothes-drop-title:hover,
 #login-link:hover {
@@ -84,11 +80,11 @@ h2 {
 }
 
 .navitem:hover {
-  background-color: rgb(205, 205, 205);
+  // background-color: rgb(205, 205, 205);
   font-style: bold;
-  // border-radius: 20px 0 0 20px;
+  border-bottom: 1px solid grey;
+  // background-color: rgba(235, 233, 233, 0.9);
 }
-
 
 #basic-nav-dropdown {
   color: rgb(107, 107, 107);
@@ -218,6 +214,8 @@ h2 {
 }
 
 @media screen and (min-width: 491px) and (max-width: 600px) {
+
+
   .singleCard {
     min-width: 80vw;
   }

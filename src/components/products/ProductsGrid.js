@@ -52,7 +52,7 @@ const ProductsGrid = ({ products, type }) => {
         } : { overflowY: 'hidden', display: 'flex', justifyContent: 'center' }} onLoad={() => setProductOption(type)}>
           {products &&
             products.map((item) => (
-              <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '300px', margin: '0 auto' } : { width: '300px' }} className="pl-2 pr-2" lg={mobile && admin ? 12 : 4} key={item.id}>
+              <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '330px', margin: '0 auto' } : { width: '330px' }} className="pl-2 pr-2" lg={mobile && admin ? 12 : 4} key={item.id}>
                 <Card className="mb-2 mt-0 p-2">
                   <a
                     href={item.thumbnail}

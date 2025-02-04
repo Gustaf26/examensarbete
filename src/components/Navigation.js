@@ -77,26 +77,26 @@ const Navigation = () => {
 
   return (
     <div style={mobile && admin ? {
-      position: 'absolute', backgroundColor: 'rgba(220, 217, 217, 0.9)', height: menuShowing ? 'fit-content' : '', width: 'calc(100% - 20px)',
+      position: 'absolute', backgroundColor: 'rgba(244, 242, 242, 0.9)', height: menuShowing ? 'fit-content' : '', width: 'calc(100% - 20px)',
       borderTopLeftRadius: '15px', zIndex: '3', top: '0', left: '0'
-    } : { width: '100%', height: 'fit-content' }}>
-      {!menuShowing ? (<div style={{ color: 'white', padding: '10px 20px', backgroundColor: 'rgba(220, 217, 217, 0.9)' }}>
-        <MenuIcon variant="light" onClick={showMenu} />
+    } : { width: '100%', height: 'fit-content', backgroundColor: 'rgba(244, 242, 242, 0.9)' }}>
+      {!menuShowing ? (<div style={{ color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(106%)', padding: '10px 20px', backgroundColor: 'rgba(244, 242, 242, 0.9)' }}>
+        <MenuIcon onClick={showMenu} />
       </div>) : (
         <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
           display: 'flex', height: 'fit-content',
-          backgroundColor: 'rgba(220, 217, 217, 0.9)', alignItems: 'center', justifyContent: 'center', padding: '10px', width: '100%', flexDirection: 'column'
-        } : { padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
-          <Nav.Item style={mobile ? { width: '100%' } : null} className="d-flex justify-content-center align-items-center navitem">
-            <NavLink to={"/"} style={{ textAlign: 'center' }} id={!mobile && "logo"} className="navbar-brand">
+          backgroundColor: 'rgba(244, 242, 242, 0.9)', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', alignItems: 'center', justifyContent: 'center', padding: '10px', width: '100%', flexDirection: 'column'
+        } : { padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'rgba(244, 242, 242, 0.9)' }}>
+          <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px' } : { borderBottom: '1px solid grey' }} className="d-flex justify-content-center align-items-center navitem">
+            <NavLink to={"/"} style={{ textAlign: 'center', padding: '10px' }} id={!mobile && "logo"} className="navbar-brand">
               Work Out
             </NavLink>
           </Nav.Item>
           < div id="nav-container" style={mobile ? { justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column', height: '75%', width: '100%' } : { display: 'flex', alignItems: 'center' }}>
             <Nav.Item className="d-flex align-items-center navitem mx-5">
-              <Form style={mobile ? { width: '100%', textAlign: 'center' } : { width: '400px' }} onSubmit={omitReload}>
+              <Form style={mobile ? { width: '100%', textAlign: 'center', padding: '10px' } : { width: '400px' }} onSubmit={omitReload}>
                 <FormControl
-                  style={mobile ? { minWidth: '200px' } : null}
+                  style={mobile ? { minWidth: '200px', marginLeft: '-25%' } : null}
                   onChange={changeString}
                   type="text"
                   id="product-search"
@@ -109,7 +109,7 @@ const Navigation = () => {
               id="basic-nav-dropdown"
               className="ml-3 navitem"
               variant="disabled"
-              style={mobile ? { width: '100%', textAlign: 'center' } : null}
+              style={mobile ? { width: '100%', padding: '10px', textAlign: 'center' } : null}
             >
               <NavLink
                 to={admin ? '/cms/products/troussers' : "/products/troussers"}
@@ -132,7 +132,7 @@ const Navigation = () => {
             {currentUser ? (
               <div className="d-flex align-items-center justify-content-center w-40">
                 <NavDropdown
-                  style={mobile ? { width: '100%', textAlign: 'center' } : {}}
+                  style={mobile ? { width: '100%', padding: '10px', textAlign: 'center' } : {}}
                   title={currentUser.display_name ? currentUser.display_name : currentUser.email}
                   id="basic-nav-dropdown"
                   className="mx-lg-2 navitem"

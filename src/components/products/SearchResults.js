@@ -61,7 +61,7 @@ const SearchResults = () => {
         {searchResults &&
           searchResults.map((item, index) => (
             <Col sm={6} md={6} lg={3} key={index}>
-              <Card className="mb-3">
+              <Card style={{ width: '300px' }} className="mb-3 mx-auto">
                 <a
                   href={item.thumbnail}
                   title="View image in lightbox"
