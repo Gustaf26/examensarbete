@@ -20,7 +20,7 @@ const Products = ({ type }) => {
   return (
     <>
       {!mobile && admin && <Navigation />}
-      <Breadcrumb className="m-3">
+      {!mobile && <Breadcrumb className="m-3">
         <Breadcrumb.Item>
           <Link to={admin ? "/cms/index" : "/"}>Home</Link>
         </Breadcrumb.Item>
@@ -29,7 +29,7 @@ const Products = ({ type }) => {
             <Link to={admin ? `/cms/products/${type}` : `/products/${type}`}>{type}</Link>
           )}
         </Breadcrumb.Item>
-      </Breadcrumb>
+      </Breadcrumb>}
 
       {loading ? (
         <BounceLoader color={"#888"} size={20} />

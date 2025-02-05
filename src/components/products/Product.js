@@ -6,6 +6,7 @@ import { db } from "../../firebase";
 
 import { BounceLoader } from "react-spinners";
 import { Card, Button, Breadcrumb, Row } from "react-bootstrap";
+import Navigation from '../Navigation'
 
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from './../../contexts/MobileContext'
@@ -30,7 +31,7 @@ const Product = () => {
   const location = useLocation();
   const { productId } = useParams();
 
-  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays, menuShowing, setMenuShowing } = useMobile()
   const containerStyles = useMobileStyles()
 
   useEffect(() => {
@@ -38,6 +39,8 @@ const Product = () => {
       setLocation(location.pathname);
       setProdId(productId);
     }
+    console.log(location.pathname)
+
   }, []);
 
   const handleUpdateProduct = (product) => {
@@ -66,7 +69,8 @@ const Product = () => {
   return (
     <>
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-        <Breadcrumb className="mb-3">
+        {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
+        {!mobile && <Breadcrumb className="m-3">
           <Breadcrumb.Item>
             <Link to={admin ? '/cms/index' : "/"}>Home</Link>
           </Breadcrumb.Item>
@@ -78,13 +82,16 @@ const Product = () => {
           <Breadcrumb.Item active>
             {singleProduct ? singleProduct.name : null}
           </Breadcrumb.Item>
-        </Breadcrumb>
-        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '3rem auto', padding: '10px 0px' } : { margin: '3rem auto', justifyContent: 'center' }}>
-          {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+        </Breadcrumb>}
+        <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
+          className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '3rem auto', padding: '10px 0px' } : { margin: '3rem auto', justifyContent: 'center' }}>
+          {admin && mobile && <Navigation />}
+          {mobile && admin && <Icon style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+          {/* {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>} */}
           {mobileDisplays && <MobileList />}
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
           {singleProduct && (
-            <Card className="mb-3 col-6 pt-3 mx-3 mb-5 singleCard justify-content:start" style={{ paddingTop: mobile ? '3rem !important' : 'none', height: '100%', width: mobile ? 'fit-content' : '400px', overflowY: mobile ? 'scroll' : 'hidden' }}>
+            <Card className="mb-3 col-6 pt-3 mx-3 mb-5 singleCard justify-content-start" style={{ paddingTop: mobile ? '3rem !important' : 'none', height: '100%', width: mobile ? 'fit-content' : '400px', overflowY: mobile && admin ? 'scroll' : 'hidden' }}>
               <h2 className="mb-3 col-12 d-flex justify-content-center">
                 {" "}
                 {singleProduct && singleProduct.name}

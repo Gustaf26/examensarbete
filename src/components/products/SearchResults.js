@@ -2,8 +2,16 @@ import React, { useEffect } from "react";
 import { db } from "../../firebase";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Row, Col, Card, Button, Breadcrumb } from "react-bootstrap";
+import Navigation from '../Navigation'
+import Icon from '@mui/material/Icon';
+
+import MobileList from '../../cms_components/MobileList'
+
 import { useCreate } from "../../contexts/CreateContext";
 import { useAuth } from "../../contexts/AuthContext";
+import { useMobile } from "../../contexts/MobileContext";
+
+import useMobileStyles from '../../hooks/useMobileStyles'
 
 const SearchResults = () => {
   const navigate = useNavigate();
@@ -18,6 +26,9 @@ const SearchResults = () => {
 
   const { admin } = useAuth();
   const location = useLocation();
+
+  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing } = useMobile()
+  const containerStyles = useMobileStyles()
 
   const handleUpdateProduct = (product) => {
     setSingleProduct(product);
@@ -51,79 +62,93 @@ const SearchResults = () => {
 
   return (
     <>
-      <Breadcrumb className="mb-3">
+      {!mobile && admin && <Navigation />}
+      {!mobile && <Breadcrumb className="m-3">
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Search results</Breadcrumb.Item>
-      </Breadcrumb>
-      <Row className="my-3">
-        {searchResults &&
-          searchResults.map((item, index) => (
-            <Col sm={6} md={6} lg={3} key={index}>
-              <Card style={{ width: '300px' }} className="mb-3 mx-auto">
-                <a
-                  href={item.thumbnail}
-                  title="View image in lightbox"
-                  data-attribute="SRL"
-                >
-                  <Card.Img
-                    variant="top"
-                    src={item.thumbnail}
-                    title={item.name}
-                  />
-                </a>
-                <Card.Body
-                  className="d-block"
-                  onClick={() => {
-                    setSingleProduct(item);
-                    setProductOption(item.category);
-                  }}
-                >
-                  {" "}
-                  <Link to={`/products/${item.category}/${item.id}`}>
-                    <Card.Text className="text-muted small">
-                      <b>{item.name}</b>
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Price: </b> {item.price} €
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Description: </b>{" "}
-                      <span>
-                        {item.description.slice(0, 100)}... <b>(Read more)</b>
-                      </span>
-                    </Card.Text>
-                  </Link>
-                  {admin && (
-                    <div>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        className="col-5 mt-3 ml-3 p-2"
-                        onClick={() => {
-                          handleDeleteProduct(item);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="col-5 mt-3 ml-2 p-2"
-                        onClick={() => {
-                          handleUpdateProduct(item);
-                        }}
-                      >
-                        Update
-                      </Button>
-                    </div>
-                  )}
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-      </Row>
+      </Breadcrumb>}
+      <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+        <div style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : { width: "100%" }}>
+          {admin && mobile && <Navigation />}
+          {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+          {mobileDisplays && <MobileList />}
+          <Row onClick={window.innerWidth < 1100 && menuShowing ? () => setMenuShowing(false) : null}
+            className="my-3 px-3" style={mobile && admin ? {
+              overflowY: 'scroll', height: `${mobileHeight - 20}px`, marginTop: '0px'
+            } : { maxWidth: admin ? 'calc(100vw - 240px)' : '100%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {searchResults &&
+              searchResults.map((item, index) => (
+                <Col style={{ width: '300px' }} key={index}>
+                  <Card style={{ minWidth: '250px', margin: '0 auto' }} className="mb-3 mx-auto">
+                    <a
+                      href={item.thumbnail}
+                      title="View image in lightbox"
+                      data-attribute="SRL"
+                    >
+                      <Card.Img
+                        variant="top"
+                        src={item.thumbnail}
+                        title={item.name}
+                      />
+                    </a>
+                    <Card.Body
+                      className="d-block"
+                      onClick={(e) => {
+                        setSingleProduct(item);
+                        setProductOption(item.category);
+                        if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
+                        else navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
+
+                      }}
+                    >
+                      {" "}
+                      <Link to={`/products/${item.category}/${item.id}`}>
+                        <Card.Text className="text-muted small">
+                          <b>{item.name}</b>
+                        </Card.Text>
+                        <Card.Text className="text-muted small">
+                          <b>Price: </b> {item.price} €
+                        </Card.Text>
+                        <Card.Text className="text-muted small">
+                          <b>Description: </b>{" "}
+                          <span>
+                            {item.description.slice(0, 100)}... <b>(Read more)</b>
+                          </span>
+                        </Card.Text>
+                      </Link>
+                      {admin && (
+                        <div className="d-flex justify-content-around">
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            className="col-5 mt-3 ml-3 p-2"
+                            onClick={() => {
+                              handleDeleteProduct(item);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            className="col-5 mt-3 ml-2 p-2"
+                            onClick={() => {
+                              handleUpdateProduct(item);
+                            }}
+                          >
+                            Update
+                          </Button>
+                        </div>
+                      )}
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
+        </div>
+      </div>
     </>
   );
 };

@@ -77,7 +77,7 @@ const CreateContextProvider = (props) => {
       // Getting search string from local Storage on reload in search-results-route when all products available
       if (
         emptyArr.length > 10 &&
-        location === "/search-results" &&
+        (location === "/search-results" || location === "/cms/search-results") &&
         searchString === ""
       ) {
         setSearchString(JSON.parse(window.localStorage.getItem("search")));

@@ -77,13 +77,14 @@ h2 {
 
 .navitem {
   text-align: center;
+  cursor: pointer;
 }
 
 .navitem:hover {
   // background-color: rgb(205, 205, 205);
   font-style: bold;
-  border-bottom: 1px solid grey;
-  // background-color: rgba(235, 233, 233, 0.9);
+  background-color: rgba(235, 233, 233, 0.9);
+  cursor: pointer;
 }
 
 #basic-nav-dropdown {
@@ -205,6 +206,7 @@ h2 {
     max-width: 20vw;
     max-height: 1.5rem;
     font-size: x-small;
+    margin-left: -25%;
   }
 
   #hamburger-icon {
@@ -216,9 +218,9 @@ h2 {
 @media screen and (min-width: 491px) and (max-width: 600px) {
 
 
-  .singleCard {
-    min-width: 80vw;
-  }
+  // .singleCard {
+  //   min-width: 80vw;
+  // }
 
   #logo {
     font-size: small;

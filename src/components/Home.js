@@ -30,15 +30,17 @@ const Home = () => {
         <Breadcrumb className="m-3">
           <Breadcrumb.Item active>Home</Breadcrumb.Item>
         </Breadcrumb>
-        <Row className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles } : null} lg={mobile ? 12 : 6}>
+        <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
+          className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles } : null} lg={mobile ? 12 : 6}>
           {mobile && admin && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey',
-            width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
+            width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto',
+            padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
           }} color='primary'>device_unknown</Icon>}
           <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : null} style={{
             padding: '10px',
-            overflowY: mobile && admin ? 'scroll' : '', width: mobile ? '100%' : '600px',
+            overflowY: mobile && admin ? 'scroll' : '', width: mobile ? '400px' : '600px',
             height: mobile && admin ? `calc(${mobileHeight - 20}px)` : 'fit-content'
           }}
             className="mb-3 main-card col-sm-12 col-md-6 mx-auto mb-5">

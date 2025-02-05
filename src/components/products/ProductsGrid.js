@@ -18,7 +18,7 @@ const ProductsGrid = ({ products, type }) => {
   const navigate = useNavigate();
   const { admin } = useAuth();
   const { setSingleProduct, setProductOption } = useCreate();
-  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, setMenuShowing } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing } = useMobile()
 
   const containerStyles = useMobileStyles()
 
@@ -43,16 +43,28 @@ const ProductsGrid = ({ products, type }) => {
 
   return (
     <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-      <div style={mobile && admin ? { ...containerStyles } : {}}>
+      <div style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : { marginTop: '5rem' }}>
+
         {admin && mobile && <Navigation />}
-        {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+
+        {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
+          border: '1px solid lightgrey',
+          width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px',
+          borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
+        }}
+          color='primary'>device_unknown</Icon>}
+
         {mobileDisplays && <MobileList />}
-        <Row className="mb-5" style={mobile && admin ? {
-          overflowY: 'scroll', height: `${mobileHeight - 20}px`, marginTop: '0px'
-        } : { overflowY: 'hidden', display: 'flex', justifyContent: 'center' }} onLoad={() => setProductOption(type)}>
+
+        <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
+          className="mb-5"
+          style={mobile && admin ? {
+            overflowY: 'scroll', height: `${mobileHeight - 20}px`, marginTop: '0px'
+          } : { overflowY: 'hidden', display: 'flex', justifyContent: 'center' }} onLoad={() => setProductOption(type)}>
           {products &&
             products.map((item) => (
-              <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '330px', margin: '0 auto' } : { width: '330px' }} className="pl-2 pr-2" lg={mobile && admin ? 12 : 4} key={item.id}>
+              <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '330px', margin: '0 auto' } :
+                { width: '330px' }} className="pl-2 pr-2" lg={mobile && admin ? 12 : 4} key={item.id}>
                 <Card className="mb-2 mt-0 p-2">
                   <a
                     href={item.thumbnail}
@@ -70,7 +82,7 @@ const ProductsGrid = ({ products, type }) => {
                     onClick={(e) => {
                       setSingleProduct(item);
                       if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
-                      else if (admin) navigate(`/cms/products/${item.category}/${item.id}`, { replace: true })
+                      else navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
                     }}
                   >
                     {" "}

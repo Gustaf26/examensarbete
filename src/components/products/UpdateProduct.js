@@ -6,6 +6,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 import { Row, Col, Card, Form, Button, Alert, Breadcrumb } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
+import Navigation from '../Navigation'
 
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from './../../contexts/MobileContext'
@@ -97,8 +98,9 @@ const UpdateProduct = () => {
 
   return (
     <>
-      <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-        <Breadcrumb className="m-3">
+      <div id="dummy-container-update" onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
+        {!mobile && admin && <Navigation />}
+        {!mobile && <Breadcrumb className="m-3">
           <Breadcrumb.Item>
             <Link to={admin ? "/cms/index" : "/"}>Home</Link>
           </Breadcrumb.Item>
@@ -107,13 +109,14 @@ const UpdateProduct = () => {
               <Link to={`/cms/products/${productOption}`}></Link>
             )}
           </Breadcrumb.Item>
-        </Breadcrumb>
-        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
+        </Breadcrumb>}
+        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '5rem auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
+          {admin && mobile && <Navigation />}
           {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
-          <Col lg={mobile ? 12 : 6} md={{ span: 6 }} style={mobile ? { padding: '10px', overflowY: 'scroll', height: mobile ? `${mobileHeight - 20}px` : '80%', width: '100%' } : { marginTop: '-40px', width: '400px', height: '500px' }}>
+          <Col lg={mobile ? 12 : 6} style={mobile ? { padding: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px` } : { marginTop: '-40px', width: '600px', height: '500px' }}>
             {singleProduct ? (
-              <Card className="my-3 pl-2" style={{ height: mobile ? 'fit-content' : `${mobileHeight - 20}px`, overflowY: mobile ? 'hidden' : 'scroll' }}>
+              <Card className="my-3 p-3" style={{ height: mobile ? 'fit-content' : `${mobileHeight - 20}px`, overflowY: mobile ? 'hidden' : 'scroll' }}>
                 <Card.Body className="p-2">
                   <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>
                   {error && <Alert variant="danger">{error}</Alert>}

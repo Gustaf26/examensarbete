@@ -21,7 +21,7 @@ const Navigation = () => {
   const [customMenu, setCustMenu] = useState(false);
   const { setSearchResults, setSearchString } = useCreate();
   const navigate = useNavigate();
-  const { mobile, setMobile, menuShowing, setMenuShowing } = useMobile()
+  const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth } = useMobile()
 
 
   const showMenu = () => {
@@ -36,7 +36,7 @@ const Navigation = () => {
     setSearchResults([]);
     setSearchString(e.target.value);
     localStorage.setItem("search", JSON.stringify(e.target.value));
-    navigate("/search-results");
+    navigate(admin ? "/cms/search-results" : "/search-results", { replace: true });
   };
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Navigation = () => {
     }
 
     window.addEventListener("resize", function (e) {
-      if (window.innerWidth > 1000) {
+      if (window.innerWidth > 1110) {
         setCustMenu(false);
         setMobile(false)
       }
@@ -77,8 +77,8 @@ const Navigation = () => {
 
   return (
     <div style={mobile && admin ? {
-      position: 'absolute', backgroundColor: 'rgba(244, 242, 242, 0.9)', height: menuShowing ? 'fit-content' : '', width: 'calc(100% - 20px)',
-      borderTopLeftRadius: '15px', zIndex: '3', top: '0', left: '0'
+      position: 'absolute', backgroundColor: 'rgba(244, 242, 242, 0.9)', height: menuShowing ? 'fit-content' : '', maxWidth: '95%'
+      , borderTopLeftRadius: '20px', zIndex: '3', top: '0', left: '0', right: '0'
     } : { width: '100%', height: 'fit-content', backgroundColor: 'rgba(244, 242, 242, 0.9)' }}>
       {!menuShowing ? (<div style={{ color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(106%)', padding: '10px 20px', backgroundColor: 'rgba(244, 242, 242, 0.9)' }}>
         <MenuIcon onClick={showMenu} />
@@ -94,9 +94,9 @@ const Navigation = () => {
           </Nav.Item>
           < div id="nav-container" style={mobile ? { justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column', height: '75%', width: '100%' } : { display: 'flex', alignItems: 'center' }}>
             <Nav.Item className="d-flex align-items-center navitem mx-5">
-              <Form style={mobile ? { width: '100%', textAlign: 'center', padding: '10px' } : { width: '400px' }} onSubmit={omitReload}>
+              <Form style={mobile ? { width: '100%', textAlign: 'center', padding: '10px', display: 'flex', justifyContent: 'center' } : { width: '400px' }} onSubmit={omitReload}>
                 <FormControl
-                  style={mobile ? { minWidth: '200px', marginLeft: '-25%' } : null}
+                  style={mobile && admin ? { minWidth: '200px' } : null}
                   onChange={changeString}
                   type="text"
                   id="product-search"
