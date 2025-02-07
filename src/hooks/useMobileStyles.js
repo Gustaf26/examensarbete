@@ -8,9 +8,9 @@ const useMobileStyles = () => {
 
 
     const containerStyles = {
-        border: mobile ? '2px solid lightgrey' : 'none',
+        border: mobile ? '1px solid brown' : 'none',
         width: mobile ? `${mobileWidth}px` : '1000px',
-        margin: mobile ? '0 auto' : '10px',
+        margin: mobile ? '5rem auto' : '10px',
         padding: '10px 10px 0px 10px',
         height: mobile ? `${mobileHeight}px` : 'none',
         borderRadius: '20px',

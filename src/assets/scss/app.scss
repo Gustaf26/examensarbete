@@ -18,6 +18,7 @@ body {
 #navigation {
   background-color: rgba(116, 116, 116, 0.6);
   position: relative;
+  border-bottom: 1px solid brown;
 
   & #nav-container {
     width: 80%;
@@ -52,7 +53,8 @@ h2 {
 
 #logo {
   font-family: "Pacifico", cursive;
-  color: rgb(78, 77, 77);
+  color: lightgrey;
+  background-color: brown;
   border: 1px solid grey;
   padding: 10px 1rem;
   border-radius: 5px;
@@ -79,20 +81,30 @@ h2 {
 .navitem {
   text-align: center;
   cursor: pointer;
-}
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.navitem:nth-child(2):hover,
-.navitem:nth-child(3):hover {
-  // background-color: rgb(205, 205, 205);
-  font-style: bold;
-  // background-color: rgba(244, 240, 240, 0.7);
-  background-color: whitesmoke;
-  cursor: pointer;
-}
+  &:nth-child(2) a {
+    color: rgb(70, 13, 13) !important;
+    text-decoration: none;
+  }
 
-// #all-clothes-select+div {
-//   max-width: 100px;
-// }
+  &:nth-child(3) a {
+    color: brown !important;
+    text-decoration: none;
+  }
+
+  &:nth-child(2):hover,
+  :nth-child(3):hover {
+    // background-color: rgb(205, 205, 205);
+    font-style: bold;
+    // background-color: rgba(244, 240, 240, 0.7);
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+}
 
 #basic-nav-dropdown {
   color: rgb(107, 107, 107);
@@ -102,7 +114,7 @@ h2 {
   left: 0;
   top: calc(100% - 20px);
   width: 100% !important;
-  height: 80px;
+  height: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,14 +125,28 @@ h2 {
   & a {
     max-width: 180px;
     text-align: center;
-    color: rgb(222, 220, 220);
+    color: rgb(222, 220, 220) !important;
+    height: 100%;
+    line-height: calc(4.5);
 
     &:hover {
-      color: black !important;
+      color: brown !important;
+      background-color: rgb(222, 220, 220);
+      font-weight: 500;
+      font-size: 1.2em;
+      line-height: 3.75;
+      transition: all 0.25s ease-in-out;
+      border-bottom: 3px solid brown;
     }
 
     &.active {
-      color: white;
+      color: brown !important;
+      background-color: rgb(247, 243, 243);
+      font-weight: 500;
+      font-size: 1.2em;
+      line-height: 3.75;
+      transition: all 0.25s ease-in-out;
+      border-bottom: 3px solid brown;
     }
   }
 }
@@ -129,7 +155,7 @@ h2 {
   min-width: 300px;
   padding-left: 20px;
   border-radius: 5px;
-  background-color: rgba(250, 248, 248, 0.8);
+  background-color: rgb(245, 245, 245);
   outline: 1px solid rgb(173, 172, 172);
   color: rgb(107, 107, 107) !important;
   vertical-align: top;
@@ -141,6 +167,23 @@ h2 {
 
 #product-search::placeholder {
   color: rgb(146, 146, 146) !important;
+}
+
+.breadcrumb li {
+
+  font-size: 1.1rem;
+
+
+  & a {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: rgb(203, 106, 106) !important;
+  }
+
+  &:last-child {
+    font-weight: bold;
+    color: brown !important;
+  }
 }
 
 #basket-icon {
@@ -156,12 +199,33 @@ h2 {
 #login-form,
 #signup-form,
 #update-profile-form {
-  background-color: rgba(244, 242, 242, 0.9);
+  background-color: rgba(244, 242, 242, 0.9) !important;
   margin: 3rem auto;
   max-width: 80%;
 
   & input:focus {
     background-color: whitesmoke;
+  }
+
+  & button {
+    background-color: rgb(158, 202, 246);
+    margin: 1rem auto;
+    min-width: 120px;
+    display: block;
+    color: brown;
+    border: 2px solid brown;
+    font-weight: bold;
+  }
+}
+
+.card {
+  border: 0.25px solid brown;
+
+  & p,
+  div,
+  a,
+  ol {
+    color: rgb(115, 49, 19) !important;
   }
 }
 
@@ -185,6 +249,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid brown;
 
   & h2 {
     padding: 5px;

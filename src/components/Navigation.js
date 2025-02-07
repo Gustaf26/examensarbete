@@ -23,7 +23,7 @@ const Navigation = () => {
   const { setSearchResults, setSearchString } = useCreate();
   const navigate = useNavigate();
   const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth } = useMobile()
-  const [subMenu, setSubMenu] = useState(false)
+  const [subMenu, setSubMenu] = useState(true)
 
 
   const showMenu = () => {
@@ -109,10 +109,7 @@ const Navigation = () => {
                 'center' : 'end', width: '20%', textAlign: 'center'
             }}
               className="d-flex align-items-center my-3 navitem">
-              <NavLink to={"/"} style={{
-                textAlign: 'center', padding: '10px', fontFamily: '"Pacifico", cursive',
-                borderRadius: '5px', border: '2px solid grey'
-              }} id={!mobile && admin ? "logo" : ''} className="navbar-brand">
+              <NavLink to={"/"} id="logo" className="navbar-brand">
                 Work Out
               </NavLink>
             </Nav.Item>
@@ -133,14 +130,14 @@ const Navigation = () => {
                 </Form>
               </Nav.Item>
               <Nav.Item
-                id="all-clothes-select"
+                id="clothes-select"
                 className="navitem p-0"
-                onClick={showSubMenu}
+                onClick={(e) => { if ((e.target.id === "clothes-select") || (e.target.id === "all-clothes-select")) showSubMenu() }}
                 // variant="disabled"
                 style={mobile ? { width: '100%', textAlign: 'center' } : {
-                  width: '130px'
+                  width: '130px', borderRadius: '15px'
                 }}
-              > <NavLink>
+              > <NavLink id="all-clothes-select">
                   All clothes
                 </NavLink>
                 {subMenu && (<div id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }

@@ -87,7 +87,7 @@ const Product = () => {
             {singleProduct ? singleProduct.name : null}
           </Breadcrumb.Item>
         </Breadcrumb>}
-        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '3rem auto', padding: '10px 0px' } : { margin: '3rem auto', justifyContent: 'center' }}>
+        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, padding: '10px 0px' } : { margin: '3rem auto', justifyContent: 'center' }}>
           {admin && mobile && <Navigation />}
           {mobile && admin && <Icon style={{
             border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left',
@@ -113,6 +113,7 @@ const Product = () => {
               >
                 <Card.Img
                   variant="top"
+                  style={{ width: '100%', height: 'auto' }}
                   src={singleProduct.thumbnail}
                   title={singleProduct.name}
                 />

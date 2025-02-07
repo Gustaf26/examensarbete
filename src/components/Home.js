@@ -28,7 +28,7 @@ const Home = () => {
       <div id="dummy-container-home" onClick={(e) => { if (e.target.id === "dummy-container-home") setMobileDisplays(false) }}>
         <Row id="home-row" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ?
           (e) => { if (e.target.id === 'home-card-text') setMenuShowing(false) } : null}
-          className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '3rem' } : null}
+          className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : null}
           lg={mobile ? 12 : 6}>
           {mobile && admin && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{

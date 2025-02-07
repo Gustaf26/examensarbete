@@ -47,17 +47,18 @@ const ProductsGrid = ({ products, type }) => {
   return (
     <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
       {!mobile && <Breadcrumb className="m-5">
-        <Breadcrumb.Item>
+        <Breadcrumb.Item >
           <Link to={admin ? "/cms/index" : "/"}> <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />Home</Link>
         </Breadcrumb.Item>
-        <NavigateNextIcon style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
+        <NavigateNextIcon style={{ color: ' brown' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
         <Breadcrumb.Item>
           {type && (
             <Link to={admin ? `/cms/products/${type}` : `/products/${type}`}>{type}</Link>
           )}
         </Breadcrumb.Item>
       </Breadcrumb>}
-      <Row style={mobile && admin ? { ...containerStyles, marginTop: '5rem', justifyContent: 'center', width: `${mobileWidth}px` } : { marginTop: '1rem' }}>
+      <Row style={mobile && admin ? { ...containerStyles, justifyContent: 'center', width: `${mobileWidth}px` }
+        : mobile ? { width: '100%', marginTop: '3rem' } : { marginTop: '1rem' }}>
 
         {admin && mobile && <Navigation />}
 

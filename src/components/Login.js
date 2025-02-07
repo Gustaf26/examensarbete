@@ -1,5 +1,5 @@
 // import firebaseLocalStorage from "../firebase";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -10,7 +10,7 @@ const Login = () => {
   const passwordRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { login, checkIfAdmin, setAdmin, admin, currentUser, setCurrentUser } = useAuth();
+  const { login, checkIfAdmin, setAdmin } = useAuth();
   const [adminChecked, setChecked] = useState(false);
   const [alert, setAlert] = useState(false);
   const [adminAlert, setAdminAlert] = useState(false);
@@ -79,7 +79,7 @@ const Login = () => {
               <Card.Title>Log In</Card.Title>
 
               {error && <Alert variant="danger">{error}</Alert>}
-              <Form onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
+              <Form style={{ minWidth: '300px' }} onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -130,7 +130,7 @@ const Login = () => {
             </Card.Body>
           </Card>
         </Col>
-      </Row>
+      </Row >
     </>
   );
 };
