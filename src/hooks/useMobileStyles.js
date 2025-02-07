@@ -8,7 +8,8 @@ const useMobileStyles = () => {
 
 
     const containerStyles = {
-        border: mobile ? '1px solid brown' : 'none',
+        border: mobile ? '6px solid rgb(255, 255, 255)' : 'none',
+        outline: '1px solid rgb(216, 214, 214)',
         width: mobile ? `${mobileWidth}px` : '1000px',
         margin: mobile ? '5rem auto' : '10px',
         padding: '10px 10px 0px 10px',
@@ -17,6 +18,8 @@ const useMobileStyles = () => {
         position: 'relative',
         backgroundColor: mobile ? 'rgb(255, 255, 255)' : '',
         transition: '0.5s',
+        boxShadow: '1px 1px 3px rgb(156, 153, 153)'
+
     }
 
     return containerStyles

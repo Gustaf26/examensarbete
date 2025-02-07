@@ -46,9 +46,10 @@ const ProductsGrid = ({ products, type }) => {
 
   return (
     <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-      {!mobile && <Breadcrumb className="m-5">
+      {!mobile && <Breadcrumb className="m-5 pt-5">
+        <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
         <Breadcrumb.Item >
-          <Link to={admin ? "/cms/index" : "/"}> <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />Home</Link>
+          <Link to={admin ? "/cms/index" : "/"}> Home</Link>
         </Breadcrumb.Item>
         <NavigateNextIcon style={{ color: ' brown' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
         <Breadcrumb.Item>
@@ -102,7 +103,7 @@ const ProductsGrid = ({ products, type }) => {
                   >
                     {" "}
                     {/* <Link to={admin ? `/ cms / products / ${type} /${item.id}` : `products/${type}/${item.id}`} > */}
-                    <Card.Text className="text-muted small">
+                    <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
                       <b>{item.name}</b>
                     </Card.Text>
                     <Card.Text className="text-muted small">

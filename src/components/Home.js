@@ -30,7 +30,7 @@ const Home = () => {
           (e) => { if (e.target.id === 'home-card-text') setMenuShowing(false) } : null}
           className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : null}
           lg={mobile ? 12 : 6}>
-          {mobile && admin && <Navigation />}
+          {admin && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey',
             width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto',

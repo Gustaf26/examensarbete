@@ -63,19 +63,19 @@ const SearchResults = () => {
   return (
     <>
       {!mobile && admin && <Navigation />}
-      {!mobile && <Breadcrumb className="m-5">
+      {!mobile && <Breadcrumb className="m-5 pt-5">
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Search results</Breadcrumb.Item>
       </Breadcrumb>}
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-        <Row style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : { width: "100%", marginTop: '5rem' }}>
+        <Row style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : mobile ? { width: "100%", marginTop: '5rem' } : { padding: '20px' }}>
           {admin && mobile && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
           <Row onClick={window.innerWidth < 1100 && menuShowing ? () => setMenuShowing(false) : null}
-            className="my-3 px-3" style={mobile && admin ? {
+            className="px-3" style={mobile && admin ? {
               overflowY: 'scroll', height: `${mobileHeight - 20}px`, marginTop: '0px'
             } : { maxWidth: admin ? 'calc(100vw - 240px)' : '100%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
             {searchResults &&

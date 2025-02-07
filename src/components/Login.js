@@ -72,7 +72,7 @@ const Login = () => {
 
   return (
     <>
-      <Row>
+      <Row className="mt-5">
         <Col md={{ span: 6, offset: 3 }}>
           <Card id="login-form">
             <Card.Body>

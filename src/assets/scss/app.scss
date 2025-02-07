@@ -6,7 +6,7 @@
 @import "dropzone";
 
 body {
-  background-color: rgb(252, 248, 248);
+  background-color: rgb(255, 255, 255);
   padding: 0;
   margin: 0;
 }
@@ -53,9 +53,10 @@ h2 {
 
 #logo {
   font-family: "Pacifico", cursive;
-  color: lightgrey;
+  font-size: large;
+  color: rgb(233, 232, 232);
   background-color: brown;
-  border: 1px solid grey;
+  outline: 2px solid rgb(89, 38, 38);
   padding: 10px 1rem;
   border-radius: 5px;
 }
@@ -107,14 +108,13 @@ h2 {
 }
 
 #basic-nav-dropdown {
-  color: rgb(107, 107, 107);
   position: absolute !important;
   text-align: center;
   margin: 20px auto;
   left: 0;
   top: calc(100% - 20px);
   width: 100% !important;
-  height: 75px;
+  height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,26 +125,27 @@ h2 {
   & a {
     max-width: 180px;
     text-align: center;
-    color: rgb(222, 220, 220) !important;
+    color: rgb(255, 255, 255) !important;
     height: 100%;
-    line-height: calc(4.5);
+    padding: 15px;
 
     &:hover {
       color: brown !important;
       background-color: rgb(222, 220, 220);
-      font-weight: 500;
+      font-weight: 400;
       font-size: 1.2em;
-      line-height: 3.75;
+      // line-height: 3.75;
       transition: all 0.25s ease-in-out;
       border-bottom: 3px solid brown;
     }
 
     &.active {
       color: brown !important;
-      background-color: rgb(247, 243, 243);
-      font-weight: 500;
+      text-shadow: 1px 1px 3px rgb(246, 212, 212);
+      background-color: rgb(255, 255, 255);
+      font-weight: 400;
       font-size: 1.2em;
-      line-height: 3.75;
+      // line-height: 3.75;
       transition: all 0.25s ease-in-out;
       border-bottom: 3px solid brown;
     }
@@ -169,20 +170,44 @@ h2 {
   color: rgb(146, 146, 146) !important;
 }
 
-.breadcrumb li {
+.breadcrumb {
 
-  font-size: 1.1rem;
+  display: flex;
+  min-width: 200px;
 
+  &:hover {
+    cursor: pointer;
+  }
 
-  & a {
-    text-decoration: none;
-    text-transform: capitalize;
+  & svg {
     color: rgb(203, 106, 106) !important;
   }
 
-  &:last-child {
-    font-weight: bold;
-    color: brown !important;
+  & li {
+    font-size: 1.1rem;
+
+    & a {
+      text-decoration: none;
+      text-transform: capitalize;
+      color: rgb(203, 106, 106);
+
+      &:hover {
+        border-bottom: 1px solid rgb(203, 106, 106);
+        background-color: brown !important;
+        color: white;
+      }
+    }
+
+    &:last-child a {
+      font-weight: 400;
+      color: rgb(108, 55, 55);
+      padding-bottom: 1px;
+      border-bottom: 1px solid rgb(108, 55, 55);
+
+      &:hover {
+        color: white;
+      }
+    }
   }
 }
 
@@ -203,23 +228,28 @@ h2 {
   margin: 3rem auto;
   max-width: 80%;
 
-  & input:focus {
+  & input:not([type=checkbox]):focus {
     background-color: whitesmoke;
   }
 
   & button {
-    background-color: rgb(158, 202, 246);
+    background-color: rgb(104, 171, 237);
     margin: 1rem auto;
     min-width: 120px;
     display: block;
     color: brown;
-    border: 2px solid brown;
-    font-weight: bold;
+    border: 1px solid brown;
+    font-weight: 600;
+
+    &:hover {
+      background-color: rgb(158, 202, 246);
+    }
   }
 }
 
 .card {
-  border: 0.25px solid brown;
+  border: 1px solid rgb(246, 212, 212);
+  box-shadow: 1px 1px 2px rgb(246, 212, 212);
 
   & p,
   div,

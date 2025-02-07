@@ -72,7 +72,7 @@ const Product = () => {
     <>
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
         {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
-        {!mobile && <Breadcrumb className="m-5">
+        {!mobile && <Breadcrumb className="m-5 pt-5">
           <Breadcrumb.Item>
             <Link to={admin ? "/cms/index" : "/"}> <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />Home</Link>
           </Breadcrumb.Item>
@@ -100,9 +100,9 @@ const Product = () => {
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
           {singleProduct && (
             <Card onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? (e) => { setMenuShowing(false) } : null}
-              className="mb-3 col-6 pt-3 mx-3 mb-5 singleCard justify-content-start"
-              style={{ paddingTop: mobile ? '3rem !important' : 'none', height: '100%', width: mobile ? 'fit-content' : '400px', overflowY: mobile && admin ? 'scroll' : 'hidden' }}>
-              <h2 className="mb-3 col-12 d-flex justify-content-center">
+              className="mb-3 col-6 p-3 mx-3 mb-5 card justify-content-start"
+              style={{ overflowX: 'hidden', paddingTop: mobile ? '3rem !important' : 'none', height: '100%', width: mobile ? 'fit-content' : '400px', overflowY: mobile && admin ? 'scroll' : 'hidden' }}>
+              <h2 className="m-3 d-flex justify-content-center" style={{ fontSize: '1.4em', color: 'rgb(116, 71, 71)' }}>
                 {" "}
                 {singleProduct && singleProduct.name}
               </h2>

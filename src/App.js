@@ -60,7 +60,6 @@ const App = () => {
 
   return (
     <Router>
-      {/* <Navigation style={admin ? { marginLeft: '280px', width: 'calc(100% - 240px)' } : {}} /> */}
       <div id="main-div" style={{ width: '100vw', position: 'relative' }}>
         <MobileContextProvider>
           {admin && < CMSNav />}
@@ -68,7 +67,7 @@ const App = () => {
           <Container id="container" style={admin ? { marginLeft: '240px', maxWidth: 'calc(100vw - 240px)', flexWrap: 'wrap' } : { width: '100%' }} className="p-0">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path={admin ? 'cms/*' : "/"}>
+              <Route path={admin ? 'cms/*' : "/*"}>
                 <Route path='index' element={<Home />} />
                 <Route path="search-results" element={<SearchResults />} />
                 <Route path={'products/*'}>

@@ -90,18 +90,18 @@ const Navigation = () => {
       {!menuShowing ?
         (<div style={{
           color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(100%)',
-          padding: '10px 20px', backgroundColor: 'rgba(231, 229, 229, 0.7)', transition: '2s ease-in-out'
+          padding: '10px 20px', backgroundColor: 'rgba(243, 234, 234, 0.9)', transition: '2s ease-in-out'
         }}>
           <MenuIcon onClick={showMenu} />
         </div>) :
         (<Row>
           <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
             display: 'flex', height: 'fit-content', width: `${mobileWidth}px`,
-            backgroundColor: 'rgba(231, 229, 229, 0.7)', borderTopLeftRadius: '20px', borderTopRightRadius: '20px',
+            backgroundColor: 'rgba(243, 234, 234, 0.9)', borderTopLeftRadius: '20px', borderTopRightRadius: '20px',
             alignItems: 'center', justifyContent: 'center', padding: '10px', flexDirection: 'column'
-          } : mobile ? { flexDirection: 'column', alignItems: 'center', height: 'fit-content', justifyContent: 'space-around' } : {
+          } : mobile ? { backgroundColor: 'rgba(243, 234, 234, 0.9)', flexDirection: 'column', alignItems: 'center', height: 'fit-content', justifyContent: 'space-around' } : {
             display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row',
-            backgroundColor: 'rgba(231, 229, 229, 0.7)'
+            backgroundColor: 'rgba(243, 234, 234, 0.9)'
           }}>
 
             <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } : {
@@ -118,7 +118,10 @@ const Navigation = () => {
               height: '75%', width: '100%'
             } : { display: 'flex', alignItems: 'center' }}>
               <Nav.Item className="d-flex align-items-center navitem mx-5 my-0">
-                <Form style={mobile ? { width: '100%', textAlign: 'center', padding: '10px', display: 'flex', justifyContent: 'center' }
+                <Form style={mobile ? {
+                  width: '100%', textAlign: 'center', padding: '10px', display: 'flex',
+                  justifyContent: 'center', borderBottom: '1px solid rgb(246, 212, 212)'
+                }
                   : { width: '400px' }} onSubmit={omitReload}>
                   <FormControl
                     style={mobile && admin ? { minWidth: '200px' } : null}
@@ -134,7 +137,7 @@ const Navigation = () => {
                 className="navitem p-0"
                 onClick={(e) => { if ((e.target.id === "clothes-select") || (e.target.id === "all-clothes-select")) showSubMenu() }}
                 // variant="disabled"
-                style={mobile ? { width: '100%', textAlign: 'center' } : {
+                style={mobile ? { width: '100%', textAlign: 'center', borderBottom: '1px solid rgb(246, 212, 212)' } : {
                   width: '130px', borderRadius: '15px'
                 }}
               > <NavLink id="all-clothes-select">
@@ -177,7 +180,7 @@ const Navigation = () => {
                       Update Profile
                     </NavLink>
                     <NavDropdown.Divider />
-                    <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}} to={admin ? 'cms/logout' : "/logout"} className="mx-auto dropdown-item">
+                    <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}} to={admin ? '/cms/logout' : "/logout"} className="mx-auto dropdown-item">
                       Log Out
                     </NavLink>
                   </NavDropdown>
