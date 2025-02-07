@@ -17,6 +17,7 @@ body {
 
 #navigation {
   background-color: rgba(116, 116, 116, 0.6);
+  position: relative;
 
   & #nav-container {
     width: 80%;
@@ -80,19 +81,48 @@ h2 {
   cursor: pointer;
 }
 
-.navitem:hover {
+.navitem:nth-child(2):hover,
+.navitem:nth-child(3):hover {
   // background-color: rgb(205, 205, 205);
   font-style: bold;
-  background-color: rgba(235, 233, 233, 0.9);
+  // background-color: rgba(244, 240, 240, 0.7);
+  background-color: whitesmoke;
   cursor: pointer;
 }
 
+// #all-clothes-select+div {
+//   max-width: 100px;
+// }
+
 #basic-nav-dropdown {
   color: rgb(107, 107, 107);
-}
+  position: absolute !important;
+  text-align: center;
+  margin: 20px auto;
+  left: 0;
+  top: calc(100% - 20px);
+  width: 100% !important;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // z-index: 3;
+  flex-direction: row;
+  background-color: rgb(107, 107, 107);
 
-#basic-nav-dropdown:hover {
-  color: rgb(80, 79, 79);
+  & a {
+    max-width: 180px;
+    text-align: center;
+    color: rgb(222, 220, 220);
+
+    &:hover {
+      color: black !important;
+    }
+
+    &.active {
+      color: white;
+    }
+  }
 }
 
 #product-search {
@@ -100,9 +130,13 @@ h2 {
   padding-left: 20px;
   border-radius: 5px;
   background-color: rgba(250, 248, 248, 0.8);
-  border: 1px solid rgb(163, 163, 163);
+  outline: 1px solid rgb(173, 172, 172);
   color: rgb(107, 107, 107) !important;
   vertical-align: top;
+
+  &:focus {
+    background-color: whitesmoke;
+  }
 }
 
 #product-search::placeholder {
@@ -122,8 +156,13 @@ h2 {
 #login-form,
 #signup-form,
 #update-profile-form {
-  background-color: rgba(192, 190, 190, 0.7);
-  margin-top: 8vh;
+  background-color: rgba(244, 242, 242, 0.9);
+  margin: 3rem auto;
+  max-width: 80%;
+
+  & input:focus {
+    background-color: whitesmoke;
+  }
 }
 
 .main-card {
@@ -209,6 +248,14 @@ h2 {
     margin-left: -25%;
   }
 
+  #basic-nav-dropdown+div {
+    left: 0 !important;
+    // right: 35% !important;
+    // margin-left: -120%;
+    // max-width: 250px;
+    // flex-direction: column;
+  }
+
   #hamburger-icon {
     font-size: large;
     margin-left: 2rem;
@@ -247,8 +294,9 @@ h2 {
     display: none;
   }
 
+
   #basic-navbar-nav {
-    margin-left: -9vw;
+    // margin-left: -9vw;
     flex-wrap: wrap;
   }
 
@@ -321,6 +369,7 @@ h2 {
     margin-right: 0;
     margin-top: -10%;
   }
+
 
   #basic-navbar-nav {
     flex-wrap: nowrap;

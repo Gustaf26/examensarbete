@@ -63,14 +63,14 @@ const SearchResults = () => {
   return (
     <>
       {!mobile && admin && <Navigation />}
-      {!mobile && <Breadcrumb className="m-3">
+      {!mobile && <Breadcrumb className="m-5">
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Search results</Breadcrumb.Item>
       </Breadcrumb>}
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-        <div style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : { width: "100%" }}>
+        <Row style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : { width: "100%", marginTop: '5rem' }}>
           {admin && mobile && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
@@ -147,7 +147,7 @@ const SearchResults = () => {
                 </Col>
               ))}
           </Row>
-        </div>
+        </Row>
       </div>
     </>
   );

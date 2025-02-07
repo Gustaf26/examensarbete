@@ -26,12 +26,10 @@ const Home = () => {
   return (
     <>
       <div id="dummy-container-home" onClick={(e) => { if (e.target.id === "dummy-container-home") setMobileDisplays(false) }}>
-
-        <Breadcrumb className="m-3">
-          <Breadcrumb.Item active>Home</Breadcrumb.Item>
-        </Breadcrumb>
-        <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
-          className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles } : null} lg={mobile ? 12 : 6}>
+        <Row id="home-row" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ?
+          (e) => { if (e.target.id === 'home-card-text') setMenuShowing(false) } : null}
+          className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '3rem' } : null}
+          lg={mobile ? 12 : 6}>
           {mobile && admin && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey',
@@ -41,7 +39,8 @@ const Home = () => {
           <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : null} style={{
             padding: '10px',
             overflowY: mobile && admin ? 'scroll' : '', width: mobile ? '400px' : '600px',
-            height: mobile && admin ? `calc(${mobileHeight - 20}px)` : 'fit-content'
+            height: mobile && admin ? `calc(${mobileHeight - 70}px)` : 'fit-content',
+            marginTop: !mobile && admin ? '5rem' : mobile ? '3rem' : '5rem'
           }}
             className="mb-3 main-card col-sm-12 col-md-6 mx-auto mb-5">
             {mobileDisplays && <MobileList />}
@@ -54,8 +53,8 @@ const Home = () => {
               variant="top"
               src="https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg"
             />
-            <Card.Body>
-              <Card.Text className="text-muted medium">
+            <Card.Body >
+              <Card.Text id="home-card-text" className="text-muted medium">
                 <b>WORK OUT</b> has you covered for all your work footwear and
                 clothing needs with well over 200 work brands to choose from. We
                 believe we have the most comprehensive selection of work clothes,

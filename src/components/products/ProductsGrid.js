@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Row, Col, Card, Button } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
+import { Breadcrumb } from "react-bootstrap";
+import HomeIcon from '@mui/icons-material/Home';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
@@ -18,7 +21,7 @@ const ProductsGrid = ({ products, type }) => {
   const navigate = useNavigate();
   const { admin } = useAuth();
   const { setSingleProduct, setProductOption } = useCreate();
-  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, mobileWidth, menuShowing, setMenuShowing } = useMobile()
 
   const containerStyles = useMobileStyles()
 
@@ -43,7 +46,18 @@ const ProductsGrid = ({ products, type }) => {
 
   return (
     <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-      <div style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : { marginTop: '5rem' }}>
+      {!mobile && <Breadcrumb className="m-5">
+        <Breadcrumb.Item>
+          <Link to={admin ? "/cms/index" : "/"}> <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />Home</Link>
+        </Breadcrumb.Item>
+        <NavigateNextIcon style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
+        <Breadcrumb.Item>
+          {type && (
+            <Link to={admin ? `/cms/products/${type}` : `/products/${type}`}>{type}</Link>
+          )}
+        </Breadcrumb.Item>
+      </Breadcrumb>}
+      <Row style={mobile && admin ? { ...containerStyles, marginTop: '5rem', justifyContent: 'center', width: `${mobileWidth}px` } : { marginTop: '1rem' }}>
 
         {admin && mobile && <Navigation />}
 
@@ -59,7 +73,7 @@ const ProductsGrid = ({ products, type }) => {
         <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
           className="mb-5"
           style={mobile && admin ? {
-            overflowY: 'scroll', height: `${mobileHeight - 20}px`, marginTop: '0px'
+            overflowY: 'scroll', height: `calc(${mobileHeight - 20}px - 3rem)`, width: `105%`, marginTop: '3rem'
           } : { overflowY: 'hidden', display: 'flex', justifyContent: 'center' }} onLoad={() => setProductOption(type)}>
           {products &&
             products.map((item) => (
@@ -133,7 +147,7 @@ const ProductsGrid = ({ products, type }) => {
               </Col >
             ))}
         </Row >
-      </div >
+      </Row >
     </div>
   );
 };

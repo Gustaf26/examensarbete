@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import { BounceLoader } from "react-spinners";
 import { Breadcrumb } from "react-bootstrap";
+import HomeIcon from '@mui/icons-material/Home';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import useProducts from "../../hooks/useProducts";
 import ProductsGrid from "./ProductsGrid";
@@ -20,16 +22,17 @@ const Products = ({ type }) => {
   return (
     <>
       {!mobile && admin && <Navigation />}
-      {!mobile && <Breadcrumb className="m-3">
+      {/* {!mobile && <Breadcrumb className="m-5">
         <Breadcrumb.Item>
-          <Link to={admin ? "/cms/index" : "/"}>Home</Link>
+          <Link to={admin ? "/cms/index" : "/"}> <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />Home</Link>
         </Breadcrumb.Item>
+        <NavigateNextIcon style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
         <Breadcrumb.Item>
           {type && (
             <Link to={admin ? `/cms/products/${type}` : `/products/${type}`}>{type}</Link>
           )}
         </Breadcrumb.Item>
-      </Breadcrumb>}
+      </Breadcrumb>} */}
 
       {loading ? (
         <BounceLoader color={"#888"} size={20} />
