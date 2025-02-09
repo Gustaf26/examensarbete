@@ -6,7 +6,9 @@ import { db } from "../../firebase";
 
 import { BounceLoader } from "react-spinners";
 import { Card, Button, Breadcrumb, Row } from "react-bootstrap";
+
 import Navigation from '../Navigation'
+import ProductCard from '../products/ProductCard'
 
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from './../../contexts/MobileContext'
@@ -100,69 +102,7 @@ const Product = () => {
           {mobileDisplays && <MobileList />}
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
           {singleProduct && (
-            <Card onLoad={(e) => e.target.scrollIntoView({ behaviour: 'smooth', block: 'center' })}
-              onClick={() => {
-                if ((window.innerWidth < 1100 || mobile) && menuShowing) setMenuShowing(false);
-                if (mobileDisplays) setMobileDisplays(false)
-              }
-              }
-              className="mb-3 col-6 p-3 mx-3 mb-5 card justify-content-start"
-              style={{ overflowX: 'hidden', paddingTop: mobile ? '3rem !important' : 'none', height: '100%', width: mobile ? 'fit-content' : '400px', overflowY: mobile && admin ? 'scroll' : 'hidden' }}>
-              <h2 className="m-3 d-flex justify-content-center" style={{ fontSize: '1.4em', color: 'rgb(116, 71, 71)' }}>
-                {" "}
-                {singleProduct && singleProduct.name}
-              </h2>
-              <p
-                href={singleProduct.thumbnail}
-                title="View image in lightbox"
-                data-attribute="SRL"
-              >
-                <Card.Img
-                  variant="top"
-                  style={{ width: '100%', height: 'auto' }}
-                  src={singleProduct.thumbnail}
-                  title={singleProduct.name}
-                />
-              </p>
-              <Card.Body>
-                <Card.Text className="text-muted small">
-                  <b>{singleProduct.name}</b>
-                </Card.Text>
-                <Card.Text className="text-muted small">
-                  <b>Price: </b> {singleProduct.price} €
-                </Card.Text>
-                <Card.Text className="text-muted small">
-                  <b>Description: </b>{" "}
-                  <span>
-                    {singleProduct.description && singleProduct.description}
-                  </span>
-                </Card.Text>
-                {admin && (
-                  <div>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      className="col-12 mt-3 p-2"
-                      onClick={() => {
-                        handleDeleteProduct(singleProduct);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      className="col-12 mt-3 p-2"
-                      onClick={() => {
-                        handleUpdateProduct(singleProduct);
-                      }}
-                    >
-                      Update
-                    </Button>
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
+            <ProductCard item={singleProduct} />
           )}
         </Row>
       </div>

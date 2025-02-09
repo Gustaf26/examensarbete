@@ -53,7 +53,7 @@ const UpdateProfile = () => {
   }
   return (
     <>
-      <Row>
+      <Row> {admin && <Navigation />}
         {!mobile && <Breadcrumb className="m-5 pt-5">
           <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
           <Breadcrumb.Item >
@@ -63,8 +63,6 @@ const UpdateProfile = () => {
         <Row style={mobile && admin ? { ...containerStyles, justifyContent: 'center', width: `${mobileWidth}px` }
           : mobile ? { width: '100%', marginTop: '3rem' } : { marginTop: '1rem' }}>
 
-          {admin && mobile && <Navigation />}
-
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey',
             width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px',
@@ -73,12 +71,15 @@ const UpdateProfile = () => {
             color='primary'>device_unknown</Icon>}
 
           {mobileDisplays && <MobileList />}
-          <Col style={mobile & admin ? { width: '100%' } : {}}>
+          <Col style={{ width: '100%' }}>
             <Card onClick={() => {
               mobileDisplays && setMobileDisplays(!mobileDisplays);
               if ((window.innerWidth < 1100 || mobile) && menuShowing) setMenuShowing(false);
-            }
-            } id="update-profile-form" style={mobile & admin ? { maxWidth: '100%', width: '100%', margin: '3rem 0' } : {}}>
+            }}
+              id="update-profile-form"
+              style={mobile & admin ? { maxWidth: '100%', width: '100%', margin: '3rem 0' } :
+                mobile ? { width: '400px' } : { margin: '0 auto', width: '600px' }}>
+
               <Card.Body style={mobile & admin ? { width: '100%' } : {}}>
                 <Card.Title>Update Profile</Card.Title>
 

@@ -15,6 +15,7 @@ import MobileList from '../../cms_components/MobileList'
 import useMobileStyles from '../../hooks/useMobileStyles'
 
 import Navigation from '../Navigation'
+import ProductCard from '../products/ProductCard'
 
 const ProductsGrid = ({ products, type }) => {
   const navigate = useNavigate();
@@ -72,81 +73,17 @@ const ProductsGrid = ({ products, type }) => {
         {mobileDisplays && <MobileList />}
 
         <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
-          className="mb-5"
+          className="mb-5 p-0"
           style={mobile && admin ? {
-            overflowY: 'scroll', height: `calc(${mobileHeight - 20}px - 3rem)`, padding: '0', width: `100%`, marginTop: '3rem'
+            overflowY: 'scroll', height: `calc(${mobileHeight - 20}px - 3rem)`, width: `calc(${mobileWidth}px)`, margin: '3rem auto'
           } : { overflowY: 'hidden', display: 'flex', justifyContent: 'center' }} onLoad={() => setProductOption(type)}>
-          <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '330px', margin: '0 auto' } :
-            { width: '330px' }} lg={mobile && admin ? 12 : 4}>
+          <Col style={mobile && admin ? { width: `100%`, overflowX: 'hidden', padding: '0' } : mobile ? { width: '330px', margin: '0 auto' } :
+            { width: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             {products &&
-              products.map((item) => (
-                <Card key={item.id} onClick={() => { mobileDisplays && setMobileDisplays(!mobileDisplays) }} style={{ width: '100%' }}
-                  className="mb-2 mt-0 p-2">
-                  <a
-                    href={item.thumbnail}
-                    title="View image in lightbox"
-                    data-attribute="SRL"
-                  >
-                    <Card.Img
-                      variant="top"
-                      src={item.thumbnail}
-                      title={item.name}
-                    />
-                  </a>
-                  <Card.Body
-                    className="d-block"
-                    onClick={(e) => {
-                      setSingleProduct(item);
-                      if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
-                      else navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
-                    }}
-                  >
-                    {" "}
-                    {/* <Link to={admin ? `/ cms / products / ${type} /${item.id}` : `products/${type}/${item.id}`} > */}
-                    <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
-                      <b>{item.name}</b>
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Price: </b> {item.price} €
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Description: </b>{" "}
-                      <span>
-                        {item.description.slice(0, 100)}... <b>(Read more)</b>
-                      </span>
-                    </Card.Text>
-                    {/* </Link> */}
-                    {
-                      admin && (
-                        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                          <Button
-                            id="deleteProduct"
-                            variant="danger"
-                            size="sm"
-                            className="col-5 mt-3 mr-1 p-2"
-                            onClick={() => {
-                              handleDeleteProduct(item);
-                            }}
-                          >
-                            Delete
-                          </Button>
-                          <Button
-                            id="updateProduct"
-                            variant="secondary"
-                            size="sm"
-                            className="col-5 mt-3 ml-3 p-2"
-                            onClick={() => {
-                              handleUpdateProduct(item);
-                            }}
-                          >
-                            Update
-                          </Button>
-                        </div>
-                      )
-                    }
-                  </Card.Body >
-                </Card >
-              ))} </Col >
+              products.map((item, i) => (
+                <ProductCard onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'end' })} item={item} />
+              ))}
+          </Col >
         </Row >
       </Row >
     </div >
