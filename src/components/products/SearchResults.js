@@ -70,18 +70,21 @@ const SearchResults = () => {
         <Breadcrumb.Item active>Search results</Breadcrumb.Item>
       </Breadcrumb>}
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-        <Row style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : mobile ? { width: "100%", marginTop: '5rem' } : { padding: '20px' }}>
+        <Row style={mobile && admin ? { ...containerStyles, marginTop: '5rem', padding: '0' } : mobile ? { width: "100%", marginTop: '5rem' }
+          : { padding: '20px' }}>
           {admin && mobile && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
           <Row onClick={window.innerWidth < 1100 && menuShowing ? () => setMenuShowing(false) : null}
-            className="px-3" style={mobile && admin ? {
-              overflowY: 'scroll', height: `${mobileHeight - 20}px`, marginTop: '0px'
+            style={mobile && admin ? {
+              overflowY: 'scroll', height: `${mobileHeight - 20}px`, margin: '0px 2px', width: '100%', padding: '0'
             } : { maxWidth: admin ? 'calc(100vw - 240px)' : '100%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {searchResults &&
-              searchResults.map((item, index) => (
-                <Col style={{ width: '300px' }} key={index}>
-                  <Card style={{ minWidth: '250px', margin: '0 auto' }} className="mb-3 mx-auto">
+            <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '330px', margin: '0 auto' } :
+              { display: 'flex', width: '100%', flexWrap: 'wrap' }} lg={mobile && admin ? 12 : 4}
+              onClick={() => { if (menuShowing) setMenuShowing(false); if (mobileDisplays) setMobileDisplays(!mobileDisplays) }}>
+              {searchResults &&
+                searchResults.map((item) => (
+                  <Card key={item.id} style={mobile && admin ? { width: '100%' } : { width: '330px', margin: '0 auto' }} className="mb-3 p-2 mx-auto">
                     <a
                       href={item.thumbnail}
                       title="View image in lightbox"
@@ -100,7 +103,6 @@ const SearchResults = () => {
                         setProductOption(item.category);
                         if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
                         else navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
-
                       }}
                     >
                       {" "}
@@ -144,8 +146,8 @@ const SearchResults = () => {
                       )}
                     </Card.Body>
                   </Card>
-                </Col>
-              ))}
+                ))}
+            </Col>
           </Row>
         </Row>
       </div>

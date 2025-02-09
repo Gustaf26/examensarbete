@@ -2,9 +2,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button, Breadcrumb } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
-import { Breadcrumb } from "react-bootstrap";
 import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
@@ -75,13 +74,14 @@ const ProductsGrid = ({ products, type }) => {
         <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
           className="mb-5"
           style={mobile && admin ? {
-            overflowY: 'scroll', height: `calc(${mobileHeight - 20}px - 3rem)`, width: `105%`, marginTop: '3rem'
+            overflowY: 'scroll', height: `calc(${mobileHeight - 20}px - 3rem)`, padding: '0', width: `100%`, marginTop: '3rem'
           } : { overflowY: 'hidden', display: 'flex', justifyContent: 'center' }} onLoad={() => setProductOption(type)}>
-          {products &&
-            products.map((item) => (
-              <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '330px', margin: '0 auto' } :
-                { width: '330px' }} className="pl-2 pr-2" lg={mobile && admin ? 12 : 4} key={item.id}>
-                <Card className="mb-2 mt-0 p-2">
+          <Col style={mobile && admin ? { width: '100%' } : mobile ? { width: '330px', margin: '0 auto' } :
+            { width: '330px' }} lg={mobile && admin ? 12 : 4}>
+            {products &&
+              products.map((item) => (
+                <Card key={item.id} onClick={() => { mobileDisplays && setMobileDisplays(!mobileDisplays) }} style={{ width: '100%' }}
+                  className="mb-2 mt-0 p-2">
                   <a
                     href={item.thumbnail}
                     title="View image in lightbox"
@@ -146,11 +146,10 @@ const ProductsGrid = ({ products, type }) => {
                     }
                   </Card.Body >
                 </Card >
-              </Col >
-            ))}
+              ))} </Col >
         </Row >
       </Row >
-    </div>
+    </div >
   );
 };
 

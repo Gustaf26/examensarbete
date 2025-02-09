@@ -7,8 +7,10 @@ import { doc, setDoc } from "firebase/firestore";
 import { Row, Col, Card, Form, Button, Alert, Breadcrumb } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
 import Navigation from '../Navigation'
+import HomeIcon from '@mui/icons-material/Home';
 
 import { useCreate } from "../../contexts/CreateContext";
+import { useAuth } from '../../contexts/AuthContext'
 import { useMobile } from './../../contexts/MobileContext'
 
 import MobileList from '../../cms_components/MobileList'
@@ -25,6 +27,7 @@ const UpdateProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
+  const { admin } = useAuth()
 
 
   const {
@@ -34,8 +37,7 @@ const UpdateProduct = () => {
     setSingleProduct,
     singleProduct,
     productCategories,
-    setImageUrl,
-    admin
+    setImageUrl
   } = useCreate();
 
   const navigate = useNavigate();
@@ -94,13 +96,15 @@ const UpdateProduct = () => {
     setDescription(singleProduct.description);
     setPrice(singleProduct.price);
     setImageUrl(singleProduct.thumbnail);
+    console.log(mobile, admin)
   }, []);
 
   return (
     <>
       <div id="dummy-container-update" onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
         {!mobile && admin && <Navigation />}
-        {!mobile && <Breadcrumb className="m-3">
+        {!mobile && <Breadcrumb className="m-5 pt-5">
+          <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
           <Breadcrumb.Item>
             <Link to={admin ? "/cms/index" : "/"}>Home</Link>
           </Breadcrumb.Item>
@@ -109,6 +113,7 @@ const UpdateProduct = () => {
               <Link to={`/cms/products/${productOption}`}></Link>
             )}
           </Breadcrumb.Item>
+          <p>Update</p>
         </Breadcrumb>}
         <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '5rem auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
           {admin && mobile && <Navigation />}

@@ -73,8 +73,9 @@ const Product = () => {
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
         {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
         {!mobile && <Breadcrumb className="m-5 pt-5">
+          <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />
           <Breadcrumb.Item>
-            <Link to={admin ? "/cms/index" : "/"}> <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />Home</Link>
+            <Link to={admin ? "/cms/index" : "/"}> Home</Link>
           </Breadcrumb.Item>
           <NavigateNextIcon style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
           <Breadcrumb.Item>
@@ -89,7 +90,7 @@ const Product = () => {
         </Breadcrumb>}
         <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, padding: '10px 0px' } : { margin: '3rem auto', justifyContent: 'center' }}>
           {admin && mobile && <Navigation />}
-          {mobile && admin && <Icon style={{
+          {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left',
             zIndex: '5', margin: '0 auto', padding: '8px',
             borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
@@ -99,7 +100,12 @@ const Product = () => {
           {mobileDisplays && <MobileList />}
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
           {singleProduct && (
-            <Card onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? (e) => { setMenuShowing(false) } : null}
+            <Card onLoad={(e) => e.target.scrollIntoView({ behaviour: 'smooth', block: 'center' })}
+              onClick={() => {
+                if ((window.innerWidth < 1100 || mobile) && menuShowing) setMenuShowing(false);
+                if (mobileDisplays) setMobileDisplays(false)
+              }
+              }
               className="mb-3 col-6 p-3 mx-3 mb-5 card justify-content-start"
               style={{ overflowX: 'hidden', paddingTop: mobile ? '3rem !important' : 'none', height: '100%', width: mobile ? 'fit-content' : '400px', overflowY: mobile && admin ? 'scroll' : 'hidden' }}>
               <h2 className="m-3 d-flex justify-content-center" style={{ fontSize: '1.4em', color: 'rgb(116, 71, 71)' }}>

@@ -36,6 +36,10 @@ export default function OptionsMenu() {
             await logout(currentUser.email)
             navigate("/login");
         }
+        else if (e.target.id === 'profile') {
+
+            navigate("/cms/update-profile", { replace: true });
+        }
     };
     return (
         <React.Fragment>
@@ -50,8 +54,8 @@ export default function OptionsMenu() {
                 anchorEl={anchorEl}
                 id="menu"
                 open={open}
-                onClose={handleClose}
-                onClick={handleClose}
+                // onClose={handleClose}
+                // onClick={handleClose}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 sx={{
@@ -66,7 +70,7 @@ export default function OptionsMenu() {
                     },
                 }}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem id="profile" onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <Divider />
                 <MenuItem onClick={handleClose}>Add another account</MenuItem>

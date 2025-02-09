@@ -174,7 +174,7 @@ const Navigation = () => {
                   >
                     <NavLink
                       style={mobile ? { width: '100%', textAlign: 'center' } : {}}
-                      to={admin ? 'cms/update-profile' : "/update-profile"}
+                      to={admin ? '/cms/update-profile' : "/update-profile"}
                       className="dropdown-item mx-auto"
                     >
                       Update Profile
