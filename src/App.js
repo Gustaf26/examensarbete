@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
-// import { db } from "./firebase";
-// import { collection, query, getDocs } from "firebase/firestore";
 
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// import 'lightbox.js-react/dist/index.css'
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
-// import CreateProduct from "./components/products/CreateProduct";
+import ProdList from './cms_components/ProdList'
 import UpdateProduct from "./components/products/UpdateProduct";
 import CMSNav from './cms_components/CMSNav'
 import ForgotPassword from "./components/ForgotPassword";
@@ -71,6 +68,7 @@ const App = () => {
                 <Route path='index' element={<Home />} />
                 <Route path="search-results" element={<SearchResults />} />
                 <Route path={'products/*'}>
+                  {admin && <Route path={'prod-list'} element={<ProdList />} />}
                   {productCategories &&
                     productCategories.map((category, i) => (
                       <>

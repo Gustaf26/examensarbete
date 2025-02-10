@@ -294,6 +294,15 @@ h2 {
   }
 }
 
+tr {
+
+  &:hover {
+    background-color: rgb(220, 149, 149);
+    color: white;
+  }
+
+}
+
 .mobile-displays-item:hover {
   background-color: rgb(217, 216, 216);
 }

@@ -134,8 +134,6 @@ const CreateContextProvider = (props) => {
     setProdId,
     setLocation,
     searchString,
-    // currentPassword,
-    // setCurrentPassword,
   };
 
   return (

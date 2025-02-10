@@ -17,13 +17,13 @@ import CheckroomIcon from '@mui/icons-material/Checkroom';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
-import { MenuItem } from '@mui/material';
+// import { MenuItem } from '@mui/material';
 
 const mainListItems = [
     { text: 'Home', icon: <HomeRoundedIcon />, url: 'cms/index' },
     { text: 'Analytics', icon: <AnalyticsRoundedIcon />, url: 'cms/index' },
     { text: 'Users', icon: <PeopleRoundedIcon />, url: 'cms/index' },
-    { text: 'Products', icon: <CheckroomIcon />, url: '/cms/products/troussers' },
+    { text: 'Products', icon: <CheckroomIcon />, url: '/cms/products/prod-list' },
 ];
 
 const secondaryListItems = [
@@ -36,25 +36,25 @@ export default function MenuContent() {
 
     const navigate = useNavigate()
     const [itemSelected, setItemSelected] = React.useState(0)
-    const { productCategories } = useCreate()
-    const [selectedProdCategory, setSelectedCategory] = React.useState('troussers')
 
-    React.useEffect(() => {
+    // React.useEffect(() => {
 
-        if (itemSelected === 3) navigate(`cms/products/${selectedProdCategory}`)
+    //     if (itemSelected === 3) navigate(`/cms/products/prod-list`, { replace: true })
 
-    }, [selectedProdCategory, itemSelected])
+    // }, [itemSelected])
 
     return (
         <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
             <List dense>
                 {mainListItems.map((item, index) => (
                     <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                        <ListItemButton selected={index === itemSelected} onClick={() => { setItemSelected(index); item.text !== "Products" && navigate(item.url) }}>
+                        <ListItemButton selected={index === itemSelected} onClick={() => {
+                            setItemSelected(index); navigate(item.url)
+                        }}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
                         </ListItemButton>
-                        {item.text === "Products" && itemSelected === 3 && (
+                        {/* {item.text === "Products" && itemSelected === 3 && (
                             <Select
                                 labelId="company-select"
                                 id="company-simple-select"
@@ -84,7 +84,7 @@ export default function MenuContent() {
                                         <ListItemText style={{ textTransform: 'capitalize', paddingLeft: '8px' }} primary={prodCat.name} />
                                     </MenuItem>)
                                 })}
-                            </Select>)}
+                            </Select>)} */}
                     </ListItem>
                 ))}
             </List>
