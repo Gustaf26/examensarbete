@@ -16,7 +16,7 @@ import { useMobile } from './../../contexts/MobileContext'
 import "../../assets/scss/app.scss";
 import Icon from '@mui/material/Icon';
 import HomeIcon from '@mui/icons-material/Home';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 
 import MobileList from '../../cms_components/MobileList'
 import useMobileStyles from '../../hooks/useMobileStyles'
@@ -47,45 +47,19 @@ const Product = () => {
 
   }, []);
 
-  const handleUpdateProduct = (product) => {
-    setSingleProduct(product);
-    navigate(`/cms/products/update`, { replace: true });
-  };
 
-  const handleDeleteProduct = (product) => {
-    try {
-      const deletion = async () => {
-        console.log("deleteing " + product.name + "of" + productOption);
-
-        db.collection(`${productOption}`).doc(`${product.id}`).delete();
-
-        setTimeout(() => {
-          navigate(`/products/${productOption}`);
-        }, 1000);
-      };
-
-      deletion();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>
       <div id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
         {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
         {!mobile && <Breadcrumb className="m-5 pt-5">
-          <HomeIcon sx={{ mr: 1, mb: 0.3 }} fontSize="medium" />
-          <Breadcrumb.Item>
-            <Link to={admin ? "/cms/index" : "/"}> Home</Link>
-          </Breadcrumb.Item>
-          <NavigateNextIcon style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
+          <ArrowBack style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
           <Breadcrumb.Item>
             {productOption && (
               <Link to={admin ? `/cms/products/${productOption}` : `/products/${productOption}`}>{productOption}</Link>
             )}
           </Breadcrumb.Item>
-          <NavigateNextIcon style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
           <Breadcrumb.Item active>
             {singleProduct ? singleProduct.name : null}
           </Breadcrumb.Item>
