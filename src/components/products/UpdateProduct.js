@@ -19,7 +19,7 @@ import useMobileStyles from '../../hooks/useMobileStyles'
 
 const UpdateProduct = () => {
 
-  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing, mobileWidth } = useMobile()
   const containerStyles = useMobileStyles()
 
   const [error, setError] = useState(false);
@@ -123,10 +123,11 @@ const UpdateProduct = () => {
           {admin && mobile && <Navigation />}
           {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
-          <Col lg={mobile ? 12 : 6} style={mobile ? { padding: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px` } : { marginTop: '-40px', width: '600px', height: '500px' }}>
+          <Col lg={mobile ? 12 : 6} style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
+            : { marginTop: '-40px', width: '600px', height: '500px' }}>
             {singleProduct ? (
-              <Card className="my-3 p-3" style={{ height: mobile ? 'fit-content' : `${mobileHeight - 20}px`, overflowY: mobile ? 'hidden' : 'scroll' }}>
-                <Card.Body className="p-2">
+              <Card className="p-2" style={{ marginTop: mobile ? '40px' : '', height: mobile ? 'fit-content' : `${mobileHeight - 20}px`, overflowY: mobile ? 'hidden' : 'scroll' }}>
+                <Card.Body className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}>
                   <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>
                   {error && <Alert variant="danger">{error}</Alert>}
                   <Card.Img src={singleProduct.thumbnail} />

@@ -48,10 +48,11 @@ const ProductCard = ({ item }) => {
 
     return (<Card key={item.id} onClick={() => { mobileDisplays && setMobileDisplays(!mobileDisplays) }}
         style={mobile && admin ? {
-            width: `calc(${mobileWidth}px - 30px)`, height: 'fit-content',
-            maxHeight: (view === 'single') ? `calc(${mobileHeight}px - 70px)` : 'fit-content', overflowY: view !== 'single' ? '' : 'scroll',
-        } : { width: '330px' }}
-        className="m-2 p-2">
+            width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
+            maxHeight: (view === 'single') ? `calc(${mobileHeight}px - 80px)` : 'fit-content', overflowY: view !== 'single' ? '' : 'scroll',
+            marginBottom: '15px'
+        } : { width: '330px', margin: '15px' }}
+        className="p-2">
         <a href={item.thumbnail}
             title="View image in lightbox"
             data-attribute="SRL">

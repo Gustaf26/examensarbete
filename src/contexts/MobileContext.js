@@ -29,7 +29,7 @@ const MobileContextProvider = (props) => {
 
     useEffect(() => {
 
-        if (window.innerWidth < 1000) setMobile(true)
+        if (window.innerWidth < 1000) setMobile(true);
     }, [])
 
     return (

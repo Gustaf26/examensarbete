@@ -55,12 +55,15 @@ const Navigation = () => {
   }, [admin, currentUser]);
 
   useEffect(() => {
-    if (window.innerWidth < 1000) {
-      setCustMenu(true);
-    }
+    // if (window.innerWidth < 1000) {
+    //   setCustMenu(true);
+    // }
 
     if (mobile) {
       setMenuShowing(false)
+    }
+    else {
+      setMenuShowing(true)
     }
 
     window.addEventListener("resize", function (e) {

@@ -10,7 +10,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 import SelectContent from './menu/SelectContent';
 import MenuContent from './menu/MenuContent';
-import CardAlert from './menu/CardAlert';
+// import CardAlert from './menu/CardAlert';
 import OptionsMenu from './menu/OptionsMenu';
 
 import { useAuth } from '../contexts/AuthContext'

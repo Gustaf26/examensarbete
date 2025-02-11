@@ -61,7 +61,7 @@ const ProductsGrid = ({ products, type }) => {
             { width: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', margin: '0 auto' }}>
             {products &&
               products.map((item, i) => (
-                <ProductCard onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'end' })} item={item} />
+                <ProductCard onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'start' })} item={item} />
               ))}
           </Col >
         </Row >

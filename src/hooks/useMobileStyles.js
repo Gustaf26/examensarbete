@@ -5,8 +5,6 @@ const useMobileStyles = () => {
 
     const { mobile, mobileWidth, mobileHeight } = useMobile()
 
-
-
     const containerStyles = {
         border: mobile ? '6px solid rgb(255, 255, 255)' : 'none',
         outline: '1px solid rgb(216, 214, 214)',

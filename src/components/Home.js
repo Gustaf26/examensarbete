@@ -31,20 +31,20 @@ const Home = () => {
           className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : null}
           lg={mobile ? 12 : 6}>
           {admin && <Navigation />}
-          {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
+          {mobile && admin && <Icon onClick={() => { alert(mobileDisplays); setMobileDisplays(!mobileDisplays) }} style={{
             border: '1px solid lightgrey',
             width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto',
             padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
           }} color='primary'>device_unknown</Icon>}
-          <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : null} style={{
+          <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : admin && mobile && mobileDisplays ? alert(mobileDisplays) : null} style={{
             padding: '10px',
             overflowY: mobile && admin ? 'scroll' : '', width: mobile ? '400px' : '600px',
-            height: mobile && admin ? `calc(${mobileHeight - 70}px)` : 'fit-content',
+            height: mobile && admin ? `calc(${mobileHeight - 80}px)` : 'fit-content',
             marginTop: !mobile && admin ? '5rem' : mobile ? '3rem' : '5rem'
           }}
             className="mb-3 main-card col-sm-12 col-md-6 mx-auto mb-5">
             {mobileDisplays && <MobileList />}
-            <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center">
+            <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center" style={mobile ? { fontSize: '1.2em' } : {}}>
               WELCOME TO WORK OUT!
             </h2>
             <Card.Img lg={mobile ? 12 : 6}
