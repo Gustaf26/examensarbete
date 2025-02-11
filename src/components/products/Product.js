@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
-import { db } from "../../firebase";
+// import { db } from "../../firebase";
 
 import { BounceLoader } from "react-spinners";
-import { Card, Button, Breadcrumb, Row } from "react-bootstrap";
+import { Breadcrumb, Row } from "react-bootstrap";
 
 import Navigation from '../Navigation'
 import ProductCard from '../products/ProductCard'
@@ -15,7 +15,6 @@ import { useMobile } from './../../contexts/MobileContext'
 
 import "../../assets/scss/app.scss";
 import Icon from '@mui/material/Icon';
-import HomeIcon from '@mui/icons-material/Home';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 
 import MobileList from '../../cms_components/MobileList'
@@ -25,23 +24,23 @@ const Product = () => {
   const {
     singleProduct,
     productOption,
-    setSingleProduct,
+    // setSingleProduct,
     setLocation,
     setProdId,
   } = useCreate();
 
   const { admin } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
   const { productId } = useParams();
 
-  const { mobile, mobileDisplays, setMobileDisplays, menuShowing, setMenuShowing } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
   const containerStyles = useMobileStyles()
 
   useEffect(() => {
     if (!singleProduct) {
       setLocation(location.pathname);
-      setProdId(productId);
+      setProdId(Number(productId));
     }
     console.log(location.pathname)
 
@@ -64,7 +63,8 @@ const Product = () => {
             {singleProduct ? singleProduct.name : null}
           </Breadcrumb.Item>
         </Breadcrumb>}
-        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, padding: '10px 0px' } : { margin: '3rem auto', justifyContent: 'center' }}>
+        <Row className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, padding: '10px 0px' } :
+          { margin: '3rem auto', justifyContent: 'center' }}>
           {admin && mobile && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left',

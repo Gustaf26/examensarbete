@@ -73,7 +73,7 @@ const App = () => {
                     productCategories.map((category, i) => (
                       <>
                         <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
-                        <Route path={`${category.name}/:productId`} element={<Product />} />
+                        <Route path={`${category.name}/:productId`} key={`${category.name}/:productId`} element={<Product />} />
                         {admin && <Route path={`update`} element={<UpdateProduct />} />}
                       </>))}
                 </Route>

@@ -261,16 +261,11 @@ h2 {
 
 .main-card {
   background-color: rgb(253, 246, 246);
-  // box-shadow: 2px 2px 5px grey;
   color: rgb(103, 101, 101);
   text-indent: 15px;
   text-align: justify;
 }
 
-.dummy-container-mobile {
-  box-shadow: 3px 3px 3px rgb(223, 222, 222);
-  // border-radius: 10px;
-}
 
 .singleCard {
   margin-bottom: 5rem;
@@ -340,24 +335,13 @@ tr {
 
 @media screen and (min-width: 200px) and (max-width: 490px) {
   #logo {
-    margin-left: -2rem;
-    font-size: xx-small;
+    font-size: medium;
   }
 
-  #product-search {
-    margin-top: -0.75rem;
-    max-width: 20vw;
-    max-height: 1.5rem;
-    font-size: x-small;
-    margin-left: -25%;
-  }
 
   #basic-nav-dropdown+div {
     left: 0 !important;
-    // right: 35% !important;
-    // margin-left: -120%;
-    // max-width: 250px;
-    // flex-direction: column;
+
   }
 
   #hamburger-icon {
@@ -369,12 +353,8 @@ tr {
 @media screen and (min-width: 491px) and (max-width: 600px) {
 
 
-  // .singleCard {
-  //   min-width: 80vw;
-  // }
-
   #logo {
-    font-size: small;
+    font-size: medium;
   }
 
   #product-search {
@@ -384,7 +364,6 @@ tr {
     background-color: rgba(233, 230, 230, 0);
     border: 1px solid rgb(218, 215, 215);
     font-size: small;
-    // margin-top: -30%;
     margin-right: 10%;
     padding-left: 1rem;
     color: white;
@@ -400,7 +379,6 @@ tr {
 
 
   #basic-navbar-nav {
-    // margin-left: -9vw;
     flex-wrap: wrap;
   }
 
@@ -478,7 +456,6 @@ tr {
   #basic-navbar-nav {
     flex-wrap: nowrap;
     margin-right: 0;
-    // width: 30vw;
     margin-left: 2vw;
   }
 
@@ -499,10 +476,6 @@ tr {
     background-repeat: repeat;
   }
 
-  // #logo {
-  //   margin-left: 5vw;
-  // }
-
   #product-search {
     height: 2.5rem;
     border-radius: 15px;
@@ -517,17 +490,11 @@ tr {
   }
 
   #search-icon {
-    // position: absolute;
-    // margin-top: 0.1rem;
-    // margin-left: 3.7rem;
-    // font-size: x-large;
-    // color: darkgray;
     display: none;
   }
 
   .navitem .nav-item {
     min-width: 135px;
-    // margin-left: -5rem;
   }
 
   .navitem.signin {

@@ -28,7 +28,7 @@ const CreateContextProvider = (props) => {
   const { admin } = useAuth()
 
 
-  const getSingleProduct = () => {
+  const getSingleProduct = (products) => {
 
     let firstDash;
     let secondDash;
@@ -44,9 +44,10 @@ const CreateContextProvider = (props) => {
     }
 
 
-    let preliminaryProd = allProducts.current.filter(
+    let preliminaryProd = products.filter(
       (prod) => prod.id === Number(prodId) && prod.category === category
     );
+
     if (preliminaryProd.length) {
       setProductOption(category);
       setSingleProduct(preliminaryProd[0]);
@@ -83,13 +84,13 @@ const CreateContextProvider = (props) => {
         setSearchString(JSON.parse(window.localStorage.getItem("search")));
       }
 
-      // Function to fetch product when routing to /products/{category}/:productId
-      if (prodId) {
-        getSingleProduct();
-      }
 
       setProducts([...emptyArr])
 
+      // Function to fetch product when routing to /products/{category}/:productId
+      if (prodId) {
+        getSingleProduct([...emptyArr]);
+      }
       setLoading(false);
     })
 

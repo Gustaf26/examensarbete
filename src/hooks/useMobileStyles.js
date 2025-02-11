@@ -18,7 +18,7 @@ const useMobileStyles = () => {
         position: 'relative',
         backgroundColor: mobile ? 'rgb(255, 255, 255)' : '',
         transition: '0.5s',
-        boxShadow: '1px 1px 3px rgb(156, 153, 153)'
+        // boxShadow: '1px 1px 3px rgb(156, 153, 153)'
 
     }
 
