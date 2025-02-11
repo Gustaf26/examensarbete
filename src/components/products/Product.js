@@ -34,13 +34,14 @@ const Product = () => {
   const location = useLocation();
   const { productId } = useParams();
 
-  const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
+  const { mobile, setMobile, mobileDisplays, setMobileDisplays } = useMobile()
   const containerStyles = useMobileStyles()
 
   useEffect(() => {
     if (!singleProduct) {
       setLocation(location.pathname);
       setProdId(Number(productId));
+      if (window.innerWidth <= 1000) setMobile(true)
     }
     console.log(location.pathname)
 

@@ -82,10 +82,18 @@ h2 {
 .navitem {
   text-align: center;
   cursor: pointer;
-  min-height: 70px;
+  max-height: 70px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  & a:active {
+    font-style: bold;
+    // background-color: rgba(244, 240, 240, 0.7);
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
 
   &:nth-child(2) a {
     color: rgb(70, 13, 13) !important;
@@ -97,8 +105,22 @@ h2 {
     text-decoration: none;
   }
 
-  &:nth-child(2):hover,
-  :nth-child(3):hover {
+  & form:hover {
+    font-style: bold;
+    // background-color: rgba(244, 240, 240, 0.7);
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+
+  &:nth-child(2):hover {
+    // background-color: rgb(205, 205, 205);
+    font-style: bold;
+    // background-color: rgba(244, 240, 240, 0.7);
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+
+  &:nth-child(3):hover {
     // background-color: rgb(205, 205, 205);
     font-style: bold;
     // background-color: rgba(244, 240, 240, 0.7);
@@ -357,21 +379,21 @@ tr {
     font-size: medium;
   }
 
-  #product-search {
-    max-width: 20vw;
-    max-height: 2rem;
-    border-radius: 50;
-    background-color: rgba(233, 230, 230, 0);
-    border: 1px solid rgb(218, 215, 215);
-    font-size: small;
-    margin-right: 10%;
-    padding-left: 1rem;
-    color: white;
-  }
+  // #product-search {
+  //   max-width: 20vw;
+  //   max-height: 2rem;
+  //   border-radius: 50;
+  //   background-color: rgba(233, 230, 230, 0);
+  //   border: 1px solid rgb(218, 215, 215);
+  //   font-size: small;
+  //   margin-right: 10%;
+  //   padding-left: 1rem;
+  //   color: white;
+  // }
 
-  #product-search::placeholder {
-    color: whitesmoke;
-  }
+  // #product-search::placeholder {
+  //   color: whitesmoke;
+  // }
 
   #search-icon {
     display: none;
@@ -387,9 +409,6 @@ tr {
     margin-left: 20%;
   }
 
-  .navitem {
-    max-width: 80px;
-  }
 }
 
 @media screen and (min-width: 600px) and (max-width: 900px) {
@@ -493,12 +512,12 @@ tr {
     display: none;
   }
 
-  .navitem .nav-item {
+  .navitem {
     min-width: 135px;
   }
 
-  .navitem.signin {
-    min-width: 150px;
+  .navitem .signin {
+    min-width: 150px !important;
   }
 
   footer {
