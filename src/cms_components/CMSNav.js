@@ -1,6 +1,6 @@
 import * as React from 'react';
+
 import { styled } from '@mui/material/styles';
-// import Avatar from '@mui/material/Avatar';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -12,35 +12,41 @@ import SelectContent from './menu/SelectContent';
 import MenuContent from './menu/MenuContent';
 import CardAlert from './menu/CardAlert';
 import OptionsMenu from './menu/OptionsMenu';
+
 import { useAuth } from '../contexts/AuthContext'
+import { useMobile } from '../contexts/MobileContext'
 
-
-const drawerWidth = 240;
-
-const Drawer = styled(MuiDrawer)({
-    width: drawerWidth,
-    flexShrink: 0,
-    boxSizing: 'border-box',
-    mt: 10,
-    [`& .${drawerClasses.paper}`]: {
-        width: drawerWidth,
-        boxSizing: 'border-box',
-    },
-});
 
 export default function CMSNav() {
 
     const { currentUser } = useAuth()
+    const { mobile } = useMobile()
+
+    const Drawer = styled(MuiDrawer)({
+        width: mobile ? 70 : 240,
+        maxWidth: mobile ? 70 : 240,
+        flexShrink: 1,
+        boxSizing: 'border-box',
+        mt: 10,
+        [`& .${drawerClasses.paper}`]: {
+            width: mobile ? 70 : 240,
+            boxSizing: 'border-box',
+            overflowX: 'hidden'
+        },
+
+    });
 
     return (
-        <Drawer
-            variant="permanent"
+        <Drawer variant="permanent"
             sx={{
-                display: { xs: 'none', md: 'block' },
+                display: { xs: 'block', md: 'block' },
                 [`& .${drawerClasses.paper}`]: {
                     backgroundColor: 'background.paper',
                 },
-            }}
+                maxWidth: mobile ? 40 : 240,
+                overflowX: 'hidden'
+            }
+            }
         >
             <Box
                 sx={{
@@ -53,7 +59,7 @@ export default function CMSNav() {
             </Box>
             <Divider />
             <MenuContent />
-            <CardAlert />
+            {/* <CardAlert /> */}
             <Stack
                 direction="row"
                 sx={{
@@ -86,6 +92,6 @@ export default function CMSNav() {
                 <OptionsMenu />
 
             </Stack>
-        </Drawer>
+        </Drawer >
     );
 }

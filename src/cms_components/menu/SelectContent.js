@@ -50,14 +50,15 @@ export default function SelectContent() {
         <Select
             labelId="company-select"
             id="company-simple-select"
-            value={mobile ? 10 : company}
+            value={mobile ? 'Disp' : company}
             onChange={handleChange}
-            displayEmpty
+            // displayEmpty
             inputProps={{ 'aria-label': 'Select company' }}
             fullWidth
             sx={{
                 maxHeight: 56,
-                width: 215,
+                margin: mobile ? '0 auto 0 -10px' : 'none',
+                width: mobile ? 60 : 215,
                 '&.MuiList-root': {
                     p: '8px',
                 },
@@ -69,7 +70,10 @@ export default function SelectContent() {
                 },
             }}
         >
-            <ListSubheader sx={{ pt: 0 }}>Production</ListSubheader>
+            <MenuItem value={'Disp'}>
+                <ListItemText primary="" secondary="Disp" />
+            </MenuItem>
+            <ListSubheader style={{ zIndex: 5 }} sx={{ pt: 0 }}>Production</ListSubheader>
             <MenuItem value={0}>
                 <ListItemAvatar>
                     <Avatar alt="Sitemark web">

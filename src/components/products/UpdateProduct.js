@@ -101,7 +101,7 @@ const UpdateProduct = () => {
 
   return (
     <>
-      <div id="dummy-container-update" onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
+      <div id="dummy-container-update" style={{ position: 'absolute', left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)' }} onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
         {!mobile && admin && <Navigation />}
         {!mobile && <Breadcrumb className="m-5 pt-5">
           <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />

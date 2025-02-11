@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 
 const MobileContext = createContext();
@@ -26,6 +26,11 @@ const MobileContextProvider = (props) => {
         setMobileWidth,
         menuShowing, setMenuShowing
     };
+
+    useEffect(() => {
+
+        if (window.innerWidth < 1000) setMobile(true)
+    }, [])
 
     return (
         <MobileContext.Provider value={contextValues}>

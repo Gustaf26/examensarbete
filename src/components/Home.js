@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <>
-      <div id="dummy-container-home" onClick={(e) => { if (e.target.id === "dummy-container-home") setMobileDisplays(false) }}>
+      <div id="dummy-container-home" style={{ position: 'absolute', left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)' }} onClick={(e) => { if (e.target.id === "dummy-container-home") setMobileDisplays(false) }}>
         <Row id="home-row" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ?
           (e) => { if (e.target.id === 'home-card-text') setMenuShowing(false) } : null}
           className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '5rem' } : null}
