@@ -101,7 +101,11 @@ const UpdateProduct = () => {
 
   return (
     <>
-      <div id="dummy-container-update" style={{ position: 'absolute', left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)' }} onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
+      <div id="dummy-container-update" style={admin ? {
+        position: 'absolute', top: mobile ? '60px' : '0',
+        left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+      } : {}}
+        onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
         {!mobile && admin && <Navigation />}
         {!mobile && <Breadcrumb className="m-5 pt-5">
           <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
@@ -115,7 +119,7 @@ const UpdateProduct = () => {
           </Breadcrumb.Item>
           <p>Update</p>
         </Breadcrumb>}
-        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '5rem auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
+        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
           {admin && mobile && <Navigation />}
           {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}

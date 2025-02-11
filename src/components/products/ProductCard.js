@@ -1,7 +1,7 @@
 
 //import firebase from "firebase/app";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import { Card, Button } from "react-bootstrap";
 
@@ -14,10 +14,17 @@ import { useMobile } from "../../contexts/MobileContext";
 const ProductCard = ({ item }) => {
     const navigate = useNavigate();
     const { admin } = useAuth();
-    const { setSingleProduct } = useCreate();
+    const { setSingleProduct, productOption } = useCreate();
     const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, mobileWidth } = useMobile()
+    const location = useLocation();
+    const [view, setView] = useState('')
+    const { productId } = useParams()
 
 
+    useEffect(() => {
+        if ((location.pathname === `/cms/products/${productOption}/${productId}`) ||
+            (location.pathname === 'cms/products/update')) { setView('single'); }
+    })
 
     const handleUpdateProduct = (product) => {
 
@@ -42,7 +49,7 @@ const ProductCard = ({ item }) => {
     return (<Card key={item.id} onClick={() => { mobileDisplays && setMobileDisplays(!mobileDisplays) }}
         style={mobile && admin ? {
             width: `calc(${mobileWidth}px - 30px)`, height: 'fit-content',
-            maxHeight: `calc(${mobileHeight}px - 30px)`, overflowY: 'scroll'
+            maxHeight: (view === 'single') ? `calc(${mobileHeight}px - 70px)` : 'fit-content', overflowY: view !== 'single' ? '' : 'scroll',
         } : { width: '330px' }}
         className="m-2 p-2">
         <a href={item.thumbnail}
@@ -50,6 +57,7 @@ const ProductCard = ({ item }) => {
             data-attribute="SRL">
             <Card.Img
                 variant="top"
+                style={{ height: 'auto' }}
                 src={item.thumbnail}
                 title={item.name} />
         </a>
@@ -71,7 +79,7 @@ const ProductCard = ({ item }) => {
             <Card.Text className="text-muted small">
                 <b>Description: </b>{" "}
                 <span>
-                    {item.description.slice(0, 100)}... <b>(Read more)</b>
+                    {(view !== 'single') ? <>{item.description.slice(0, 100)}<b>(Read more)</b></> : item.description}
                 </span>
             </Card.Text>
             {admin && (

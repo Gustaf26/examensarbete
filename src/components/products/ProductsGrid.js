@@ -28,7 +28,10 @@ const ProductsGrid = ({ products, type }) => {
 
 
   return (
-    <div id="dummy-container-products" style={{ position: 'absolute', top: '120px', left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)' }} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+    <div id="dummy-container-products" style={admin ? {
+      position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
+      width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+    } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
       {!mobile && <Breadcrumb className="m-5 pt-5">
         <ArrowBack style={{ color: ' brown' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
         <Breadcrumb.Item >

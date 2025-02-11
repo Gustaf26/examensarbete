@@ -38,7 +38,13 @@ export default function SelectContent() {
     const handleChange = (event) => {
         event.preventDefault()
         setCompany(event.target.value);
+
         if (event.target.value === 0) {
+            if (window.innerWidth < 1100) {
+                alert('Your device is too small for Desktop View')
+                setMobile(true)
+                return
+            }
             setMobile(false)
             setMobileDisplays(false)
         }
@@ -50,7 +56,7 @@ export default function SelectContent() {
         <Select
             labelId="company-select"
             id="company-simple-select"
-            value={mobile ? 'Disp' : company}
+            value={mobile ? 'Dis' : company}
             onChange={handleChange}
             // displayEmpty
             inputProps={{ 'aria-label': 'Select company' }}
@@ -70,8 +76,8 @@ export default function SelectContent() {
                 },
             }}
         >
-            <MenuItem value={'Disp'}>
-                <ListItemText primary="" secondary="Disp" />
+            <MenuItem value={'Dis'}>
+                <ListItemText primary="" secondary="Dis" />
             </MenuItem>
             <ListSubheader style={{ zIndex: 5 }} sx={{ pt: 0 }}>Production</ListSubheader>
             <MenuItem value={0}>
