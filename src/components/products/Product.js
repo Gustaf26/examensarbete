@@ -9,6 +9,7 @@ import { Breadcrumb, Row, Col } from "react-bootstrap";
 
 import Navigation from '../Navigation'
 import ProductCard from '../products/ProductCard'
+import CardContainer from '../products/CardContainer'
 
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from './../../contexts/MobileContext'
@@ -67,7 +68,7 @@ const Product = () => {
             {singleProduct ? singleProduct.name : null}
           </Breadcrumb.Item>
         </Breadcrumb>}
-        <Row className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, padding: '50px 0px' } :
+        <Row className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
           { margin: '3rem auto', justifyContent: 'center' }}>
           {admin && mobile && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
@@ -78,13 +79,11 @@ const Product = () => {
             color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
-          <Col style={mobile && admin ? { width: `100%`, overflowX: 'hidden', padding: '10px' } :
-            mobile ? { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', margin: '0 auto' } :
-              { width: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', margin: '0 auto' }}>
+          <CardContainer>
             {singleProduct && (
               <ProductCard item={singleProduct} />
             )}
-          </Col>
+          </CardContainer>
         </Row>
       </div >
     </>
