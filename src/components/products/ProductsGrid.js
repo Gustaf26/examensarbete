@@ -1,10 +1,10 @@
 //import firebase from "firebase/app";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { Row, Col, Breadcrumb } from "react-bootstrap";
+import { Row, Breadcrumb } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
-import HomeIcon from '@mui/icons-material/Home';
+// import HomeIcon from '@mui/icons-material/Home';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -19,10 +19,10 @@ import ProductCard from '../products/ProductCard'
 import CardContainer from '../products/CardContainer'
 
 const ProductsGrid = ({ products, type }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { admin } = useAuth();
   const { setProductOption } = useCreate();
-  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, mobileWidth, menuShowing, setMenuShowing } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
 
   const containerStyles = useMobileStyles()
 
@@ -39,8 +39,8 @@ const ProductsGrid = ({ products, type }) => {
           <Link to={admin ? "/cms/index" : "/"}> Home</Link>
         </Breadcrumb.Item>
       </Breadcrumb>}
-      <Row onLoad={() => setProductOption(type)} style={mobile && admin ? { ...containerStyles, justifyContent: 'center', width: `${mobileWidth}px` }
-        : mobile ? { width: '100%', margin: '3rem auto', padding: '0' } : { marginTop: '1rem' }}>
+      <Row onLoad={() => setProductOption(type)} style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
+        { margin: '3rem auto', justifyContent: 'center' }}>
 
         {admin && mobile && <Navigation />}
 

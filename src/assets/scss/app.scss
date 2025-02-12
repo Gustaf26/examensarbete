@@ -248,7 +248,7 @@ h2 {
 #update-profile-form {
   background-color: rgba(244, 242, 242, 0.9) !important;
   margin: 3rem auto;
-  max-width: 80%;
+  max-width: 600px;
 
   & input:not([type=checkbox]):focus {
     background-color: whitesmoke;
@@ -320,7 +320,8 @@ tr {
 
 }
 
-.mobile-displays-item:hover {
+.mobile-displays-item:hover,
+.mobile-displays-item.Mui-selected {
   background-color: rgb(255, 255, 255) !important;
 }
 

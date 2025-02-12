@@ -10,7 +10,7 @@ const useMobileStyles = () => {
         outline: '1px solid rgb(216, 214, 214)',
         width: mobile ? `${mobileWidth}px` : '1000px',
         margin: mobile ? '0 auto' : '10px',
-        padding: '10px 10px 0px 10px',
+        padding: '10px 0px 0px 0px',
         height: mobile ? `${mobileHeight}px` : 'none',
         borderRadius: '20px',
         position: 'relative',

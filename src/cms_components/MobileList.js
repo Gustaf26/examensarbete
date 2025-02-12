@@ -44,7 +44,7 @@ const MobileList = () => {
                         <ListItemButton id="0" selected={selectedIndex === i.toString()} onClick={(e) => {
                             setSelectedIndex(i.toString());
                             setMobileWidth(device.width);
-                            setMobileHeight(device.height)
+                            setMobileHeight(device.height);
                         }} className="mobile-displays-item" >
                             <ListItemText primary={device.device} style={{ textAlign: 'center' }} />
                         </ListItemButton>
