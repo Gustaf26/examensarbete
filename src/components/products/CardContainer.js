@@ -19,7 +19,7 @@ const CardContainer = (props) => {
             className="mb-5 p-0"
             style={mobile && admin ? {
                 overflowY: 'scroll', height: `calc(${mobileHeight - 20}px - 3rem)`, width: `calc(${mobileWidth}px)`, margin: '3rem auto'
-            } : mobile ? { width: '100%', justifyContent: 'center' } : { minWidth: '360px', overflowY: 'hidden', display: 'flex', justifyContent: 'center', margin: '0 auto' }}>
+            } : mobile ? { width: '100%', justifyContent: 'center' } : { minWidth: '360px', height: 'fit-content', overflowY: 'hidden', display: 'flex', justifyContent: 'center', margin: '0 auto' }}>
             {props.children}
         </Row>
 

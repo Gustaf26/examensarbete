@@ -51,7 +51,7 @@ const ProductCard = ({ item }) => {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',
             marginBottom: '15px'
-        } : { width: '330px', margin: '15px' }}
+        } : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
         <a href={item.thumbnail}
             title="View image in lightbox"
