@@ -44,12 +44,11 @@ const Home = () => {
           }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
           <CardContainer>
-            <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) :
-              admin && mobile && mobileDisplays ? alert(mobileDisplays) : null} style={{
-                padding: '10px', width: mobile ? 'calc(100% - 30px)' : '600px',
-                height: 'fit-content',
-                margin: !mobile && admin ? '5rem 0 0 0' : '0px 10px 10px 10px'
-              }} className="mb-3 main-card col-sm-12 col-md-6 mx-auto mb-5">
+            <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : null} style={{
+              padding: '10px', width: mobile ? 'calc(100% - 30px)' : '600px',
+              height: 'fit-content',
+              margin: !mobile && admin ? '3rem 0 0 0' : '0px 10px 10px 10px'
+            }} className="mb-3 main-card col-sm-12 col-md-6 mx-auto mb-5">
               <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center" style={mobile ? { fontSize: '1.2em' } : {}}>
                 WELCOME TO WORK OUT!
               </h2>

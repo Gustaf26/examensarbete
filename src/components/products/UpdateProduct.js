@@ -118,18 +118,30 @@ const UpdateProduct = () => {
           {mobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
 
-          <Col lg={mobile ? 12 : 6} style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
-            : { marginTop: '-40px', width: '600px', height: '500px' }}>
-
+          <Col onLoad={(e) => { document.getElementById('update-card').scrollIntoView({ block: 'center' }) }} lg={mobile ? 12 : 6}
+            style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
+              : !mobile && admin ? { width: 'fit-content' } : { marginTop: '-40px', width: '600px', height: '500px' }}>
+            {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Update a product entry</h2>}
             {singleProduct ? (
-              <Card className="p-2" style={{ marginTop: mobile ? '40px' : '', height: mobile ? 'fit-content' : `${mobileHeight - 20}px`, overflowY: mobile ? 'hidden' : 'scroll' }}>
-                <Card.Body className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}>
-                  <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>
+              <Card className="p-2" style={mobile ? {
+                marginTop: '40px',
+                height: 'fit-content', overflowY: 'hidden'
+              } : admin ? { height: 'fit-content', width: '800px' } : {
+                marginTop: '',
+                height: `${mobileHeight - 20}px`, overflowY: 'scroll'
+              }}>
+
+                <Card.Body id="update-card" className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
+                  style={!mobile && admin ? {
+                    display: 'flex', justifyContent: 'start', width: '800px',
+                    height: 'fit-content', flexWrap: 'wrap', alignItems: 'start'
+                  } : {}}>
+                  {admin && mobile && <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>}
                   {error && <Alert variant="danger">{error}</Alert>}
-                  <Card.Img src={singleProduct.thumbnail} />
-                  <Form onSubmit={handleSubmit}>
-                    <Form.Group id="title">
-                      <Form.Label className="p-2">Product name</Form.Label>
+                  <Card.Img style={!mobile && admin ? { width: '30%', height: 'auto' } : {}} src={singleProduct.thumbnail} />
+                  <Form onSubmit={handleSubmit} style={!mobile && admin ? { width: '65%', marginLeft: '20px' } : {}}>
+                    <Form.Group id="title" style={admin && !mobile ? { width: '100%' } : {}}>
+                      <Form.Label className="py-2">Product name</Form.Label>
                       <Form.Control
                         type="title"
                         onChange={handleNameChange}
@@ -144,7 +156,7 @@ const UpdateProduct = () => {
                       )}
                     </Form.Group>
                     <Form.Group id="description">
-                      <Form.Label className="p-2">Description</Form.Label>
+                      <Form.Label className="py-2">Description</Form.Label>
                       <textarea className="p-2" style={{ width: '100%', height: '200px', overflowY: 'scroll', border: '0.5px solid lightgrey', borderRadius: '8px' }}
                         type="title"
                         onChange={handleDescriptionChange}
@@ -160,8 +172,10 @@ const UpdateProduct = () => {
                           </Form.Text>
                         )}
                     </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlSelect2">
-                      <Form.Label className="p-2">Choose product category</Form.Label>
+                  </Form>
+                  <Form style={!mobile && admin ? { marginTop: '40px', width: '100%', display: 'flex', alignItems: 'end', justifyContent: 'start' } : {}}>
+                    <Form.Group controlId="exampleForm.ControlSelect2" style={!mobile && admin ? { marginRight: '15px', width: '31%' } : {}}>
+                      <Form.Label>Choose product category</Form.Label>
                       <Form.Control
                         // id="inlineFormCustomSelect"
                         custom
@@ -193,7 +207,7 @@ const UpdateProduct = () => {
                           })}
                       </Form.Control>
                     </Form.Group>
-                    <Form.Group id="price">
+                    <Form.Group id="price" style={!mobile && admin ? { marginRight: '20px', width: '31%' } : {}}>
                       <Form.Label>Price</Form.Label>
                       <Form.Control
                         type="title"
@@ -211,15 +225,19 @@ const UpdateProduct = () => {
                     {/* {productOption && (
                     <UploadImageDropzone type={productOption} />
                   )} */}
-                    <Form.Group className="d-flex mt-3 justify-content-between align-items-center">
-                      <Form.Text className="text-danger mt-0">
+                    <Form.Group
+                      style={!mobile && admin ? { display: 'flex', width: '31%', justifyContent: 'center' } : {
+                        marginTop: '30px', justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                      {/* <Form.Text className="text-danger mt-0">
                         If no photo is uploaded, you are keeping the same original
                         photo
-                      </Form.Text>
+                      </Form.Text> */}
                       <Button
                         disabled={loading}
                         type="submit"
-                        className="mx-0"
+                        style={!mobile && admin ? { width: '50%' } : { margin: '10px auto' }}
                       >
                         Update
                       </Button>
@@ -234,7 +252,7 @@ const UpdateProduct = () => {
             )}
           </Col>
         </Row>
-      </div>
+      </div >
     </>
   );
 };
