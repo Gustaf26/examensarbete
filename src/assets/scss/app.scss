@@ -16,6 +16,16 @@ body {
   box-sizing: border-box;
 }
 
+// MAIN container 
+
+#container {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-size: auto;
+}
+
 // NAVIGATION MENU
 
 #navigation {
@@ -30,15 +40,18 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+
 }
 
-#container {
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-size: auto;
+// NAVIGATION
+
+// Mobile menu icon
+
+.mobile-nav-icon {
+  cursor: pointer !important;
 }
+
 
 h2 {
   font-size: x-large;
@@ -84,10 +97,6 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  &:hover {
-    border-radius: 15px !important;
-  }
-
   & a:active {
     font-style: bold;
     background-color: whitesmoke;
@@ -102,30 +111,22 @@ h2 {
   &:nth-child(3) a {
     color: brown !important;
     text-decoration: none;
-
-
   }
 
   & form:hover {
     font-style: bold;
-    // background-color: rgba(244, 240, 240, 0.7);
-    background-color: whitesmoke;
     cursor: pointer;
   }
 
   &:nth-child(2):hover {
-    // background-color: rgb(205, 205, 205);
     font-style: bold;
-    // background-color: rgba(244, 240, 240, 0.7);
     background-color: whitesmoke;
     cursor: pointer;
   }
 
   &:nth-child(3):hover {
-    // background-color: rgb(205, 205, 205);
     font-style: bold;
-    // background-color: rgba(244, 240, 240, 0.7);
-    background-color: whitesmoke;
+    background-color: whitesmoke !important;
     cursor: pointer;
   }
 }
@@ -146,6 +147,7 @@ h2 {
   // z-index: 3;
   flex-direction: row;
   background-color: rgb(107, 107, 107);
+
 
   & a {
     max-width: 180px;

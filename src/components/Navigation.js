@@ -21,7 +21,7 @@ const Navigation = () => {
   const { currentUser, admin } = useAuth();
   const [createLink, setCreate] = useState(false);
   const [customMenu, setCustMenu] = useState(false);
-  const { setSearchResults, setSearchString } = useCreate();
+  const { setSearchString } = useCreate();
   const navigate = useNavigate();
   const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth } = useMobile()
   const [subMenu, setSubMenu] = useState(true)
@@ -92,7 +92,7 @@ const Navigation = () => {
           color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(100%)',
           padding: '10px 20px', backgroundColor: 'rgba(243, 234, 234, 0.9)', transition: '2s ease-in-out'
         }}>
-          <MenuIcon onClick={showMenu} />
+          <MenuIcon className="mobile-nav-icon" onClick={showMenu} />
         </div>) :
         (<Row>
           <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
@@ -100,7 +100,7 @@ const Navigation = () => {
             backgroundColor: 'rgba(243, 234, 234, 0.9)', borderTopLeftRadius: '20px', borderTopRightRadius: '20px',
             alignItems: 'center', justifyContent: 'center', padding: '10px', flexDirection: 'column'
           } : mobile ? {
-            backgroundColor: 'rgba(243, 234, 234, 0.9)', flexDirection: 'column',
+            backgroundColor: 'rgba(243, 234, 234, 0.9)', flexDirection: 'column', width: '100%',
             justifyContent: 'space-evenly', height: 'fit-content', alignItems: 'center'
           } : {
             display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row',
@@ -171,39 +171,29 @@ const Navigation = () => {
                 </div>)}
               </Nav.Item>
               {currentUser ? (
-                <div style={mobile ? { width: '100% !important' } : { width: 'fit-content' }}>
-                  <NavDropdown
-                    style={mobile ? { width: '100% !important', padding: '10px', textAlign: 'center' } : {}}
-                    title={currentUser.display_name ? currentUser.display_name : currentUser.email}
-                    className="mx-auto w-100 navitem"
+                <NavDropdown
+                  style={mobile ? { width: '100%', padding: '10px', textAlign: 'center' } : { width: '180px', margin: '0 1rem' }}
+                  title={currentUser.display_name ? currentUser.display_name : currentUser.email}
+                  className="navitem"
+                >
+                  <NavLink
+                    style={mobile ? { width: '100%', textAlign: 'center' } : {}}
+                    to={admin ? '/cms/update-profile' : "/update-profile"}
+                    className="dropdown-item mx-auto"
                   >
-                    <NavLink
-                      style={mobile ? { width: '100%', textAlign: 'center' } : {}}
-                      to={admin ? '/cms/update-profile' : "/update-profile"}
-                      className="dropdown-item mx-auto"
-                    >
-                      Update Profile
-                    </NavLink>
-                    <NavDropdown.Divider />
-                    <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}}
-                      to={admin ? '/cms/logout' : "/logout"} className="mx-auto dropdown-item">
-                      Log Out
-                    </NavLink>
-                  </NavDropdown>
-                  {!admin && (
-                    <ShoppingBasket
-                      id="basket-icon"
-                      color="primary"
-                      className="mx-lg-3 p-1"
-                      rounded
-                    />
-                  )}
-                </div>
+                    Update Profile
+                  </NavLink>
+                  {/* <NavDropdown.Divider /> */}
+                  <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}}
+                    to={admin ? '/cms/logout' : "/logout"} className="mx-auto dropdown-item">
+                    Log Out
+                  </NavLink>
+                </NavDropdown>
               ) : (
                 <NavItem className="navitem" style={mobile ? {
                   width: '100%', margin: '0', padding: '20px',
                   height: '100%', borderTop: '1px solid rgb(234, 215, 215)'
-                } : {}}>
+                } : { width: '180px' }}>
                   <NavLink
                     style={mobile ? { width: '100%', textAlign: 'center' } : { maxWidth: '80px' }}
                     to={admin ? 'cms/login' : "/login"}
