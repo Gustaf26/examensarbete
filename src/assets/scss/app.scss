@@ -257,12 +257,23 @@ h2 {
   color: white;
 }
 
+// FORMS 
+
+#update-card {
+
+  & input,
+  textarea {
+    color: rgb(91, 56, 21)
+  }
+}
+
 #login-form,
 #signup-form,
 #update-profile-form {
   background-color: rgba(244, 242, 242, 0.9) !important;
   margin: 3rem auto;
   max-width: 600px;
+  color: rgb(220, 220, 220);
 
   & input:not([type=checkbox]):focus {
     background-color: whitesmoke;

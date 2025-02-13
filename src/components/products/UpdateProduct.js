@@ -30,6 +30,8 @@ const UpdateProduct = () => {
   const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
   const { admin } = useAuth()
+  const originalImgSize = '100%'
+  const [prodImgSize, setImgSize] = useState({ width: `${originalImgSize}px`, height: 'auto' })
 
 
   const {
@@ -101,6 +103,17 @@ const UpdateProduct = () => {
 
   }, []);
 
+  const handleImgResize = (e) => {
+    if (e.target.value > 50) {
+      console.log((1 + Number(e.target.value) / 100).toFixed(1))
+      document.getElementById('update-product-image').style.transform = `scale(${((1 + Number(e.target.value) / 100).toFixed(1)).toString()})`
+    }
+    else {
+      return
+      document.getElementById('update-product-image').style.transform = `scale(${(1 - ((50 - Number(e.target.value)) / 100)).toFixed(1).toString()})`
+    }
+  }
+
   return (
     <>
       <div id="dummy-container-update" style={admin ? {
@@ -112,13 +125,14 @@ const UpdateProduct = () => {
 
         {!mobile && <BreadCrumbContainer />}
 
-        <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
+        <Row className="dummy-container-mobile" onLoad={() => { mobile && admin && document.getElementById('dummy-container-mobile').scrollIntoView({ block: 'center' }) }}
+          style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
 
           {admin && mobile && <Navigation />}
           {mobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
 
-          <Col onLoad={(e) => { document.getElementById('update-card').scrollIntoView({ block: 'center' }) }} lg={mobile ? 12 : 6}
+          <Col onLoad={(e) => { !mobile && document.getElementById('update-card').scrollIntoView({ block: 'center' }) }} lg={mobile ? 12 : 6}
             style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
               : !mobile && admin ? { width: 'fit-content' } : { marginTop: '-40px', width: '600px', height: '500px' }}>
             {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Update a product entry</h2>}
@@ -138,7 +152,13 @@ const UpdateProduct = () => {
                   } : {}}>
                   {admin && mobile && <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>}
                   {error && <Alert variant="danger">{error}</Alert>}
-                  <Card.Img style={!mobile && admin ? { width: '30%', height: 'auto' } : {}} src={singleProduct.thumbnail} />
+                  <div style={!mobile && admin ? { width: '30%', height: '60%' } : {}} >
+                    <div style={!mobile && admin ? { zIndex: '5', width: '100%', height: '140%', overflow: 'hidden' } : {}}>
+                      <Card.Img id="update-product-image" style={!mobile && admin ? { zIndex: '4', width: prodImgSize.width } : {}} src={singleProduct.thumbnail} />
+                    </div>
+                    {!mobile && admin && <Form.Range style={{ position: 'absolute', top: '70%', width: '30%' }}
+                      onChange={handleImgResize}></Form.Range>}
+                  </div>
                   <Form onSubmit={handleSubmit} style={!mobile && admin ? { width: '65%', marginLeft: '20px' } : {}}>
                     <Form.Group id="title" style={admin && !mobile ? { width: '100%' } : {}}>
                       <Form.Label className="py-2">Product name</Form.Label>

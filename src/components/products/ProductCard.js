@@ -5,7 +5,6 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import { Card, Button } from "react-bootstrap";
 
-
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from "../../contexts/MobileContext";
@@ -15,7 +14,7 @@ const ProductCard = ({ item }) => {
     const navigate = useNavigate();
     const { admin } = useAuth();
     const { setSingleProduct, productOption } = useCreate();
-    const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, mobileWidth } = useMobile()
+    const { mobile, mobileDisplays, setMobileDisplays, mobileWidth } = useMobile()
     const location = useLocation();
     const [view, setView] = useState('')
     const { productId } = useParams()
@@ -29,7 +28,7 @@ const ProductCard = ({ item }) => {
 
     const handleUpdateProduct = (product) => {
 
-        navigate(`/cms/products/update/`, { replace: true });
+        navigate(`cms/products/update`, { replace: true });
     };
 
     const handleDeleteProduct = (product) => {

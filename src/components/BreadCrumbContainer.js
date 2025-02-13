@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import { Breadcrumb } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useCreate } from "../contexts/CreateContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -13,12 +13,16 @@ export default function BreadCrumbContainer({ qty }) {
     const { admin } = useAuth()
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const location = useLocation()
+    const navigate = useNavigate()
 
     const dummyProdCategories = productCategories.map(cat => cat.name)
 
 
     useEffect(() => {
 
+        if (location.pathname.lastIndexOf('/') === location.pathname.length - 1) {
+            location.pathname = location.pathname.slice(0, location.pathname.length - 1)
+        }
         let lastDash = location.pathname.lastIndexOf('/');
         let lastChar = location.pathname.length
         let subcategory = location.pathname.slice(lastDash + 1, lastChar);
@@ -37,12 +41,13 @@ export default function BreadCrumbContainer({ qty }) {
         if (singleProd && singleProd.length > 0) {
             subcategory = singleProd[0].name
         }
-        if (subcategory && ((subcategory !== 'update') && (subcategory !== 'search-results'))) {
+        if (subcategory) {
             dummyBread.push(subcategory)
         }
 
         if (!overcategory && !subcategory) { dummyBread = [] }
 
+        console.log(dummyBread)
         setBreadcrumbs(dummyBread)
 
     }, [location])

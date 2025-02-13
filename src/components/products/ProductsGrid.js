@@ -30,13 +30,15 @@ const ProductsGrid = ({ products, type }) => {
 
 
   return (
-    <div id="dummy-container-products" style={admin ? {
-      position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
-      width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
-    } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+    <div id="dummy-container-products"
+      style={admin ? {
+        position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
+        width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+      } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
       {!mobile && <BreadcrumbContainer />}
-      <Row onLoad={() => setProductOption(type)} style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
-        { margin: '3rem auto', justifyContent: 'center' }}>
+      <Row id="dummy-container-mobile" onLoad={() => { document.getElementById('dummy-container-mobile').scrollIntoView({ block: 'center' }); setProductOption(type) }}
+        style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
+          { margin: '3rem auto', justifyContent: 'center' }}>
 
         {admin && mobile && <Navigation />}
 
@@ -52,7 +54,7 @@ const ProductsGrid = ({ products, type }) => {
         <CardContainer>
           {products &&
             products.map((item, i) => (
-              <ProductCard key={item.id} onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'start' })} item={item} />
+              <ProductCard id={`${item.id}`} key={item.id} onLoad={(e) => document.getElementById(`${item.id}`).scrollIntoView({ block: 'start' })} item={item} />
             ))}
         </CardContainer>
       </Row >

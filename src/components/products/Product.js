@@ -51,16 +51,18 @@ const Product = () => {
 
   return (
     <>
-      <div id="dummy-container-products" style={admin ? {
-        position: 'absolute', top: mobile ? '60px' : admin ? '0' : '120px', left: mobile ? '40px' : '240px',
-        width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
-      } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+      <div id="dummy-container-products"
+        style={admin ? {
+          position: 'absolute', top: mobile ? '60px' : admin ? '0' : '120px', left: mobile ? '40px' : '240px',
+          width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+        } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
         {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
         {!mobile && <BreadCrumbContainer />}
 
-        <Row className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
-          { margin: '3rem auto', justifyContent: 'center' }}>
+        <Row className="dummy-container-mobile" onLoad={() => { mobile && admin && document.getElementById('dummy-container-mobile').scrollIntoView({ block: 'center', behaviour: 'smooth' }) }}
+          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
+            { margin: '3rem auto', justifyContent: 'center' }}>
 
           {admin && mobile && <Navigation />}
 
