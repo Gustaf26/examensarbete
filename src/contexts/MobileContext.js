@@ -34,7 +34,9 @@ const MobileContextProvider = (props) => {
 
     return (
         <MobileContext.Provider value={contextValues}>
-            {props.children}
+            <div style={{ backgroundColor: mobile ? 'rgba(42, 42, 42, 0.9)' : '', minHeight: mobile ? '120vh' : 'fit-content' }}>
+                {props.children}
+            </div>
         </MobileContext.Provider>
     );
 };

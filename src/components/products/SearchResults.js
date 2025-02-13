@@ -6,6 +6,8 @@ import { Row, Breadcrumb } from "react-bootstrap";
 
 
 import Icon from '@mui/material/Icon';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+
 
 import Navigation from '../Navigation'
 import MobileList from '../../cms_components/MobileList'
@@ -39,18 +41,22 @@ const SearchResults = () => {
   return (
     <>
       {!mobile && admin && <Navigation />}
-      {!mobile && <Breadcrumb className="m-5 pt-5">
-        <Breadcrumb.Item>
-          <Link to="/">Home</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active>Search results</Breadcrumb.Item>
-      </Breadcrumb>}
       <div id="dummy-container-products" style={admin ? {
         position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
         width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
       } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
-        <Row style={mobile && admin ? { ...containerStyles, padding: '10px 10px', marginTop: '3rem' } :
-          { margin: '3rem auto', justifyContent: 'center' }}>
+        {!mobile && <Breadcrumb className="m-5 pt-5">
+          <ArrowBack style={{ color: ' brown' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
+          <Breadcrumb.Item >
+            <Link to={admin ? "/cms/index" : "/"}> Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Search results
+          </Breadcrumb.Item>
+        </Breadcrumb>}
+        <Row style={mobile && admin ? { ...containerStyles, padding: '10px 10px' }
+          : mobile ? { margin: '3rem auto', justifyContent: 'center' }
+            : { margin: '3rem auto', justifyContent: 'center' }}>
           {admin && mobile && <Navigation />}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}

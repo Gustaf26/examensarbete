@@ -35,13 +35,11 @@ const CreateContextProvider = (props) => {
     let semiPath;
     let category;
 
-    if (!admin) {
 
-      firstDash = location.indexOf("/");
-      secondDash = location.lastIndexOf("/");
-      semiPath = location.slice(firstDash, secondDash);
-      category = semiPath.replace("/products/", "");
-    }
+    firstDash = location.indexOf("/");
+    secondDash = location.lastIndexOf("/");
+    semiPath = location.slice(firstDash, secondDash);
+    category = admin ? semiPath.replace("/cms/products/", "") : semiPath.replace("/products/", "");
 
 
     let preliminaryProd = products.filter(

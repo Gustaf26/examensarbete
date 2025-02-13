@@ -5,9 +5,10 @@ import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
 import { Breadcrumb } from "react-bootstrap";
 import HomeIcon from '@mui/icons-material/Home';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+
 
 import Navigation from '../components/Navigation'
+import CardContainer from '../components/products/CardContainer'
 
 import { useAuth } from "../contexts/AuthContext";
 import { useMobile } from "../contexts/MobileContext";
@@ -52,17 +53,21 @@ const UpdateProfile = () => {
 
   }
   return (
-    <>
-      <Row> {admin && <Navigation />}
-        {!mobile && <Breadcrumb className="m-5 pt-5">
-          <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
-          <Breadcrumb.Item >
-            <Link to={admin ? "/cms/index" : "/"}> Home</Link>
-          </Breadcrumb.Item>
-        </Breadcrumb>}
-        <Row style={mobile && admin ? { ...containerStyles, justifyContent: 'center', width: `${mobileWidth}px` }
-          : mobile ? { width: '100%', marginTop: '3rem' } : { marginTop: '1rem' }}>
+    <>{admin && !mobile && <Navigation />}
+      <Row id="dummy-container-products" style={admin ? {
+        position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
+        width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)', justifyContent: 'center'
+      } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
+        <Row style={mobile && admin ? { ...containerStyles, margin: '0 auto', left: '12px' }
+          : mobile ? { width: '100%', marginTop: '3rem' } : { marginTop: '1rem' }}>
+          {admin && mobile && <Navigation />}
+          {!mobile && <Breadcrumb className="m-5 pt-5">
+            <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
+            <Breadcrumb.Item >
+              <Link to={admin ? "/cms/index" : "/"}> Home</Link>
+            </Breadcrumb.Item>
+          </Breadcrumb>}
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey',
             width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px',
@@ -71,13 +76,13 @@ const UpdateProfile = () => {
             color='primary'>device_unknown</Icon>}
 
           {mobileDisplays && <MobileList />}
-          <Col style={{ width: '100%' }}>
+          <CardContainer>
             <Card onClick={() => {
               mobileDisplays && setMobileDisplays(!mobileDisplays);
               if ((window.innerWidth < 1100 || mobile) && menuShowing) setMenuShowing(false);
             }}
               id="update-profile-form"
-              style={mobile & admin ? { maxWidth: '100%', width: '100%', margin: '3rem 0' } :
+              style={mobile & admin ? { maxWidth: '100%', width: `calc(${mobileWidth}px - 40px)`, margin: '10px 10px' } :
                 mobile ? { width: '400px' } : { margin: '0 auto', width: '600px' }}>
 
               <Card.Body style={mobile & admin ? { width: '100%' } : {}}>
@@ -128,7 +133,7 @@ const UpdateProfile = () => {
                 </Form>
               </Card.Body>
             </Card>
-          </Col>
+          </CardContainer>
         </Row>
       </Row>
     </>

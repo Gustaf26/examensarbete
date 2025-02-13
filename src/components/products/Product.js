@@ -25,17 +25,16 @@ const Product = () => {
   const {
     singleProduct,
     productOption,
-    // setSingleProduct,
     setLocation,
     setProdId,
   } = useCreate();
 
   const { admin } = useAuth();
-  // const navigate = useNavigate();
+
   const location = useLocation();
   const { productId } = useParams();
 
-  const { mobile, setMobile, mobileHeight, mobileWidth, mobileDisplays, setMobileDisplays } = useMobile()
+  const { mobile, setMobile, mobileDisplays, setMobileDisplays } = useMobile()
   const containerStyles = useMobileStyles()
 
   useEffect(() => {

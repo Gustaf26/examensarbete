@@ -17,6 +17,7 @@ import SearchResults from "./components/products/SearchResults";
 import NotFound from "./components/NotFound";
 import Signup from "./components/Signup";
 import UpdateProfile from "./components/UpdateProfile";
+import Footer from './components/Footer'
 
 import { useCreate } from "./contexts/CreateContext";
 import { useAuth } from './contexts/AuthContext'
@@ -26,7 +27,7 @@ import "./assets/scss/app.scss";
 
 const App = () => {
   const { productCategories, setGlobalCategories } = useCreate();
-  const { admin, currentUser } = useAuth();
+  const { admin } = useAuth();
 
   useEffect(() => {
 
@@ -40,20 +41,6 @@ const App = () => {
   }, []);
 
 
-
-  const showFooter = (e) => {
-    if (document.documentElement && document.documentElement.scrollTop > 100) {
-      document.getElementById("footer").className = "show";
-    } else {
-      document.getElementById("footer").className = "";
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", (e) => {
-      showFooter(e);
-    });
-  });
 
   return (
     <Router>
@@ -87,24 +74,9 @@ const App = () => {
               </Route>
             </Routes>
           </Container>
+          <Footer />
         </MobileContextProvider>
       </div>
-      <footer id="footer" className="p-2">
-        <div>
-          This site has no commercial aims and is part of an academic
-          development-project.
-        </div>
-        <div>
-          Prices and articles are not intended to have a real correspondence
-          with same articles in other "real websites"
-        </div>
-        <div>
-          If you are interested in these articles we recommend you to visit{" "}
-          <a href="https://www.siteking.co.uk">
-            https://www.siteking.co.uk/
-          </a>
-        </div>
-      </footer>
     </Router >
   );
 };
