@@ -27,7 +27,6 @@ const CreateContextProvider = (props) => {
 
   const { admin } = useAuth()
 
-
   const getSingleProduct = (products) => {
 
     let firstDash;
@@ -117,6 +116,8 @@ const CreateContextProvider = (props) => {
     }
   }, [searchString, allProducts]);
 
+
+
   const contextValues = {
     setImageUrl,
     imageUrl,
@@ -133,7 +134,7 @@ const CreateContextProvider = (props) => {
     getSingleProduct,
     setProdId,
     setLocation,
-    searchString,
+    searchString
   };
 
   return (

@@ -14,7 +14,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
 import { useMobile } from '../contexts/MobileContext'
 
-import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
+// import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Navigation = () => {
@@ -84,7 +84,7 @@ const Navigation = () => {
   return (
     <div style={mobile && admin ? {
       position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0', width: `${mobileWidth}px`
-      , borderTopLeftRadius: '20px', borderTopRightRadius: '15px', zIndex: '3', top: '0', left: '0', right: '0'
+      , borderTopLeftRadius: '20px', borderTopRightRadius: '15px', zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
     } : { width: '100%', height: 'fit-content', backgroundColor: 'rgba(231, 229, 229, 0.7)' }}>
 
       {!menuShowing ?
@@ -163,6 +163,7 @@ const Navigation = () => {
                   </NavLink>
                   <NavDropdown.Divider className="m-0" />
                   <NavLink
+
                     to={admin ? '/cms/products/t-shirts' : "/products/t-shirts"}
                     className="dropdown-item"
                   >

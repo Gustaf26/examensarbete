@@ -131,6 +131,15 @@ h2 {
   }
 }
 
+.icon-mobile-displays {
+  background-color: #edf0f2 !important;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white !important;
+  }
+}
+
 // DROPDOWN product categories
 
 #basic-nav-dropdown {

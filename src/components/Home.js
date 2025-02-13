@@ -37,7 +37,7 @@ const Home = () => {
           lg={mobile ? 12 : 6}>
 
           {admin && <Navigation />}
-          {mobile && admin && <Icon onClick={() => { setMobileDisplays(!mobileDisplays) }} style={{
+          {mobile && admin && <Icon className="icon-mobile-displays" onClick={() => { setMobileDisplays(!mobileDisplays) }} style={{
             border: '1px solid lightgrey',
             width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto',
             padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'

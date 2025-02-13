@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { db } from "../../firebase/index";
 import { doc, setDoc } from "firebase/firestore";
 
-import { Row, Col, Card, Form, Button, Alert, Breadcrumb } from "react-bootstrap";
+import BreadCrumbContainer from '../BreadCrumbContainer'
+
+import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
 import Navigation from '../Navigation'
-import HomeIcon from '@mui/icons-material/Home';
+// import HomeIcon from '@mui/icons-material/Home';
 
 import { useCreate } from "../../contexts/CreateContext";
 import { useAuth } from '../../contexts/AuthContext'
@@ -96,7 +98,7 @@ const UpdateProduct = () => {
     setDescription(singleProduct.description);
     setPrice(singleProduct.price);
     setImageUrl(singleProduct.thumbnail);
-    console.log(mobile, admin)
+
   }, []);
 
   return (
@@ -107,24 +109,18 @@ const UpdateProduct = () => {
       } : {}}
         onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
         {!mobile && admin && <Navigation />}
-        {!mobile && <Breadcrumb className="m-5 pt-5">
-          <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
-          <Breadcrumb.Item>
-            <Link to={admin ? "/cms/index" : "/"}>Home</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            {productOption && (
-              <Link to={`/cms/products/${productOption}`}></Link>
-            )}
-          </Breadcrumb.Item>
-          <p>Update</p>
-        </Breadcrumb>}
+
+        {!mobile && <BreadCrumbContainer />}
+
         <Row className="dummy-container-mobile" style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
+
           {admin && mobile && <Navigation />}
-          {mobile && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+          {mobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
+
           <Col lg={mobile ? 12 : 6} style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
             : { marginTop: '-40px', width: '600px', height: '500px' }}>
+
             {singleProduct ? (
               <Card className="p-2" style={{ marginTop: mobile ? '40px' : '', height: mobile ? 'fit-content' : `${mobileHeight - 20}px`, overflowY: mobile ? 'hidden' : 'scroll' }}>
                 <Card.Body className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}>
