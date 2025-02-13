@@ -100,23 +100,24 @@ const CreateContextProvider = (props) => {
   }, [productCategories, prodId]);
 
   useEffect(() => {
-    if (allProducts.length && searchString !== "") {
-      allProducts.map((product) => {
+
+    setSearchResults([]);
+
+    if (allProducts.length > 0 && searchString !== "") {
+      let prodsDummy = []
+      allProducts.forEach((product) => {
         if (
-          (product.name &&
-            product.name.toLowerCase().includes(searchString.toLowerCase())) ||
-          (product.description &&
-            product.description
-              .toLowerCase()
-              .includes(searchString.toLowerCase())) ||
-          (product.category &&
-            product.category.toLowerCase().includes(searchString.toLowerCase()))
+          (product.name.includes(searchString.toLowerCase())) ||
+          (product.description.toLowerCase()
+            .includes(searchString.toLowerCase())) ||
+          (product.category.toLowerCase().includes(searchString.toLowerCase()))
         ) {
-          setSearchResults((prevProds) => [...prevProds, product]);
+          prodsDummy.push(product)
         }
       });
+      setSearchResults(prodsDummy);
     }
-  }, [searchString]);
+  }, [searchString, allProducts]);
 
   const contextValues = {
     setImageUrl,

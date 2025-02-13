@@ -24,7 +24,8 @@ const ProductCard = ({ item }) => {
     useEffect(() => {
         if ((location.pathname === `/cms/products/${productOption}/${productId}`) ||
             (location.pathname === 'cms/products/update')) { setView('single'); }
-    })
+        else { setView('') }
+    }, [])
 
     const handleUpdateProduct = (product) => {
 

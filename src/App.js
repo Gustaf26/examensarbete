@@ -73,9 +73,9 @@ const App = () => {
                   {productCategories &&
                     productCategories.map((category, i) => (
                       <>
-                        <Route path={`${category.name}`} key={category.name} element={<Products type={`${category.name}`} />} />
-                        <Route path={`${category.name}/:productId`} key={`${category.name}/:productId`} element={<Product />} />
-                        {admin && <Route path={`update`} element={<UpdateProduct />} />}
+                        <Route path={`${category.name}`} key={category.name} element={<Products key='products' type={`${category.name}`} />} />
+                        <Route path={`${category.name}/:productId`} key={`${category.name}/:productId`} element={<Product key="single-prod" />} />
+                        {admin && <Route key={category.name + '-update'} path={`update`} element={<UpdateProduct key="updateProd" />} />}
                       </>))}
                 </Route>
                 <Route path="forgot-password" element={<ForgotPassword />} />

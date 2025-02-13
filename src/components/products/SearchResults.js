@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { db } from "../../firebase";
+// import { db } from "../../firebase";
 
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Row, Col, Card, Button, Breadcrumb } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { Row, Breadcrumb } from "react-bootstrap";
 
 
 import Icon from '@mui/material/Icon';
@@ -19,47 +19,18 @@ import { useMobile } from "../../contexts/MobileContext";
 import useMobileStyles from '../../hooks/useMobileStyles'
 
 const SearchResults = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
-    setSingleProduct,
-    setProductOption,
     searchResults,
-    setSearchResults,
-    productOption,
     setLocation,
   } = useCreate();
 
   const { admin } = useAuth();
   const location = useLocation();
 
-  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
   const containerStyles = useMobileStyles()
 
-  const handleUpdateProduct = (product) => {
-    setSingleProduct(product);
-    navigate(`/update`);
-  };
-
-  const handleDeleteProduct = (product) => {
-    console.log(product);
-
-    try {
-      const deletion = async () => {
-        console.log("ddeleteing " + productOption + product.name);
-
-        await db
-          .collection(`${productOption}`)
-          .doc(`${product.id}`)
-          .delete()
-          .then(setSearchResults([]))
-          .then(navigate(`/products/${productOption}`));
-      };
-
-      deletion();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     setLocation(location.pathname);
@@ -84,9 +55,9 @@ const SearchResults = () => {
           {mobile && admin && <Icon onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
           <CardContainer>
-            {searchResults &&
+            {searchResults.length > 0 &&
               searchResults.map((item, i) => (
-                <ProductCard onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'start' })} item={item} />
+                <ProductCard key={item.id} onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'start' })} item={item} />
               ))}
           </CardContainer>
         </Row>

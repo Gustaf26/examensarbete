@@ -35,15 +35,14 @@ const Navigation = () => {
     e.preventDefault();
   };
 
-  const changeString = (e) => {
-    setSearchResults([]);
-    setSearchString(e.target.value);
-    localStorage.setItem("search", JSON.stringify(e.target.value));
+  const changeString = (val) => {
+    setSearchString(val);
+    localStorage.setItem("search", JSON.stringify(val));
     navigate(admin ? "/cms/search-results" : "/search-results", { replace: true });
   };
 
   const showSubMenu = () => {
-    setSubMenu(!subMenu)
+    setSubMenu(true)
   }
 
   useEffect(() => {
@@ -55,9 +54,6 @@ const Navigation = () => {
   }, [admin, currentUser]);
 
   useEffect(() => {
-    // if (window.innerWidth < 1000) {
-    //   setCustMenu(true);
-    // }
 
     if (mobile) {
       setMenuShowing(false)
@@ -135,7 +131,7 @@ const Navigation = () => {
                   : { width: '400px' }} onSubmit={omitReload}>
                   <FormControl
                     style={mobile && admin ? { minWidth: '200px' } : mobile ? { width: '60%', margin: '0 auto' } : { margin: '0 auto' }}
-                    onChange={changeString}
+                    onChange={(e) => changeString(e.target.value)}
                     type="text"
                     id="product-search"
                     placeholder="Search product"
@@ -150,23 +146,23 @@ const Navigation = () => {
                 style={mobile ? { width: '100%', textAlign: 'center', margin: '0', padding: '20px', height: '100%' } : {
                   width: '130px', borderRadius: '15px'
                 }}
-              > <NavLink id="all-clothes-select">
+              > <NavLink id="all-clothes-select" onClick={(e) => { e.preventDefault(); changeString('a') }}>
                   All clothes
                 </NavLink>
                 {subMenu && (<div id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }
                   : { zIndex: '3' }}>
-                  <NavLink inline
+                  <NavLink
                     to={admin ? '/cms/products/troussers' : "/products/troussers"}
                     className="dropdown-item"
                   >
                     Troussers
                   </NavLink>
                   <NavDropdown.Divider className="m-0" />
-                  <NavLink inline to={admin ? '/cms/products/jackets' : "/products/jackets"} className="dropdown-item">
+                  <NavLink to={admin ? '/cms/products/jackets' : "/products/jackets"} className="dropdown-item">
                     Jackets
                   </NavLink>
                   <NavDropdown.Divider className="m-0" />
-                  <NavLink inline
+                  <NavLink
                     to={admin ? '/cms/products/t-shirts' : "/products/t-shirts"}
                     className="dropdown-item"
                   >
@@ -179,7 +175,6 @@ const Navigation = () => {
                   <NavDropdown
                     style={mobile ? { width: '100% !important', padding: '10px', textAlign: 'center' } : {}}
                     title={currentUser.display_name ? currentUser.display_name : currentUser.email}
-                    // id="basic-nav-dropdown"
                     className="mx-auto w-100 navitem"
                   >
                     <NavLink

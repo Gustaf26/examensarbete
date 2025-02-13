@@ -56,7 +56,7 @@ const ProductsGrid = ({ products, type }) => {
         <CardContainer>
           {products &&
             products.map((item, i) => (
-              <ProductCard onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'start' })} item={item} />
+              <ProductCard key={item.id} onLoad={(e) => i === 0 && e.target.scrollIntoView({ block: 'start' })} item={item} />
             ))}
         </CardContainer>
       </Row >

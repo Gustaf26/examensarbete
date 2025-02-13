@@ -15,6 +15,8 @@ body {
   box-sizing: border-box;
 }
 
+// NAVIGATION MENU
+
 #navigation {
   background-color: rgba(116, 116, 116, 0.6);
   position: relative;
@@ -33,13 +35,8 @@ body {
   height: fit-content;
   display: flex;
   flex-direction: column;
-  // align-items: center;
   min-height: 100vh;
-  // width: 100vw;
   background-size: auto;
-  // background-image: url("../images/verkstad.jpg");
-  // background-repeat: no-repeat !important;
-  // object-fit: cover;
 }
 
 h2 {
@@ -63,9 +60,7 @@ h2 {
 
 #basic-navbar-nav {
   display: flex;
-  // justify-content: flex-end;
   margin-right: 0;
-  // flex-wrap: wrap;
 }
 
 
@@ -88,9 +83,12 @@ h2 {
   align-items: center;
   justify-content: center;
 
+  &:hover {
+    border-radius: 15px !important;
+  }
+
   & a:active {
     font-style: bold;
-    // background-color: rgba(244, 240, 240, 0.7);
     background-color: whitesmoke;
     cursor: pointer;
   }
@@ -103,6 +101,8 @@ h2 {
   &:nth-child(3) a {
     color: brown !important;
     text-decoration: none;
+
+
   }
 
   & form:hover {
@@ -128,6 +128,8 @@ h2 {
     cursor: pointer;
   }
 }
+
+// DROPDOWN product categories
 
 #basic-nav-dropdown {
   position: absolute !important;
