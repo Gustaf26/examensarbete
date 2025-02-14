@@ -13,7 +13,7 @@ import { useMobile } from "../../contexts/MobileContext";
 const ProductCard = ({ item }) => {
     const navigate = useNavigate();
     const { admin } = useAuth();
-    const { setSingleProduct, productOption } = useCreate();
+    const { setSingleProduct, productOption, setProductOption } = useCreate();
     const { mobile, mobileDisplays, setMobileDisplays, mobileWidth } = useMobile()
     const location = useLocation();
     const [view, setView] = useState('')
@@ -21,10 +21,11 @@ const ProductCard = ({ item }) => {
 
 
     useEffect(() => {
-        if ((location.pathname === `/cms/products/${productOption}/${productId}`) ||
-            (location.pathname === 'cms/products/update')) { setView('single'); }
+        if ((location.pathname === `/cms/products/${productOption}/${Number(productId)}`) ||
+            (location.pathname === '/cms/products/update')) { setView('single'); }
         else { setView('') }
-    }, [])
+        console.log(productOption)
+    }, [location, productOption])
 
     const handleUpdateProduct = (product) => {
 
@@ -46,7 +47,7 @@ const ProductCard = ({ item }) => {
     };
 
 
-    return (<Card key={item.id} onClick={() => { mobileDisplays && setMobileDisplays(!mobileDisplays) }}
+    return (<Card key={item.id} onClick={() => { setProductOption(item.category); setSingleProduct(item); mobileDisplays && setMobileDisplays(!mobileDisplays) }}
         style={mobile && admin ? {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',

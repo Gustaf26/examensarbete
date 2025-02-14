@@ -60,7 +60,7 @@ const Product = () => {
         {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
         {!mobile && <BreadCrumbContainer />}
 
-        <Row className="dummy-container-mobile" onLoad={() => { mobile && admin && document.getElementById('dummy-container-mobile').scrollIntoView({ block: 'center', behaviour: 'smooth' }) }}
+        <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center', behaviour: 'smooth' }) }}
           style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
             { margin: '3rem auto', justifyContent: 'center' }}>
 

@@ -125,14 +125,14 @@ const UpdateProduct = () => {
 
         {!mobile && <BreadCrumbContainer />}
 
-        <Row className="dummy-container-mobile" onLoad={() => { mobile && admin && document.getElementById('dummy-container-mobile').scrollIntoView({ block: 'center' }) }}
+        <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center' }) }}
           style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
 
           {admin && mobile && <Navigation />}
           {mobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
 
-          <Col onLoad={(e) => { !mobile && document.getElementById('update-card').scrollIntoView({ block: 'center' }) }} lg={mobile ? 12 : 6}
+          <Col lg={mobile ? 12 : 6}
             style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
               : !mobile && admin ? { width: 'fit-content' } : { marginTop: '-40px', width: '600px', height: '500px' }}>
             {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Update a product entry</h2>}
@@ -145,7 +145,8 @@ const UpdateProduct = () => {
                 height: `${mobileHeight - 20}px`, overflowY: 'scroll'
               }}>
 
-                <Card.Body id="update-card" className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
+                <Card.Body id="update-card" onLoad={(e) => { !mobile && document.getElementById('update-card').scrollIntoView({ block: 'center' }) }}
+                  className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
                   style={!mobile && admin ? {
                     display: 'flex', justifyContent: 'start', width: '800px',
                     height: 'fit-content', flexWrap: 'wrap', alignItems: 'start'
