@@ -32,7 +32,7 @@ const UpdateProduct = () => {
   const { admin } = useAuth()
   const originalImgSize = '100%'
   const [prodImgSize, setImgSize] = useState({ width: `${originalImgSize}px`, height: 'auto' })
-
+  const [prodImg, setImg] = useState()
 
   const {
     imageUrl,
@@ -109,9 +109,17 @@ const UpdateProduct = () => {
       document.getElementById('update-product-image').style.transform = `scale(${((1 + Number(e.target.value) / 100).toFixed(1)).toString()})`
     }
     else {
-      return
       document.getElementById('update-product-image').style.transform = `scale(${(1 - ((50 - Number(e.target.value)) / 100)).toFixed(1).toString()})`
     }
+  }
+
+  const updateImg = (e) => {
+    setImg(URL.createObjectURL(e.target.files[0]))
+  }
+
+  const uploadImg = (e) => {
+    e.preventDefault()
+    document.getElementById("upfile").click()
   }
 
   return (
@@ -121,14 +129,14 @@ const UpdateProduct = () => {
         left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
       } : {}}
         onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
-        {!mobile && admin && <Navigation />}
+        {/* {!mobile && admin && <Navigation />} */}
 
         {!mobile && <BreadCrumbContainer />}
 
         <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center' }) }}
           style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
 
-          {admin && mobile && <Navigation />}
+          {/* {admin && mobile && <Navigation />} */}
           {mobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
 
@@ -151,15 +159,29 @@ const UpdateProduct = () => {
                     display: 'flex', justifyContent: 'start', width: '800px',
                     height: 'fit-content', flexWrap: 'wrap', alignItems: 'start'
                   } : {}}>
+
                   {admin && mobile && <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>}
                   {error && <Alert variant="danger">{error}</Alert>}
+
                   <div style={!mobile && admin ? { width: '30%', height: '60%' } : {}} >
-                    <div style={!mobile && admin ? { zIndex: '5', width: '100%', height: '140%', overflow: 'hidden' } : {}}>
-                      <Card.Img id="update-product-image" style={!mobile && admin ? { zIndex: '4', width: prodImgSize.width } : {}} src={singleProduct.thumbnail} />
+                    <div style={!mobile && admin ? { zIndex: '5', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '140%', overflow: 'hidden' } : {}}>
+                      <Card.Img id="update-product-image" style={!mobile && admin ? { zIndex: '4', width: prodImgSize.width } :
+                        {}} src={prodImg ? prodImg : singleProduct.thumbnail} />
                     </div>
-                    {!mobile && admin && <Form.Range style={{ position: 'absolute', top: '70%', width: '30%' }}
+
+                    {!mobile && admin && <Form.Range style={{ position: 'absolute', top: '65%', width: '30%' }}
                       onChange={handleImgResize}></Form.Range>}
+                    <Form onSubmit={uploadImg} style={{
+                      left: `calc(15% - 45px)`,
+                      width: '90px', textAlign: 'center', position: 'absolute', top: '72%'
+                    }}>
+                      <div style={{ height: '0px', width: '0px', overflow: 'hidden' }}>
+                        <input id="upfile" type="file" onChange={updateImg} />
+                      </div>
+                      <input style={{ display: 'block', marginLeft: '20px', backgroundColor: 'lightblue', borderRadius: '5px' }} type="submit" value="Upload" />
+                    </Form>
                   </div>
+
                   <Form onSubmit={handleSubmit} style={!mobile && admin ? { width: '65%', marginLeft: '20px' } : {}}>
                     <Form.Group id="title" style={admin && !mobile ? { width: '100%' } : {}}>
                       <Form.Label className="py-2">Product name</Form.Label>
