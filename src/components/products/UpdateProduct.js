@@ -134,7 +134,10 @@ const UpdateProduct = () => {
         {!mobile && <BreadCrumbContainer />}
 
         <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center' }) }}
-          style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : { height: '100vh', margin: '3rem auto', justifyContent: 'center', alignItems: 'start' }}>
+          style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : {
+            height: '100vh', margin: '3rem auto',
+            justifyContent: 'center', alignItems: 'start'
+          }}>
 
           {/* {admin && mobile && <Navigation />} */}
           {mobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
@@ -171,14 +174,20 @@ const UpdateProduct = () => {
 
                     {!mobile && admin && <Form.Range style={{ position: 'absolute', top: '65%', width: '30%' }}
                       onChange={handleImgResize}></Form.Range>}
-                    <Form onSubmit={uploadImg} style={{
+                    <Form onSubmit={uploadImg} style={!mobile ? {
                       left: `calc(15% - 45px)`,
                       width: '90px', textAlign: 'center', position: 'absolute', top: '72%'
-                    }}>
+                    } : { position: 'relative', width: '100%', display: 'inline-block', margin: '10px auto' }}>
                       <div style={{ height: '0px', width: '0px', overflow: 'hidden' }}>
                         <input id="upfile" type="file" onChange={updateImg} />
                       </div>
-                      <input style={{ display: 'block', marginLeft: '20px', backgroundColor: 'lightblue', borderRadius: '5px' }} type="submit" value="Upload" />
+                      <input style={!mobile ? {
+                        display: 'block', marginLeft: '20px', backgroundColor: 'rgb(13,110,253)', color: 'white', padding: '5px 15px',
+                        borderRadius: '5px', border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)'
+                      } : {
+                        display: 'block', color: 'white', backgroundColor: 'rgb(13,110,253)', margin: '0 auto', borderRadius: '5px',
+                        border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', padding: '5px 15px'
+                      }} type="submit" value="Upload" />
                     </Form>
                   </div>
 
@@ -265,18 +274,12 @@ const UpdateProduct = () => {
                         </Form.Text>
                       )}
                     </Form.Group>
-                    {/* {productOption && (
-                    <UploadImageDropzone type={productOption} />
-                  )} */}
                     <Form.Group
-                      style={!mobile && admin ? { display: 'flex', width: '31%', justifyContent: 'center' } : {
-                        marginTop: '30px', justifyContent: 'space-between',
-                        alignItems: 'center'
-                      }}>
-                      {/* <Form.Text className="text-danger mt-0">
-                        If no photo is uploaded, you are keeping the same original
-                        photo
-                      </Form.Text> */}
+                      style={!mobile && admin ? { display: 'flex', width: '31%', justifyContent: 'center' } :
+                        mobile ? { width: '100%', marginTop: '30px', display: 'flex', justifyContent: 'center' } : {
+                          marginTop: '30px', justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}>
                       <Button
                         disabled={loading}
                         type="submit"

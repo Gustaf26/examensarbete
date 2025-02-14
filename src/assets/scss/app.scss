@@ -336,13 +336,21 @@ h2 {
   }
 }
 
+
+// PRODUCTS TABLE CMS
+
+
 tr {
 
-  &:hover {
-    background-color: rgb(220, 149, 149);
-    color: white;
-  }
+  background-color: rgba(250, 246, 246, 0.9);
 
+  &:hover {
+    background-color: rgb(238, 236, 236);
+
+    & span {
+      color: rgb(117, 68, 22) !important;
+    }
+  }
 }
 
 .mobile-displays-item:hover,

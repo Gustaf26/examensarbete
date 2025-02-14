@@ -67,19 +67,19 @@ const ProductCard = ({ item }) => {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',
             marginBottom: '15px'
-        } : !mobile && view === 'single' ? { width: '800px', display: 'flex', flexDirection: 'row', height: '400px' }
+        } : !mobile && view === 'single' ? { width: '800px', display: 'flex', flexDirection: 'row', height: 'fit-content', minHeight: '400px' }
             : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
 
-        <div style={!mobile && view === 'single' ? { width: '100%', height: '100%' } : {}} >
+        <div style={!mobile && view === 'single' ? { width: '400px', height: '100%' } : {}} >
             <div style={!mobile && admin && view === 'single' ? {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
-                alignItems: 'center', width: '100%', height: '260px', overflow: 'hidden'
+                alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
-                <Card.Img id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '200px', margin: '10px' } :
+                <Card.Img id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%', margin: '10px' } :
                     {}} src={item.thumbnail} />
             </div>
-            {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '1%' }}
+            {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
         </div>
 
@@ -90,24 +90,27 @@ const ProductCard = ({ item }) => {
                 else navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
             }}
             style={!mobile && view === 'single' ? {
-                height: '100%', display: 'flex', flexDirection: 'column',
+                height: 'fit-content', display: 'flex', flexDirection: 'column', width: '400px',
                 margin: '10px', justifyContent: 'space-between', alignItems: 'start', fontSize: '1.3em'
             } : { display: 'block' }}
         >
             {" "}
-            <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
-                <b>{item.name}</b>
-            </Card.Text>
-            <Card.Text className="text-muted small">
-                <b>Price: </b> {item.price} €
-            </Card.Text>
-            <Card.Text className="text-muted small">
-                <b>Description: </b>{" "}
-                <span>
-                    {(view !== 'single') ? <>{item.description.slice(0, 100)}<b>(Read more)</b></> : item.description}
-                </span>
-            </Card.Text>
-            {admin && (
+            <div>
+                <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
+                    <b>{item.name}</b>
+                </Card.Text>
+                <Card.Text className="text-muted small">
+                    <b>Price: </b> {item.price} €
+                </Card.Text>
+
+                <Card.Text className="text-muted small">
+                    <b>Description: </b>{" "}
+                    <span>
+                        {(view !== 'single') ? <>{item.description.slice(0, 100)}<b>(Read more)</b></> : item.description}
+                    </span>
+                </Card.Text>
+            </div>
+            {/* {admin && (
                 <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
                     <Button
                         id="deleteProduct"
@@ -133,7 +136,7 @@ const ProductCard = ({ item }) => {
                     </Button>
                 </div>
             )
-            }
+            } */}
         </Card.Body >
     </Card >)
 }
