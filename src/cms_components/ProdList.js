@@ -31,7 +31,12 @@ const ProdList = () => {
                     return (<TableRow key={prod.id} style={{ cursor: 'pointer' }}>
                         <TableCell onMouseOver={(e) => setEditable(prod.id)}
                             onMouseOut={() => setEditable('')}
-                            onClick={() => { setProductOption(prod.category); setSingleProduct(prod); navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true }) }}
+                            onClick={(e) => {
+                                setProductOption(prod.category); setSingleProduct(prod);
+                                if (e.target.id === `edit-icon-${prod.id}`) navigate(`/cms/products/update`, { replace: true })
+                                else navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true })
+
+                            }}
                             style={{ position: 'relative' }} ><img alt={prod.name} src={prod.thumbnail} style={{
                                 width: '40px', height: '40px',
                                 border: '1px solid rgb(220,220,220)',
@@ -42,7 +47,7 @@ const ProdList = () => {
                                     width: '30px', padding: '5px', height: '30px', color: 'white', borderRadius: '6px', margin: '8px',
                                     position: 'absolute', top: '12px', right: '40px', border: '1px solid white'
                                 }}
-                                /><ModeEditIcon style={{
+                                /><ModeEditIcon id={`edit-icon-${prod.id}`} style={{
                                     width: '30px', padding: '5px', height: '30px', color: 'rgb(67, 153, 252)', borderRadius: '6px', margin: '8px',
                                     position: 'absolute', top: '12px', right: '0px', border: '1px solid rgb(67, 153, 252)'
                                 }} />

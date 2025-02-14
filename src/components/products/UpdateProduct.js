@@ -135,7 +135,7 @@ const UpdateProduct = () => {
           <Col lg={mobile ? 12 : 6}
             style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
               : !mobile && admin ? { width: 'fit-content' } : { marginTop: '-40px', width: '600px', height: '500px' }}>
-            {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Update a product entry</h2>}
+            {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Product nr. {singleProduct.id}</h2>}
             {singleProduct ? (
               <Card className="p-2" style={mobile ? {
                 marginTop: '40px',
