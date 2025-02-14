@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-
+import { useAuth } from "./AuthContext";
 
 const MobileContext = createContext();
 
@@ -14,6 +14,7 @@ const MobileContextProvider = (props) => {
     const [mobileHeight, setMobileHeight] = useState(750);
     const [mobile, setMobile] = useState(false)
     const [menuShowing, setMenuShowing] = useState(true)
+    const { admin } = useAuth()
 
     const contextValues = {
         setMobile,
@@ -34,7 +35,7 @@ const MobileContextProvider = (props) => {
 
     return (
         <MobileContext.Provider value={contextValues}>
-            <div style={{ backgroundColor: mobile ? 'rgba(42, 42, 42, 0.9)' : '', minHeight: mobile ? '120vh' : 'fit-content' }}>
+            <div style={{ backgroundColor: mobile && admin ? 'rgba(42, 42, 42, 0.9)' : '', minHeight: mobile ? '120vh' : 'fit-content' }}>
                 {props.children}
             </div>
         </MobileContext.Provider>

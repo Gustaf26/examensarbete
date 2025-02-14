@@ -93,15 +93,16 @@ const UpdateProfile = () => {
 
                 <Form onSubmit={handleSubmit} onChange={() => { setMessage(''); setError(null); setLoading(false) }}>
                   <Form.Group id="displayName">
-                    <Form.Label>Name</Form.Label>
+                    <Form.Label className="mt-3">Name</Form.Label>
                     <Form.Control
                       type="text"
+                      placeholder="Gustaf Sverdrup"
                       defaultValue={currentUser.display_name}
                     />
                   </Form.Group>
 
                   <Form.Group id="email">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label className="mt-2">Email</Form.Label>
                     <Form.Control
                       type="email"
                       defaultValue={currentUser.email}
@@ -110,7 +111,7 @@ const UpdateProfile = () => {
                   </Form.Group>
 
                   <Form.Group>
-                    <Form.Label type="password">Password</Form.Label>
+                    <Form.Label className="mt-2" type="password">Password</Form.Label>
                     <Form.Control
                       id="password"
                       placeholder="Enter a new password"
@@ -118,7 +119,7 @@ const UpdateProfile = () => {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Password Confirmation</Form.Label>
+                    <Form.Label className="mt-2">Password Confirmation</Form.Label>
                     <Form.Control
                       id="password-confirm"
                       type="password"
@@ -127,7 +128,7 @@ const UpdateProfile = () => {
                       required
                     />
                   </Form.Group>
-                  <Button disabled={loading} type="submit">
+                  <Button className="mt-5" disabled={loading} type="submit">
                     Update
                   </Button>
                 </Form>

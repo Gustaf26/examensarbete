@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Nav,
   NavDropdown,
@@ -8,7 +11,6 @@ import {
   Row,
   NavItem
 } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
@@ -92,7 +94,7 @@ const Navigation = () => {
           color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(100%)',
           padding: '10px 20px', backgroundColor: 'rgba(243, 234, 234, 0.9)', transition: '2s ease-in-out'
         }}>
-          <MenuIcon className="mobile-nav-icon" onClick={showMenu} />
+          <MenuIcon style={{ color: 'brown' }} className="mobile-nav-icon" onClick={showMenu} />
         </div>) :
         (<Row>
           <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
@@ -109,11 +111,14 @@ const Navigation = () => {
 
             <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } : {
               justifyContent: mobile ?
-                'center' : 'end', alignItems: 'center', width: '20%', textAlign: 'center'
+                'center' : 'start', paddingLeft: !mobile & !admin ? '10%' : '3%', alignItems: 'center', width: '20%', textAlign: 'center'
             }}
               className="d-flex align-items-center my-3 navitem">
+              {mobile && <CloseIcon onClick={() => setMenuShowing(false)} style={!admin ?
+                { position: 'absolute', left: '40px', top: '20px', color: 'brown' } :
+                { position: 'absolute', left: '20px', top: '20px', color: 'brown' }} />}
               <NavLink to={"/"} id="logo" className="navbar-brand">
-                Work Out
+                <span>Work</span>{" "}<span>Out</span>
               </NavLink>
             </Nav.Item>
             < div id="nav-container" style={mobile ? {
@@ -130,7 +135,7 @@ const Navigation = () => {
                 }
                   : { width: '400px' }} onSubmit={omitReload}>
                   <FormControl
-                    style={mobile && admin ? { minWidth: '200px' } : mobile ? { width: '60%', margin: '0 auto' } : { margin: '0 auto' }}
+                    style={mobile && admin ? { minWidth: '200px', margin: '0 auto' } : mobile ? { width: '60%', margin: '0 auto' } : { margin: '0 auto' }}
                     onChange={(e) => changeString(e.target.value)}
                     type="text"
                     id="product-search"

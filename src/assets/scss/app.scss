@@ -44,7 +44,6 @@ body {
 
 }
 
-// NAVIGATION
 
 // Mobile menu icon
 
@@ -65,11 +64,18 @@ h2 {
 #logo {
   font-family: "Pacifico", cursive;
   font-size: large;
-  color: rgb(233, 232, 232);
   background-color: brown;
-  outline: 2px solid rgb(89, 38, 38);
+  outline: 2px solid rgb(210, 129, 37);
   padding: 10px 1rem;
   border-radius: 5px;
+
+  & span:first-child {
+    color: rgb(210, 129, 37);
+  }
+
+  & span {
+    color: rgb(233, 232, 232);
+  }
 }
 
 #basic-navbar-nav {
@@ -191,20 +197,24 @@ h2 {
 #product-search {
   min-width: 300px;
   padding-left: 20px;
-  border-radius: 5px;
+  border-radius: 15px !important;
   background-color: rgb(245, 245, 245);
-  outline: 1px solid rgb(173, 172, 172);
+  outline: 0.5px solid brown;
   color: rgb(107, 107, 107) !important;
   vertical-align: top;
 
   &:focus {
     background-color: whitesmoke;
+    color: brown !important;
+    outline: 1.5px solid brown;
+    border: none !important;
+  }
+
+  &::placeholder {
+    color: rgb(193, 150, 150);
   }
 }
 
-#product-search::placeholder {
-  color: rgb(146, 146, 146) !important;
-}
 
 .breadcrumb {
 
@@ -270,13 +280,31 @@ h2 {
 #login-form,
 #signup-form,
 #update-profile-form {
-  background-color: rgba(210, 180, 180, 0.9) !important;
+  background-color: rgb(242, 229, 229) !important;
   margin: 3rem auto;
-  max-width: 600px;
   color: rgb(220, 220, 220);
 
+  & input {
+    color: brown;
+    border: 1px solid rgb(167, 120, 120);
+
+    &::placeholder {
+      color: rgb(193, 150, 150);
+    }
+
+    // &:focus {
+    //   background-color: rgb(255, 255, 255) !important;
+    // }
+  }
+
   & input:not([type=checkbox]):focus {
-    background-color: whitesmoke;
+    // background-color: whitesmoke;
+    color: brown;
+    background-color: rgb(255, 255, 255) !important;
+  }
+
+  input[type=checkbox]:focus {
+    color: brown !important;
   }
 
   & button {
@@ -339,10 +367,10 @@ h2 {
 
 // PRODUCTS TABLE CMS
 
-
 tr {
 
   background-color: rgba(250, 246, 246, 0.9);
+  border: 1px solid brown !important;
 
   &:hover {
     background-color: rgb(238, 236, 236);
@@ -407,6 +435,12 @@ tr {
     font-size: large;
     margin-left: 2rem;
   }
+
+  #login-form,
+  #signup-form,
+  #update-profile-form {
+    width: 300px;
+  }
 }
 
 @media screen and (min-width: 491px) and (max-width: 600px) {
@@ -416,21 +450,11 @@ tr {
     font-size: medium;
   }
 
-  // #product-search {
-  //   max-width: 20vw;
-  //   max-height: 2rem;
-  //   border-radius: 50;
-  //   background-color: rgba(233, 230, 230, 0);
-  //   border: 1px solid rgb(218, 215, 215);
-  //   font-size: small;
-  //   margin-right: 10%;
-  //   padding-left: 1rem;
-  //   color: white;
-  // }
-
-  // #product-search::placeholder {
-  //   color: whitesmoke;
-  // }
+  #login-form,
+  #signup-form,
+  #update-profile-form {
+    width: 400px;
+  }
 
   #search-icon {
     display: none;
@@ -470,6 +494,13 @@ tr {
 
   #logo {
     font-size: 0.8em;
+    margin-left: 3rem !important;
+  }
+
+  #login-form,
+  #signup-form,
+  #update-profile-form {
+    width: 400px;
   }
 }
 
@@ -489,14 +520,12 @@ tr {
     font-size: medium;
   }
 
+  #navigation {
 
+    & input {
 
-  #product-search::placeholder {
-    color: whitesmoke;
-  }
-
-  #search-icon {
-    display: none;
+      width: 40% !important;
+    }
   }
 
   #custom-menu {
@@ -526,10 +555,6 @@ tr {
 
 
 @media screen and (min-width: 1100px) {
-  body {
-    background-size: auto;
-    background-repeat: repeat;
-  }
 
   #product-search {
     height: 2.5rem;
@@ -554,6 +579,15 @@ tr {
 
   .navitem .signin {
     min-width: 150px !important;
+  }
+
+  #login-form,
+  #signup-form,
+  #update-profile-form {
+    width: 600px;
+    position: absolute;
+    top: calc(35% - 100px);
+    left: calc(50% - 300px);
   }
 
   footer {

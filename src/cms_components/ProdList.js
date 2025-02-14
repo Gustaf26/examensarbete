@@ -21,8 +21,14 @@ const ProdList = () => {
 
     return (
         <>
-            <Table style={mobile ? { position: 'absolute', left: '60px', height: 'fi-content', width: 'calc(100vw - 60px)', maxWidth: 'calc(100vw - 80px)' } :
-                { position: 'absolute', left: '220px', margin: '5rem', width: 'calc(100vw - 360px)', maxWidth: '900px', border: '1px solid rgb(220,220,220) !important' }}>
+            <Table style={mobile ? {
+                position: 'absolute', left: '60px', height: 'fi-content', width: 'calc(100vw - 60px)',
+                maxWidth: 'calc(100vw - 80px)'
+            } :
+                {
+                    position: 'absolute', left: '220px', margin: '5rem', width: 'calc(100vw - 360px)',
+                    maxWidth: '900px', border: '1px solid rgb(220,220,220) !important'
+                }}>
                 <TableHead style={!mobile ? { backgroundColor: 'rgb(220,220,220)' } : {}}>
                     <TableCell style={!mobile ? { color: 'rgb(104, 57, 23)' } : { color: 'rgb(220, 220, 220)' }}><b>Name</b></TableCell>
                     <TableCell style={!mobile ? { color: 'rgb(104, 57, 23)' } : { color: 'rgb(220, 220, 220)' }}><b>Category</b></TableCell>
