@@ -22,9 +22,11 @@ const ProductCard = ({ item }) => {
 
     useEffect(() => {
         if ((location.pathname === `/cms/products/${productOption}/${Number(productId)}`) ||
-            (location.pathname === '/cms/products/update')) { setView('single'); }
+            (location.pathname === '/cms/products/update') ||
+            (location.pathname === `/products/${productOption}/${Number(productId)}`) ||
+            (location.pathname === '/products/update')) { setView('single'); }
         else { setView('') }
-        console.log(productOption)
+
     }, [location, productOption])
 
     const handleUpdateProduct = (product) => {
@@ -47,7 +49,10 @@ const ProductCard = ({ item }) => {
     };
 
 
-    return (<Card key={item.id} onClick={() => { setProductOption(item.category); setSingleProduct(item); mobileDisplays && setMobileDisplays(!mobileDisplays) }}
+    return (<Card key={item.id} onClick={() => {
+        setProductOption(item.category); setSingleProduct(item);
+        mobileDisplays && setMobileDisplays(!mobileDisplays)
+    }}
         style={mobile && admin ? {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',

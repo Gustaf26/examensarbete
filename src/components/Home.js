@@ -33,7 +33,7 @@ const Home = () => {
         <Row id="home-row" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ?
           (e) => { if (e.target.id === 'home-card-text') setMenuShowing(false) } : null}
           className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '60px' }
-            : mobile ? { marginTop: '2rem' } : { margin: '0 auto' }}
+            : mobile ? { marginTop: '5rem' } : { margin: '0 auto' }}
           lg={mobile ? 12 : 6}>
 
           {admin && <Navigation />}
@@ -43,6 +43,7 @@ const Home = () => {
             padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
           }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
+
           <CardContainer>
             <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : null} style={{
               padding: '10px', width: mobile ? 'calc(100% - 30px)' : '600px',

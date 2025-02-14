@@ -61,7 +61,7 @@ const Product = () => {
         {!mobile && <BreadCrumbContainer />}
 
         <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center', behaviour: 'smooth' }) }}
-          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
+          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } : mobile ? { marginTop: '5rem' } :
             { margin: '3rem auto', justifyContent: 'center' }}>
 
           {admin && mobile && <Navigation />}
@@ -75,7 +75,7 @@ const Product = () => {
           {mobileDisplays && <MobileList />}
 
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
-          <CardContainer>
+          <CardContainer onLoad={(e) => { mobile && e.target.scrollIntoView({ block: 'start', behaviour: 'smooth' }) }}>
             {singleProduct && (
               <ProductCard item={singleProduct} />
             )}

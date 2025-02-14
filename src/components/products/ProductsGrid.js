@@ -36,8 +36,8 @@ const ProductsGrid = ({ products, type }) => {
         width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
       } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
       {!mobile && <BreadcrumbContainer />}
-      <Row id="dummy-container-mobile" onLoad={() => { document.getElementById('dummy-container-mobile').scrollIntoView({ block: 'center' }); setProductOption(type) }}
-        style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } :
+      <Row id="dummy-container-mobile" onLoad={(e) => { e.target.scrollIntoView({ block: 'center' }); setProductOption(type) }}
+        style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } : mobile ? { marginTop: '5rem' } :
           { margin: '3rem auto', justifyContent: 'center' }}>
 
         {admin && mobile && <Navigation />}
@@ -51,10 +51,10 @@ const ProductsGrid = ({ products, type }) => {
 
         {mobileDisplays && <MobileList />}
 
-        <CardContainer>
+        <CardContainer onLoad={(e) => e.target.scrollIntoView({ block: 'start' })}>
           {products &&
             products.map((item, i) => (
-              <ProductCard id={`${item.id}`} key={item.id} onLoad={(e) => document.getElementById(`${item.id}`).scrollIntoView({ block: 'start' })} item={item} />
+              <ProductCard id={`${item.id}`} key={item.id} item={item} />
             ))}
         </CardContainer>
       </Row >

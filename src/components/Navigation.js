@@ -141,36 +141,41 @@ const Navigation = () => {
               <Nav.Item
                 id="clothes-select"
                 className="navitem"
-                onClick={(e) => { if ((e.target.id === "clothes-select") || (e.target.id === "all-clothes-select")) showSubMenu() }}
+                onClick={(e) => {
+                  if (e.target.id === 'all-clothes-select') e.preventDefault(); changeString('a');
+                }}
                 // variant="disabled"
                 style={mobile ? { width: '100%', textAlign: 'center', margin: '0', padding: '20px', height: '100%' } : {
                   width: '130px', borderRadius: '15px'
                 }}
-              > <NavLink id="all-clothes-select" onClick={(e) => { e.preventDefault(); changeString('a') }}>
+              > <NavLink id="all-clothes-select" >
                   All clothes
                 </NavLink>
-                {subMenu && (<div id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }
-                  : { zIndex: '3' }}>
-                  <NavLink
-                    to={admin ? '/cms/products/troussers' : "/products/troussers"}
-                    className="dropdown-item"
-                  >
-                    Troussers
-                  </NavLink>
-                  <NavDropdown.Divider className="m-0" />
-                  <NavLink to={admin ? '/cms/products/jackets' : "/products/jackets"} className="dropdown-item">
-                    Jackets
-                  </NavLink>
-                  <NavDropdown.Divider className="m-0" />
-                  <NavLink
-
-                    to={admin ? '/cms/products/t-shirts' : "/products/t-shirts"}
-                    className="dropdown-item"
-                  >
-                    T-shirts
-                  </NavLink>
-                </div>)}
               </Nav.Item>
+
+              {subMenu && (<NavItem id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }
+                : { zIndex: '3' }}>
+                <NavLink
+                  to={admin ? '/cms/products/troussers' : "/products/troussers"}
+                  className="dropdown-item"
+                >
+                  Troussers
+                </NavLink>
+                <NavDropdown.Divider className="m-0" />
+                <NavLink to={admin ? '/cms/products/jackets' : "/products/jackets"} className="dropdown-item">
+                  Jackets
+                </NavLink>
+                <NavDropdown.Divider className="m-0" />
+                <NavLink
+
+                  to={admin ? '/cms/products/t-shirts' : "/products/t-shirts"}
+                  className="dropdown-item"
+                >
+                  T-shirts
+                </NavLink>
+              </NavItem>
+              )}
+
               {currentUser ? (
                 <NavDropdown
                   style={mobile ? { width: '100%', padding: '10px', textAlign: 'center' } : { width: '180px', margin: '0 1rem' }}
