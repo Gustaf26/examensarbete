@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Form } from "react-bootstrap";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
@@ -48,6 +48,16 @@ const ProductCard = ({ item }) => {
         }
     };
 
+    const handleImgResize = (e) => {
+
+        if (e.target.value > 50) {
+            console.log((1 + Number(e.target.value) / 100).toFixed(1))
+            document.getElementById('update-product-image').style.transform = `scale(${((1 + Number(e.target.value) / 100).toFixed(1)).toString()})`
+        }
+        else {
+            document.getElementById('update-product-image').style.transform = `scale(${(1 - ((50 - Number(e.target.value)) / 100)).toFixed(1).toString()})`
+        }
+    }
 
     return (<Card key={item.id} onClick={() => {
         setProductOption(item.category); setSingleProduct(item);
@@ -57,24 +67,32 @@ const ProductCard = ({ item }) => {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',
             marginBottom: '15px'
-        } : { width: '330px', height: 'fit-content', margin: '15px' }}
+        } : !mobile && view === 'single' ? { width: '800px', display: 'flex', flexDirection: 'row', height: '400px' }
+            : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
-        <a href={item.thumbnail}
-            title="View image in lightbox"
-            data-attribute="SRL">
-            <Card.Img
-                variant="top"
-                style={{ height: 'auto' }}
-                src={item.thumbnail}
-                title={item.name} />
-        </a>
+
+        <div style={!mobile && view === 'single' ? { width: '100%', height: '100%' } : {}} >
+            <div style={!mobile && admin && view === 'single' ? {
+                zIndex: '5', display: 'flex', flexDirection: 'column',
+                alignItems: 'center', width: '100%', height: '260px', overflow: 'hidden'
+            } : {}}>
+                <Card.Img id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '200px', margin: '10px' } :
+                    {}} src={item.thumbnail} />
+            </div>
+            {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '1%' }}
+                onChange={handleImgResize}></Form.Range>)}
+        </div>
+
         <Card.Body
-            className="d-block"
             onClick={(e) => {
                 setSingleProduct(item);
                 if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
                 else navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
             }}
+            style={!mobile && view === 'single' ? {
+                height: '100%', display: 'flex', flexDirection: 'column',
+                margin: '10px', justifyContent: 'space-between', alignItems: 'start', fontSize: '1.3em'
+            } : { display: 'block' }}
         >
             {" "}
             <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
