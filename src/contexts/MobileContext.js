@@ -35,7 +35,7 @@ const MobileContextProvider = (props) => {
 
     return (
         <MobileContext.Provider value={contextValues}>
-            <div style={{ backgroundColor: mobile && admin ? 'rgba(42, 42, 42, 0.9)' : '', minHeight: mobile ? '120vh' : 'fit-content' }}>
+            <div style={{ backgroundColor: mobile && admin ? 'rgba(42, 42, 42, 0.9)' : '', minHeight: mobile && !admin ? '120vh' : mobile && admin ? '100vh' : 'fit-content' }}>
                 {props.children}
             </div>
         </MobileContext.Provider>

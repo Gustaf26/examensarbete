@@ -37,7 +37,7 @@ export default function CMSNav() {
     });
 
     return (
-        <Drawer variant="permanent"
+        <Drawer id="CMS-nav" variant="permanent"
             sx={{
                 display: { xs: 'block', md: 'block' },
                 [`& .${drawerClasses.paper}`]: {

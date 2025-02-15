@@ -59,6 +59,12 @@ const UpdateProduct = () => {
     setPrice(newPrice);
   };
 
+  const deleteProd = (e) => {
+    let otherProds = allProducts.filter(prod => prod.id !== singleProduct.id)
+    setProducts(otherProds)
+    navigate(admin ? `/cms/products/${singleProduct.category}` : `/products/${singleProduct.category}`, { replace: true })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -307,9 +313,18 @@ const UpdateProduct = () => {
                       <Button
                         disabled={loading}
                         type="submit"
-                        style={!mobile && admin ? { width: '50%' } : { margin: '10px auto' }}
+                        style={!mobile && admin ? { width: '100px', margin: '0 10px' } : { width: '30%', margin: '10px auto' }}
                       >
                         Update
+                      </Button>
+                      <Button
+                        disabled={loading}
+                        variant="danger"
+                        type="text"
+                        style={!mobile && admin ? { width: '100px', margin: '0 10px' } : { width: '30%', margin: '10px auto' }}
+                        onClick={deleteProd}
+                      >
+                        Delete
                       </Button>
                     </Form.Group>
                   </Form>
