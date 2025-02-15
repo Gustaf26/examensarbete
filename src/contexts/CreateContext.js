@@ -52,49 +52,70 @@ const CreateContextProvider = (props) => {
   };
 
   useEffect(() => {
-    let snapshotProducts = [];
-    productCategories.forEach(async (category) => {
 
-      const querySnapshot = await getDocs(collection(db, category.name));
+    let categories = ['t-shirts', 'troussers', 'jackets']
 
-      querySnapshot.forEach((doc) => {
-        snapshotProducts.push(doc.data())
+    categories.forEach(cat => {
+
+      const getData = new Promise((resolve, reject) => {
+        resolve(getDocs(collection(db, cat)))
       })
-      let emptyArr;
-      emptyArr = [...snapshotProducts];
-
-
-      // Deleting duplicates from snapshots data
-      snapshotProducts.forEach((prod) => {
-        if (!emptyArr.includes(prod)) {
-          emptyArr.push(prod)
-        }
-      })
-      console.log(emptyArr);
-
-      // Getting search string from local Storage on reload in search-results-route when all products available
-      if (
-        emptyArr.length > 10 &&
-        (location === "/search-results" || location === "/cms/search-results") &&
-        searchString === ""
-      ) {
-        setSearchString(JSON.parse(window.localStorage.getItem("search")));
-      }
-
-
-      setProducts([...emptyArr])
-
-      // Function to fetch product when routing to /products/{category}/:productId
-      if (prodId) {
-        getSingleProduct([...emptyArr]);
-      }
-      setLoading(false);
+      getData
+        .then(res => res.forEach((doc) => setProducts((prev) => [...prev, doc.data()])))
+        .catch(err => console.log(err))
     })
 
-    return () => {
-      snapshotProducts = [];
-    };
-  }, [productCategories, prodId]);
+  }, [])
+
+  useEffect(() => {
+
+    // THIS FUNCTIONALITY ONLY FOR USING DB PRODS BEFORE 
+
+    // let snapshotProducts = []
+    // productCategories.forEach(async (category) => {
+
+    //   const querySnapshot = await getDocs(collection(db, category.name));
+
+    //   querySnapshot.forEach((doc) => {
+    //     snapshotProducts.push(doc.data())
+    //   })
+    //   let emptyArr;
+    //   emptyArr = [...snapshotProducts];
+
+
+    //   // Deleting duplicates from snapshots data
+    //   snapshotProducts.forEach((prod) => {
+    //     if (!emptyArr.includes(prod)) {
+    //       emptyArr.push(prod)
+    //     }
+    //   })
+    //   console.log(emptyArr);
+
+    // Getting search string from local Storage on reload in search-results-route when all products available
+    if (
+      allProducts.length > 10 &&
+      (location === "/search-results" || location === "/cms/search-results") &&
+      searchString === ""
+    ) {
+      setSearchString(JSON.parse(window.localStorage.getItem("search")));
+    }
+
+
+    // setProducts([...emptyArr])
+
+    // Function to fetch product when routing to /products/{category}/:productId
+    if (prodId) {
+      getSingleProduct([...allProducts]);
+    }
+    setLoading(false);
+
+    // })
+    // return () => {
+    //   snapshotProducts = [];
+    // };
+  }, [prodId]);
+
+  // SIDE EFFECT FOR UPDATING SEARCH RESULTS
 
   useEffect(() => {
 
@@ -134,7 +155,8 @@ const CreateContextProvider = (props) => {
     getSingleProduct,
     setProdId,
     setLocation,
-    searchString
+    searchString,
+    setProducts
   };
 
   return (

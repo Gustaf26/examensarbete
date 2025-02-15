@@ -41,7 +41,9 @@ const UpdateProduct = () => {
     setSingleProduct,
     singleProduct,
     productCategories,
-    setImageUrl
+    setImageUrl,
+    allProducts,
+    setProducts
   } = useCreate();
 
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ const UpdateProduct = () => {
     setPrice(newPrice);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (name.length < 4 || description < 20 || !imageUrl) {
@@ -70,28 +72,31 @@ const UpdateProduct = () => {
     setError(false);
     setLoading(true);
 
-    try {
 
-      let updatedProduct = {
-        name: name,
-        description: description,
-        thumbnail: imageUrl,
-        price: prodPrice,
-        id: singleProduct.id,
-        category: productOption
-      }
 
-      await setDoc(doc(db, productOption, singleProduct.id.toString()), updatedProduct)
-
-      setTimeout(() => {
-        setSingleProduct(updatedProduct)
-        navigate(`/cms/products/${productOption}/${singleProduct.id}`, { replace: true });
-      }, 1000);
+    let updatedProduct = {
+      name: name,
+      description: description,
+      thumbnail: imageUrl,
+      price: prodPrice,
+      id: singleProduct.id,
+      category: productOption
     }
 
-    catch (error) {
-      console.log(error)
-    }
+    // FOR REAL DATABASE UPDATE USE:
+    // await setDoc(doc(db, productOption, singleProduct.id.toString()), updatedProduct)
+
+    let otherProducts = allProducts.filter(prod => prod.id !== singleProduct.id)
+
+    otherProducts.push(updatedProduct)
+
+    setProducts(otherProducts)
+
+    setTimeout(() => {
+      setSingleProduct(updatedProduct)
+      navigate(`/cms/products/${productOption}/${singleProduct.id}`, { replace: true });
+    }, 1000);
+
   }
 
   useEffect(() => {
@@ -114,6 +119,7 @@ const UpdateProduct = () => {
   }
 
   const updateImg = (e) => {
+    setImageUrl(URL.createObjectURL(e.target.files[0]))
     setImg(URL.createObjectURL(e.target.files[0]))
   }
 
@@ -225,7 +231,7 @@ const UpdateProduct = () => {
                         )}
                     </Form.Group>
                   </Form>
-                  <Form style={!mobile && admin ? { marginTop: '40px', width: '100%', display: 'flex', alignItems: 'end', justifyContent: 'start' } : {}}>
+                  <Form onSubmit={handleSubmit} style={!mobile && admin ? { marginTop: '40px', width: '100%', display: 'flex', alignItems: 'end', justifyContent: 'start' } : {}}>
                     <Form.Group controlId="exampleForm.ControlSelect2" style={!mobile && admin ? { marginRight: '15px', width: '31%' } : {}}>
                       <Form.Label>Choose product category</Form.Label>
                       <Form.Control

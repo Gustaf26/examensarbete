@@ -48,7 +48,8 @@ const App = () => {
         <MobileContextProvider>
           {admin && < CMSNav />}
           {!admin && <Navigation />}
-          <Container id="container" style={admin ? { marginLeft: '240px', maxWidth: 'calc(100vw - 240px)', flexWrap: 'wrap' } : { width: '100%' }}
+          <Container id="container" style={admin ? { marginLeft: '240px', maxWidth: 'calc(100vw - 240px)', flexWrap: 'wrap' } :
+            { width: '100%' }}
             className="p-0">
             <Routes>
               <Route path="/" element={<Home />} />
