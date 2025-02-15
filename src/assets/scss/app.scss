@@ -367,10 +367,11 @@ h2 {
 
 // PRODUCTS TABLE CMS
 
-tr {
+tr,
+th {
 
   background-color: rgba(250, 246, 246, 0.9);
-  border: 1px solid brown !important;
+  border: 1px solid rgb(208, 163, 163) !important;
 
   &:hover {
     background-color: rgb(238, 236, 236);

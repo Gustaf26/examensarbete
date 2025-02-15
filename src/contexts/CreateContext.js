@@ -27,7 +27,7 @@ const CreateContextProvider = (props) => {
 
   const { admin } = useAuth()
 
-  const getSingleProduct = (products) => {
+  const getSingleProduct = (prodId, products) => {
 
     let firstDash;
     let secondDash;
@@ -45,11 +45,15 @@ const CreateContextProvider = (props) => {
       (prod) => prod.id === Number(prodId) && prod.category === category
     );
 
+    console.log(products)
+
     if (preliminaryProd.length) {
       setProductOption(category);
       setSingleProduct(preliminaryProd[0]);
     }
   };
+
+  let emptyArr = []
 
   useEffect(() => {
 
@@ -60,12 +64,30 @@ const CreateContextProvider = (props) => {
       const getData = new Promise((resolve, reject) => {
         resolve(getDocs(collection(db, cat)))
       })
+
+
       getData
-        .then(res => res.forEach((doc) => setProducts((prev) => [...prev, doc.data()])))
+        .then(res => res.forEach((doc) => {
+          if (!emptyArr.includes(doc.data())) emptyArr.push(doc.data())
+        }))
+        .then(res => setProducts(emptyArr))
         .catch(err => console.log(err))
     })
 
-  }, [])
+    return () => {
+      emptyArr = []
+    }
+
+  }, [prodId])
+
+  useEffect(() => {
+
+    if (prodId) {
+      getSingleProduct(prodId, allProducts);
+      setLoading(false);
+    }
+
+  }, [allProducts])
 
   useEffect(() => {
 
@@ -103,11 +125,11 @@ const CreateContextProvider = (props) => {
 
     // setProducts([...emptyArr])
 
-    // Function to fetch product when routing to /products/{category}/:productId
-    if (prodId) {
-      getSingleProduct([...allProducts]);
-    }
-    setLoading(false);
+    // // Function to fetch product when reloading /products/{category}/:productId
+    // if (prodId) {
+    //   getSingleProduct([...allProducts]);
+    // }
+    // setLoading(false);
 
     // })
     // return () => {

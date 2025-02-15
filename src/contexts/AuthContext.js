@@ -48,14 +48,16 @@ const AuthContextProvider = (props) => {
 
   const logout = async (email) => {
 
-    await signOut(auth, email).then((res) => {
-      // Sign-out successful.
-      setCurrentUser(null)
-      setAdmin(false)
-    }).catch((error) => {
-      // An error happened.
-    });
+    // await signOut(auth, email).then((res) => {
+    //   // Sign-out successful.
+    //   setCurrentUser(null)
+    //   setAdmin(false)
+    // }).catch((error) => {
+    //   // An error happened.
+    // });
 
+    setCurrentUser(null)
+    setAdmin(false)
   };
 
   // const resetPassword = (email) => {

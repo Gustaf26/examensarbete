@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { db } from "../../firebase/index";
-import { doc, setDoc } from "firebase/firestore";
+// import { db } from "../../firebase/index";
+// import { doc, setDoc } from "firebase/firestore";
 
 import BreadCrumbContainer from '../BreadCrumbContainer'
 
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
-import Navigation from '../Navigation'
-// import HomeIcon from '@mui/icons-material/Home';
 
 import { useCreate } from "../../contexts/CreateContext";
 import { useAuth } from '../../contexts/AuthContext'
@@ -100,11 +98,28 @@ const UpdateProduct = () => {
   }
 
   useEffect(() => {
-    setProductOption(singleProduct.category);
-    setName(singleProduct.name);
-    setDescription(singleProduct.description);
-    setPrice(singleProduct.price);
-    setImageUrl(singleProduct.thumbnail);
+
+
+    if (singleProduct) {
+      localStorage.setItem('singleProduct', JSON.stringify(singleProduct))
+
+      setProductOption(singleProduct.category);
+      setName(singleProduct.name);
+      setDescription(singleProduct.description);
+      setPrice(singleProduct.price);
+      setImageUrl(singleProduct.thumbnail);
+    }
+
+    else {
+
+      let existingProduct = JSON.parse(localStorage.getItem('singleProduct'))
+      setSingleProduct(existingProduct)
+      setProductOption(existingProduct.category);
+      setName(existingProduct.name);
+      setDescription(existingProduct.description);
+      setPrice(existingProduct.price);
+      setImageUrl(existingProduct.thumbnail);
+    }
 
   }, []);
 
@@ -173,7 +188,10 @@ const UpdateProduct = () => {
                   {error && <Alert variant="danger">{error}</Alert>}
 
                   <div style={!mobile && admin ? { width: '30%', height: '60%' } : {}} >
-                    <div style={!mobile && admin ? { zIndex: '5', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '140%', overflow: 'hidden' } : {}}>
+                    <div style={!mobile && admin ? {
+                      zIndex: '5', display: 'flex', flexDirection: 'column',
+                      alignItems: 'center', width: '100%', maxHeight: '300px', overflow: 'hidden'
+                    } : {}}>
                       <Card.Img id="update-product-image" style={!mobile && admin ? { zIndex: '4', width: prodImgSize.width } :
                         {}} src={prodImg ? prodImg : singleProduct.thumbnail} />
                     </div>

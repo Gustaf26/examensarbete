@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 import { useCreate } from "../contexts/CreateContext"
-import { useAuth } from '../contexts/AuthContext'
+// import { useAuth } from '../contexts/AuthContext'
 
 // import Navigation from '../components/Navigation'
 import { TableHead, TableRow, Table, TableCell } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import { useMobile } from "../contexts/MobileContext";
 
@@ -26,7 +27,7 @@ const ProdList = () => {
                 maxWidth: 'calc(100vw - 80px)'
             } :
                 {
-                    position: 'absolute', left: '220px', margin: '5rem', width: 'calc(100vw - 360px)',
+                    margin: '3rem auto', width: 'calc(100vw - 360px)',
                     maxWidth: '900px', border: '1px solid rgb(220,220,220) !important'
                 }}>
                 <TableHead style={!mobile ? { backgroundColor: 'rgb(220,220,220)' } : {}}>
@@ -41,8 +42,8 @@ const ProdList = () => {
                         <TableCell
                             onClick={(e) => {
                                 setProductOption(prod.category); setSingleProduct(prod);
-                                if (e.target.id === `edit-icon-${prod.id}`) navigate(`/cms/products/update`, { replace: true })
-                                else navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true })
+                                if (e.target.id === 'visit-prod-icon') navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true })
+                                else navigate(`/cms/products/update`, { replace: true })
                             }} style={{ paddingLeft: '18px' }} >
 
                             <img alt={prod.name} src={prod.thumbnail} style={{
@@ -56,7 +57,10 @@ const ProdList = () => {
                             {Number(editable) === prod.id && (<div style={{
                                 position: 'absolute', top: '0', left: '0', width: '100%',
                                 height: '100%', backgroundColor: 'rgba(255,255,255,0.8)'
-                            }}>
+                            }}><VisibilityIcon id="visit-prod-icon" style={{
+                                width: '30px', padding: '5px', height: '30px', color: 'rgb(58, 132, 57)', borderRadius: '3px', margin: '8px',
+                                position: 'absolute', top: 'calc(50% - 20px)', right: 'calc(51% + 40px)', border: '1px solid rgb(58, 132, 57)'
+                            }} />
                                 <DeleteIcon style={{
                                     width: '30px', padding: '5px', height: '30px', color: 'rgb(113, 47, 47)', borderRadius: '3px', margin: '8px',
                                     position: 'absolute', top: 'calc(50% - 20px)', right: '51%', border: '1px solid rgb(113, 47, 47)'
