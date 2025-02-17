@@ -1,11 +1,12 @@
 //import firebase from "firebase/app";
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import { Row, Breadcrumb } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
-// import HomeIcon from '@mui/icons-material/Home';
-import ArrowBack from '@mui/icons-material/ArrowBack';
+
+import { BounceLoader } from "react-spinners";
+
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
@@ -20,6 +21,8 @@ import CardContainer from '../products/CardContainer'
 import BreadcrumbContainer from "../BreadCrumbContainer";
 
 const ProductsGrid = ({ products, type }) => {
+
+  const [loading, setLoading] = React.useState(true)
   // const navigate = useNavigate();
   const { admin } = useAuth();
   const { setProductOption } = useCreate();
@@ -29,7 +32,12 @@ const ProductsGrid = ({ products, type }) => {
 
 
 
-  return (
+  return (<>
+    {loading && (
+      <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
+        <BounceLoader color={"#888"} size={100} />
+      </div>
+    )}
     <div id="dummy-container-products"
       style={admin ? {
         position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
@@ -52,13 +60,16 @@ const ProductsGrid = ({ products, type }) => {
         {mobileDisplays && <MobileList />}
 
         <CardContainer onLoad={(e) => e.target.scrollIntoView({ block: 'start' })}>
+
           {products &&
             products.map((item, i) => (
-              <ProductCard id={`${item.id}`} key={item.id} item={item} />
+              <ProductCard setLoading={setLoading} index={i} id={`${item.id}`} key={item.id} item={item} />
             ))}
+
         </CardContainer>
       </Row >
     </div >
+  </>
   );
 };
 

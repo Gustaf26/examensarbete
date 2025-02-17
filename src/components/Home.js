@@ -14,14 +14,14 @@ import CardContainer from "./products/CardContainer";
 
 const Home = () => {
 
-  const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, setMobile, menuShowing, setMenuShowing } = useMobile()
+  const { mobile, mobileDisplays, setMobileDisplays, menuShowing, setMenuShowing } = useMobile()
   const containerStyles = useMobileStyles()
 
   const navigate = useNavigate()
   const { admin } = useAuth()
 
   useEffect(() => {
-    admin && navigate('/cms/index', { replace: true })
+    if (admin) navigate('/cms/index', { replace: true })
   }, [admin])
 
   return (

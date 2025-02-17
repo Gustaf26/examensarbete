@@ -1,6 +1,5 @@
 import { useMobile } from './../contexts/MobileContext'
 
-
 const useMobileStyles = () => {
 
     const { mobile, mobileWidth, mobileHeight } = useMobile()
@@ -19,6 +18,7 @@ const useMobileStyles = () => {
         // boxShadow: '1px 1px 3px rgb(156, 153, 153)'
 
     }
+
 
     return containerStyles
 }

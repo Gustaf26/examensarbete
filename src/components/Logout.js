@@ -4,21 +4,22 @@ import { useNavigate } from "react-router-dom";
 import { useAuth, currentUser } from "../contexts/AuthContext";
 
 const Logout = () => {
-  const { logout, currentUser } = useAuth();
+  // const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      // localStorage.removeItem("currentPass");
-      await logout(currentUser.email);
-      navigate("/login");
-    })();
+
+    setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 2000)
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <Row>
+      <Row style={{ marginTop: '6rem' }}>
         <Col md={{ span: 6, offset: 3 }}>
           <Card>
             <Card.Body>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
 // import { db } from "../../firebase";
@@ -22,6 +22,9 @@ import MobileList from '../../cms_components/MobileList'
 import useMobileStyles from '../../hooks/useMobileStyles'
 
 const Product = () => {
+
+  const [loading, setLoading] = React.useState(true)
+
   const {
     singleProduct,
     productOption,
@@ -51,6 +54,11 @@ const Product = () => {
 
   return (
     <>
+      {loading && (
+        <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
+          <BounceLoader color={"#888"} size={100} />
+        </div>
+      )}
       <div id="dummy-container-products"
         style={admin ? {
           position: 'absolute', top: mobile ? '60px' : admin ? '0' : '120px', left: mobile ? '40px' : '240px',
@@ -77,7 +85,7 @@ const Product = () => {
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
           <CardContainer onLoad={(e) => { mobile && e.target.scrollIntoView({ block: 'start', behaviour: 'smooth' }) }}>
             {singleProduct && (
-              <ProductCard item={singleProduct} />
+              <ProductCard setLoading={setLoading} index={0} item={singleProduct} />
             )}
           </CardContainer>
         </Row>

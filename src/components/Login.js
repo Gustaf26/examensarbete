@@ -18,7 +18,7 @@ const Login = () => {
   const { mobile } = useMobile()
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
 
@@ -32,13 +32,14 @@ const Login = () => {
 
 
     setLoading(true);
-    const user = await login(email, passOne);
+    const user = login(email, passOne);
 
     if (user) {
       setError(null)
       setLoading(false)
 
       // Check if user is admin manually
+
       let admin = checkIfAdmin(user.email)
       if (admin) {
         console.log(adminCheck)
@@ -87,14 +88,14 @@ const Login = () => {
                     type="email"
                     ref={emailRef}
                     onChange={restoreAlerts}
-                    placeholder={'Ex. sara@sara.com'}
+                    placeholder={'Ex. admin@email.se'}
                     required
                   />
                   <Form.Label className="mt-2">Password</Form.Label>
                   <Form.Control id="password"
                     type="password"
                     onChange={restoreAlerts}
-                    placeholder={'**********'}
+                    placeholder={'adminPass'}
                     required
                   /><div className=" mt-3">
                     <Link to="/forgot-password">Forgot Password?</Link>

@@ -3,14 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from "../../contexts/MobileContext";
 
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({ item, index, setLoading }) => {
+
+    const [lastImgIndex, setLastImgIndex] = useState('')
+
     const navigate = useNavigate();
     const { admin } = useAuth();
     const { setSingleProduct, productOption, setProductOption } = useCreate();
@@ -20,6 +23,7 @@ const ProductCard = ({ item }) => {
     const { productId } = useParams()
 
 
+
     useEffect(() => {
         if ((location.pathname === `/cms/products/${productOption}/${Number(productId)}`) ||
             (location.pathname === '/cms/products/update') ||
@@ -27,26 +31,40 @@ const ProductCard = ({ item }) => {
             (location.pathname === '/products/update')) { setView('single'); }
         else { setView('') }
 
-    }, [location, productOption])
-
-    const handleUpdateProduct = (product) => {
-
-        navigate(`cms/products/update`, { replace: true });
-    };
-
-    const handleDeleteProduct = (product) => {
-        try {
-            const deletion = () => {
-                console.log("ddeleteing " + product.name);
-                alert('I don´t want to delete products, sorry')
-                // await db.collection(`${type}`).doc(`${product.id}`).delete();
-            };
-
-            deletion();
-        } catch (error) {
-            console.log(error);
+        if (location.pathname === admin ? "/cms/search-results" : "/search-results") {
+            if (lastImgIndex === index) {
+                setLoading(false)
+            }
         }
-    };
+        else if (location.pathname === admin ? `/cms/products/${productOption}` : `/products/${productOption}/`) {
+            if (lastImgIndex === index) {
+                setLoading(false)
+            }
+        }
+
+    }, [location, productOption, lastImgIndex])
+
+
+    // FIREBASE DELETING PRODUCT
+
+    // const handleUpdateProduct = (product) => {
+
+    //     navigate(`cms/products/update`, { replace: true });
+    // };
+
+    // const handleDeleteProduct = (product) => {
+    //     try {
+    //         const deletion = () => {
+    //             console.log("ddeleteing " + product.name);
+    //             alert('I don´t want to delete products, sorry')
+    //             // await db.collection(`${type}`).doc(`${product.id}`).delete();
+    //         };
+
+    //         deletion();
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     const handleImgResize = (e) => {
 
@@ -67,7 +85,7 @@ const ProductCard = ({ item }) => {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',
             marginBottom: '15px'
-        } : !mobile && view === 'single' ? { width: '800px', display: 'flex', flexDirection: 'row', height: 'fit-content', minHeight: '400px' }
+        } : !mobile && view === 'single' ? { padding: '0px', width: '800px', display: 'flex', flexDirection: 'row', height: 'fit-content', minHeight: '400px' }
             : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
 
@@ -76,8 +94,9 @@ const ProductCard = ({ item }) => {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
-                <Card.Img id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%', margin: '10px' } :
-                    {}} src={item.thumbnail} />
+                <Card.Img onLoad={() => { setLastImgIndex(index) }}
+                    id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
+                        {}} src={item.thumbnail} />
             </div>
             {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
@@ -91,7 +110,7 @@ const ProductCard = ({ item }) => {
             }}
             style={!mobile && view === 'single' ? {
                 height: 'fit-content', display: 'flex', flexDirection: 'column', width: '400px',
-                margin: '10px', justifyContent: 'space-between', alignItems: 'start', fontSize: '1.3em'
+                marginLeft: '10px', justifyContent: 'space-between', alignItems: 'start', fontSize: '1.3em'
             } : { display: 'block' }}
         >
             {" "}
@@ -102,7 +121,9 @@ const ProductCard = ({ item }) => {
                 <Card.Text className="text-muted small">
                     <b>Price: </b> {item.price} €
                 </Card.Text>
-
+                {item.attribution && <Card.Text className="text-muted small">
+                    <a href={item.attLink}>{item.attribution}</a>
+                </Card.Text>}
                 <Card.Text className="text-muted small">
                     <b>Description: </b>{" "}
                     <span>

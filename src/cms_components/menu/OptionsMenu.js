@@ -8,11 +8,14 @@ import { listClasses } from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
+// import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+
 import MenuButton from './MenuButton';
 
 import { useAuth } from '../../contexts/AuthContext'
 import { useNavigate } from "react-router-dom";
+// import zIndex from '@mui/material/styles/zIndex';
 
 const MenuItem = styled(MuiMenuItem)({
     margin: '2px 0',
@@ -20,11 +23,13 @@ const MenuItem = styled(MuiMenuItem)({
 
 export default function OptionsMenu() {
 
-    const { logout, currentUser } = useAuth()
+    const { logout, currentUser, setCurrentUser, setAdmin } = useAuth()
     const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -33,29 +38,38 @@ export default function OptionsMenu() {
         setAnchorEl(null);
 
         if (e.target.innerHTML === 'Logout') {
-            await logout(currentUser.email)
-            navigate("/login");
+            localStorage.removeItem('currentUser')
+            setCurrentUser('')
+            setAdmin(false)
+            navigate('/logout', { replace: true })
         }
         else if (e.target.id === 'profile') {
 
             navigate("/cms/update-profile", { replace: true });
         }
     };
+
+    React.useEffect(() => {
+        if (!currentUser) { navigate("/login", { replace: true }) }
+
+    }, [currentUser])
     return (
-        <React.Fragment>
-            <MenuButton
-                aria-label="Open menu"
-                onClick={handleClick}
-                sx={{ borderColor: 'transparent' }}
-            >
-                <MoreVertRoundedIcon />
+        <div>
+            <MenuButton aria-label="Open menu"
+                style={{ position: 'relative', width: '44px', height: '44px' }}
+                onClick={handleClick}>
+                <FiberManualRecordIcon sx={{ width: 44, height: 44 }} />
+                <p style={{ color: 'white', zIndex: '100', position: 'absolute', left: 'calc(50% - 6px)', bottom: "calc(50% - 12px)", margin: 0 }}>
+                    {currentUser.email.slice(0, 1).toUpperCase()}
+                </p>
+                {/* <MoreVertRoundedIcon /> */}
             </MenuButton>
             <Menu
                 anchorEl={anchorEl}
                 id="menu"
                 open={open}
-                // onClose={handleClose}
-                // onClick={handleClose}
+                onClose={handleClose}
+                onClick={handleClose}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 sx={{
@@ -91,6 +105,6 @@ export default function OptionsMenu() {
                     </ListItemIcon>
                 </MenuItem>
             </Menu>
-        </React.Fragment>
+        </div>
     );
 }

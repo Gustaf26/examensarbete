@@ -117,7 +117,8 @@ const Navigation = () => {
               {mobile && <CloseIcon onClick={() => setMenuShowing(false)} style={!admin ?
                 { position: 'absolute', left: '40px', top: '20px', color: 'brown' } :
                 { position: 'absolute', left: '20px', top: '20px', color: 'brown' }} />}
-              <NavLink to={"/"} id="logo" className="navbar-brand">
+              <NavLink to={"/"} id="logo" className="navbar-brand" style={!mobile && admin ? { marginLeft: '30%' } :
+                mobile ? { marginLeft: '-20px' } : {}}>
                 <span>Work</span>{" "}<span>Out</span>
               </NavLink>
             </Nav.Item>
@@ -135,7 +136,8 @@ const Navigation = () => {
                 }
                   : { width: '400px' }} onSubmit={omitReload}>
                   <FormControl
-                    style={mobile && admin ? { minWidth: '200px', margin: '0 auto' } : mobile ? { width: '60%', margin: '0 auto' } : { margin: '0 auto' }}
+                    style={mobile && admin ? { minWidth: '200px', margin: '0 auto' } : mobile ? { width: '60%', margin: '0 auto' } :
+                      admin ? { margin: '0 auto', maxWidth: '300px' } : { margin: '0 auto' }}
                     onChange={(e) => changeString(e.target.value)}
                     type="text"
                     id="product-search"

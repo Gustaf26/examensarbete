@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+// import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 import SelectContent from './menu/SelectContent';
 import MenuContent from './menu/MenuContent';
@@ -18,6 +18,8 @@ import { useMobile } from '../contexts/MobileContext'
 
 
 export default function CMSNav() {
+
+    // const [logoutMenu, setLogoutMenu] = React.useState(false)
 
     const { currentUser } = useAuth()
     const { mobile } = useMobile()
@@ -77,20 +79,16 @@ export default function CMSNav() {
                     sx={{ width: 36, height: 36 }}
                 /> */}
 
-                <FiberManualRecordIcon sx={{ width: 44, height: 44 }} />
-                <p style={{ color: 'white', zIndex: 100, position: 'absolute', left: '32px', bottom: "27px", margin: 0 }}>
-                    {currentUser.email.slice(0, 1).toUpperCase()}
-                </p>
+
+                <OptionsMenu />
                 <Box sx={{ mr: 'auto', display: 'flex', flexDirection: 'column' }}>
-                    <Typography variant="body" sx={{ fontWeight: 500, lineHeight: '16px' }}>
+                    <Typography variant="body" sx={{ fontSize: '0.9em', fontWeight: 500, lineHeight: '16px' }}>
                         {currentUser.displayName}
                     </Typography>
-                    <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                    <Typography variant="caption" sx={{ fontSize: '0.9em', color: 'text.secondary' }}>
                         {currentUser.email}
                     </Typography>
                 </Box>
-                <OptionsMenu />
-
             </Stack>
         </Drawer >
     );

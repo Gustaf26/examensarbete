@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { BounceLoader } from "react-spinners";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut
-} from "firebase/auth";
+// import {
+//   signInWithEmailAndPassword,
+//   createUserWithEmailAndPassword,
+//   signOut
+// } from "firebase/auth";
 
 import { getAuth } from '../firebase/index'
 
@@ -19,35 +19,47 @@ const useAuth = () => {
 
 const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [admin, setAdmin] = useState(false);
 
 
-  const signIn = (auth, email, password) => signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // ...
-      console.log(user)
-      setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
-      return { email: user.email, uid: user.uid, display_name: user.display_name, token: user.token }
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log({ code: errorCode, msg: errorMessage })
+  // FIREBASE AUTH SIGN IN 
 
-    });
+  // const signIn = (auth, email, password) => signInWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //     // Signed in 
+  //     const user = userCredential.user;
+  //     // ...
+  //     console.log(user)
+  //     setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
+  //     return { email: user.email, uid: user.uid, display_name: user.display_name, token: user.token }
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     console.log({ code: errorCode, msg: errorMessage })
 
-  const login = async (email, password) => {
+  //   });
 
-    const user = await signIn(auth, email, password)
-    return user
+  const login = (email, password) => {
+
+    if (email === 'admin@email.se' && password === 'adminPass') {
+      setLoading(false);
+      let user = { email: 'admin@email.se', displayName: 'Peter Halldorf' }
+      setCurrentUser(user);
+      localStorage.setItem('currentUser', JSON.stringify(user))
+      return user
+    }
+
+    // FIREBASE
+    // const user = await signIn(auth, email, password)
+    // return user
 
   };
 
-  const logout = async (email) => {
+  const logout = (email) => {
 
+    // THIS ONE FOR FIREBASE USE
     // await signOut(auth, email).then((res) => {
     //   // Sign-out successful.
     //   setCurrentUser(null)
@@ -55,34 +67,36 @@ const AuthContextProvider = (props) => {
     // }).catch((error) => {
     //   // An error happened.
     // });
-
-    setCurrentUser(null)
+    localStorage.removeItem('currentUser')
+    setCurrentUser(false)
     setAdmin(false)
+
   };
 
+  // FIREBASE RESET 
   // const resetPassword = (email) => {
   //   return sendPasswordResetEmail(email);
   // };
 
-  const signup = async (email, password) => {
+  // FIREBASE CREATE USER
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up 
-        const user = userCredential.user;
-        // ...
-        setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
+  // const signup = async (email, password) => {
 
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-        console.log({ code: errorCode, msg: errorMessage })
-      });
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       // Signed up 
+  //       const user = userCredential.user;
+  //       // ...
+  //       setCurrentUser({ email: user.email, uid: user.uid, display_name: user.display_name, token: user.token })
 
-
-  };
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // ..
+  //       console.log({ code: errorCode, msg: errorMessage })
+  //     });
+  // };
 
   const updateProfileData = async (email, password, display_name) => {
 
@@ -108,8 +122,8 @@ const AuthContextProvider = (props) => {
 
 
   const checkIfAdmin = (email) => {
-    if (email.trim() === "gcs26@yahoo.com") {
-      // setAdmin(true);
+    if (email.trim() === "admin@email.se") {
+      setAdmin(true);
       return true;
     } else {
       setAdmin(false);
@@ -121,19 +135,22 @@ const AuthContextProvider = (props) => {
   // This effect is responsible for keeping the "session" in the browser for the user
   useEffect(() => {
 
-    let unsubscribe
+    let user;
 
-    unsubscribe = auth.onAuthStateChanged((user) => {
-      // auth state changed (by a user either logging in or out)
-      setCurrentUser(user);
-      if (user) {
-        setAdmin(checkIfAdmin(user.email));
+    const checkIfLoggedIn = () => {
+      if (localStorage.getItem('currentUser')) {
+        let currentU = JSON.parse(localStorage.getItem('currentUser'))
+        return currentU
       }
-      setLoading(false);
-    });
+    }
 
-    return unsubscribe;
-  }, [currentUser]);
+    user = checkIfLoggedIn()
+    if (user) {
+      setCurrentUser(user);
+      checkIfAdmin(user.email)
+    }
+
+  }, []);
 
 
 
@@ -144,7 +161,7 @@ const AuthContextProvider = (props) => {
     login,
     logout,
     setAdmin,
-    signup,
+    // signup,
     updateProfileData,
     checkIfAdmin,
     setCurrentUser

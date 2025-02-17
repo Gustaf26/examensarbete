@@ -30,8 +30,14 @@ const MobileContextProvider = (props) => {
 
     useEffect(() => {
 
-        if (window.innerWidth < 1000) setMobile(true);
-    }, [])
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 1000) setMobile(true);
+        })
+        window.addEventListener('load', () => {
+            if (window.innerWidth < 1000) setMobile(true);
+        })
+    })
 
     return (
         <MobileContext.Provider value={contextValues}>
