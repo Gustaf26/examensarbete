@@ -39,9 +39,9 @@ const ProdList = () => {
                     maxWidth: '900px', border: '1px solid rgb(220,220,220) !important'
                 }}>
                 {!loading && (<TableHead style={!mobile ? { backgroundColor: 'rgb(220,220,220)' } : {}}>
-                    <TableCell style={!mobile ? { color: 'rgb(104, 57, 23)' } : { color: 'rgb(220, 220, 220)' }}><b>Name</b></TableCell>
-                    <TableCell style={!mobile ? { color: 'rgb(104, 57, 23)' } : { color: 'rgb(220, 220, 220)' }}><b>Category</b></TableCell>
-                    <TableCell style={!mobile ? { color: 'rgb(104, 57, 23)' } : { color: 'rgb(220, 220, 220)' }}><b>Price</b></TableCell>
+                    <TableCell style={{ color: 'rgb(104, 57, 23)' }}><b>Name</b></TableCell>
+                    <TableCell style={{ color: 'rgb(104, 57, 23)' }}><b>Category</b></TableCell>
+                    <TableCell style={{ color: 'rgb(104, 57, 23)' }}><b>Price</b></TableCell>
                 </TableHead>)}
                 {allProducts.map((prod, i) => {
                     return (<TableRow key={prod.id} onMouseOver={(e) => setEditable(prod.id)}
