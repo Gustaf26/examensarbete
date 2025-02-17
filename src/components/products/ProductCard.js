@@ -85,11 +85,14 @@ const ProductCard = ({ item, index, setLoading }) => {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',
             marginBottom: '15px'
-        } : !mobile && view === 'single' ? { padding: '0px', width: '800px', display: 'flex', flexDirection: 'row', height: 'fit-content', minHeight: '400px' }
+        } : !mobile && view === 'single' ? {
+            padding: '0px', width: '800px', display: 'flex', marginTop: '0',
+            flexDirection: 'row', height: 'fit-content', minHeight: '400px'
+        } : mobile ? { width: '100%', maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center' }
             : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
 
-        <div style={!mobile && view === 'single' ? { width: '400px', height: '100%' } : {}} >
+        <div style={!mobile && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' } : {}} >
             <div style={!mobile && admin && view === 'single' ? {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'

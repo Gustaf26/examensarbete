@@ -38,7 +38,7 @@ const Product = () => {
   const { productId } = useParams();
 
   const { mobile, setMobile, mobileDisplays, setMobileDisplays } = useMobile()
-  const containerStyles = useMobileStyles()
+  const { containerStyles, microMobile } = useMobileStyles()
 
   useEffect(() => {
     if (!singleProduct) {
@@ -66,15 +66,15 @@ const Product = () => {
         } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
         {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
-        {!mobile && <BreadCrumbContainer />}
+        {!(admin && mobile) && <BreadCrumbContainer />}
 
         <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center', behaviour: 'smooth' }) }}
-          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } : mobile ? { marginTop: '5rem' } :
+          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } : mobile ? { marginTop: '5rem', padding: '20px', display: 'flex', justifyContent: 'center' } :
             { margin: '3rem auto', justifyContent: 'center' }}>
 
           {admin && mobile && <Navigation />}
 
-          {mobile && admin && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{
+          {mobile && admin && !microMobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left',
             zIndex: '5', margin: '0 auto', padding: '8px',
             borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'

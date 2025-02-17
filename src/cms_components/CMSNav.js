@@ -46,7 +46,7 @@ export default function CMSNav() {
                     backgroundColor: 'background.paper',
                 },
                 maxWidth: mobile ? 40 : 240,
-                overflowX: 'hidden'
+                overflowX: 'hidden',
             }
             }
         >
@@ -72,13 +72,6 @@ export default function CMSNav() {
                     borderColor: 'divider',
                 }}
             >
-                {/* <Avatar
-                    sizes="small"
-                    alt="Riley Carter"
-                    src="/static/images/avatar/7.jpg"
-                    sx={{ width: 36, height: 36 }}
-                /> */}
-
 
                 <OptionsMenu />
                 <Box sx={{ mr: 'auto', display: 'flex', flexDirection: 'column' }}>

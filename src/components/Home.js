@@ -15,7 +15,7 @@ import CardContainer from "./products/CardContainer";
 const Home = () => {
 
   const { mobile, mobileDisplays, setMobileDisplays, menuShowing, setMenuShowing } = useMobile()
-  const containerStyles = useMobileStyles()
+  const { containerStyles, microMobile } = useMobileStyles()
 
   const navigate = useNavigate()
   const { admin } = useAuth()
@@ -33,11 +33,11 @@ const Home = () => {
         <Row id="home-row" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ?
           (e) => { if (e.target.id === 'home-card-text') setMenuShowing(false) } : null}
           className="dummy-container-mobile" style={mobile && admin ? { ...containerStyles, marginTop: '60px' }
-            : mobile ? { marginTop: '5rem' } : { margin: '0 auto' }}
+            : mobile ? { marginTop: '5rem', padding: '20px', display: 'flex', justifyContent: 'center' } : { margin: '0 auto' }}
           lg={mobile ? 12 : 6}>
 
           {admin && <Navigation />}
-          {mobile && admin && <Icon className="icon-mobile-displays" onClick={() => { setMobileDisplays(!mobileDisplays) }} style={{
+          {mobile && admin && !microMobile && <Icon className="icon-mobile-displays" onClick={() => { setMobileDisplays(!mobileDisplays) }} style={{
             border: '1px solid lightgrey',
             width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto',
             padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
@@ -45,11 +45,11 @@ const Home = () => {
           {mobileDisplays && <MobileList />}
 
           <CardContainer>
-            <Card onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : null} style={{
+            <Card onLoad={(e) => { e.target.scrollIntoView() }} onClick={() => !admin && menuShowing && mobile ? setMenuShowing(false) : null} style={{
               padding: '10px', width: mobile ? 'calc(100% - 30px)' : '600px',
               height: 'fit-content',
-              margin: !mobile && admin ? '3rem 0 0 0' : '0px 10px 10px 10px'
-            }} className="mb-3 main-card col-sm-12 col-md-6 mx-auto mb-5">
+              margin: !mobile && admin ? '0 240px 0 0' : mobile ? '0 auto' : '0px 10px 10px 10px'
+            }} className="mb-3 main-card col-sm-12 col-md-6 mb-5">
               <h2 className="mb-3 mt-3 col-12 d-flex justify-content-center" style={mobile ? { fontSize: '1.2em' } : {}}>
                 WELCOME TO WORK OUT!
               </h2>
@@ -74,7 +74,7 @@ const Home = () => {
             </Card>
           </CardContainer>
         </Row>
-      </div>
+      </div >
     </>
   );
 };

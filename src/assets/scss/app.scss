@@ -31,7 +31,7 @@ body {
 #navigation {
   background-color: rgba(116, 116, 116, 0.6);
   position: relative;
-  border-bottom: 1px solid brown;
+  border-bottom: 0.5px solid brown;
 
   & #nav-container {
     width: 80%;
@@ -149,11 +149,11 @@ h2 {
 // DROPDOWN product categories
 
 #basic-nav-dropdown {
-  position: absolute !important;
+  // position: absolute !important;
   text-align: center;
-  margin: 20px auto;
-  left: 0;
-  top: calc(100% - 20px);
+  margin: 0px auto;
+  // left: 0;
+  // top: 140px;
   width: 100% !important;
   height: fit-content;
   display: flex;
@@ -161,7 +161,7 @@ h2 {
   justify-content: center;
   // z-index: 3;
   flex-direction: row;
-  background-color: rgb(107, 107, 107);
+  background-color: rgb(42, 42, 42);
 
 
   & a {
@@ -170,12 +170,13 @@ h2 {
     color: rgb(255, 255, 255) !important;
     height: 100%;
     padding: 15px;
+    border-bottom: 3px solid black;
 
     &:hover {
       color: brown !important;
       background-color: rgb(222, 220, 220);
       font-weight: 400;
-      font-size: 1.2em;
+      // font-size: 1.2em;
       // line-height: 3.75;
       transition: all 0.25s ease-in-out;
       border-bottom: 3px solid brown;
@@ -186,7 +187,7 @@ h2 {
       text-shadow: 1px 1px 3px rgb(246, 212, 212);
       background-color: rgb(255, 255, 255);
       font-weight: 400;
-      font-size: 1.2em;
+      // font-size: 1.2em;
       // line-height: 3.75;
       transition: all 0.25s ease-in-out;
       border-bottom: 3px solid brown;
@@ -277,12 +278,18 @@ h2 {
   }
 }
 
+
 #login-form,
 #signup-form,
 #update-profile-form {
-  background-color: rgb(242, 229, 229) !important;
+  background-color: rgba(243, 234, 234, 0.9) !important;
   margin: 3rem auto;
-  color: rgb(220, 220, 220);
+  color: rgb(193, 150, 150);
+
+  & div.card-title {
+    color: rgb(135, 51, 51) !important;
+    border-bottom: 0.5px solid brown;
+  }
 
   & input {
     color: brown;
@@ -441,6 +448,15 @@ th {
   #signup-form,
   #update-profile-form {
     width: 300px;
+
+    & input {
+      max-width: calc(100% - 30px);
+    }
+
+    & input[type=checkbox] {
+      width: 10px;
+      height: 10px;
+    }
   }
 }
 
@@ -495,7 +511,7 @@ th {
 
   #logo {
     font-size: 0.8em;
-    margin-left: 3rem !important;
+    // margin-left: 3rem !important;
   }
 
   #login-form,
@@ -514,6 +530,10 @@ th {
   #nav-container {
     width: 80%;
     height: 100%;
+  }
+
+  #basic-nav-dropdown {
+    top: 190px;
   }
 
   .navitem {
