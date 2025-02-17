@@ -1,129 +1,86 @@
-import React, { useEffect } from "react";
-import { db } from "../../firebase";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Row, Col, Card, Button, Breadcrumb } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+// import { db } from "../../firebase";
+
+import { Link, useLocation } from "react-router-dom";
+import { Row, Breadcrumb } from "react-bootstrap";
+
+import { BounceLoader } from "react-spinners";
+
+
+import Icon from '@mui/material/Icon';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+
+
+import Navigation from '../Navigation'
+import MobileList from '../../cms_components/MobileList'
+import CardContainer from '../products/CardContainer'
+import ProductCard from "../products/ProductCard";
+
 import { useCreate } from "../../contexts/CreateContext";
 import { useAuth } from "../../contexts/AuthContext";
+import { useMobile } from "../../contexts/MobileContext";
+
+import useMobileStyles from '../../hooks/useMobileStyles'
 
 const SearchResults = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const [loading, setLoading] = useState(true)
   const {
-    setSingleProduct,
-    setProductOption,
     searchResults,
-    setSearchResults,
-    productOption,
     setLocation,
   } = useCreate();
 
   const { admin } = useAuth();
   const location = useLocation();
 
-  const handleUpdateProduct = (product) => {
-    setSingleProduct(product);
-    navigate(`/update`);
-  };
+  const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
+  const containerStyles = useMobileStyles()
 
-  const handleDeleteProduct = (product) => {
-    console.log(product);
-
-    try {
-      const deletion = async () => {
-        console.log("ddeleteing " + productOption + product.name);
-
-        await db
-          .collection(`${productOption}`)
-          .doc(`${product.id}`)
-          .delete()
-          .then(setSearchResults([]))
-          .then(navigate(`/products/${productOption}`));
-      };
-
-      deletion();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     setLocation(location.pathname);
+    if (searchResults.length === 0) { setLoading(false) }
   }, []);
 
   return (
     <>
-      <Breadcrumb className="mb-3">
-        <Breadcrumb.Item>
-          <Link to="/">Home</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active>Search results</Breadcrumb.Item>
-      </Breadcrumb>
-      <Row className="my-3">
-        {searchResults &&
-          searchResults.map((item, index) => (
-            <Col sm={6} md={6} lg={3} key={index}>
-              <Card className="mb-3">
-                <a
-                  href={item.thumbnail}
-                  title="View image in lightbox"
-                  data-attribute="SRL"
-                >
-                  <Card.Img
-                    variant="top"
-                    src={item.thumbnail}
-                    title={item.name}
-                  />
-                </a>
-                <Card.Body
-                  className="d-block"
-                  onClick={() => {
-                    setSingleProduct(item);
-                    setProductOption(item.category);
-                  }}
-                >
-                  {" "}
-                  <Link to={`/products/${item.category}/${item.id}`}>
-                    <Card.Text className="text-muted small">
-                      <b>{item.name}</b>
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Price: </b> {item.price} €
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Description: </b>{" "}
-                      <span>
-                        {item.description.slice(0, 100)}... <b>(Read more)</b>
-                      </span>
-                    </Card.Text>
-                  </Link>
-                  {admin && (
-                    <div>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        className="col-5 mt-3 ml-3 p-2"
-                        onClick={() => {
-                          handleDeleteProduct(item);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="col-5 mt-3 ml-2 p-2"
-                        onClick={() => {
-                          handleUpdateProduct(item);
-                        }}
-                      >
-                        Update
-                      </Button>
-                    </div>
-                  )}
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-      </Row>
+      {!mobile && admin && <Navigation />}
+      {loading && (
+        <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
+          <BounceLoader color={"#888"} size={100} />
+        </div>
+      )}
+      <div id="dummy-container-products" style={loading ? { visibility: 'hidden' } : admin ? {
+        position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
+        width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+      } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+        {!mobile && <Breadcrumb className="m-5 pt-5">
+          <ArrowBack style={{ color: ' brown' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
+          <Breadcrumb.Item >
+            <Link to={admin ? "/cms/index" : "/"}> Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Search results
+          </Breadcrumb.Item>
+        </Breadcrumb>}
+        <Row style={mobile && admin ? { ...containerStyles, padding: '10px 10px' }
+          : mobile ? { margin: '5rem auto', justifyContent: 'center' }
+            : { margin: '3rem auto', justifyContent: 'center' }}>
+          {admin && mobile && <Navigation />}
+          {mobile && admin && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+          {mobileDisplays && <MobileList />}
+          <CardContainer>
+
+            {searchResults.length > 0 &&
+              searchResults.map((item, i) => (
+                <ProductCard setLoading={setLoading} index={i} key={item.id} onLoad={(e) => {
+                  if (i === 0) e.target.scrollIntoView({ block: 'start' })
+                }} item={item} />
+              ))}
+
+          </CardContainer>
+        </Row>
+      </div>
     </>
   );
 };

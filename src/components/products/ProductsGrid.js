@@ -1,103 +1,75 @@
 //import firebase from "firebase/app";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Row, Col, Card, Button } from "react-bootstrap";
-import { SRLWrapper } from "simple-react-lightbox";
+// import { Link } from "react-router-dom";
+
+import { Row } from "react-bootstrap";
+import Icon from '@mui/material/Icon';
+
+import { BounceLoader } from "react-spinners";
+
+
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
-import { db } from "../../firebase";
+import { useMobile } from "../../contexts/MobileContext";
+
+import MobileList from '../../cms_components/MobileList'
+import useMobileStyles from '../../hooks/useMobileStyles'
+
+import Navigation from '../Navigation'
+import ProductCard from '../products/ProductCard'
+import CardContainer from '../products/CardContainer'
+import BreadcrumbContainer from "../BreadCrumbContainer";
 
 const ProductsGrid = ({ products, type }) => {
-  const navigate = useNavigate();
+
+  const [loading, setLoading] = React.useState(true)
+  // const navigate = useNavigate();
   const { admin } = useAuth();
-  const { setSingleProduct, setProductOption } = useCreate();
+  const { setProductOption } = useCreate();
+  const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
 
-  const handleUpdateProduct = (product) => {
-    setSingleProduct(product);
-    navigate(`/update`);
-  };
+  const containerStyles = useMobileStyles()
 
-  const handleDeleteProduct = (product) => {
-    try {
-      const deletion = async () => {
-        console.log("ddeleteing " + product.name);
 
-        await db.collection(`${type}`).doc(`${product.id}`).delete();
-      };
 
-      deletion();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  return (<>
+    {loading && (
+      <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
+        <BounceLoader color={"#888"} size={100} />
+      </div>
+    )}
+    <div id="dummy-container-products"
+      style={admin ? {
+        position: 'absolute', top: mobile ? '60px' : '120px', left: mobile ? '40px' : '240px',
+        width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+      } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+      {!mobile && <BreadcrumbContainer />}
+      <Row id="dummy-container-mobile" onLoad={(e) => { e.target.scrollIntoView({ block: 'center' }); setProductOption(type) }}
+        style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } : mobile ? { marginTop: '5rem' } :
+          { margin: '3rem auto', justifyContent: 'center' }}>
 
-  return (
-    <SRLWrapper>
-      <Row className="mt-3 mb-5" onLoad={() => setProductOption(type)}>
-        {products &&
-          products.map((item) => (
-            <Col sm={6} md={4} lg={3} key={item.id}>
-              <Card className="mb-3">
-                <a
-                  href={item.thumbnail}
-                  title="View image in lightbox"
-                  data-attribute="SRL"
-                >
-                  <Card.Img
-                    variant="top"
-                    src={item.thumbnail}
-                    title={item.name}
-                  />
-                </a>
-                <Card.Body
-                  className="d-block"
-                  onClick={() => setSingleProduct(item)}
-                >
-                  {" "}
-                  <Link to={`/products/${type}/${item.id}`}>
-                    <Card.Text className="text-muted small">
-                      <b>{item.name}</b>
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Price: </b> {item.price} €
-                    </Card.Text>
-                    <Card.Text className="text-muted small">
-                      <b>Description: </b>{" "}
-                      <span>
-                        {item.description.slice(0, 100)}... <b>(Read more)</b>
-                      </span>
-                    </Card.Text>
-                  </Link>
-                  {admin && (
-                    <div>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        className="col-5 mt-3 ml-3 p-2"
-                        onClick={() => {
-                          handleDeleteProduct(item);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="col-5 mt-3 ml-2 p-2"
-                        onClick={() => {
-                          handleUpdateProduct(item);
-                        }}
-                      >
-                        Update
-                      </Button>
-                    </div>
-                  )}
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-      </Row>
-    </SRLWrapper>
+        {admin && mobile && <Navigation />}
+
+        {mobile && admin && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{
+          border: '1px solid lightgrey',
+          width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px',
+          borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'
+        }}
+          color='primary'>device_unknown</Icon>}
+
+        {mobileDisplays && <MobileList />}
+
+        <CardContainer onLoad={(e) => e.target.scrollIntoView({ block: 'start' })}>
+
+          {products &&
+            products.map((item, i) => (
+              <ProductCard setLoading={setLoading} index={i} id={`${item.id}`} key={item.id} item={item} />
+            ))}
+
+        </CardContainer>
+      </Row >
+    </div >
+  </>
   );
 };
 

@@ -1,7 +1,11 @@
-import { useRef } from "react";
-import { db } from "../firebase";
+
+
 import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
+import { db } from '../firebase/index'
+import { collection, getDocs } from "firebase/firestore";
+
+import { useAuth } from './AuthContext'
 
 const CreateContext = createContext();
 
@@ -15,106 +19,147 @@ const CreateContextProvider = (props) => {
   const [productOption, setProductOption] = useState(null);
   const [singleProduct, setSingleProduct] = useState("");
   const [productCategories, setGlobalCategories] = useState([]);
-  const allProducts = useRef([]);
+  const [allProducts, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
 
-  const getSingleProduct = () => {
-    const firstDash = location.indexOf("/");
-    const secondDash = location.lastIndexOf("/");
-    const semiPath = location.slice(firstDash, secondDash);
-    const category = semiPath.replace("/products/", "");
+  const { admin } = useAuth()
 
-    let preliminaryProd = allProducts.current.filter(
+  const getSingleProduct = (prodId, products) => {
+
+    let firstDash;
+    let secondDash;
+    let semiPath;
+    let category;
+
+
+    firstDash = location.indexOf("/");
+    secondDash = location.lastIndexOf("/");
+    semiPath = location.slice(firstDash, secondDash);
+    category = admin ? semiPath.replace("/cms/products/", "") : semiPath.replace("/products/", "");
+
+
+    let preliminaryProd = products.filter(
       (prod) => prod.id === Number(prodId) && prod.category === category
     );
+
+    console.log(products)
+
     if (preliminaryProd.length) {
       setProductOption(category);
       setSingleProduct(preliminaryProd[0]);
     }
   };
 
+  let emptyArr = []
+
   useEffect(() => {
-    allProducts.current = [];
 
-    productCategories.map((category) => {
-      let snapshotProducts = [];
+    let categories = ['t-shirts', 'troussers', 'jackets']
 
-      db.collection(`${category.name}`).onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          snapshotProducts.push({
-            id: doc.id,
-            ...doc.data(),
-          });
-        });
-        let emptyArr;
-        emptyArr = [...snapshotProducts];
-        console.log(emptyArr);
+    categories.forEach(cat => {
 
-        if (emptyArr.length > 1) {
-          emptyArr.map((product) => {
-            allProducts.current.map((prod, index) => {
-              //DeLeting stale data from allProducts
-              if (
-                product.category &&
-                prod.category.toLowerCase() === product.category.toLowerCase()
-              ) {
-                allProducts.current.splice(index, 1);
-              }
+      const getData = new Promise((resolve, reject) => {
+        resolve(getDocs(collection(db, cat)))
+      })
 
-              if (prod.name === product.name) {
-                allProducts.current.splice(index, 1);
-              }
-            });
-          });
-        }
 
-        allProducts.current.push(...emptyArr);
-
-        // Getting search string from local Storage on reload in search-results-route when all products available
-        if (
-          allProducts.current.length > 10 &&
-          location === "/search-results" &&
-          searchString === ""
-        ) {
-          setSearchString(JSON.parse(window.localStorage.getItem("search")));
-        }
-
-        // Function to fetch product when routing to /products/{category}/:productId
-        if (prodId) {
-          getSingleProduct();
-        }
-
-        snapshotProducts = [];
-      });
-    });
+      getData
+        .then(res => res.forEach((doc) => {
+          if (!emptyArr.includes(doc.data())) emptyArr.push(doc.data())
+        }))
+        .then(res => setProducts(emptyArr))
+        .catch(err => console.log(err))
+    })
 
     return () => {
-      allProducts.current = [];
-    };
-  }, [productCategories, prodId]);
+      emptyArr = []
+    }
+
+  }, [prodId])
 
   useEffect(() => {
-    if (allProducts.current.length && searchString !== "") {
-      allProducts.current.map((product) => {
+
+    if (prodId) {
+      getSingleProduct(prodId, allProducts);
+      setLoading(false);
+    }
+
+  }, [allProducts])
+
+  useEffect(() => {
+
+    // THIS FUNCTIONALITY ONLY FOR USING DB PRODS BEFORE 
+
+    // let snapshotProducts = []
+    // productCategories.forEach(async (category) => {
+
+    //   const querySnapshot = await getDocs(collection(db, category.name));
+
+    //   querySnapshot.forEach((doc) => {
+    //     snapshotProducts.push(doc.data())
+    //   })
+    //   let emptyArr;
+    //   emptyArr = [...snapshotProducts];
+
+
+    //   // Deleting duplicates from snapshots data
+    //   snapshotProducts.forEach((prod) => {
+    //     if (!emptyArr.includes(prod)) {
+    //       emptyArr.push(prod)
+    //     }
+    //   })
+    //   console.log(emptyArr);
+
+    // Getting search string from local Storage on reload in search-results-route when all products available
+    if (
+      allProducts.length > 10 &&
+      (location === "/search-results" || location === "/cms/search-results") &&
+      searchString === ""
+    ) {
+      setSearchString(JSON.parse(window.localStorage.getItem("search")));
+    }
+
+
+    // setProducts([...emptyArr])
+
+    // // Function to fetch product when reloading /products/{category}/:productId
+    // if (prodId) {
+    //   getSingleProduct([...allProducts]);
+    // }
+    // setLoading(false);
+
+    // })
+    // return () => {
+    //   snapshotProducts = [];
+    // };
+  }, [prodId]);
+
+  // SIDE EFFECT FOR UPDATING SEARCH RESULTS
+
+  useEffect(() => {
+
+    setSearchResults([]);
+
+    if (allProducts.length > 0 && searchString !== "") {
+      let prodsDummy = []
+      allProducts.forEach((product) => {
         if (
-          (product.name &&
-            product.name.toLowerCase().includes(searchString.toLowerCase())) ||
-          (product.description &&
-            product.description
-              .toLowerCase()
-              .includes(searchString.toLowerCase())) ||
-          (product.category &&
-            product.category.toLowerCase().includes(searchString.toLowerCase()))
+          (product.name.includes(searchString.toLowerCase())) ||
+          (product.description.toLowerCase()
+            .includes(searchString.toLowerCase())) ||
+          (product.category.toLowerCase().includes(searchString.toLowerCase()))
         ) {
-          setSearchResults((prevProds) => [...prevProds, product]);
+          prodsDummy.push(product)
         }
       });
+      setSearchResults(prodsDummy);
     }
-  }, [searchString]);
+  }, [searchString, allProducts]);
+
+
 
   const contextValues = {
     setImageUrl,
@@ -133,8 +178,7 @@ const CreateContextProvider = (props) => {
     setProdId,
     setLocation,
     searchString,
-    currentPassword,
-    setCurrentPassword,
+    setProducts
   };
 
   return (

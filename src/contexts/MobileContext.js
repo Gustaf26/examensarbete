@@ -1,0 +1,51 @@
+import { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
+
+const MobileContext = createContext();
+
+const useMobile = () => {
+    return useContext(MobileContext);
+};
+
+const MobileContextProvider = (props) => {
+
+    const [mobileDisplays, setMobileDisplays] = useState(false)
+    const [mobileWidth, setMobileWidth] = useState(400);
+    const [mobileHeight, setMobileHeight] = useState(750);
+    const [mobile, setMobile] = useState(false)
+    const [menuShowing, setMenuShowing] = useState(true)
+    const { admin } = useAuth()
+
+    const contextValues = {
+        setMobile,
+        mobile,
+        mobileDisplays,
+        setMobileDisplays,
+        mobileHeight,
+        mobileWidth,
+        setMobileHeight,
+        setMobileWidth,
+        menuShowing, setMenuShowing
+    };
+
+    useEffect(() => {
+
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 1000) setMobile(true);
+        })
+        window.addEventListener('load', () => {
+            if (window.innerWidth < 1000) setMobile(true);
+        })
+    })
+
+    return (
+        <MobileContext.Provider value={contextValues}>
+            <div style={{ backgroundColor: mobile && admin ? 'rgba(42, 42, 42, 0.9)' : '', minHeight: mobile && !admin ? '120vh' : mobile && admin ? '100vh' : 'fit-content' }}>
+                {props.children}
+            </div>
+        </MobileContext.Provider>
+    );
+};
+
+export { MobileContext, useMobile, MobileContextProvider };

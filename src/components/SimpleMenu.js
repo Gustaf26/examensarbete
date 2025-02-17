@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuIcon from "@material-ui/icons/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
 
 export default function SimpleMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);

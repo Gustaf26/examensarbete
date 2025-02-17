@@ -1,24 +1,26 @@
 import React, { useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth, currentUser } from "../contexts/AuthContext";
 
 const Logout = () => {
-  const { logout } = useAuth();
+  const { logout, currentUser, admin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      localStorage.removeItem("currentPass");
-      await logout();
-      navigate("/login");
-    })();
+
+    setTimeout(() => {
+      (!admin || !currentUser) && navigate("/", { replace: true });
+    }, 1000)
+
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <Row>
+      <Row style={{ marginTop: '6rem' }}>
         <Col md={{ span: 6, offset: 3 }}>
           <Card>
             <Card.Body>

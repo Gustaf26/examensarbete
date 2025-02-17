@@ -1,0 +1,59 @@
+{
+    "devices": [
+        {
+            "device": "Apple IPhone SE",
+            "width": 320,
+            "height": 568
+        },
+        {
+            "device": "Apple IPhone 8",
+            "width": 375,
+            "height": 667
+        },
+        {
+            "device": "Apple IPhone Plus",
+            "width": 414,
+            "height": 736
+        },
+        {
+            "device": "Apple IPhone XS",
+            "width": 375,
+            "height": 812
+        },
+        {
+            "device": "Apple IPhone XR",
+            "width": 414,
+            "height": 896
+        },
+        {
+            "device": "Google Pixel 2",
+            "width": 411,
+            "height": 731
+        },
+        {
+            "device": "Google Pixel 2 XL",
+            "width": 360,
+            "height": 720
+        },
+        {
+            "device": "Google Pixel 3",
+            "width": 411,
+            "height": 822
+        },
+        {
+            "device": "Google Pixel 3 XL",
+            "width": 411,
+            "height": 846
+        },
+        {
+            "device": "Samsung Note 5",
+            "width": 360,
+            "height": 640
+        },
+        {
+            "device": "Samsung Galaxy S9",
+            "width": 360,
+            "height": 740
+        }
+    ]
+}

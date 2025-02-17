@@ -1,13 +1,13 @@
-import firebaseLocalStorage from "../firebase";
+// import firebaseLocalStorage from "../firebase";
 import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { useCreate } from "../contexts/CreateContext";
+import { useMobile } from "../contexts/MobileContext";
 
 const Login = () => {
   const emailRef = useRef();
-  const passwordRef = useRef();
+  // const passwordRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { login, checkIfAdmin, setAdmin } = useAuth();
@@ -15,41 +15,50 @@ const Login = () => {
   const [alert, setAlert] = useState(false);
   const [adminAlert, setAdminAlert] = useState(false);
   const navigate = useNavigate();
-  const { setCurrentPassword } = useCreate();
+  const { mobile } = useMobile()
 
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+
+
+    let email = e.target[0].value
+    let passOne = e.target[1].value
+    let adminCheck = e.target[2].checked
 
     setError(null);
 
-    setCurrentPassword(passwordRef.current.value);
-    localStorage.setItem("currentPass", passwordRef.current.value);
+    // try to log in the user with the specified credentials
 
-    try {
-      // try to log in the user with the specified credentials
-      setLoading(true);
-      if (adminChecked === true) {
-        const adminBoolean = checkIfAdmin(emailRef.current.value);
-        if (adminBoolean === false) {
-          setAlert(true);
-          setLoading(false);
-          return;
-        } else {
-          setAlert(false);
-        }
-      } else if (adminChecked === false) {
-        const adminBoolean = checkIfAdmin(emailRef.current.value);
-        if (adminBoolean === true) {
+
+    setLoading(true);
+    const user = login(email, passOne);
+
+    if (user) {
+      setError(null)
+      setLoading(false)
+
+      // Check if user is admin manually
+
+      let admin = checkIfAdmin(user.email)
+      if (admin) {
+        console.log(adminCheck)
+        if (adminCheck === false) {
           setAdminAlert(true);
           setLoading(false);
           return;
         } else {
           setAdminAlert(false);
+          setAdmin(true);
+          navigate('/cms/index', { replace: true })
         }
       }
-      await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
-    } catch (e) {
+      else {
+        navigate('/products/troussers')
+        return
+      }
+    }
+    else {
       setError(
         "Could not log in. Please check your email address and your password."
       );
@@ -65,43 +74,49 @@ const Login = () => {
 
   return (
     <>
-      <Row>
+      <Row className="mt-5">
         <Col md={{ span: 6, offset: 3 }}>
-          <Card id="login-form">
+          <Card id="login-form" style={{ padding: '30px' }}>
+            <Card.Title style={{ textAlign: 'center' }}>Please Log In</Card.Title>
             <Card.Body>
-              <Card.Title>Log In</Card.Title>
-
               {error && <Alert variant="danger">{error}</Alert>}
-              <Form onSubmit={handleSubmit}>
-                <Form.Group id="email">
+              <Form style={!mobile ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'start' } : { minWidth: '300px' }}
+                onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
+                <Form.Group className="login-form-group mt-2" id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
                     ref={emailRef}
                     onChange={restoreAlerts}
+                    placeholder={'Ex. admin@email.se'}
                     required
                   />
-                </Form.Group>
-
-                <Form.Group id="password">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
+                  <Form.Label className="mt-2">Password</Form.Label>
+                  <Form.Control id="password"
                     type="password"
                     onChange={restoreAlerts}
-                    ref={passwordRef}
+                    placeholder={'adminPass'}
                     required
-                  />
+                  /><div className=" mt-3">
+                    <Link to="/forgot-password">Forgot Password?</Link>
+                  </div>
                 </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
+                <Form.Group className="login-form-group mt-2" controlId="formBasicCheckbox">
+                  <Form.Label>Be sure it´s you</Form.Label>
+                  <Button style={{ backgroundColor: 'rgb(13,110,253)', color: 'white', margin: '0' }} type="submit">
+                    Log In
+                  </Button>
                   <Form.Check
+                    className="mt-4"
                     type="checkbox"
                     label="I am the administrator"
+                    style={{ marginTop: '10px' }}
                     onChange={() => setChecked(!adminChecked)}
                   />
+                  <div className="mt-1">
+                    Need an account? <Link to="/signup">Sign Up</Link>
+                  </div>
                 </Form.Group>
-                <Button disabled={loading} type="submit">
-                  Log In
-                </Button>
               </Form>
               {alert === true ? (
                 <Alert variant="danger" className="mt-3">
@@ -114,16 +129,10 @@ const Login = () => {
                   You are admin. Please check the admin-box
                 </Alert>
               ) : null}
-              <div className="text-center mt-3">
-                <Link to="/forgot-password">Forgot Password?</Link>
-              </div>
-              <div className="text-center mt-2">
-                Need an account? <Link to="/signup">Sign Up</Link>
-              </div>
             </Card.Body>
           </Card>
         </Col>
-      </Row>
+      </Row >
     </>
   );
 };
