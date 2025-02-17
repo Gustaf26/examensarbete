@@ -20,7 +20,7 @@ import { useMobile } from '../contexts/MobileContext'
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Navigation = () => {
-  const { currentUser, admin } = useAuth();
+  const { currentUser, admin, setAdmin, setCurrentUser } = useAuth();
   const [createLink, setCreate] = useState(false);
   const [customMenu, setCustMenu] = useState(false);
   const { setSearchString } = useCreate();
@@ -198,7 +198,8 @@ const Navigation = () => {
                   </NavLink>
                   {/* <NavDropdown.Divider /> */}
                   <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}}
-                    to={admin ? '/cms/logout' : "/logout"} className="mx-auto dropdown-item">
+                    onClick={() => { setAdmin(false); setCurrentUser(null) }}
+                    to={"/logout"} className="mx-auto dropdown-item">
                     Log Out
                   </NavLink>
                 </NavDropdown>

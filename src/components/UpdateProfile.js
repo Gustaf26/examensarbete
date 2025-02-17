@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
@@ -17,12 +17,13 @@ import MobileList from '../cms_components/MobileList'
 import useMobileStyles from '../hooks/useMobileStyles'
 
 const UpdateProfile = () => {
-  const { updateProfileData, admin } = useAuth();
+  // const { updateProfileData, admin } = useAuth();
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { currentUser } = useAuth();
+  const { currentUser, setCurrentUser, admin } = useAuth();
   const { mobile, mobileDisplays, setMobileDisplays, mobileWidth, menuShowing, setMenuShowing } = useMobile()
+  const navigate = useNavigate()
 
   const containerStyles = useMobileStyles()
 
@@ -43,11 +44,19 @@ const UpdateProfile = () => {
       return
     }
 
+    setCurrentUser({ displayName: name, email: mail })
+
+    setMessage('User successfully updated. You are being redirected')
+
+    setTimeout(() => {
+      navigate(admin ? '/cms/index' : '/index', { replace: true })
+    }, 2000)
+
 
     // profit!
-    const msg = await updateProfileData(mail, password1, name)
-    if (msg.error) setError(msg.error)
-    else setMessage(msg.msg)
+    // const msg = await updateProfileData(mail, password1, name)
+    // if (msg.error) setError(msg.error)
+    // else setMessage(msg.msg)
 
     setLoading(false);
 
@@ -83,7 +92,7 @@ const UpdateProfile = () => {
             }}
               id="update-profile-form"
               style={mobile & admin ? { maxWidth: '100%', width: `calc(${mobileWidth}px - 40px)`, margin: '10px 10px' } :
-                mobile ? { width: '400px' } : admin ? { marginTop: '8rem' } : { margin: '0 auto', width: '600px' }}>
+                mobile ? { width: '400px' } : admin ? { margin: '0 auto' } : { margin: '0 auto', width: '600px' }}>
 
               <Card.Body style={mobile & admin ? { width: '100%' } : {}}>
                 <Card.Title>Update Profile</Card.Title>

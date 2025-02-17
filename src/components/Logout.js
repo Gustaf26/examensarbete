@@ -4,14 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useAuth, currentUser } from "../contexts/AuthContext";
 
 const Logout = () => {
-  // const { logout, currentUser } = useAuth();
+  const { logout, currentUser, admin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
 
     setTimeout(() => {
-      navigate("/", { replace: true });
-    }, 2000)
+      (!admin || !currentUser) && navigate("/", { replace: true });
+    }, 1000)
+
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
