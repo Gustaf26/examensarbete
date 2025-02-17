@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 
+
 const MobileContext = createContext();
 
 const useMobile = () => {
@@ -16,6 +17,7 @@ const MobileContextProvider = (props) => {
     const [menuShowing, setMenuShowing] = useState(true)
     const { admin } = useAuth()
 
+
     const contextValues = {
         setMobile,
         mobile,
@@ -25,7 +27,8 @@ const MobileContextProvider = (props) => {
         mobileWidth,
         setMobileHeight,
         setMobileWidth,
-        menuShowing, setMenuShowing
+        menuShowing, setMenuShowing,
+
     };
 
     useEffect(() => {
@@ -37,7 +40,7 @@ const MobileContextProvider = (props) => {
         window.addEventListener('load', () => {
             if (window.innerWidth < 1000) setMobile(true);
         })
-    })
+    }, [window.innerWidth])
 
     return (
         <MobileContext.Provider value={contextValues}>

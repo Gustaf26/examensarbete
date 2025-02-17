@@ -76,8 +76,11 @@ const Login = () => {
     <>
       <Row className="mt-5">
         <Col md={{ span: 6, offset: 3 }}>
-          <Card id="login-form" style={{ padding: '30px' }}>
-            <Card.Title style={{ textAlign: 'center' }}>Please Log In</Card.Title>
+          <Card id="login-form">
+            <Card.Title style={{
+              textAlign: 'center', width: '100%', height: 'fit-content', padding: '20px',
+              backgroundColor: 'rgb(255, 255, 255)'
+            }}>Please Log In</Card.Title>
             <Card.Body>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form style={!mobile ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'start' } : { minWidth: '300px' }}

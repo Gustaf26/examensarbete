@@ -25,7 +25,7 @@ const UpdateProfile = () => {
   const { mobile, mobileDisplays, setMobileDisplays, mobileWidth, menuShowing, setMenuShowing } = useMobile()
   const navigate = useNavigate()
 
-  const containerStyles = useMobileStyles()
+  const { containerStyles, microMobile } = useMobileStyles()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,13 +71,17 @@ const UpdateProfile = () => {
         <Row style={mobile && admin ? { ...containerStyles, margin: '0 auto', left: '12px' }
           : mobile ? { width: '100%', marginTop: '3rem' } : { marginTop: '1rem' }}>
           {admin && mobile && <Navigation />}
+
           {!mobile && <Breadcrumb className="m-5 pt-5">
+
             <HomeIcon sx={{ mr: 1, mb: 0 }} fontSize="medium" />
+
             <Breadcrumb.Item >
               <Link to={admin ? "/cms/index" : "/"}> Home</Link>
             </Breadcrumb.Item>
           </Breadcrumb>}
-          {mobile && admin && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{
+
+          {mobile && admin && !microMobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{
             border: '1px solid lightgrey',
             width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px',
             borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)'

@@ -5,12 +5,17 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useCreate } from "../contexts/CreateContext";
 import { useAuth } from "../contexts/AuthContext";
+import { useMobile } from '../contexts/MobileContext';
+
+
 import ArrowBack from '@mui/icons-material/ArrowBack';
 
 export default function BreadCrumbContainer({ qty }) {
 
     const { productCategories, allProducts } = useCreate();
     const { admin } = useAuth()
+    const { mobile } = useMobile()
+
     const [breadcrumbs, setBreadcrumbs] = useState([])
     const location = useLocation()
     const navigate = useNavigate()
@@ -52,7 +57,7 @@ export default function BreadCrumbContainer({ qty }) {
 
     }, [location])
 
-    return (<Breadcrumb className="m-5 pt-5">
+    return (<Breadcrumb style={!(mobile && admin) ? { margin: '20px' } : {}}>
         <ArrowBack style={{ color: '#0d6efd' }} sx={{ mr: 1, ml: 1, mt: 0.4 }} fontSize="medium" />
         {breadcrumbs && breadcrumbs.map((bread, i) => {
 
