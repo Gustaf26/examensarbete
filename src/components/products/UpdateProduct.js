@@ -20,7 +20,7 @@ import useMobileStyles from '../../hooks/useMobileStyles'
 const UpdateProduct = () => {
 
   const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing, mobileWidth } = useMobile()
-  const containerStyles = useMobileStyles()
+  const { containerStyles, microMobile } = useMobileStyles()
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -161,13 +161,13 @@ const UpdateProduct = () => {
         {!mobile && <BreadCrumbContainer />}
 
         <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center' }) }}
-          style={mobile ? { ...containerStyles, margin: '0 auto', height: '100%' } : {
+          style={mobile ? { ...containerStyles, margin: '0 auto', height: microMobile ? 'calc(100vh + 70px)' : 'fit-content' } : {
             height: '100vh', margin: '3rem auto',
             justifyContent: 'center', alignItems: 'start'
           }}>
 
           {/* {admin && mobile && <Navigation />} */}
-          {mobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+          {mobile && admin && !microMobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
 
           <Col lg={mobile ? 12 : 6}
@@ -186,7 +186,7 @@ const UpdateProduct = () => {
                 <Card.Body id="update-card" onLoad={(e) => { !mobile && document.getElementById('update-card').scrollIntoView({ block: 'center' }) }}
                   className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
                   style={!mobile && admin ? {
-                    display: 'flex', justifyContent: 'start', width: '800px',
+                    display: 'fleex', justifyContent: 'start', width: '800px',
                     height: 'fit-content', flexWrap: 'wrap', alignItems: 'start'
                   } : {}}>
 
@@ -313,7 +313,7 @@ const UpdateProduct = () => {
                       <Button
                         disabled={loading}
                         type="submit"
-                        style={!mobile && admin ? { width: '100px', margin: '0 10px' } : { width: '30%', margin: '10px auto' }}
+                        style={!mobile && admin ? { width: '100px', margin: '0 10px' } : microMobile ? { width: '90px', margin: '10px auto' } : {}}
                       >
                         Update
                       </Button>
@@ -321,7 +321,7 @@ const UpdateProduct = () => {
                         disabled={loading}
                         variant="danger"
                         type="text"
-                        style={!mobile && admin ? { width: '100px', margin: '0 10px' } : { width: '30%', margin: '10px auto' }}
+                        style={!mobile && admin ? { width: '100px', margin: '0 10px' } : microMobile ? { width: '90px', margin: '10px auto' } : {}}
                         onClick={deleteProd}
                       >
                         Delete

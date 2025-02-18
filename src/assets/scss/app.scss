@@ -374,11 +374,21 @@ h2 {
 
 // PRODUCTS TABLE CMS
 
-tr,
-th {
+table {
+  // background-color: rgba(250, 246, 246, 0.9);
+  max-height: fit-content;
+  background-color: rgb(255, 255, 255);
+}
 
-  background-color: rgba(250, 246, 246, 0.9);
-  border: 1px solid rgb(208, 163, 163) !important;
+th {
+  background-color: rgb(255, 255, 255);
+  max-height: fit-content;
+}
+
+
+tr {
+  // border: 1px solid rgb(208, 163, 163) !important;
+  background-color: rgb(255, 255, 255);
 
   &:hover {
     background-color: rgb(238, 236, 236);
