@@ -13,7 +13,7 @@ const MobileContextProvider = (props) => {
     const [mobileDisplays, setMobileDisplays] = useState(false)
     const [mobileWidth, setMobileWidth] = useState(400);
     const [mobileHeight, setMobileHeight] = useState(750);
-    const [mobile, setMobile] = useState(false)
+    const [mobile, setMobile] = useState(window.innerWidth < 1000 ? true : false)
     const [menuShowing, setMenuShowing] = useState(true)
     const { admin } = useAuth()
 

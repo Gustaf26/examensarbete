@@ -43,12 +43,12 @@ const ProductsGrid = ({ products, type }) => {
 				style={
 					admin
 						? {
-								position: "absolute",
-								top: mobile ? "60px" : "226px",
-								left: mobile ? "40px" : "240px",
-								width: mobile ? "calc(100% - 40px)" : "calc(100% - 240px)",
-								paddingRight: !mobile && admin ? "200px" : "",
-						  }
+							position: "absolute",
+							top: mobile ? "60px" : "226px",
+							left: mobile ? "40px" : "240px",
+							width: mobile ? "calc(100% - 40px)" : "calc(100%)",
+							paddingRight: !mobile && admin ? "200px" : "",
+						}
 						: {}
 				}
 				onClick={(e) => {
@@ -66,15 +66,15 @@ const ProductsGrid = ({ products, type }) => {
 						mobile && admin
 							? { ...containerStyles, padding: "10px 10px" }
 							: mobile
-							? {
+								? {
 									marginTop: "5rem",
 									padding: "20px",
 									display: "flex",
 									justifyContent: "center",
-							  }
-							: admin
-							? { margin: "3rem auto", justifyContent: "center" }
-							: { margin: "3rem auto" }
+								}
+								: admin
+									? { margin: "3rem auto", justifyContent: "center" }
+									: { margin: "3rem auto" }
 					}
 				>
 					{admin && mobile && <Navigation />}

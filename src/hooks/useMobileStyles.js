@@ -8,22 +8,24 @@ const useMobileStyles = () => {
     const [microMobile, setMicro] = useState(window.innerWidth < 500 ? true : false)
 
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     window.addEventListener('load', () => {
-    //         if (window.innerWidth < 500) setMicro(true)
-    //     })
+        window.addEventListener('load', () => {
+            if (window.innerWidth < 500) setMicro(true)
+            else { setMicro(false) }
+        })
 
-    //     window.addEventListener('resize', () => {
-    //         if (window.innerWidth < 500) setMicro(true)
-    //     })
-    // }, [])
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 500) setMicro(true)
+            else { setMicro(false) }
+        })
+    }, [])
 
 
     const containerStyles = {
         border: mobile ? '6px solid rgb(255, 255, 255)' : 'none',
         outline: '1px solid rgb(216, 214, 214)',
-        width: microMobile ? 'calc(100vw - 40px)' : mobile ? `${mobileWidth}px` : '1000px',
+        width: microMobile ? 'calc(100vw - 17.5%)' : mobile ? `${mobileWidth}px` : '1000px',
         margin: mobile ? '0 auto' : '10px',
         padding: '10px 0px 0px 0px',
         height: microMobile ? 'calc(100vh + 70px)' : mobile ? `${mobileHeight}px` : 'none',
@@ -33,6 +35,7 @@ const useMobileStyles = () => {
         position: microMobile ? 'absolute' : 'relative',
         backgroundColor: mobile ? 'rgb(255, 255, 255)' : '',
         transition: '0.5s',
+        overflowX: 'hidden'
         // boxShadow: '1px 1px 3px rgb(156, 153, 153)'
 
     }
