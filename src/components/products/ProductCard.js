@@ -1,6 +1,6 @@
 
 //import firebase from "firebase/app";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import { Card, Form } from "react-bootstrap";
@@ -13,15 +13,18 @@ import { useMobile } from "../../contexts/MobileContext";
 const ProductCard = ({ item, index, setLoading }) => {
 
     const [lastImgIndex, setLastImgIndex] = useState('')
+    const [isPending, startTransition] = useTransition();
+    const [imageLoaded, setImageLoaded] = useState('')
+    const [view, setView] = useState('')
 
     const navigate = useNavigate();
     const { admin } = useAuth();
     const { setSingleProduct, productOption, setProductOption } = useCreate();
     const { mobile, mobileDisplays, setMobileDisplays, mobileWidth } = useMobile()
-    const location = useLocation();
-    const [view, setView] = useState('')
-    const { productId } = useParams()
 
+    const location = useLocation();
+
+    const { productId } = useParams()
 
 
     useEffect(() => {
@@ -97,7 +100,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
-                <Card.Img onLoad={() => { setLastImgIndex(index) }}
+                <Card.Img onLoad={() => setLoading(prev => prev + 1)}
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
                         {}} src={item.thumbnail} />
             </div>

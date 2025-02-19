@@ -186,7 +186,7 @@ const UpdateProduct = () => {
                 <Card.Body id="update-card" onLoad={(e) => { !mobile && document.getElementById('update-card').scrollIntoView({ block: 'center' }) }}
                   className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
                   style={!mobile && admin ? {
-                    display: 'fleex', justifyContent: 'start', width: '800px',
+                    display: 'flex', justifyContent: 'start', width: '800px',
                     height: 'fit-content', flexWrap: 'wrap', alignItems: 'start'
                   } : {}}>
 

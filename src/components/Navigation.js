@@ -202,7 +202,7 @@ const Navigation = () => {
             )}
           </div>
           {subMenu && (<NavItem id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }
-            : admin ? { paddingRight: '240px' } : { zIndex: '3' }}>
+            : { zIndex: '3' }}>
             <NavLink
               to={admin ? '/cms/products/troussers' : "/products/troussers"}
               className="dropdown-item"

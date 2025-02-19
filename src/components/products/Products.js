@@ -13,6 +13,7 @@ import { useCreate } from "../../contexts/CreateContext";
 
 const Products = ({ type }) => {
   // const { products, loading } = useProducts(type);
+  const [loading, setLoading] = React.useState(0);
   const { allProducts } = useCreate()
   const { admin } = useAuth();
   const { mobile } = useMobile()
@@ -22,11 +23,9 @@ const Products = ({ type }) => {
   return (
     <>
       {!mobile && admin && <Navigation />}
-      {allProducts.length === 0 ? (
-        <BounceLoader color={"#888"} size={20} />
-      ) : (
-        <ProductsGrid type={type} products={products} />
-      )}
+
+      <ProductsGrid loading={loading} setLoading={setLoading} type={type} products={products} />
+
     </>
   );
 };

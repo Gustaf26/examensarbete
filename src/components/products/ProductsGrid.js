@@ -1,5 +1,5 @@
 //import firebase from "firebase/app";
-import React from "react";
+import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 
 import { Row } from "react-bootstrap";
@@ -19,8 +19,7 @@ import ProductCard from "../products/ProductCard";
 import CardContainer from "../products/CardContainer";
 import BreadcrumbContainer from "../BreadCrumbContainer";
 
-const ProductsGrid = ({ products, type }) => {
-	const [loading, setLoading] = React.useState(true);
+const ProductsGrid = ({ products, type, loading, setLoading }) => {
 	// const navigate = useNavigate();
 	const { admin } = useAuth();
 	const { setProductOption } = useCreate();
@@ -28,16 +27,13 @@ const ProductsGrid = ({ products, type }) => {
 
 	const { containerStyles, microMobile } = useMobileStyles();
 
+
+	useEffect(() => {
+		console.log(loading)
+	}, [loading])
+
 	return (
 		<>
-			{loading && (
-				<div
-					style={{ marginTop: "10%" }}
-					className='d-flex justify-content-center align-items-center'
-				>
-					<BounceLoader color={"#888"} size={100} />
-				</div>
-			)}
 			<div
 				id='dummy-container-products'
 				style={
@@ -104,8 +100,15 @@ const ProductsGrid = ({ products, type }) => {
 					)}
 
 					{mobileDisplays && <MobileList />}
-
-					<CardContainer onLoad={(e) => e.target.scrollIntoView({ block: "start" })}>
+					{loading < products.length && (
+						<div
+							style={{ marginTop: "10%" }}
+							className='d-flex justify-content-center align-items-center'
+						>
+							<BounceLoader color={"#888"} size={100} />
+						</div>
+					)}
+					<CardContainer style={{ visibility: loading !== products.length ? 'none' : 'visible' }} onLoad={(e) => e.target.scrollIntoView({ block: "start" })}>
 						{products &&
 							products.map((item, i) => (
 								<ProductCard

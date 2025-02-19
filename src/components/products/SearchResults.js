@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 // import { db } from "../../firebase";
-import { Suspense, lazy } from "react";
+// import { Suspense, lazy } from "react";
 
-import { Link, useLocation } from "react-router-dom";
-import { Row, Breadcrumb } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { Row, Alert } from "react-bootstrap";
 
 import { BounceLoader } from "react-spinners";
 
@@ -17,6 +17,7 @@ import MobileList from '../../cms_components/MobileList'
 import CardContainer from '../products/CardContainer'
 // import ProductCard from "../products/ProductCard";
 import BreadcrumbContainer from "../BreadCrumbContainer";
+import ProductCard from "../products//ProductCard";
 
 
 import { useCreate } from "../../contexts/CreateContext";
@@ -26,13 +27,14 @@ import { useMobile } from "../../contexts/MobileContext";
 import useMobileStyles from '../../hooks/useMobileStyles'
 
 
-const ProductCard = lazy(() =>
-  import("../products/ProductCard.js"));
 
 
 const SearchResults = () => {
   // const navigate = useNavigate();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(0)
+  const [loaded, setLoaded] = useState(false)
+  const [isPending, startTransition] = useTransition()
+
   const {
     searchResults,
     setLocation,
@@ -45,20 +47,22 @@ const SearchResults = () => {
   const { containerStyles, microMobile } = useMobileStyles()
 
 
+
   useEffect(() => {
     setLocation(location.pathname);
-    if (searchResults.length === 0) { setLoading(false) }
-  }, []);
+
+    startTransition(() => {
+      if (loading === searchResults.length) {
+        setLoaded(true)
+      }
+    })
+  }, [searchResults, loading]);
 
   return (
     <>
       {!mobile && admin && <Navigation />}
-      {loading && (
-        <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
-          <BounceLoader color={"#888"} size={100} />
-        </div>
-      )}
-      <div id="dummy-container-products" style={loading ? { visibility: 'hidden' } : admin ? {
+
+      <div id="dummy-container-products" style={admin ? {
         position: 'absolute', top: mobile ? '60px' : '200px', left: mobile ? '40px' : '240px',
         width: mobile ? 'calc(100% - 40px)' : 'calc(100%)', paddingRight: !mobile && admin ? '200px' : ''
       } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
@@ -70,20 +74,26 @@ const SearchResults = () => {
             : { margin: '1rem auto', justifyContent: 'center' }}>
           {admin && mobile && <Navigation />}
 
-          {mobile && admin && !microMobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
+          {mobile && admin && !microMobile && <Icon className="icon-mobile-displays"
+            onClick={() => setMobileDisplays(!mobileDisplays)}
+            style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
 
           {mobileDisplays && <MobileList />}
 
-
+          {loading < searchResults.length && (
+            <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
+              <BounceLoader color={"#888"} size={100} />
+            </div>
+          )}
           <CardContainer>
-            <Suspense fallback={<BounceLoader />}>
-              {searchResults.length > 0 &&
-                searchResults.map((item, i) => (
-                  <ProductCard setLoading={setLoading} index={i} key={item.id} onLoad={(e) => {
-                    if (i === 0) e.target.scrollIntoView({ block: 'start' })
-                  }} item={item} />
-                ))}
-            </Suspense>
+
+            {searchResults.length > 0 ?
+              searchResults.map((item, i) => (
+                <ProductCard setLoading={setLoading} key={item.id} onLoad={(e) => {
+                  if (i === 0) e.target.scrollIntoView({ block: 'start' })
+                }} item={item} />
+              )) : <Alert>No results on that search</Alert>}
+
           </CardContainer>
 
         </Row>

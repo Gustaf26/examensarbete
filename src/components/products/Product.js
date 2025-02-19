@@ -54,7 +54,7 @@ const Product = () => {
 
   return (
     <>
-      {loading && (
+      {loading === 0 && (
         <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
           <BounceLoader color={"#888"} size={100} />
         </div>
@@ -83,7 +83,7 @@ const Product = () => {
           {mobileDisplays && <MobileList />}
 
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
-          <CardContainer onLoad={(e) => { mobile && e.target.scrollIntoView({ block: 'start', behaviour: 'smooth' }) }}>
+          <CardContainer style={{ visibility: loading !== 1 ? 'hidden' : 'visible' }} onLoad={(e) => { mobile && e.target.scrollIntoView({ block: 'start', behaviour: 'smooth' }) }}>
             {singleProduct && (
               <ProductCard setLoading={setLoading} index={0} item={singleProduct} />
             )}
