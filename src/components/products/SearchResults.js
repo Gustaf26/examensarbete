@@ -92,7 +92,9 @@ const SearchResults = () => {
                 <ProductCard setLoading={setLoading} key={item.id} onLoad={(e) => {
                   if (i === 0) e.target.scrollIntoView({ block: 'start' })
                 }} item={item} />
-              )) : <Alert>No results on that search</Alert>}
+              )) : <Alert variant="warning" style={{ marginTop: '2rem', maxWidth: '550px' }}>
+                No results on that search, try another one
+              </Alert>}
 
           </CardContainer>
 
