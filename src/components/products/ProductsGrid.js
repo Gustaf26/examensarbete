@@ -108,7 +108,8 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 							<BounceLoader color={"#888"} size={100} />
 						</div>
 					)}
-					<CardContainer style={{ visibility: loading !== products.length ? 'none' : 'visible' }} onLoad={(e) => e.target.scrollIntoView({ block: "start" })}>
+					<CardContainer style={{ visibility: loading !== products.length ? 'none' : 'visible' }}
+						onLoad={(e) => e.target.scrollIntoView({ block: "start" })}>
 						{products &&
 							products.map((item, i) => (
 								<ProductCard

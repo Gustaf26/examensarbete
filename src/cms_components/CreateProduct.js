@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { BounceLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import { useCreate } from "../../contexts/CreateContext";
+import { useAuth } from "../contexts/AuthContext";
+import { useCreate } from "../contexts/CreateContext";
 
 const CreateProduct = () => {
   const [error, setError] = useState(false);

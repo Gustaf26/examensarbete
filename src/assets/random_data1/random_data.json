@@ -1,0 +1,80 @@
+{
+    "products": {
+        "jackets": [
+            {
+                "attLink": "https://www.example.com/image1.jpg",
+                "attribution": "Example Image",
+                "category": "jackets",
+                "description": "A lightweight, water-resistant jacket perfect for spring showers.",
+                "id": 2,
+                "name": "RainReady Jacket",
+                "price": "75",
+                "thumbnail": "https://example.com/thumb1.jpg"
+            },
+            {
+                "attLink": "https://www.example.com/image2.jpg",
+                "attribution": "Another Example",
+                "category": "jackets",
+                "description": "Stay warm and stylish with this versatile puffer jacket.",
+                "id": 3,
+                "name": "WinterWarm Puffer",
+                "price": "110",
+                "thumbnail": "https://example.com/thumb2.jpg"
+            },
+            {
+                "attLink": "https://www.example.com/image3.jpg",
+                "attribution": "Image Source",
+                "category": "jackets",
+                "description": "Durable denim jacket, ideal for everyday wear.",
+                "id": 4,
+                "name": "Classic Denim Jacket",
+                "price": "85",
+                "thumbnail": "https://example.com/thumb3.jpg"
+            }
+        ],
+        "t-shirts": [
+            {
+                "attLink": "https://www.example.com/image4.jpg",
+                "attribution": "Image Credit",
+                "category": "tshirts",
+                "description": "Soft cotton t-shirt with a classic fit.",
+                "id": 1,
+                "name": "Everyday Tee",
+                "price": "15",
+                "thumbnail": "https://example.com/thumb4.jpg"
+            },
+            {
+                "attLink": "https://www.example.com/image5.jpg",
+                "attribution": "Photo Source",
+                "category": "tshirts",
+                "description": "Stylish graphic tee with a unique design.",
+                "id": 2,
+                "name": "Graphic Tee",
+                "price": "20",
+                "thumbnail": "https://example.com/thumb5.jpg"
+            }
+        ],
+        "troussers": [
+            {
+                "attLink": "https://www.example.com/image6.jpg",
+                "attribution": "Image Provider",
+                "category": "trousers",
+                "description": "Comfortable and versatile chinos for any occasion.",
+                "id": 1,
+                "name": "Chino Trousers",
+                "price": "45",
+                "thumbnail": "https://example.com/thumb6.jpg"
+            },
+            {
+                "attLink": "https://www.example.com/image7.jpg",
+                "attribution": "Picture Source",
+                "category": "trousers",
+                "description": "Durable and stylish jeans, built to last.",
+                "id": 2,
+                "name": "Workwear Jeans",
+                "price": "60",
+                "thumbnail": "https://example.com/thumb7.jpg"
+            }
+        ]
+    }
+}

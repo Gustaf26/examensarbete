@@ -10,14 +10,14 @@ const CardContainer = (props) => {
 
     const { admin } = useAuth();
     const location = useLocation()
-    const { mobile, mobileHeight, mobileWidth, menuShowing, setMenuShowing } = useMobile()
+    const { mobile, mobileHeight, mobileWidth, menuShowing, setMenuShowing, microMobile } = useMobile()
 
     return (
 
         <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
             className="mb-5 p-0"
             style={mobile && admin ? {
-                overflowY: 'scroll', height: `calc(${mobileHeight - 20}px - 3rem)`, width: `calc(${mobileWidth}px)`,
+                overflowY: 'scroll', height: microMobile ? '100vh' : `calc(${mobileHeight - 20}px - 3rem)`, width: `calc(${mobileWidth}px)`,
                 margin: '3rem auto'
             } : mobile ? { width: '100%', justifyContent: 'center' } : {
                 minWidth: (location.pathname === '/cms/index')

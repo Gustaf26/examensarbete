@@ -38,13 +38,16 @@ const Home = () => {
             ? {
               position: "absolute",
               left: mobile ? "40px" : "240px",
-              width: mobile ? "calc(100% - 40px)" : "calc(100% - 240px)",
+              padding: mobile ? '15px' : '0',
+              width: mobile ? "calc(100% - 70px)" : "calc(100% - 240px)",
+              justifyContent: mobile ? 'center' : '',
             }
             : mobile ? {
               display: 'flex',
               justifyContent: 'center',
-              width: '100%',
-              marginLeft: '0px'
+              width: 'calc(100vw)',
+              marginLeft: '0px',
+              padding: '10px'
             } : {}
         }
         onClick={(e) => {
@@ -66,9 +69,9 @@ const Home = () => {
               ? { ...containerStyles, marginTop: "60px" }
               : mobile
                 ? {
-                  margin: "20px 0",
-                  width: 'calc(100% - 40px)',
-                  padding: "20px",
+                  margin: "20px auto",
+                  width: '100%',
+                  padding: "0px",
                   display: "flex",
                   justifyContent: "center",
                 }
@@ -104,54 +107,54 @@ const Home = () => {
           )}
           {mobileDisplays && <MobileList />}
 
-          <CardContainer>
-            <Card
-              onLoad={(e) => {
-                e.target.scrollIntoView();
-              }}
-              onClick={() =>
-                !admin && menuShowing && mobile ? setMenuShowing(false) : null
-              }
-              style={{
-                padding: "10px",
-                width: mobile ? "calc(100% - 30px)" : "600px",
-                height: "fit-content",
-                margin:
-                  !mobile && admin
-                    ? "0 0 0 0"
-                    : mobile
-                      ? "0 auto"
-                      : "0px 10px 10px 10px",
-              }}
-              className='main-card col-sm-12 col-md-6'
+          {/* <CardContainer> */}
+          <Card
+            onLoad={(e) => {
+              e.target.scrollIntoView({ block: 'end' });
+            }}
+            onClick={() =>
+              !admin && menuShowing && mobile ? setMenuShowing(false) : null
+            }
+            style={{
+              padding: "10px",
+              width: mobile ? "calc(100%)" : "550px",
+              height: "fit-content",
+              margin:
+                !mobile && admin
+                  ? "1rem auto"
+                  : mobile
+                    ? "4rem auto"
+                    : "20px auto",
+            }}
+            className='main-card col-sm-12 col-md-6 col-lg-6'
+          >
+            <h2
+              className='mb-3 mt-3 col-12 d-flex justify-content-center'
+              style={mobile ? { fontSize: "1.2em" } : {}}
             >
-              <h2
-                className='mb-3 mt-3 col-12 d-flex justify-content-center'
-                style={mobile ? { fontSize: "1.2em" } : {}}
-              >
-                WELCOME TO WORK OUT!
-              </h2>
-              <Card.Img
-                lg={mobile ? 12 : 6}
-                className='col-sm-12 col-md-6 mx-auto p-0'
-                style={{ border: "1px solid #ddd" }}
-                variant='top'
-                src='https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg'
-              />
-              <Card.Body>
-                <Card.Text id='home-card-text' className='text-muted medium'>
-                  <b>WORK OUT</b> has you covered for all your work footwear and clothing
-                  needs with well over 200 work brands to choose from. We believe we have
-                  the most comprehensive selection of work clothes, boots, shoes, and
-                  accessories. Choose from the best of the best for clothing, like
-                  Carhartt or Wrangler. With over a thousand styles of Work Boots to
-                  choose from, you willll find exactly what you need from great brands
-                  like Wolverine Boots and Carolina Shoes. Our selection of FR workwear
-                  and high visibility workwear is awesome.
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </CardContainer>
+              WELCOME TO WORK OUT!
+            </h2>
+            <Card.Img
+              lg={mobile ? 12 : 6}
+              className='col-sm-12 col-md-6 mx-auto p-0'
+              style={{ border: "1px solid #ddd" }}
+              variant='top'
+              src='https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg'
+            />
+            <Card.Body>
+              <Card.Text id='home-card-text' className='text-muted medium'>
+                <b>WORK OUT</b> has you covered for all your work footwear and clothing
+                needs with well over 200 work brands to choose from. We believe we have
+                the most comprehensive selection of work clothes, boots, shoes, and
+                accessories. Choose from the best of the best for clothing, like
+                Carhartt or Wrangler. With over a thousand styles of Work Boots to
+                choose from, you willll find exactly what you need from great brands
+                like Wolverine Boots and Carolina Shoes. Our selection of FR workwear
+                and high visibility workwear is awesome.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          {/* </CardContainer> */}
         </Row>
       </div>
     </>
