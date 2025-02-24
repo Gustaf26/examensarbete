@@ -198,9 +198,9 @@ h2 {
 #product-search {
   min-width: 300px;
   padding-left: 20px;
-  border-radius: 5px !important;
+  border-radius: 10px !important;
   background-color: rgb(245, 245, 245);
-  outline: 0.5px solid brown;
+  outline: 0.5px solid rgba(212, 168, 168, 0.6);
   color: rgb(107, 107, 107) !important;
   vertical-align: top;
 
@@ -212,7 +212,7 @@ h2 {
   }
 
   &::placeholder {
-    color: rgb(193, 150, 150);
+    color: rgb(220, 194, 194);
   }
 }
 

@@ -115,34 +115,44 @@ const Home = () => {
             onClick={() =>
               !admin && menuShowing && mobile ? setMenuShowing(false) : null
             }
-            style={{
+            style={!mobile ? {
               padding: "10px",
-              width: mobile ? "calc(100%)" : "550px",
+              // width: "60%",
+              minWidth: '800px',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
               height: "fit-content",
-              margin:
-                !mobile && admin
-                  ? "1rem auto"
-                  : mobile
-                    ? "4rem auto"
-                    : "20px auto",
+              margin: "5rem auto"
+            } : microMobile ? {
+              padding: "10px",
+              width: "calc(100%)",
+              height: "fit-content",
+              margin: "4rem auto"
+            } : {
+              padding: "10px",
+              width: "550px",
+              height: "fit-content",
+              margin: "20px auto"
             }}
             className='main-card col-sm-12 col-md-6 col-lg-6'
           >
             <h2
-              className='mb-3 mt-3 col-12 d-flex justify-content-center'
-              style={mobile ? { fontSize: "1.2em" } : {}}
+              className='mb-3 mt-3'
+              style={mobile ? { fontSize: "1.2em" } : { display: 'none' }}
             >
               WELCOME TO WORK OUT!
             </h2>
             <Card.Img
-              lg={mobile ? 12 : 6}
+              lg={mobile ? 12 : 3}
               className='col-sm-12 col-md-6 mx-auto p-0'
-              style={{ border: "1px solid #ddd" }}
+              style={!mobile ? { width: '350px', height: 'fit-content' } : { border: "1px solid #ddd" }}
               variant='top'
               src='https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg'
             />
             <Card.Body>
-              <Card.Text id='home-card-text' className='text-muted medium'>
+              <Card.Text id='home-card-text' className='text-muted mediums px-2'>
                 <b>WORK OUT</b> has you covered for all your work footwear and clothing
                 needs with well over 200 work brands to choose from. We believe we have
                 the most comprehensive selection of work clothes, boots, shoes, and

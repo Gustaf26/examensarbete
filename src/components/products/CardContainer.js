@@ -16,9 +16,11 @@ const CardContainer = (props) => {
 
         <Row onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
             className="mb-5 p-0"
-            style={mobile && admin ? {
-                overflowY: 'scroll', height: microMobile ? '100vh' : `calc(${mobileHeight - 20}px - 3rem)`, width: `calc(${mobileWidth}px)`,
+            style={mobile && admin && !microMobile ? {
+                height: `calc(${mobileHeight - 20}px - 3rem)`, width: `calc(${mobileWidth}px)`,
                 margin: '3rem auto'
+            } : microMobile ? {
+                height: 'fit-content'
             } : mobile ? { width: '100%', justifyContent: 'center' } : {
                 minWidth: (location.pathname === '/cms/index')
                     || (location.pathname === '/') ? '50%' : '360px', height: 'fit-content', overflowY: 'hidden',

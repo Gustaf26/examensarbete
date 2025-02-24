@@ -35,8 +35,11 @@ const useMobileStyles = () => {
         position: microMobile ? 'absolute' : 'relative',
         backgroundColor: mobile ? 'rgb(255, 255, 255)' : '',
         transition: '0.5s',
-        overflowX: 'hidden'
-        // boxShadow: '1px 1px 3px rgb(156, 153, 153)'
+        overflowX: 'hidden',
+        // overflowY: microMobile ? 'scroll' : mobile ? 'scroll' : 'none',
+        // webkitScrollbarTrack: {
+        //     webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)'
+        // }
 
     }
 
