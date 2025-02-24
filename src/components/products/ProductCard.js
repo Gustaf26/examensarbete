@@ -91,7 +91,7 @@ const ProductCard = ({ item, index, setLoading }) => {
         } : !mobile && view === 'single' ? {
             padding: '0px', width: '800px', display: 'flex', marginTop: '0',
             flexDirection: 'row', height: 'fit-content', minHeight: '400px'
-        } : mobile ? { width: '100%', maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center' }
+        } : mobile ? { width: '100%', maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center', height: 'fit-content' }
             : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
 
