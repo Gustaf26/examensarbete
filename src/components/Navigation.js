@@ -164,7 +164,7 @@ const Navigation = () => {
                 All clothes
               </NavLink>
             </Nav.Item>
-
+            {""}
             {currentUser ? (
               <NavDropdown
                 style={mobile ? { width: '100%', padding: '10px', textAlign: 'center' } : { width: '180px', margin: '0 1rem' }}
