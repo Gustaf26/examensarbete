@@ -105,26 +105,79 @@ const Navigation = () => {
             backgroundColor: 'rgba(243, 234, 234, 0.9)', flexDirection: 'column', width: '100%',
             justifyContent: 'space-evenly', height: 'fit-content', alignItems: 'center'
           } : admin ? {
-            paddingRight: '240px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row',
+            display: 'flex', alignItems: 'center', justifyContent: 'end', flexDirection: 'row',
             backgroundColor: 'rgba(243, 234, 234, 0.9)', height: '80px'
           } : {
             display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row',
             backgroundColor: 'rgba(243, 234, 234, 0.9)', height: '80px'
           }}>
 
-            <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } : {
-              justifyContent: 'center', alignItems: 'center', width: '20%', textAlign: 'center'
-            }} className="d-flex align-items-center my-3 navitem">
+            <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } :
+              mobile ? { width: '100%', padding: '10px', justifyContent: 'center' } : {
+                justifyContent: 'center', alignItems: 'center', width: '50%', textAlign: 'center'
+              }} className="d-flex align-items-center my-3 navitem">
 
               {mobile && <CloseIcon onClick={() => setMenuShowing(false)} style={!admin ?
                 { position: 'absolute', left: '40px', top: '20px', color: 'brown' } :
                 { position: 'absolute', left: '20px', top: '20px', color: 'brown' }} />}
 
-              <NavLink to={"/"} id="logo" className="navbar-brand" style={!mobile && admin ? { marginLeft: '30%' } :
+              <NavLink to={"/"} id="logo" className="navbar-brand" style={!mobile && admin ? { marginLeft: '' } :
                 { margin: '0 auto' }}>
                 <span>Work</span>{" "}<span>Out</span>
               </NavLink>
             </Nav.Item>
+            <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
+              <Nav.Item
+                id="clothes-select"
+                className="navitem"
+                onClick={(e) => {
+                  if (e.target.id === 'all-clothes-select') e.preventDefault(); changeString('a');
+                }}
+                // variant="disabled"
+                style={mobile ? { display: 'none', width: '100%', textAlign: 'center', margin: '0', padding: '20px', height: '100%' } : {
+                  width: '130px', borderRadius: '15px'
+                }}
+              > <NavLink id="all-clothes-select" >
+                  All clothes
+                </NavLink>
+              </Nav.Item>
+              {""}
+              {currentUser ? (
+                <NavDropdown
+                  style={mobile ? { width: '100%', padding: '10px', textAlign: 'center' } : { width: '180px', margin: '0 1rem' }}
+                  title={currentUser.display_name ? currentUser.display_name : currentUser.email}
+                  className="navitem"
+                >
+                  <NavLink
+                    style={mobile ? { width: '100%', textAlign: 'center' } : {}}
+                    to={admin ? '/cms/update-profile' : "/update-profile"}
+                    className="dropdown-item mx-auto"
+                  >
+                    Update Profile
+                  </NavLink>
+                  {/* <NavDropdown.Divider /> */}
+                  <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}}
+                    onClick={() => { setAdmin(false); setCurrentUser(null); localStorage.removeItem('currentUser') }}
+                    to={"/logout"} className="mx-auto dropdown-item">
+                    Log Out
+                  </NavLink>
+                </NavDropdown>
+              ) : (
+                <NavItem className="navitem" style={mobile ? {
+                  width: '100%', margin: '0', padding: '20px',
+                  height: '100%', borderTop: '1px solid rgb(234, 215, 215)'
+                } : { width: '180px' }}>
+                  <NavLink
+                    style={mobile ? { width: '100%', textAlign: 'center' } : { maxWidth: '80px' }}
+                    to={admin ? 'cms/login' : "/login"}
+                    className="signin ml-3"
+                    id="login-link"
+                  >
+                    Sign In / Register
+                  </NavLink>
+                </NavItem>
+              )}
+            </div>
           </Nav>
           < div id="nav-container" style={mobile ? {
             justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column',
@@ -142,7 +195,7 @@ const Navigation = () => {
                 : { width: '400px' }} onSubmit={omitReload}>
                 <FormControl
                   style={mobile && admin ? { minWidth: '200px', margin: '0 auto' } : mobile ? { width: '60%', margin: '0 auto' } :
-                    admin ? { margin: '0 auto', maxWidth: '300px' } : { margin: '0 auto' }}
+                    admin ? { margin: '0 auto 0 80px', maxWidth: '600px' } : { margin: '0 auto' }}
                   onChange={(e) => changeString(e.target.value)}
                   type="text"
                   id="product-search"
@@ -150,56 +203,6 @@ const Navigation = () => {
                 />
               </Form>
             </Nav.Item>
-            <Nav.Item
-              id="clothes-select"
-              className="navitem"
-              onClick={(e) => {
-                if (e.target.id === 'all-clothes-select') e.preventDefault(); changeString('a');
-              }}
-              // variant="disabled"
-              style={mobile ? { display: 'none', width: '100%', textAlign: 'center', margin: '0', padding: '20px', height: '100%' } : {
-                width: '130px', borderRadius: '15px'
-              }}
-            > <NavLink id="all-clothes-select" >
-                All clothes
-              </NavLink>
-            </Nav.Item>
-            {""}
-            {currentUser ? (
-              <NavDropdown
-                style={mobile ? { width: '100%', padding: '10px', textAlign: 'center' } : { width: '180px', margin: '0 1rem' }}
-                title={currentUser.display_name ? currentUser.display_name : currentUser.email}
-                className="navitem"
-              >
-                <NavLink
-                  style={mobile ? { width: '100%', textAlign: 'center' } : {}}
-                  to={admin ? '/cms/update-profile' : "/update-profile"}
-                  className="dropdown-item mx-auto"
-                >
-                  Update Profile
-                </NavLink>
-                {/* <NavDropdown.Divider /> */}
-                <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}}
-                  onClick={() => { setAdmin(false); setCurrentUser(null); localStorage.removeItem('currentUser') }}
-                  to={"/logout"} className="mx-auto dropdown-item">
-                  Log Out
-                </NavLink>
-              </NavDropdown>
-            ) : (
-              <NavItem className="navitem" style={mobile ? {
-                width: '100%', margin: '0', padding: '20px',
-                height: '100%', borderTop: '1px solid rgb(234, 215, 215)'
-              } : { width: '180px' }}>
-                <NavLink
-                  style={mobile ? { width: '100%', textAlign: 'center' } : { maxWidth: '80px' }}
-                  to={admin ? 'cms/login' : "/login"}
-                  className="signin ml-3"
-                  id="login-link"
-                >
-                  Sign In / Register
-                </NavLink>
-              </NavItem>
-            )}
           </div>
           {subMenu && (<NavItem id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }
             : { zIndex: '3' }}>
