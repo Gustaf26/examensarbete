@@ -45,7 +45,7 @@ const Home = () => {
             : mobile ? {
               display: 'flex',
               justifyContent: 'center',
-              width: 'calc(100vw)',
+              width: '100%',
               marginLeft: '0px',
               padding: '10px'
             } : {}

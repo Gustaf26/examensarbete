@@ -16,8 +16,9 @@ import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
 import { useMobile } from '../contexts/MobileContext'
 
-// import ShoppingBasket from "@mui/icons-material/ShoppingBasket";
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchForm from "./SearchForm";
+import CartIcon from '../components/cart/CartIcon'
 
 const Navigation = () => {
   const { currentUser, admin, setAdmin, setCurrentUser } = useAuth();
@@ -92,24 +93,30 @@ const Navigation = () => {
       {!menuShowing ?
         (<div style={{
           color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(100%)',
-          padding: '10px 20px', backgroundColor: 'rgba(243, 234, 234, 0.9)', transition: '2s ease-in-out'
+          padding: '0px', backgroundColor: 'rgba(165, 42, 42, 0.1)', transition: '2s ease-in-out'
         }}>
-          <MenuIcon style={{ color: 'brown' }} className="mobile-nav-icon" onClick={showMenu} />
+          <div style={{ height: '50px' }}>
+            <MenuIcon style={{ margin: '10px 20px', color: 'brown' }} className="mobile-nav-icon" onClick={showMenu} />
+          </div>
+          <div style={{ width: '100%', minWidth: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <SearchForm />
+
+          </div>
         </div>) :
-        (<Row>
+        (<Row className="px-0">
           <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
             display: 'flex', height: 'fit-content', width: `${mobileWidth}px`,
-            backgroundColor: 'rgba(243, 234, 234, 0.9)', borderTopLeftRadius: '20px', borderTopRightRadius: '20px',
+            borderTopLeftRadius: '20px', borderTopRightRadius: '20px',
             alignItems: 'center', justifyContent: 'center', padding: '10px', flexDirection: 'column'
           } : mobile ? {
-            backgroundColor: 'rgba(243, 234, 234, 0.9)', flexDirection: 'column', width: '100%',
+            flexDirection: 'column', width: '100%',
             justifyContent: 'space-evenly', height: 'fit-content', alignItems: 'center'
           } : admin ? {
             display: 'flex', alignItems: 'center', justifyContent: 'end', flexDirection: 'row',
-            backgroundColor: 'rgba(243, 234, 234, 0.9)', height: '80px'
+            height: '80px'
           } : {
             display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row',
-            backgroundColor: 'rgba(243, 234, 234, 0.9)', height: '80px'
+            height: '80px'
           }}>
 
             <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } :
@@ -126,7 +133,7 @@ const Navigation = () => {
                 <span>Work</span>{" "}<span>Out</span>
               </NavLink>
             </Nav.Item>
-            <div style={{ width: '50%', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '50%', display: 'flex', justifyContent: 'center', aignItems: 'center' }}>
               <Nav.Item
                 id="clothes-select"
                 className="navitem"
@@ -177,33 +184,9 @@ const Navigation = () => {
                   </NavLink>
                 </NavItem>
               )}
+              {!admin && !mobile && <CartIcon />}
             </div>
           </Nav>
-          < div id="nav-container" style={mobile ? {
-            justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column',
-            height: '75%', width: '100%'
-          } : admin ? { display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'fit-content', padding: '20px 240px 20px 20px' }
-            : { display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'fit-content', padding: '20px' }}>
-            <Nav.Item className="d-flex align-items-center my-0 navitem"
-              style={mobile ? {
-                width: '100%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
-              } : { width: '500px' }}>
-              <Form style={mobile ? {
-                width: '100%', textAlign: 'center', padding: '15px', display: 'flex', alignItems: 'center',
-                margin: '0', height: '100%'
-              }
-                : { width: '400px' }} onSubmit={omitReload}>
-                <FormControl
-                  style={mobile && admin ? { minWidth: '200px', margin: '0 auto' } : mobile ? { width: '60%', margin: '0 auto' } :
-                    admin ? { margin: '0 auto 0 80px', maxWidth: '600px' } : { margin: '0 auto' }}
-                  onChange={(e) => changeString(e.target.value)}
-                  type="text"
-                  id="product-search"
-                  placeholder="Search product"
-                />
-              </Form>
-            </Nav.Item>
-          </div>
           {subMenu && (<NavItem id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }
             : { zIndex: '3' }}>
             <NavLink
@@ -226,6 +209,7 @@ const Navigation = () => {
             </NavLink>
           </NavItem>
           )}
+          <SearchForm />
         </Row>)
       }
     </div >
