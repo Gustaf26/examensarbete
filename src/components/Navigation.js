@@ -175,7 +175,7 @@ const Navigation = () => {
                   height: '100%', borderTop: '1px solid rgb(234, 215, 215)'
                 } : { width: '180px' }}>
                   <NavLink
-                    style={mobile ? { width: '100%', textAlign: 'center' } : { maxWidth: '80px' }}
+                    style={admin && mobile ? { width: '100%', textAlign: 'center' } : mobile ? { width: 'fit-content' } : { maxWidth: '80px' }}
                     to={admin ? 'cms/login' : "/login"}
                     className="signin ml-3"
                     id="login-link"
