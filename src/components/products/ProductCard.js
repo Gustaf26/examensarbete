@@ -94,8 +94,9 @@ const ProductCard = ({ item, index, setLoading }) => {
             maxHeight: 'fit-content',
             marginBottom: '15px'
         } : !mobile && view === 'single' ? {
+            position: 'relative',
             padding: '0px', width: '800px', display: 'flex', marginTop: '0',
-            flexDirection: 'row', height: 'fit-content', minHeight: '400px'
+            flexDirection: 'row', height: 'fit-content', minHeight: '500px'
         } : mobile ? { width: '100%', maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center', height: 'fit-content' }
             : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
@@ -143,16 +144,20 @@ const ProductCard = ({ item, index, setLoading }) => {
                         {(view !== 'single') ? <>{item.description.slice(0, 100)}<b>(Read more)</b></> : item.description}
                     </span>
                 </Card.Text>
-                {!admin && <CardFooter id="product-card-footer" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
-                    <input value={item.qty} style={{
-                        textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
-                        border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
-                    }} />
-                    <span onClick={(e) => updateCart(item, 'minus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
-                </CardFooter>}
             </div>
+            {!admin && <CardFooter id="product-card-footer" style={{
+                width: (view === 'single') ? 'calc(50% - 40px)' : '100%', margin: '10px auto',
+                position: (view === 'single') ? 'absolute' : 'relative', bottom: (view === 'single') ? '0px' : '-20px', display: 'flex', justifyContent: 'center', alignItems: 'center'
+            }}>
+                <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
+                <input value={item.qty} style={{
+                    textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
+                    border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
+                }} />
+                <span onClick={(e) => updateCart(item, 'minus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
+            </CardFooter>}
         </Card.Body >
+
     </Card >)
 }
 
