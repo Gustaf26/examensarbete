@@ -25,6 +25,7 @@ const CreateContextProvider = (props) => {
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
 
+
   const { admin } = useAuth()
 
   const getSingleProduct = (prodId, products) => {

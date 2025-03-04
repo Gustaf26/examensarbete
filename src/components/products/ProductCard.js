@@ -117,7 +117,9 @@ const ProductCard = ({ item, index, setLoading }) => {
             onClick={(e) => {
                 setSingleProduct(item);
                 if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
-                else navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
+                else if (e.target.parentElement.id !== 'product-card-footer') {
+                    navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
+                }
             }}
             style={!mobile && view === 'single' ? {
                 height: 'fit-content', display: 'flex', flexDirection: 'column', width: '400px',
@@ -141,7 +143,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                         {(view !== 'single') ? <>{item.description.slice(0, 100)}<b>(Read more)</b></> : item.description}
                     </span>
                 </Card.Text>
-                {!admin && <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                {!admin && <CardFooter id="product-card-footer" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
                     <input value={item.qty} style={{
                         textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
