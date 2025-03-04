@@ -118,9 +118,9 @@ const ProductCard = ({ item, index, setLoading }) => {
 
         <Card.Body
             onClick={(e) => {
-                setSingleProduct(item);
-                if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
+                if (e.target.id === 'updateProduct') { setSingleProduct(item); navigate(`/cms/products/update/`, { replace: true }) }
                 else if (e.target.parentElement.id !== 'product-card-footer' && e.target.id !== 'product-card-footer-container') {
+                    setSingleProduct(item);
                     navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
                 }
             }}

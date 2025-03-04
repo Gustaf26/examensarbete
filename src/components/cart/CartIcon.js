@@ -17,7 +17,6 @@ const CartIcon = () => {
 
         let allProdsQty = allProducts.map(prod => prod.qty)
         allProdsQty = allProdsQty.reduce((a, b) => { return a + b }, 0)
-        console.log(allProdsQty)
         setProdsInCart(allProdsQty)
 
     }, [allProducts])
