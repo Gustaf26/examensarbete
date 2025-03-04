@@ -22,7 +22,7 @@ const CartIcon = () => {
 
     }, [allProducts])
 
-    return (<NavItem style={{ position: 'relative', display: 'flex', alignItems: 'center', border: '1px solid brown', borderRadius: '5px', padding: '0px 10px' }}>
+    return (<NavItem style={{ position: 'relative', display: 'flex', alignItems: 'center', border: '1px solid brown', borderRadius: '5px', padding: '7px 10px' }}>
         {prodsIncart ? (<span id="cartProdsQty">{prodsIncart}</span>) : null}
         <ShoppingCart style={{ color: 'brown' }} />
     </NavItem>)

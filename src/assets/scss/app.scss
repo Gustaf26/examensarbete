@@ -18,6 +18,10 @@ body {
 
 // MAIN container 
 
+#main-div {
+  background-color: rgba(181, 134, 113, 0.3);
+}
+
 #container {
   height: fit-content;
   display: flex;
@@ -29,14 +33,15 @@ body {
 // NAVIGATION MENU
 
 #navigation {
-  background-color: rgba(165, 42, 42, 0.1);
+  background-color: white;
   position: relative;
   border-bottom: 0.5px solid brown;
 }
 
 #nav-container {
-  background-color: rgba(243, 234, 234, 0.9);
+  background-color: rgba(249, 233, 223, 0.6);
   margin: 0;
+  width: 100%;
 }
 
 
@@ -104,13 +109,13 @@ h2 {
     cursor: pointer;
   }
 
-  &:nth-child(2) a {
-    color: rgb(70, 13, 13) !important;
-    text-decoration: none;
-  }
+  // &:nth-child(2) a {
+  //   color: rgb(210, 129, 37) !important;
+  //   text-decoration: none;
+  // }
 
   &:nth-child(3) a {
-    color: brown !important;
+    color: rgb(210, 129, 37) !important;
     text-decoration: none;
   }
 
@@ -132,11 +137,11 @@ h2 {
 
 #all-clothes-select {
   text-decoration: none;
-  color: rgb(165, 42, 42);
+  color: brown;
   padding: 10px 20px;
 
   &:hover {
-    background-color: brown;
+    background-color: rgba(163, 142, 130, 0.9);
     color: white;
     border-radius: 5px;
     ;
@@ -145,7 +150,7 @@ h2 {
 
 #login-link {
   text-decoration: none;
-  color: rgb(165, 42, 42);
+  color: brown;
   padding: 10px;
 
   &:hover {
@@ -209,7 +214,7 @@ h2 {
   padding-left: 20px;
   border-radius: 10px !important;
   background-color: rgb(245, 245, 245);
-  outline: 0.5px solid rgba(212, 168, 168, 0.6);
+  outline: 0.5px solid brown;
   color: rgb(107, 107, 107) !important;
   vertical-align: top;
 
@@ -221,7 +226,7 @@ h2 {
   }
 
   &::placeholder {
-    color: rgba(165, 42, 42, 0.45);
+    color: rgba(165, 42, 42, 0.7);
   }
 }
 

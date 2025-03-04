@@ -25,7 +25,7 @@ const ProductCard = ({ item, index, setLoading }) => {
     const navigate = useNavigate();
     const { admin } = useAuth();
     const { setSingleProduct, productOption, setProductOption } = useCreate();
-    const { mobile, mobileDisplays, setMobileDisplays, mobileWidth } = useMobile()
+    const { mobile, mobileDisplays, setMobileDisplays, mobileWidth, mobileHeight } = useMobile()
 
     const location = useLocation();
 
@@ -97,7 +97,9 @@ const ProductCard = ({ item, index, setLoading }) => {
             position: 'relative',
             padding: '0px', width: '800px', display: 'flex', marginTop: '0',
             flexDirection: 'row', height: 'fit-content', minHeight: '500px'
-        } : mobile ? { width: '100%', maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center', height: 'fit-content' }
+        } : mobile ? {
+            width: '100%', height: mobile && view === 'single' ? `${mobileHeight + 80}px` : 'fit-content', maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
+        }
             : { width: '330px', height: 'fit-content', margin: '15px' }}
         className="p-2">
 
@@ -118,7 +120,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             onClick={(e) => {
                 setSingleProduct(item);
                 if (e.target.id === 'updateProduct') navigate(`/cms/products/update/`, { replace: true })
-                else if (e.target.parentElement.id !== 'product-card-footer') {
+                else if (e.target.parentElement.id !== 'product-card-footer' && e.target.id !== 'product-card-footer-container') {
                     navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
                 }
             }}
@@ -145,16 +147,19 @@ const ProductCard = ({ item, index, setLoading }) => {
                     </span>
                 </Card.Text>
             </div>
-            {!admin && <CardFooter id="product-card-footer" style={{
+            {!admin && <CardFooter id="product-card-footer-container" style={{
                 width: (view === 'single') ? 'calc(50% - 40px)' : '100%', margin: '10px auto',
-                position: (view === 'single') ? 'absolute' : 'relative', bottom: (view === 'single') ? '0px' : '-20px', display: 'flex', justifyContent: 'center', alignItems: 'center'
-            }}>
-                <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
-                <input value={item.qty} style={{
-                    textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
-                    border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
-                }} />
-                <span onClick={(e) => updateCart(item, 'minus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
+                position: (view === 'single') ? 'absolute' : 'relative',
+                bottom: (view === 'single') ? '0px' : '-20px', display: 'block',
+                alignText: 'center'
+            }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto' }}>
+                    <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
+                    <input value={item.qty} style={{
+                        textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
+                        border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
+                    }} />
+                    <span onClick={(e) => updateCart(item, 'minus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
+                </div>
             </CardFooter>}
         </Card.Body >
 

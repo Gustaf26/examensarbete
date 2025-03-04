@@ -17,7 +17,7 @@ import { useCreate } from "../contexts/CreateContext";
 const SearchForm = () => {
 
     const { admin } = useAuth();
-    const { mobile } = useMobile()
+    const { mobile, mobileWidth } = useMobile()
     const { setSearchString } = useCreate();
     const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const SearchForm = () => {
                 width: '70%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
             } : { width: '500px' }}>
             <Form style={mobile ? {
-                width: '100%', textAlign: 'center', padding: '15px', display: 'flex', alignItems: 'center',
+                width: `${mobileWidth}px`, textAlign: 'center', padding: '15px', display: 'flex', alignItems: 'center',
                 margin: '0', height: '100%'
             }
                 : { width: '400px' }} onSubmit={omitReload}>
@@ -57,7 +57,7 @@ const SearchForm = () => {
                 />
             </Form>
         </NavItem>
-        {mobile && <NavItem>
+        {mobile && !admin && <NavItem>
             <CartIcon />
         </NavItem>}
     </div>)

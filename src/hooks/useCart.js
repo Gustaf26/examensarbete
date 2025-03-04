@@ -14,11 +14,15 @@ function useCart() {
         if (singleProd.length) productToUpdate = singleProd[0]
         else return
 
-        if (productToUpdate && action === 'plus') productToUpdate.qty = Number(productToUpdate.qty + 1)
-        else if (productToUpdate.qty && action === 'minus' && productToUpdate.qty !== 0) Number(productToUpdate.qty -= 1)
+        // if (productToUpdate && action === 'plus') productToUpdate.qty = Number(productToUpdate.qty + 1)
+        // else if (productToUpdate.qty && action === 'minus' && productToUpdate.qty !== 0) Number(productToUpdate.qty -= 1)
 
-        let allProdsDummy = allProducts.map(prod => {
-            if (prod.id === item.id) prod.qty = productToUpdate.qty
+        let allProdsDummy = [...allProducts]
+        allProdsDummy = allProdsDummy.map(prod => {
+            if (prod.id === productToUpdate.id) {
+                if (action === 'plus') prod.qty += 1;
+                else if (action === 'minus' && prod.qty !== 0) prod.qty -= 1
+            }
             return prod
         })
 

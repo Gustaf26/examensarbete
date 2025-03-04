@@ -88,7 +88,7 @@ const Navigation = () => {
     <div style={mobile && admin ? {
       position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0', width: `${mobileWidth}px`
       , borderTopLeftRadius: '20px', borderTopRightRadius: '15px', zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
-    } : admin ? { width: '100%' } : { width: '100%', height: 'fit-content', backgroundColor: 'rgba(231, 229, 229, 0.7)' }}>
+    } : admin ? { width: '100%' } : { width: '100%', height: 'fit-content', backgroundColor: 'white' }}>
 
       {!menuShowing ?
         (<div style={{
@@ -209,7 +209,9 @@ const Navigation = () => {
             </NavLink>
           </NavItem>
           )}
-          <SearchForm />
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
+            <SearchForm />
+          </div>
         </Row>)
       }
     </div >
