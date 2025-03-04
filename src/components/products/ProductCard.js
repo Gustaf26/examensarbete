@@ -95,22 +95,23 @@ const ProductCard = ({ item, index, setLoading }) => {
             marginBottom: '15px'
         } : !mobile && view === 'single' ? {
             position: 'relative',
-            padding: '0px', width: '800px', display: 'flex', marginTop: '0',
-            flexDirection: 'row', height: 'fit-content', minHeight: '500px'
+            width: '800px', display: 'flex', marginTop: '0',
+            flexDirection: 'row', height: '550px', alignItems: 'center', padding: '15px'
         } : mobile ? {
-            width: '100%', height: mobile && view === 'single' ? `${mobileHeight + 80}px` : 'fit-content', maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
+            width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content',
+            maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
         }
-            : { width: '330px', height: 'fit-content', margin: '15px' }}
-        className="p-2">
+            : { width: '330px', height: '590px', margin: '15px', padding: '10px' }}>
 
-        <div style={!mobile && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' } : {}} >
+        <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' }
+            : view === 'single' ? { width: '50%', height: 'fit-content' } : {}} >
             <div style={!mobile && admin && view === 'single' ? {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
                 <Card.Img onLoad={() => setLoading(prev => prev + 1)}
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
-                        {}} src={item.thumbnail} />
+                        { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
             </div>
             {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
@@ -132,7 +133,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             {" "}
             <div>
                 <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
-                    <b>{item.name}</b>
+                    <b>{!mobile ? item.name.slice(0, item.name.slice(0, 30).lastIndexOf(' ')) : item.name}</b>
                 </Card.Text>
                 <Card.Text className="text-muted small">
                     <b>Price: </b> {item.price} €
@@ -143,7 +144,8 @@ const ProductCard = ({ item, index, setLoading }) => {
                 <Card.Text className="text-muted small">
                     <b>Description: </b>{" "}
                     <span>
-                        {(view !== 'single') ? <>{item.description.slice(0, 100)}<b>(Read more)</b></> : item.description}
+                        {(view !== 'single') ? <>{item.description.slice(0, item.description.slice(0, 80).lastIndexOf(' '))}<b> (Read more)</b></>
+                            : item.description}
                     </span>
                 </Card.Text>
             </div>
@@ -154,7 +156,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                 alignText: 'center'
             }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto' }}>
                     <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
-                    <input value={item.qty} style={{
+                    <input type="button" value={item.qty} style={{
                         textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
                         border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
                     }} />

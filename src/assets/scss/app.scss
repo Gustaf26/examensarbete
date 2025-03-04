@@ -357,6 +357,10 @@ h2 {
   & span:hover {
     cursor: pointer;
   }
+
+  & input:hover {
+    cursor: not-allowed;
+  }
 }
 
 .main-card {
