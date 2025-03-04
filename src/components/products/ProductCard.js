@@ -4,12 +4,14 @@ import React, { useEffect, useState, useTransition } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import { Card, CardFooter, Form } from "react-bootstrap";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+// import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+// import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from "../../contexts/MobileContext";
+
+import useCart from '../../hooks/useCart'
 
 
 const ProductCard = ({ item, index, setLoading }) => {
@@ -18,6 +20,7 @@ const ProductCard = ({ item, index, setLoading }) => {
     const [isPending, startTransition] = useTransition();
     const [imageLoaded, setImageLoaded] = useState('')
     const [view, setView] = useState('')
+    const updateCart = useCart()
 
     const navigate = useNavigate();
     const { admin } = useAuth();
@@ -139,12 +142,12 @@ const ProductCard = ({ item, index, setLoading }) => {
                     </span>
                 </Card.Text>
                 {!admin && <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
+                    <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
                     <input value={item.qty} style={{
                         textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
                         border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
                     }} />
-                    <span style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
+                    <span onClick={(e) => updateCart(item, 'minus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
                 </CardFooter>}
             </div>
         </Card.Body >

@@ -348,6 +348,10 @@ h2 {
   ol {
     color: rgb(115, 49, 19) !important;
   }
+
+  & span:hover {
+    cursor: pointer;
+  }
 }
 
 .main-card {
