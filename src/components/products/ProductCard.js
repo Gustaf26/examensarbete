@@ -3,7 +3,9 @@
 import React, { useEffect, useState, useTransition } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
-import { Card, Form } from "react-bootstrap";
+import { Card, CardFooter, Form } from "react-bootstrap";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
@@ -136,34 +138,15 @@ const ProductCard = ({ item, index, setLoading }) => {
                         {(view !== 'single') ? <>{item.description.slice(0, 100)}<b>(Read more)</b></> : item.description}
                     </span>
                 </Card.Text>
+                {!admin && <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <span style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
+                    <input value={item.qty} style={{
+                        textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
+                        border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
+                    }} />
+                    <span style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
+                </CardFooter>}
             </div>
-            {/* {admin && (
-                <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                    <Button
-                        id="deleteProduct"
-                        variant="danger"
-                        size="sm"
-                        className="col-5 mt-3 mr-1 p-2"
-                        onClick={() => {
-                            handleDeleteProduct(item);
-                        }}
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        id="updateProduct"
-                        variant="secondary"
-                        size="sm"
-                        className="col-5 mt-3 ml-3 p-2"
-                        onClick={() => {
-                            handleUpdateProduct(item);
-                        }}
-                    >
-                        Update
-                    </Button>
-                </div>
-            )
-            } */}
         </Card.Body >
     </Card >)
 }

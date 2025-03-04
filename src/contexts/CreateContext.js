@@ -68,7 +68,7 @@ const CreateContextProvider = (props) => {
 
       getData
         .then(res => res.forEach((doc) => {
-          if (!emptyArr.includes(doc.data())) emptyArr.push(doc.data())
+          if (!emptyArr.includes(doc.data())) emptyArr.push({ ...doc.data(), qty: 0 })
         }))
         .then(res => setProducts(emptyArr))
         .catch(err => console.log(err))
