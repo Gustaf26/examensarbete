@@ -96,7 +96,7 @@ const UpdateProfile = () => {
             }}
               id="update-profile-form"
               style={mobile & admin ? { maxWidth: '100%', width: `calc(${mobileWidth}px - 40px)`, margin: '10px 10px' } :
-                mobile ? { width: '400px' } : admin ? { margin: '0 auto' } : { margin: '0 auto', width: '600px' }}>
+                mobile ? { width: '400px' } : admin ? { margin: '0 auto', padding: '0' } : { margin: '0 auto', width: '600px' }}>
 
               <Card.Body style={mobile & admin ? { width: '100%' } : {}}>
                 <Card.Title>Update Profile</Card.Title>

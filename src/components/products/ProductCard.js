@@ -1,6 +1,6 @@
 
 //import firebase from "firebase/app";
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import { Card, CardFooter, Form } from "react-bootstrap";
@@ -17,8 +17,8 @@ import useCart from '../../hooks/useCart'
 const ProductCard = ({ item, index, setLoading }) => {
 
     const [lastImgIndex, setLastImgIndex] = useState('')
-    const [isPending, startTransition] = useTransition();
-    const [imageLoaded, setImageLoaded] = useState('')
+    // const [isPending, startTransition] = useTransition();
+    // const [imageLoaded, setImageLoaded] = useState('')
     const [view, setView] = useState('')
     const updateCart = useCart()
 
@@ -101,7 +101,8 @@ const ProductCard = ({ item, index, setLoading }) => {
             width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content',
             maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
         }
-            : { width: '330px', height: '590px', margin: '15px', padding: '10px' }}>
+            : admin ? { width: '330px', height: '520px', margin: '15px', padding: '10px' } :
+                { width: '330px', height: '590px', margin: '15px', padding: '10px' }}>
 
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' }
             : view === 'single' ? { width: '50%', height: 'fit-content' } : {}} >
