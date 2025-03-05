@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useCreate } from "../../contexts/CreateContext";
+import { useMobile } from "../../contexts/MobileContext";
 
 import { NavItem } from "react-bootstrap";
 
@@ -13,6 +14,8 @@ const CartIcon = () => {
     const { allProducts } = useCreate()
     const [prodsIncart, setProdsInCart] = useState(0)
 
+    const { mobile } = useMobile()
+
     useEffect(() => {
 
         let allProdsQty = allProducts.map(prod => prod.qty)
@@ -21,9 +24,12 @@ const CartIcon = () => {
 
     }, [allProducts])
 
-    return (<NavItem style={{ position: 'relative', display: 'flex', alignItems: 'center', border: '1px solid brown', borderRadius: '5px', padding: '7px 10px' }}>
-        {prodsIncart ? (<span id="cartProdsQty">{prodsIncart}</span>) : null}
-        <ShoppingCart style={{ color: 'brown' }} />
+    return (<NavItem style={{
+        position: 'relative', display: 'flex', alignItems: 'center',
+        border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)', borderRadius: '5px', padding: '7px 10px'
+    }}>
+        {prodsIncart ? (<span style={{ border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)' }} id="cartProdsQty">{prodsIncart}</span>) : null}
+        <ShoppingCart style={{ color: mobile ? 'brown' : 'rgb(210, 129, 37)' }} />
     </NavItem>)
 
 }

@@ -19,7 +19,7 @@ body {
 // MAIN container 
 
 #main-div {
-  background-color: rgba(181, 134, 113, 0.3);
+  background-color: rgb(233, 227, 216);
 }
 
 #container {
@@ -33,13 +33,13 @@ body {
 // NAVIGATION MENU
 
 #navigation {
-  background-color: white;
+  background-color: rgb(165, 42, 42);
   position: relative;
   border-bottom: 0.5px solid brown;
 }
 
 #nav-container {
-  background-color: rgba(249, 233, 223, 0.6);
+  background-color: rgb(224, 191, 153);
   margin: 0;
   width: 100%;
 }
@@ -64,17 +64,17 @@ h2 {
 #logo {
   font-family: "Pacifico", cursive;
   font-size: large;
-  background-color: brown;
+  background-color: rgb(210, 129, 37);
   outline: 2px solid rgb(210, 129, 37);
   padding: 10px 1rem;
   border-radius: 5px;
 
   & span:first-child {
-    color: rgb(210, 129, 37);
+    color: white;
   }
 
   & span {
-    color: rgb(233, 232, 232);
+    color: brown;
   }
 }
 
@@ -137,7 +137,7 @@ h2 {
 
 #all-clothes-select {
   text-decoration: none;
-  color: brown;
+  color: rgb(210, 129, 37);
   padding: 10px 20px;
 
   &:hover {
@@ -150,7 +150,7 @@ h2 {
 
 #login-link {
   text-decoration: none;
-  color: brown;
+  color: rgb(253, 135, 1);
   padding: 10px;
 
   &:hover {
@@ -173,25 +173,26 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: brown;
   // z-index: 3;
   flex-direction: row;
-  background-color: rgb(42, 42, 42);
+  background-color: rgb(224, 191, 153);
+  border: 0.5px solid rgb(210, 129, 37);
 
 
   & a {
     max-width: 180px;
     text-align: center;
-    color: rgb(255, 255, 255) !important;
+    // color: rgb(255, 255, 255) !important;
+    color: rgb(161, 79, 25);
+    font-weight: 600;
     height: 100%;
     padding: 15px;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid rgba(234, 212, 187, 0);
 
     &:hover {
       color: brown !important;
-      background-color: rgb(222, 220, 220);
-      font-weight: 400;
-      // font-size: 1.2em;
-      // line-height: 3.75;
+      background-color: rgb(237, 208, 176);
       transition: all 0.25s ease-in-out;
       border-bottom: 3px solid brown;
     }
@@ -199,10 +200,7 @@ h2 {
     &.active {
       color: brown !important;
       text-shadow: 1px 1px 3px rgb(246, 212, 212);
-      background-color: rgb(255, 255, 255);
-      font-weight: 400;
-      // font-size: 1.2em;
-      // line-height: 3.75;
+      background-color: rgb(244, 222, 198);
       transition: all 0.25s ease-in-out;
       border-bottom: 3px solid brown;
     }
@@ -241,7 +239,7 @@ h2 {
   }
 
   & svg {
-    color: rgb(203, 106, 106) !important;
+    color: brown !important;
   }
 
   & li {
@@ -250,7 +248,7 @@ h2 {
     & a {
       text-decoration: none;
       text-transform: capitalize;
-      color: rgb(203, 106, 106);
+      color: brown;
 
       &:hover {
         border-bottom: 1px solid rgb(203, 106, 106);
@@ -306,6 +304,7 @@ h2 {
     background-color: brown !important;
     padding: 20px;
     text-align: center;
+    font-family: "Pacifico", cursive;
   }
 
   & input {
@@ -366,6 +365,16 @@ h2 {
   & input:hover {
     cursor: not-allowed;
   }
+
+  &:hover {
+    // rgb(210, 129, 37)
+    // border: 1px solid rgb(210, 129, 37);
+    // box-shadow: 1px 1px 2px rgb(210, 129, 37);
+    cursor: pointer;
+    transform: scale(1.05);
+    z-index: 5;
+    transition: all 0.5s ease-in-out;
+  }
 }
 
 .main-card {
@@ -411,6 +420,7 @@ h2 {
   text-align: center;
   background-color: brown;
   color: white;
+  // border: 1px solid rgb(210, 129, 37);
 }
 
 

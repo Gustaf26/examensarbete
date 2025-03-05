@@ -88,15 +88,15 @@ const Navigation = () => {
     <div style={mobile && admin ? {
       position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0', width: `${mobileWidth}px`
       , borderTopLeftRadius: '20px', borderTopRightRadius: '15px', zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
-    } : admin ? { width: '100%' } : { width: '100%', height: 'fit-content', backgroundColor: 'white' }}>
+    } : admin ? { width: '100%' } : { zIndex: '10', position: 'sticky', top: '0', width: '100%', height: 'fit-content' }}>
 
       {!menuShowing ?
         (<div style={{
           color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(100%)',
-          padding: '0px', backgroundColor: 'rgba(165, 42, 42, 0.1)', transition: '2s ease-in-out'
+          padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
         }}>
           <div style={{ height: '50px' }}>
-            <MenuIcon style={{ margin: '10px 20px', color: 'brown' }} className="mobile-nav-icon" onClick={showMenu} />
+            <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={showMenu} />
           </div>
           <div style={{ width: '100%', minWidth: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SearchForm />
@@ -125,8 +125,8 @@ const Navigation = () => {
               }} className="d-flex align-items-center my-3 navitem">
 
               {mobile && <CloseIcon onClick={() => setMenuShowing(false)} style={!admin ?
-                { position: 'absolute', left: '40px', top: '20px', color: 'brown' } :
-                { position: 'absolute', left: '20px', top: '20px', color: 'brown' }} />}
+                { position: 'absolute', left: '40px', top: '20px', color: 'rgb(210, 129, 37)' } :
+                { position: 'absolute', left: '20px', top: '20px', color: 'rgb(210, 129, 37)' }} />}
 
               <NavLink to={"/"} id="logo" className="navbar-brand" style={!mobile && admin ? { marginLeft: '' } :
                 { margin: '0 auto' }}>
