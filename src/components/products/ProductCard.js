@@ -101,7 +101,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
         }
             : admin ? { width: '330px', height: '520px', margin: '15px', padding: '10px' } :
-                { width: '330px', height: '590px', margin: '15px', padding: '10px' }}>
+                { width: '330px', height: '630px', margin: '15px', padding: '10px' }}>
 
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' }
             : view === 'single' ? { width: '50%', height: 'fit-content' } : {}} >
@@ -109,11 +109,15 @@ const ProductCard = ({ item, index, setLoading }) => {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
-                <Card.Img onLoad={() => setLoading(prev => prev + 1)}
+                <Card.Img onClick={() => {
+                    setSingleProduct(item);
+                    navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
+                }}
+                    onLoad={() => setLoading(prev => prev + 1)}
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
                         { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
             </div>
-            {view === 'single' && (<div id="single-product-sizes">
+            <div id="single-product-sizes">
                 <ul>
                     <li className={activeSize === 0 ? 'active' : ''} onClick={() => { setActiveSize(0) }}>
                         S
@@ -129,8 +133,8 @@ const ProductCard = ({ item, index, setLoading }) => {
                     </li>
 
                 </ul>
-            </div>)}
-            {!mobile && admin && view === 'single' && (<Form.Range variant="warning" style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
+            </div>
+            {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
         </div>
 
@@ -145,7 +149,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             style={!mobile && view === 'single' ? {
                 height: 'fit-content', display: 'flex', flexDirection: 'column', width: '400px',
                 marginLeft: '10px', justifyContent: 'space-between', alignItems: 'start', fontSize: '1.3em'
-            } : { display: 'block' }}
+            } : { display: 'block' }} className="py-0"
         >
             {" "}
             <div>

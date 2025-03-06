@@ -260,7 +260,7 @@ h2 {
     }
 
     &:last-child a {
-      font-weight: 400;
+      font-weight: 600;
       color: rgb(108, 55, 55);
       padding-bottom: 1px;
       border-bottom: 1px solid rgb(108, 55, 55);
@@ -387,21 +387,22 @@ h2 {
   }
 
   & #single-product-sizes {
-    padding: 20px;
+    padding: 5px 20px;
 
     & ul {
       display: flex;
       list-style-type: none;
       width: 80%;
-      padding-left: 0;
+      padding: 0;
       justify-content: center;
       margin: 0 auto;
+      height: fit-content;
 
       & li {
         color: rgb(115, 49, 19);
         border: 0.5px solid rgb(199, 173, 161);
-        width: 40px;
-        height: 40px;
+        width: 15%;
+        height: 15%;
         text-align: center;
         line-height: 2.1;
         font-weight: 600;
