@@ -109,7 +109,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 						</div>
 					)}
 					<CardContainer style={{ visibility: loading !== products.length ? 'none' : 'visible' }}
-						onLoad={(e) => e.target.scrollIntoView({ block: "start" })}>
+						onLoad={(e) => e.target.scrollIntoView({ block: "end" })}>
 						{products &&
 							products.map((item, i) => (
 								<ProductCard

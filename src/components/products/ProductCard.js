@@ -17,8 +17,7 @@ import useCart from '../../hooks/useCart'
 const ProductCard = ({ item, index, setLoading }) => {
 
     const [lastImgIndex, setLastImgIndex] = useState('')
-    // const [isPending, startTransition] = useTransition();
-    // const [imageLoaded, setImageLoaded] = useState('')
+    const [activeSize, setActiveSize] = useState()
     const [view, setView] = useState('')
     const updateCart = useCart()
 
@@ -92,11 +91,11 @@ const ProductCard = ({ item, index, setLoading }) => {
         style={mobile && admin ? {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',
-            marginBottom: '15px'
+            marginBottom: '15px', paddingTop: '15px'
         } : !mobile && view === 'single' ? {
             position: 'relative',
             width: '800px', display: 'flex', marginTop: '0',
-            flexDirection: 'row', height: '550px', alignItems: 'center', padding: '15px'
+            flexDirection: 'row', height: '550px', alignItems: 'start', padding: '15px'
         } : mobile ? {
             width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content', paddingTop: '15px',
             maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
@@ -114,7 +113,24 @@ const ProductCard = ({ item, index, setLoading }) => {
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
                         { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
             </div>
-            {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
+            {view === 'single' && (<div id="single-product-sizes">
+                <ul>
+                    <li className={activeSize === 0 ? 'active' : ''} onClick={() => { setActiveSize(0) }}>
+                        S
+                    </li>
+                    <li className={activeSize === 1 ? 'active' : ''} onClick={() => { setActiveSize(1) }}>
+                        M
+                    </li>
+                    <li className={activeSize === 2 ? 'active' : ''} onClick={() => { setActiveSize(2) }}>
+                        L
+                    </li>
+                    <li className={activeSize === 3 ? 'active' : ''} onClick={() => { setActiveSize(3) }}>
+                        XL
+                    </li>
+
+                </ul>
+            </div>)}
+            {!mobile && admin && view === 'single' && (<Form.Range variant="warning" style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
         </div>
 
