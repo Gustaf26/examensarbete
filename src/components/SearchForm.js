@@ -37,18 +37,19 @@ const SearchForm = () => {
         justifyContent: 'center', alignItems: 'center', flexDirection: 'row',
         height: 'fit-content', width: `${mobileWidth}px`
     } : admin ? { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '20px 240px 20px 20px' }
-        : { display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center', height: '100%', padding: '20px' }}>
+        : mobile ? { width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px' } :
+            { display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center', height: '100%', padding: '20px' }}>
         <NavItem className="d-flex align-items-center my-0 navitem"
-            style={mobile ? {
-                width: '70%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
-            } : { width: '500px' }}>
-            <Form style={mobile ? {
+            style={mobile && admin ? {
+                width: '100%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
+            } : mobile ? { width: '60%' } : { width: '500px' }}>
+            <Form style={mobile & admin ? {
                 width: `${mobileWidth}px`, textAlign: 'center', padding: '15px', display: 'flex', alignItems: 'center',
                 margin: '0', height: '100%'
             }
-                : { width: '400px' }} onSubmit={omitReload}>
+                : mobile ? { width: '80%' } : { width: '400px' }} onSubmit={omitReload}>
                 <FormControl
-                    style={mobile && admin ? { minWidth: '200px', margin: '0 auto' } : mobile ? { width: '60%', margin: '0 auto' } :
+                    style={mobile && admin ? { width: '80%', margin: '0 auto' } : mobile ? { width: '80%', margin: '0 auto' } :
                         admin ? { margin: '0 auto 0 80px', maxWidth: '600px' } : { margin: '0 auto' }}
                     onChange={(e) => changeString(e.target.value)}
                     type="text"

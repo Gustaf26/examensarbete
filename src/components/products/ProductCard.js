@@ -101,7 +101,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
         }
             : admin ? { width: '330px', height: '570px', margin: '15px', padding: '10px' } :
-                { width: '330px', height: '630px', margin: '15px', padding: '10px' }}>
+                { width: '330px', height: '600px', margin: '15px', padding: '10px' }}>
 
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' }
             : view === 'single' ? { width: '50%', height: 'fit-content' } : {}} >
@@ -173,7 +173,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             {!admin && <CardFooter id="product-card-footer-container" style={{
                 width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: '10px auto',
                 position: (view === 'single') ? 'absolute' : 'relative',
-                bottom: (view === 'single') ? '0px' : '-20px', display: 'block',
+                bottom: '0', display: 'block',
                 left: (view === 'single') && mobile ? '0' : '',
                 alignText: 'center'
             }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'block' }}>
