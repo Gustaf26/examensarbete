@@ -66,7 +66,7 @@ h2 {
 #logo {
   font-family: "Pacifico", cursive;
   font-size: large;
-  background-color: rgb(210, 129, 37);
+  background: linear-gradient(to right, rgb(210, 129, 37) 0 25%, white);
   outline: 2px solid rgb(210, 129, 37);
   padding: 10px 1rem;
   border-radius: 5px;
@@ -402,9 +402,8 @@ h2 {
         color: rgb(115, 49, 19);
         border: 0.5px solid rgb(199, 173, 161);
         width: 15%;
-        height: 15%;
         text-align: center;
-        line-height: 2.1;
+        height: 10%;
         font-weight: 600;
         margin: 7px;
 

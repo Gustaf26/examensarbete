@@ -209,7 +209,7 @@ const Navigation = () => {
             </NavLink>
           </NavItem>
           )}
-          <div style={{ padding: '0', width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
+          <div style={{ padding: '0', width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center', height: '60px' }}>
             <SearchForm />
           </div>
         </Row>)

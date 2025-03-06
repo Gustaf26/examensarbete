@@ -91,7 +91,7 @@ const ProductCard = ({ item, index, setLoading }) => {
         style={mobile && admin ? {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
             maxHeight: 'fit-content',
-            marginBottom: '15px', paddingTop: '15px'
+            marginBottom: '15px', padding: '15px'
         } : !mobile && view === 'single' ? {
             position: 'relative',
             width: '800px', display: 'flex', marginTop: '0',
@@ -100,7 +100,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content', paddingTop: '15px',
             maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
         }
-            : admin ? { width: '330px', height: '520px', margin: '15px', padding: '10px' } :
+            : admin ? { width: '330px', height: '570px', margin: '15px', padding: '10px' } :
                 { width: '330px', height: '630px', margin: '15px', padding: '10px' }}>
 
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' }
@@ -117,6 +117,8 @@ const ProductCard = ({ item, index, setLoading }) => {
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
                         { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
             </div>
+            {!mobile && admin && view === 'single' && (<Form.Range style={{ display: 'block', margin: '0 auto', width: '200px', left: '12%' }}
+                onChange={handleImgResize}></Form.Range>)}
             <div id="single-product-sizes">
                 <ul>
                     <li className={activeSize === 0 ? 'active' : ''} onClick={() => { setActiveSize(0) }}>
@@ -134,8 +136,6 @@ const ProductCard = ({ item, index, setLoading }) => {
 
                 </ul>
             </div>
-            {!mobile && admin && view === 'single' && (<Form.Range style={{ position: 'absolute', top: '85%', width: '200px', left: '12%' }}
-                onChange={handleImgResize}></Form.Range>)}
         </div>
 
         <Card.Body

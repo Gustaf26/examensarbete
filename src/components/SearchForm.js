@@ -36,8 +36,8 @@ const SearchForm = () => {
         display: 'flex',
         justifyContent: 'center', alignItems: 'center', flexDirection: 'row',
         height: 'fit-content', width: `${mobileWidth}px`
-    } : admin ? { display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'fit-content', padding: '20px 240px 20px 20px' }
-        : { display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'fit-content', padding: '20px' }}>
+    } : admin ? { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '20px 240px 20px 20px' }
+        : { display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center', height: '100%', padding: '20px' }}>
         <NavItem className="d-flex align-items-center my-0 navitem"
             style={mobile ? {
                 width: '70%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
