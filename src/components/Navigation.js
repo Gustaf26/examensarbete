@@ -98,7 +98,7 @@ const Navigation = () => {
           <div style={{ height: '50px' }}>
             <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={showMenu} />
           </div>
-          <div style={{ width: '100%', minWidth: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ width: admin ? `${mobileWidth}px` : '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SearchForm />
 
           </div>
@@ -209,7 +209,7 @@ const Navigation = () => {
             </NavLink>
           </NavItem>
           )}
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
+          <div style={{ padding: '0', width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
             <SearchForm />
           </div>
         </Row>)

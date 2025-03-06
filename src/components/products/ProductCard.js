@@ -98,7 +98,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             width: '800px', display: 'flex', marginTop: '0',
             flexDirection: 'row', height: '550px', alignItems: 'center', padding: '15px'
         } : mobile ? {
-            width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content',
+            width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content', paddingTop: '15px',
             maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
         }
             : admin ? { width: '330px', height: '520px', margin: '15px', padding: '10px' } :
@@ -134,7 +134,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             {" "}
             <div>
                 <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
-                    <b>{!mobile ? item.name.slice(0, item.name.slice(0, 30).lastIndexOf(' ')) : item.name}</b>
+                    <b>{(view !== 'single') ? item.name.slice(0, item.name.slice(0, 30).lastIndexOf(' ')) : item.name}</b>
                 </Card.Text>
                 <Card.Text className="text-muted small">
                     <b>Price: </b> {item.price} €
@@ -151,17 +151,25 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </Card.Text>
             </div>
             {!admin && <CardFooter id="product-card-footer-container" style={{
-                width: (view === 'single') ? 'calc(50% - 40px)' : '100%', margin: '10px auto',
+                width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: '10px auto',
                 position: (view === 'single') ? 'absolute' : 'relative',
                 bottom: (view === 'single') ? '0px' : '-20px', display: 'block',
+                left: (view === 'single') && mobile ? '0' : '',
                 alignText: 'center'
-            }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto' }}>
-                    <span onClick={(e) => updateCart(item, 'plus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>+</span>
+            }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'block' }}>
+                    <span onClick={(e) => updateCart(item, 'plus')} style={{
+                        fontSize: '1.2em', color: 'brown', width: '40px',
+                        textAlign: 'center'
+                    }}>+</span>
                     <input type="button" value={item.qty} style={{
                         textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
-                        border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
+                        border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)',
+                        backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
                     }} />
-                    <span onClick={(e) => updateCart(item, 'minus')} style={{ fontSize: '1.2em', color: 'brown', width: '40px', textAlign: 'center' }}>-</span>
+                    <span onClick={(e) => updateCart(item, 'minus')} style={{
+                        fontSize: '1.2em',
+                        color: 'brown', width: '40px', textAlign: 'center'
+                    }}>-</span>
                 </div>
             </CardFooter>}
         </Card.Body >

@@ -32,10 +32,10 @@ const SearchForm = () => {
         navigate(admin ? "/cms/search-results" : "/search-results", { replace: true });
     };
 
-    return (< div id="nav-container" style={mobile ? {
+    return (< div id="nav-container" style={mobile && admin ? {
         display: 'flex',
         justifyContent: 'center', alignItems: 'center', flexDirection: 'row',
-        height: '75%', width: '100%'
+        height: 'fit-content', width: `${mobileWidth}px`
     } : admin ? { display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'fit-content', padding: '20px 240px 20px 20px' }
         : { display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'fit-content', padding: '20px' }}>
         <NavItem className="d-flex align-items-center my-0 navitem"

@@ -20,6 +20,7 @@ body {
 
 #main-div {
   background-color: rgb(233, 227, 216);
+  height: 'fit-content'
 }
 
 #container {
@@ -28,6 +29,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-size: auto;
+  background-color: rgb(233, 227, 216);
 }
 
 // NAVIGATION MENU
@@ -39,7 +41,7 @@ body {
 }
 
 #nav-container {
-  background-color: rgb(224, 191, 153);
+  background-color: rgba(224, 191, 153, 0.8);
   margin: 0;
   width: 100%;
 }
@@ -295,8 +297,9 @@ h2 {
 #signup-form,
 #update-profile-form {
   // background-color: rgba(243, 234, 234, 0.9) !important;
-  margin: 3rem auto;
+  margin: 8rem auto;
   color: rgb(193, 150, 150);
+  background-color: rgb(224, 191, 153);
 
   & div.card-title {
     color: white !important;
@@ -310,14 +313,16 @@ h2 {
   & input {
     color: brown;
     border: 1px solid rgb(167, 120, 120);
+    background-color: rgb(224, 191, 153);
 
     &::placeholder {
       color: rgb(193, 150, 150);
     }
 
-    // &:focus {
-    //   background-color: rgb(255, 255, 255) !important;
-    // }
+    &:focus {
+      background-color: rgb(224, 191, 153);
+      outline: 1px solid rgb(210, 129, 37)
+    }
   }
 
   & input:not([type=checkbox]):focus {
@@ -345,11 +350,19 @@ h2 {
   }
 }
 
-// PRODUCT CARDS
+//PRODUCTS
+
+#dummy-container-products {
+  background-color: rgb(233, 227, 216);
+}
+
+#home-card {
+  background-color: white;
+}
 
 .card {
-  border: 1px solid rgb(246, 212, 212);
-  box-shadow: 1px 1px 2px rgb(246, 212, 212);
+  // border: 1px solid rgb(210, 129, 37);
+  box-shadow: 1px 1px 2px rgb(167, 136, 101);
 
   & p,
   div,
@@ -362,18 +375,15 @@ h2 {
     cursor: pointer;
   }
 
-  & input:hover {
-    cursor: not-allowed;
-  }
-
   &:hover {
     // rgb(210, 129, 37)
     // border: 1px solid rgb(210, 129, 37);
     // box-shadow: 1px 1px 2px rgb(210, 129, 37);
     cursor: pointer;
-    transform: scale(1.05);
-    z-index: 5;
+    transform: scale(1.02);
+    z-index: 2;
     transition: all 0.5s ease-in-out;
+    margin: 20px 0;
   }
 }
 

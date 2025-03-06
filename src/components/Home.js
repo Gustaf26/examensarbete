@@ -108,7 +108,7 @@ const Home = () => {
           {mobileDisplays && <MobileList />}
 
           {/* <CardContainer> */}
-          <Card
+          <Card id="home-card"
             onLoad={(e) => {
               e.target.scrollIntoView({ block: 'end' });
             }}
