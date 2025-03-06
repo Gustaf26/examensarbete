@@ -16,7 +16,7 @@ export default function BreadCrumbContainer({ qty }) {
 
 	const [breadcrumbs, setBreadcrumbs] = useState([]);
 	const location = useLocation();
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const dummyProdCategories = productCategories.map((cat) => cat.name);
 
@@ -61,7 +61,7 @@ export default function BreadCrumbContainer({ qty }) {
 
 	return (
 		<Breadcrumb
-			style={!(mobile && admin) ? { margin: "40px" } : { margin: "50px" }}
+			style={!(mobile && admin) ? { margin: "40px 40px 0px 0px" } : { margin: "40px" }}
 		>
 			<ArrowBack
 				style={{ color: "#0d6efd" }}

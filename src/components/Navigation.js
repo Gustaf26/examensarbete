@@ -90,12 +90,12 @@ const Navigation = () => {
   return (
     <div style={mobile && admin ? {
       position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0', width: `${mobileWidth}px`
-      , borderTopLeftRadius: '20px', borderTopRightRadius: '15px', zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
+      , borderTopLeftRadius: !microMobile ? '20px' : '', borderTopRightRadius: !microMobile ? '15px' : '', zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
     } : admin ? { width: '100%' } : { zIndex: '10', position: 'sticky', top: '0', width: '100%', height: 'fit-content' }}>
 
       {!menuShowing ?
         (<div style={{
-          color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: `100%`,
+          color: 'grey', borderTopLeftRadius: !microMobile ? '15px' : '0px', borderTopRightRadius: !microMobile ? '15px' : '0px', width: `100%`,
           padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
         }}>
           <div style={{ height: '50px' }}>

@@ -63,7 +63,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 							? { ...containerStyles, padding: "10px 10px" }
 							: mobile
 								? {
-									marginTop: "5rem",
+									marginTop: "2rem",
 									padding: "20px",
 									display: "flex",
 									justifyContent: "center",

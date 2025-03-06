@@ -18,15 +18,18 @@ const CardContainer = (props) => {
             className="mb-5 p-0"
             style={mobile && admin && !microMobile ? {
                 height: `calc(${mobileHeight - 20}px - 3rem)`, width: `calc(${mobileWidth}px)`,
-                margin: '3rem auto'
+                margin: '7.5rem auto'
             } : microMobile ? {
                 height: 'fit-content'
-            } : mobile ? { width: '100%', justifyContent: 'center' } : {
-                minWidth: (location.pathname === '/cms/index')
-                    || (location.pathname === '/') ? '50%' : '360px', height: 'fit-content', overflowY: 'hidden',
-                display: 'flex', justifyContent: 'center', margin: (location.pathname === '/cms/index')
-                    || (location.pathname === '/') ? '5rem auto' : '0 auto'
-            }}>
+            } : mobile ? { width: '100%', justifyContent: 'center' }
+                : {
+                    minWidth: (location.pathname === '/cms/index')
+                        || (location.pathname === '/') ? '50%' : '360px',
+                    height: 'fit-content', overflowY: 'hidden',
+                    display: 'flex', justifyContent: 'center',
+                    margin: (location.pathname === '/cms/index')
+                        || (location.pathname === '/') ? '5rem auto' : '0 auto'
+                }}>
             {props.children}
         </Row>
 
