@@ -12,12 +12,14 @@ import CartIcon from "./cart/CartIcon";
 import { useAuth } from "../contexts/AuthContext";
 import { useMobile } from "../contexts/MobileContext";
 import { useCreate } from "../contexts/CreateContext";
+import useMobileStyles from '../hooks/useMobileStyles'
 
 
 const SearchForm = () => {
 
     const { admin } = useAuth();
     const { mobile, mobileWidth } = useMobile()
+    const { microMobile } = useMobileStyles()
     const { setSearchString } = useCreate();
     const navigate = useNavigate();
 
@@ -35,19 +37,18 @@ const SearchForm = () => {
     return (< div id="nav-container" style={mobile && admin ? {
         display: 'flex',
         justifyContent: 'center', alignItems: 'center', flexDirection: 'row',
-        height: 'fit-content', width: `${mobileWidth}px`
+        height: 'fit-content', width: `100%`, paddingLeft: microMobile ? '0' : ''
     } : admin ? { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '20px 240px 20px 20px' }
         : mobile ? { width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px' } :
             { display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center', height: '100%', padding: '20px' }}>
         <NavItem className="d-flex align-items-center my-0 navitem"
             style={mobile && admin ? {
-                width: '100%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
+                width: '60%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
             } : mobile ? { width: '60%' } : { width: '500px' }}>
             <Form style={mobile & admin ? {
-                width: `${mobileWidth}px`, textAlign: 'center', padding: '15px', display: 'flex', alignItems: 'center',
+                width: microMobile ? '100%' : '100%', textAlign: 'center', padding: '15px', display: 'flex', alignItems: 'center',
                 margin: '0', height: '100%'
-            }
-                : mobile ? { width: '80%' } : { width: '400px' }} onSubmit={omitReload}>
+            } : mobile ? { width: '80%' } : { width: '400px' }} onSubmit={omitReload}>
                 <FormControl
                     style={mobile && admin ? { width: '80%', margin: '0 auto' } : mobile ? { width: '80%', margin: '0 auto' } :
                         admin ? { margin: '0 auto 0 80px', maxWidth: '600px' } : { margin: '0 auto' }}

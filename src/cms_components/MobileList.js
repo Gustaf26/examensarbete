@@ -32,7 +32,7 @@ const MobileList = () => {
     }, [mobileDisplays])
 
 
-    return (<Row style={{ zIndex: '4', position: 'absolute', top: '0', left: '10px' }}>
+    return (<Row style={{ zIndex: '10', position: 'absolute', top: '0', left: '10px' }}>
         <List sx={{ borderTopLeftRadius: 19, borderTopRightRadius: 19, overflow: 'hidden' }} style={{
             zIndex: '4', position: 'absolute', backgroundColor: 'rgba(233, 232, 232, 0.9)', paddingTop: '0',
             paddingLeft: '0', width: `${mobileWidth}px`, right: '0', top: `0`,

@@ -16,6 +16,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { useCreate } from "../contexts/CreateContext";
 import { useMobile } from '../contexts/MobileContext'
 
+import useMobileStyles from "../hooks/useMobileStyles";
+
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchForm from "./SearchForm";
 import CartIcon from '../components/cart/CartIcon'
@@ -28,6 +30,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth } = useMobile()
   const [subMenu, setSubMenu] = useState(true)
+  const { microMobile } = useMobileStyles()
 
 
   const showMenu = () => {
@@ -92,13 +95,16 @@ const Navigation = () => {
 
       {!menuShowing ?
         (<div style={{
-          color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: 'calc(100%)',
+          color: 'grey', borderTopLeftRadius: '15px', borderTopRightRadius: '15px', width: `100%`,
           padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
         }}>
           <div style={{ height: '50px' }}>
             <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={showMenu} />
           </div>
-          <div style={{ width: admin ? `${mobileWidth}px` : '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center', alignItems: 'center'
+          }}>
             <SearchForm />
 
           </div>
