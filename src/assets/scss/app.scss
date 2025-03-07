@@ -406,7 +406,10 @@ h2 {
         text-align: center;
         height: 10%;
         font-weight: 600;
+        font-size: 70%;
+        padding: 2% 4%;
         margin: 7px;
+        min-width: 30px;
 
         &:hover {
           color: white;

@@ -69,7 +69,7 @@ const Product = () => {
         {!(admin && mobile) && <BreadCrumbContainer />}
 
         <Row className="dummy-container-mobile" onLoad={(e) => { mobile && admin && e.target.scrollIntoView({ block: 'center', behaviour: 'smooth' }) }}
-          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } : mobile ? { marginTop: '5rem', padding: '20px', display: 'flex', justifyContent: 'center' } :
+          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' } : mobile ? { marginTop: '0', padding: '20px', display: 'flex', justifyContent: 'center' } :
             { margin: '3rem auto', justifyContent: 'center' }}>
 
           {admin && mobile && <Navigation />}
