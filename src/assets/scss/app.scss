@@ -387,6 +387,7 @@ h2 {
   }
 
   & #single-product-sizes {
+    margin-top: 3.5%;
     padding: 5px 20px;
 
     & ul {
@@ -418,7 +419,37 @@ h2 {
         }
       }
     }
+  }
 
+  & #related-prods {
+    p {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    img {
+      border: 1px solid rgb(188, 157, 157);
+      padding: 4px;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin: 8px;
+
+      &:hover {
+        transform: scale(1.2);
+        transition: 0.5s all ease-in-out;
+      }
+    }
   }
 }
 

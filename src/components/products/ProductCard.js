@@ -23,7 +23,7 @@ const ProductCard = ({ item, index, setLoading }) => {
 
     const navigate = useNavigate();
     const { admin } = useAuth();
-    const { setSingleProduct, productOption, setProductOption } = useCreate();
+    const { setSingleProduct, productOption, setProductOption, allProducts } = useCreate();
     const { mobile, mobileDisplays, setMobileDisplays, mobileWidth, mobileHeight } = useMobile()
 
     const location = useLocation();
@@ -93,6 +93,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             maxHeight: 'fit-content',
             marginBottom: '15px', padding: '15px'
         } : !mobile && view === 'single' ? {
+            transform: 'scale(1)',
             position: 'relative',
             width: '800px', display: 'flex', marginTop: '0',
             flexDirection: 'row', height: '550px', alignItems: 'start', padding: '15px'
@@ -136,6 +137,23 @@ const ProductCard = ({ item, index, setLoading }) => {
 
                 </ul>
             </div>
+            {view === 'single' && !mobile ? (<div id="related-prods">
+                <p>Related Products</p>
+                <ul>
+                    {allProducts.map(prod => {
+                        if (prod.category === item.category) {
+                            return (<li>
+                                <img onClick={(e) => {
+                                    e.stopPropagation()
+                                    setSingleProduct(prod);
+                                    navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
+                                }} alt={prod.description} src={prod.thumbnail} />
+                                <p>{prod.title}</p>
+                            </li>)
+                        }
+                        else return null
+                    })}</ul>
+            </div>) : null}
         </div>
 
         <Card.Body
@@ -169,6 +187,22 @@ const ProductCard = ({ item, index, setLoading }) => {
                             : item.description}
                     </span>
                 </Card.Text>
+                {view === 'single' && mobile ? (<div id="related-prods">
+                    <ul>
+                        {allProducts.map(prod => {
+                            if (prod.category === item.category) {
+                                return (<li>
+                                    <img onClick={(e) => {
+                                        e.stopPropagation()
+                                        setSingleProduct(prod);
+                                        navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
+                                    }} alt={prod.description} src={prod.thumbnail} />
+                                    <p>{prod.title}</p>
+                                </li>)
+                            }
+                            else return null
+                        })}</ul>
+                </div>) : null}
             </div>
             {!admin && <CardFooter id="product-card-footer-container" style={{
                 width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: '10px auto',
