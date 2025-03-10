@@ -10,6 +10,7 @@ import UpdateProduct from "./components/products/UpdateProduct";
 import CMSNav from "./cms_components/CMSNav";
 import ForgotPassword from "./components/ForgotPassword";
 import Home from "./components/Home";
+import CreateProduct from './cms_components/CreateProduct'
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Navigation from "./components/Navigation";
@@ -52,10 +53,10 @@ const App = () => {
 						style={
 							admin
 								? {
-										marginLeft: "240px",
-										maxWidth: "calc(100vw - 240px)",
-										flexWrap: "wrap",
-								  }
+									marginLeft: "240px",
+									maxWidth: "calc(100vw - 240px)",
+									flexWrap: "wrap",
+								}
 								: { width: "100%" }
 						}
 						className='p-0'
@@ -85,11 +86,14 @@ const App = () => {
 														key={category.name + "-update"}
 														path={`update`}
 														element={<UpdateProduct key='updateProd' />}
-													/>
-												)}
+													/>)
+												}
 											</>
 										))}
 								</Route>
+								{admin && (<Route key={"create"}
+									path={`create`}
+									element={<CreateProduct key='createProd' />}></Route>)}
 								<Route path='forgot-password' element={<ForgotPassword />} />
 								<Route path='login' element={<Login />} />
 								<Route path='logout' element={<Logout />} />

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import MuiAvatar from '@mui/material/Avatar';
 import MuiListItemAvatar from '@mui/material/ListItemAvatar';
@@ -31,7 +32,7 @@ const ListItemAvatar = styled(MuiListItemAvatar)({
 
 export default function SelectContent() {
     const [company, setCompany] = React.useState(0);
-
+    const navigate = useNavigate()
 
     const { setMobile, setMobileDisplays, mobile } = useMobile()
 
@@ -48,8 +49,11 @@ export default function SelectContent() {
             setMobile(false)
             setMobileDisplays(false)
         }
+        else if (event.target.value === 40) {
+            navigate('cms/create')
+        }
 
-        else { setMobile(true); }
+        else if (event.target.value === 10) { setMobile(true); }
     };
 
     return (
