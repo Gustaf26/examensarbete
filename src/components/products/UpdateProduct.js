@@ -85,7 +85,8 @@ const UpdateProduct = () => {
       thumbnail: imageUrl,
       price: prodPrice,
       id: singleProduct.id,
-      category: productOption
+      category: productOption,
+      qty: 0,
     }
 
     // FOR REAL DATABASE UPDATE USE:
