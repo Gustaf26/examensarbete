@@ -34,10 +34,10 @@ const CreateProduct = () => {
     imageUrl,
     productOption,
     setProductOption,
-    setSingleProduct,
     singleProduct,
     productCategories,
-    // setImageUrl,
+    setProducts,
+    setImageUrl,
   } = useCreate();
 
   const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing, mobileWidth } = useMobile()
@@ -67,6 +67,8 @@ const CreateProduct = () => {
       return;
     }
 
+    if (!prodImg) { setError('Sorry, you need to choose a product image') }
+
     setError(false);
     setLoading(true);
     const ranNumber = Math.floor(Math.random() * 10000);
@@ -80,6 +82,9 @@ const CreateProduct = () => {
       category: productOption,
       qty: 0,
     }
+
+    setProducts((prev) => [...prev, newProduct])
+    navigate('/cms/index', { replace: true })
 
 
     // fetch('http://127.0.0.1:8000/products/create-prod', {
@@ -110,7 +115,25 @@ const CreateProduct = () => {
     // .catch(err => console.log(err))
   };
 
+  const handleImgResize = (e) => {
+    if (e.target.value > 50) {
+      console.log((1 + Number(e.target.value) / 100).toFixed(1))
+      document.getElementById('update-product-image').style.transform = `scale(${((1 + Number(e.target.value) / 100).toFixed(1)).toString()})`
+    }
+    else {
+      document.getElementById('update-product-image').style.transform = `scale(${(1 - ((50 - Number(e.target.value)) / 100)).toFixed(1).toString()})`
+    }
+  }
 
+  const updateImg = (e) => {
+    setImageUrl(URL.createObjectURL(e.target.files[0]))
+    setImg(URL.createObjectURL(e.target.files[0]))
+  }
+
+  const uploadImg = (e) => {
+    e.preventDefault()
+    document.getElementById("upfile").click()
+  }
 
   return (
     <div id="dummy-container-update" style={admin ? {
@@ -133,21 +156,60 @@ const CreateProduct = () => {
         <Col lg={mobile ? 12 : 6}
           style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
             : !mobile && admin ? { width: 'fit-content' } : { marginTop: '-40px', width: '600px', height: '500px' }}>
-          {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Product nr. {singleProduct.id}</h2>}
+          {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Add A New Product</h2>}
           {!loading && (
-            <Card>
-              <Card.Body>
-                <Card.Title>Create a product entry</Card.Title>
+            <Card className="p-2" style={mobile ? {
+              marginTop: '40px',
+              height: 'fit-content', overflowY: 'hidden'
+            } : admin ? { height: 'fit-content', width: '800px' } : {
+              marginTop: '',
+              height: `${mobileHeight - 20}px`, overflowY: 'scroll'
+            }}>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Card.Body id="update-card" onLoad={(e) => { !mobile && document.getElementById('update-card').scrollIntoView({ block: 'center' }) }}
+                className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
+                style={!mobile && admin ? {
+                  display: 'flex', justifyContent: 'start', width: '800px',
+                  height: 'fit-content', flexWrap: 'wrap', alignItems: 'start'
+                } : {}}>
 
-                {error && <Alert variant="danger">{error}</Alert>}
+                {admin && mobile && <Card.Title className="p-2" style={{ textAlign: 'center' }}>Update a product entry</Card.Title>}
 
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group id="title">
-                    <Form.Label>Product name</Form.Label>
+                <div style={!mobile && admin ? { width: '30%', height: '60%' } : {}} >
+                  <div style={!mobile && admin ? {
+                    zIndex: '5', display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', width: '100%', maxHeight: '300px', overflow: 'hidden'
+                  } : {}}>
+                    <Card.Img id="update-product-image" style={!mobile && admin ? { zIndex: '4', width: prodImgSize.width } :
+                      {}} src={prodImg ? prodImg : singleProduct.thumbnail} />
+                  </div>
+
+                  {!mobile && admin && <Form.Range style={{ position: 'absolute', top: '65%', width: '30%' }}
+                    onChange={handleImgResize}></Form.Range>}
+                  <Form onSubmit={uploadImg} style={!mobile ? {
+                    left: `calc(15% - 45px)`,
+                    width: '90px', textAlign: 'center', position: 'absolute', top: '72%'
+                  } : { position: 'relative', width: '100%', display: 'inline-block', margin: '10px auto' }}>
+                    <div style={{ height: '0px', width: '0px', overflow: 'hidden' }}>
+                      <input id="upfile" type="file" onChange={updateImg} />
+                    </div>
+                    <input style={!mobile ? {
+                      display: 'block', marginLeft: '20px', backgroundColor: 'rgb(13,110,253)', color: 'white', padding: '5px 15px',
+                      borderRadius: '5px', border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)'
+                    } : {
+                      display: 'block', color: 'white', backgroundColor: 'rgb(13,110,253)', margin: '0 auto', borderRadius: '5px',
+                      border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)', padding: '5px 15px'
+                    }} type="submit" value="Upload" />
+                  </Form>
+                </div>
+
+                <Form onSubmit={handleSubmit} style={!mobile && admin ? { width: '65%', marginLeft: '20px' } : {}}>
+                  <Form.Group id="title" style={admin && !mobile ? { width: '100%' } : {}}>
+                    <Form.Label className="py-2">Product name</Form.Label>
                     <Form.Control
                       type="title"
                       onChange={handleNameChange}
-                      value={name}
+                      placeholder="Enter a valid product name"
                       required
                     />
                     {name && name.length < 4 && (
@@ -157,47 +219,63 @@ const CreateProduct = () => {
                     )}
                   </Form.Group>
                   <Form.Group id="description">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
+                    <Form.Label className="py-2">Description</Form.Label>
+                    <textarea className="p-2" style={{ width: '100%', height: '200px', overflowY: 'scroll', border: '0.5px solid lightgrey', borderRadius: '8px' }}
                       type="title"
                       onChange={handleDescriptionChange}
-                      value={description}
+                      placeholder="Enter a valid description (20 chars min)"
                       required
-                    />
-
-                    <Form.Text className="text-danger">
-                      Please enter a description at least 20 characters long.
-                    </Form.Text>
-
+                    ></textarea>
+                    {singleProduct.description &&
+                      singleProduct.description.length < 20 && (
+                        <Form.Text className="text-danger">
+                          Please update with a description at least 20
+                          characters long.
+                        </Form.Text>
+                      )}
                   </Form.Group>
-                  <Form.Group>
+                </Form>
+                <Form onSubmit={handleSubmit} style={!mobile && admin ? { marginTop: '40px', width: '100%', display: 'flex', alignItems: 'end', justifyContent: 'start' } : {}}>
+                  <Form.Group controlId="exampleForm.ControlSelect2" style={!mobile && admin ? { marginRight: '15px', width: '31%' } : {}}>
                     <Form.Label>Choose product category</Form.Label>
                     <Form.Control
+                      // id="inlineFormCustomSelect"
+                      custom
                       as="select"
                       required
-                      id="inlineFormCustomSelect"
-                      custom
                       onClick={(e) =>
                         setProductOption(e.target.value.toLowerCase())
                       }
                     >
                       {productCategories &&
-                        productCategories.map((category) => (
-                          <option key={category.id}>
-                            {category.name.toUpperCase()}
-                          </option>
-                        ))}
+                        productCategories.map((category, i) => {
+                          if (category.name === singleProduct.category) {
+                            return (
+                              <option key={i}>
+                                {category.name.toUpperCase()}
+                              </option>
+                            );
+                          }
+                        })}
+                      {productCategories &&
+                        productCategories.map((category, i) => {
+                          if (category.name !== singleProduct.category) {
+                            return (
+                              <option key={i}>
+                                {category.name.toUpperCase()}
+                              </option>
+                            );
+                          }
+                        })}
                     </Form.Control>
-                    <Form.Text className="text-danger">
-                      Please note that troussers are default option
-                    </Form.Text>
                   </Form.Group>
-                  <Form.Group id="price">
+                  <Form.Group id="price" style={!mobile && admin ? { marginRight: '20px', width: '31%' } : {}}>
                     <Form.Label>Price</Form.Label>
                     <Form.Control
                       type="title"
                       onChange={handlePrice}
-                      value={prodPrice}
+                      // value={prodPrice}
+                      defaultValue={singleProduct.price}
                       required
                     />
                     {prodPrice && prodPrice === "0" && (
@@ -206,12 +284,20 @@ const CreateProduct = () => {
                       </Form.Text>
                     )}
                   </Form.Group>
-                  {/* {productOption && (
-                    <UploadImageDropzone type={productOption} />
-                  )} */}
-                  <Button disabled={loading} type="submit" className="mx-auto">
-                    Create
-                  </Button>
+                  <Form.Group
+                    style={!mobile && admin ? { display: 'flex', width: '31%', justifyContent: 'center' } :
+                      mobile ? { width: '100%', marginTop: '30px', display: 'flex', justifyContent: 'center' } : {
+                        marginTop: '30px', justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                    <Button
+                      disabled={loading}
+                      type="submit"
+                      style={!mobile && admin ? { width: '100px', margin: '0 10px' } : microMobile ? { width: '90px', margin: '10px auto' } : {}}
+                    >
+                      Create
+                    </Button>
+                  </Form.Group>
                 </Form>
               </Card.Body>
             </Card>
