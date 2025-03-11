@@ -27,7 +27,7 @@ const CreateProduct = () => {
   const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
   const [prodImgSize, setImgSize] = useState({ width: `${originalImgSize}px`, height: 'auto' })
-  const [prodImg, setImg] = useState()
+  const [prodImg, setImg] = useState('')
 
   const { currentUser } = useAuth();
   const {
@@ -38,6 +38,7 @@ const CreateProduct = () => {
     productCategories,
     setProducts,
     setImageUrl,
+    setSingleProduct
   } = useCreate();
 
   const { mobile, mobileDisplays, setMobileDisplays, mobileHeight, menuShowing, setMenuShowing, mobileWidth } = useMobile()
@@ -67,7 +68,7 @@ const CreateProduct = () => {
       return;
     }
 
-    if (!prodImg) { setError('Sorry, you need to choose a product image') }
+    if (!prodImg) { setError('Sorry, you need to choose a product image'); return }
 
     setError(false);
     setLoading(true);
@@ -84,7 +85,11 @@ const CreateProduct = () => {
     }
 
     setProducts((prev) => [...prev, newProduct])
-    navigate('/cms/index', { replace: true })
+    setSingleProduct(newProduct)
+    setTimeout(() => {
+      navigate(`/cms/products/${productOption}/${ranNumber}`, { replace: true })
+    }, 1000)
+
 
 
     // fetch('http://127.0.0.1:8000/products/create-prod', {
@@ -134,6 +139,11 @@ const CreateProduct = () => {
     e.preventDefault()
     document.getElementById("upfile").click()
   }
+
+  useEffect(() => {
+    setProductOption('t-shirts')
+    setSingleProduct('');
+  }, [])
 
   return (
     <div id="dummy-container-update" style={admin ? {
@@ -243,9 +253,11 @@ const CreateProduct = () => {
                       custom
                       as="select"
                       required
-                      onClick={(e) =>
+                      defaultValue={productOption}
+                      onChange={(e) => {
                         setProductOption(e.target.value.toLowerCase())
-                      }
+                      }}
+
                     >
                       {productCategories &&
                         productCategories.map((category, i) => {

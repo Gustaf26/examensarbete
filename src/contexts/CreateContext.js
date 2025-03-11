@@ -43,7 +43,7 @@ const CreateContextProvider = (props) => {
 
 
     let preliminaryProd = products.filter(
-      (prod) => prod.id === Number(prodId) && prod.category === category
+      (prod) => prod.id === Number(prodId)
     );
 
     console.log(products)
@@ -79,7 +79,7 @@ const CreateContextProvider = (props) => {
       emptyArr = []
     }
 
-  }, [prodId])
+  }, [])
 
   useEffect(() => {
 
