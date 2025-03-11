@@ -102,7 +102,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             maxWidth: '330px', margin: '10px auto', display: 'flex', justifyContent: 'center'
         }
             : admin ? { width: '330px', height: '570px', margin: '15px', padding: '10px' } :
-                { width: '330px', height: '600px', margin: '15px', padding: '10px' }}>
+                { width: '330px', height: '620px', margin: '15px', padding: '10px' }}>
 
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' } : mobile ? { width: '100%', margin: '0 auto' }
             : view === 'single' ? { width: '50%', height: 'fit-content' } : {}} >

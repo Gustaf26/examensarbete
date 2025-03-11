@@ -175,7 +175,7 @@ const CreateProduct = () => {
               marginTop: '',
               height: `${mobileHeight - 20}px`, overflowY: 'scroll'
             }}>
-              {error && <Alert variant="danger">{error}</Alert>}
+              {error && <Alert variant="danger" style={{ textAlign: 'center' }}>{error}</Alert>}
               <Card.Body id="update-card" onLoad={(e) => { !mobile && document.getElementById('update-card').scrollIntoView({ block: 'center' }) }}
                 className="p-2" onClick={(window.innerWidth < 1100 || mobile) && menuShowing ? () => setMenuShowing(false) : null}
                 style={!mobile && admin ? {
