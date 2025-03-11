@@ -253,7 +253,7 @@ const CreateProduct = () => {
                       custom
                       as="select"
                       required
-                      defaultValue={productOption}
+                      defaultValue={'t-shirts'}
                       onChange={(e) => {
                         setProductOption(e.target.value.toLowerCase())
                       }}
@@ -261,24 +261,13 @@ const CreateProduct = () => {
                     >
                       {productCategories &&
                         productCategories.map((category, i) => {
-                          if (category.name === singleProduct.category) {
-                            return (
-                              <option key={i}>
-                                {category.name.toUpperCase()}
-                              </option>
-                            );
-                          }
+                          return (
+                            <option key={i}>
+                              {category.name.toUpperCase()}
+                            </option>
+                          );
                         })}
-                      {productCategories &&
-                        productCategories.map((category, i) => {
-                          if (category.name !== singleProduct.category) {
-                            return (
-                              <option key={i}>
-                                {category.name.toUpperCase()}
-                              </option>
-                            );
-                          }
-                        })}
+
                     </Form.Control>
                   </Form.Group>
                   <Form.Group id="price" style={!mobile && admin ? { marginRight: '20px', width: '31%' } : {}}>
