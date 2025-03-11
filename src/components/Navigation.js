@@ -144,7 +144,7 @@ const Navigation = () => {
                 id="clothes-select"
                 className="navitem"
                 onClick={(e) => {
-                  if (e.target.id === 'all-clothes-select') e.preventDefault(); changeString('a');
+                  if (e.target.id === 'all-clothes-select') e.preventDefault(); changeString(' ');
                 }}
                 // variant="disabled"
                 style={mobile ? { display: 'none', width: '100%', textAlign: 'center', margin: '0', padding: '20px', height: '100%' } : {
