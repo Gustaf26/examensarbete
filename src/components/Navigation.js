@@ -28,7 +28,7 @@ const Navigation = () => {
   const [customMenu, setCustMenu] = useState(false);
   const { setSearchString } = useCreate();
   const navigate = useNavigate();
-  const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth } = useMobile()
+  const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth, setFullScreen, fullScreen } = useMobile()
   const [subMenu, setSubMenu] = useState(true)
   const { microMobile } = useMobileStyles()
 
@@ -89,8 +89,10 @@ const Navigation = () => {
 
   return (
     <div style={mobile && admin ? {
-      position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0', width: `${mobileWidth}px`
-      , borderTopLeftRadius: !microMobile ? '20px' : '', borderTopRightRadius: !microMobile ? '15px' : '', zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
+      position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0',
+      width: microMobile ? '100%' : `${mobileWidth}px`
+      , borderTopLeftRadius: !microMobile ? '20px' : '', borderTopRightRadius: !microMobile ? '15px' : '',
+      zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
     } : admin ? { width: '100%' } : { zIndex: '10', position: 'sticky', top: '0', width: '100%', height: 'fit-content' }}>
 
       {!menuShowing ?
@@ -100,6 +102,7 @@ const Navigation = () => {
         }}>
           <div style={{ height: '50px' }}>
             <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={showMenu} />
+            {microMobile && admin && <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={() => { setFullScreen(!fullScreen) }} />}
           </div>
           <div style={{
             display: 'flex',
@@ -111,7 +114,7 @@ const Navigation = () => {
         </div>) :
         (<Row className="px-0">
           <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
-            display: 'flex', height: 'fit-content', width: `${mobileWidth}px`,
+            display: 'flex', height: 'fit-content', width: microMobile ? '100%' : `${mobileWidth}px`,
             borderTopLeftRadius: '20px', borderTopRightRadius: '20px',
             alignItems: 'center', justifyContent: 'center', padding: '10px', flexDirection: 'column'
           } : mobile ? {
@@ -193,7 +196,7 @@ const Navigation = () => {
               {!admin && !mobile && <CartIcon />}
             </div>
           </Nav>
-          {subMenu && (<NavItem id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: `${mobileWidth}px` }
+          {subMenu && (<NavItem id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: microMobile ? '100%' : `${mobileWidth}px` }
             : { zIndex: '3' }}>
             <NavLink
               to={admin ? '/cms/products/troussers' : "/products/troussers"}

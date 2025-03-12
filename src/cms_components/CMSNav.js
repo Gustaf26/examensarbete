@@ -16,40 +16,41 @@ import OptionsMenu from './menu/OptionsMenu';
 import { useAuth } from '../contexts/AuthContext'
 import { useMobile } from '../contexts/MobileContext'
 
+import useMobileStyles from '../hooks/useMobileStyles';
+
 
 export default function CMSNav() {
 
-    // const [logoutMenu, setLogoutMenu] = React.useState(false)
-
     const { currentUser } = useAuth()
-    const { mobile } = useMobile()
+    const { mobile, mobileWidth, fullScreen, setFullScreen } = useMobile()
+
+    const { microMobile } = useMobileStyles()
 
     const Drawer = styled(MuiDrawer)({
-        width: mobile ? 70 : 240,
-        maxWidth: mobile ? 70 : 240,
+        width: fullScreen ? '100vw' : mobile ? 70 : 240,
+        maxWidth: fullScreen ? mobileWidth : mobile ? 70 : 240,
         flexShrink: 1,
         boxSizing: 'border-box',
         mt: 10,
         [`& .${drawerClasses.paper}`]: {
-            width: mobile ? 70 : 240,
+            width: fullScreen ? '100vw' : microMobile ? 0 : mobile ? 70 : 240,
             boxSizing: 'border-box',
             overflowX: 'hidden'
         },
 
     });
 
+
     return (
-        <Drawer id="CMS-nav" variant="permanent"
+        <Drawer onClick={() => fullScreen && setFullScreen(false)} id="CMS-nav" variant="permanent"
             sx={{
                 display: { xs: 'block', md: 'block' },
                 [`& .${drawerClasses.paper}`]: {
                     backgroundColor: 'background.paper',
                 },
-                maxWidth: mobile ? 40 : 240,
+                // maxWidth: mobile ? 40 : 240,
                 overflowX: 'hidden',
-            }
-            }
-        >
+            }}>
             <Box
                 sx={{
                     display: 'flex',

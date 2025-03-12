@@ -41,7 +41,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 						? {
 							position: "absolute",
 							top: mobile ? "60px" : "226px",
-							left: mobile ? "40px" : "240px",
+							left: microMobile ? '0' : mobile ? "40px" : "240px",
 							width: mobile ? "calc(100% - 40px)" : "calc(100%)",
 							paddingRight: !mobile && admin ? "200px" : "",
 						}

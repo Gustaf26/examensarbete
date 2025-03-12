@@ -148,7 +148,7 @@ const CreateProduct = () => {
   return (
     <div id="dummy-container-update" style={admin ? {
       position: 'absolute', top: mobile ? '60px' : '0',
-      left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+      left: microMobile ? '0' : mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
     } : {}}
       onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
 

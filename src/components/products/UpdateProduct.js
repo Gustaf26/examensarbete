@@ -155,7 +155,7 @@ const UpdateProduct = () => {
     <>
       <div id="dummy-container-update" style={admin ? {
         position: 'absolute', top: mobile ? '60px' : '0',
-        left: mobile ? '40px' : '240px', width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
+        left: microMobile ? '0' : mobile ? '40px' : '240px', width: microMobile ? '100vw' : mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
       } : {}}
         onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
         {/* {!mobile && admin && <Navigation />} */}
@@ -173,7 +173,7 @@ const UpdateProduct = () => {
           {mobileDisplays && <MobileList />}
 
           <Col lg={mobile ? 12 : 6}
-            style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: `${mobileWidth}px` }
+            style={mobile ? { paddingTop: '10px', overflowY: 'scroll', height: `${mobileHeight - 20}px`, width: microMobile ? '100vw' : `${mobileWidth}px` }
               : !mobile && admin ? { width: 'fit-content' } : { marginTop: '-40px', width: '600px', height: '500px' }}>
             {admin && !mobile && <h2 style={{ color: 'brown', textAlign: 'center', padding: '10px' }}>Product nr. {singleProduct.id}</h2>}
             {singleProduct ? (

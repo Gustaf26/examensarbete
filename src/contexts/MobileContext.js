@@ -15,6 +15,7 @@ const MobileContextProvider = (props) => {
     const [mobileHeight, setMobileHeight] = useState(750);
     const [mobile, setMobile] = useState(window.innerWidth < 1000 ? true : false)
     const [menuShowing, setMenuShowing] = useState(true)
+    const [fullScreen, setFullScreen] = useState(false)
     const { admin } = useAuth()
 
 
@@ -28,6 +29,7 @@ const MobileContextProvider = (props) => {
         setMobileHeight,
         setMobileWidth,
         menuShowing, setMenuShowing,
+        fullScreen, setFullScreen
 
     };
 
@@ -36,6 +38,7 @@ const MobileContextProvider = (props) => {
 
         window.addEventListener('resize', () => {
             if (window.innerWidth < 1000) setMobile(true);
+            setFullScreen(false)
         })
         window.addEventListener('load', () => {
             if (window.innerWidth < 1000) setMobile(true);

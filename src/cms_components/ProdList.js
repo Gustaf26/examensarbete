@@ -33,8 +33,8 @@ const ProdList = () => {
             </div>
         )}
             <Table style={loading ? { visibility: 'hidden' } : mobile ? {
-                position: 'absolute', left: '70px', width: 'calc(100vw - 60px)',
-                maxWidth: 'calc(100vw - 60px)'
+                position: 'absolute', left: microMobile ? '0' : '70px', width: microMobile ? '100vw' : 'calc(100vw - 60px)',
+                maxWidth: microMobile ? '100vw' : 'calc(100vw - 60px)'
             } :
                 {
                     margin: '3rem auto', width: 'calc(100vw - 360px)',

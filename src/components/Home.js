@@ -37,7 +37,7 @@ const Home = () => {
           admin
             ? {
               position: "absolute",
-              left: mobile ? "40px" : "240px",
+              left: mobile ? "0px" : "240px",
               padding: mobile ? '15px' : '0',
               width: mobile ? "calc(100% - 70px)" : "calc(100% - 240px)",
               justifyContent: mobile ? 'center' : '',
