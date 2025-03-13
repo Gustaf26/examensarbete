@@ -64,7 +64,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 							: mobile
 								? {
 									margin: "0 auto",
-									padding: "20px",
+									padding: "0px",
 									display: "flex",
 									justifyContent: "center",
 								}

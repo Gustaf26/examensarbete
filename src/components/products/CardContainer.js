@@ -23,13 +23,13 @@ const CardContainer = (props) => {
                 height: `calc(${mobileHeight - 20}px - 3rem)`,
                 width: `calc(${mobileWidth}px)`,
                 margin: '7.5rem auto'
-            } : microMobile ? {
+            } : microMobile && admin ? {
                 height: 'fit-content',
                 margin: '7.5rem auto',
                 display: 'flex',
                 justifyContent: 'center',
                 width: '100%'
-            } : mobile ? { width: '100%', justifyContent: 'center' }
+            } : mobile ? { width: '100vw', justifyContent: 'center' }
                 : {
                     minWidth: (location.pathname === '/cms/index')
                         || (location.pathname === '/') ? '50%' : '360px',
