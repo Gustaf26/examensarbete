@@ -19,6 +19,8 @@ import { useMobile } from '../contexts/MobileContext'
 import useMobileStyles from "../hooks/useMobileStyles";
 
 import MenuIcon from '@mui/icons-material/Menu';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
 import SearchForm from "./SearchForm";
 import CartIcon from '../components/cart/CartIcon'
 
@@ -102,7 +104,7 @@ const Navigation = () => {
         }}>
           <div style={{ height: '50px' }}>
             <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={showMenu} />
-            {microMobile && admin && <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={() => { setFullScreen(!fullScreen) }} />}
+            {microMobile && admin && <AdminPanelSettingsIcon style={{ margin: '10px 20px', color: 'white' }} className="mobile-nav-icon" onClick={() => { setFullScreen(!fullScreen) }} />}
           </div>
           <div style={{
             display: 'flex',

@@ -34,10 +34,12 @@ export default function SelectContent() {
     const [company, setCompany] = React.useState(0);
     const navigate = useNavigate()
 
-    const { setMobile, setMobileDisplays, mobile } = useMobile()
+    const { setMobile, setMobileDisplays, mobile, fullScreen, setFullScreen } = useMobile()
 
     const handleChange = (event) => {
         event.preventDefault()
+        event.stopPropagation()
+        if (fullScreen) setFullScreen(false)
         setCompany(event.target.value);
 
         if (event.target.value === 0) {

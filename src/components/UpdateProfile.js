@@ -64,8 +64,8 @@ const UpdateProfile = () => {
   return (
     <>{admin && !mobile && <Navigation />}
       <Row id="dummy-container-products" style={admin ? {
-        position: 'absolute', top: mobile ? '60px' : '220px', left: mobile ? '40px' : '240px',
-        width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)', justifyContent: 'center'
+        position: 'absolute', top: mobile ? '60px' : '220px', left: microMobile ? '0' : mobile ? '40px' : '240px',
+        width: microMobile ? '100%' : mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)', justifyContent: 'center'
       } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
         <Row style={mobile && admin ? { ...containerStyles, margin: '0 auto', left: '12px' }

@@ -42,7 +42,7 @@ export default function CMSNav() {
 
 
     return (
-        <Drawer onClick={() => fullScreen && setFullScreen(false)} id="CMS-nav" variant="permanent"
+        <Drawer id="CMS-nav" variant="permanent"
             sx={{
                 display: { xs: 'block', md: 'block' },
                 [`& .${drawerClasses.paper}`]: {
@@ -56,12 +56,13 @@ export default function CMSNav() {
                     display: 'flex',
                     mt: 'calc(var(--template-frame-height, 0px) + 4px)',
                     p: 1.5,
+                    ml: '10px'
                 }}
             >
-                <SelectContent />
+                <SelectContent onClick={() => setFullScreen(false)} />
             </Box>
             <Divider />
-            <MenuContent />
+            <MenuContent onClick={() => setFullScreen(false)} />
             {/* <CardAlert /> */}
             <Stack
                 direction="row"

@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom'
 
-import { useCreate } from '../../contexts/CreateContext'
+// import { useCreate } from '../../contexts/CreateContext'
+import { useMobile } from '../../contexts/MobileContext';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Select, { selectClasses } from '@mui/material/Select';
+// import Select, { selectClasses } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
@@ -17,6 +18,7 @@ import CheckroomIcon from '@mui/icons-material/Checkroom';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
+import { Fullscreen } from '@mui/icons-material';
 // import { MenuItem } from '@mui/material';
 
 const mainListItems = [
@@ -36,6 +38,7 @@ export default function MenuContent() {
 
     const navigate = useNavigate()
     const [itemSelected, setItemSelected] = React.useState(0)
+    const { fullScreen, setFullScreen } = useMobile()
 
     // React.useEffect(() => {
 
@@ -49,42 +52,11 @@ export default function MenuContent() {
                 {mainListItems.map((item, index) => (
                     <ListItem key={index} disablePadding sx={{ display: 'block' }}>
                         <ListItemButton selected={index === itemSelected} onClick={() => {
-                            setItemSelected(index); navigate(item.url)
+                            setItemSelected(index); navigate(item.url); fullScreen && setFullScreen(false)
                         }}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
                         </ListItemButton>
-                        {/* {item.text === "Products" && itemSelected === 3 && (
-                            <Select
-                                labelId="company-select"
-                                id="company-simple-select"
-                                defaultValue={selectedProdCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                                inputProps={{ 'aria-label': 'Select company' }}
-                                fullWidth
-                                sx={{
-                                    marginLeft: '5px',
-                                    maxHeight: 56,
-                                    width: 218,
-                                    marginTop: '5px',
-                                    '&.MuiList-root': {
-                                        p: '8px',
-                                    },
-                                    [`& .${selectClasses.select}`]: {
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '2px',
-                                        pl: 1,
-                                    },
-                                }}
-                            >
-
-                                {productCategories && productCategories.map(prodCat => {
-                                    return (<MenuItem value={prodCat.name}>
-                                        <ListItemText style={{ textTransform: 'capitalize', paddingLeft: '8px' }} primary={prodCat.name} />
-                                    </MenuItem>)
-                                })}
-                            </Select>)} */}
                     </ListItem>
                 ))}
             </List>

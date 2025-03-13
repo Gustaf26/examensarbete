@@ -14,6 +14,8 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import MenuButton from './MenuButton';
 
 import { useAuth } from '../../contexts/AuthContext'
+import { useMobile } from '../../contexts/MobileContext';
+
 import { useNavigate } from "react-router-dom";
 // import zIndex from '@mui/material/styles/zIndex';
 
@@ -24,6 +26,8 @@ const MenuItem = styled(MuiMenuItem)({
 export default function OptionsMenu() {
 
     const { logout, currentUser, setCurrentUser, setAdmin } = useAuth()
+    const { fullScreen, setFullScreen } = useMobile()
+
     const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -47,6 +51,7 @@ export default function OptionsMenu() {
 
             navigate("/cms/update-profile", { replace: true });
         }
+        if (fullScreen) setFullScreen(false)
     };
 
     React.useEffect(() => {
@@ -62,7 +67,6 @@ export default function OptionsMenu() {
                 <p style={{ color: 'white', zIndex: '100', position: 'absolute', left: 'calc(50% - 6px)', bottom: "calc(50% - 12px)", margin: 0 }}>
                     {currentUser.email.slice(0, 1).toUpperCase()}
                 </p>
-                {/* <MoreVertRoundedIcon /> */}
             </MenuButton>
             <Menu
                 anchorEl={anchorEl}
@@ -91,7 +95,7 @@ export default function OptionsMenu() {
                 <MenuItem onClick={handleClose}>Settings</MenuItem>
                 <Divider />
                 <MenuItem
-                    onClick={handleClose}
+                    onClick={(e) => { e.stopPropagation(); handleClose(e) }}
                     sx={{
                         [`& .${listItemIconClasses.root}`]: {
                             ml: 'auto',
