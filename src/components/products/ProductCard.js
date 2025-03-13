@@ -99,7 +99,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             flexDirection: 'row', height: '550px', alignItems: 'start', padding: '15px'
         } : mobile ? {
             width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content', paddingTop: '15px',
-            maxWidth: 'calc(100% - 20px)', margin: '0 auto', display: 'flex', justifyContent: 'center'
+            maxWidth: 'calc(100% - 20px)', margin: '20px auto', display: 'flex', justifyContent: 'center'
         }
             : admin ? { width: '330px', height: '570px', margin: '15px', padding: '10px' } :
                 { width: '330px', height: '620px', margin: '15px', padding: '10px' }}>
