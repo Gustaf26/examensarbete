@@ -32,39 +32,7 @@
                 "thumbnail": "https://example.com/thumb3.jpg"
             }
         ],
-        "t-shirts": [
-            {
-                "attLink": "https://www.example.com/image4.jpg",
-                "attribution": "Image Credit",
-                "category": "tshirts",
-                "description": "Soft cotton t-shirt with a classic fit.",
-                "id": 1,
-                "name": "Everyday Tee",
-                "price": "15",
-                "thumbnail": "https://example.com/thumb4.jpg"
-            },
-            {
-                "attLink": "https://www.example.com/image5.jpg",
-                "attribution": "Photo Source",
-                "category": "tshirts",
-                "description": "Stylish graphic tee with a unique design.",
-                "id": 2,
-                "name": "Graphic Tee",
-                "price": "20",
-                "thumbnail": "https://example.com/thumb5.jpg"
-            }
-        ],
         "troussers": [
-            {
-                "attLink": "https://www.example.com/image6.jpg",
-                "attribution": "Image Provider",
-                "category": "trousers",
-                "description": "Comfortable and versatile chinos for any occasion.",
-                "id": 1,
-                "name": "Chino Trousers",
-                "price": "45",
-                "thumbnail": "https://example.com/thumb6.jpg"
-            },
             {
                 "attLink": "https://www.example.com/image7.jpg",
                 "attribution": "Picture Source",

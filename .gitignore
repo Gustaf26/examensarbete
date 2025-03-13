@@ -13,6 +13,8 @@
 
 # production
 /build
+/src/assets/images
+/src/assets/random_data1
 
 # misc
 .DS_Store
