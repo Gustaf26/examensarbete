@@ -9,7 +9,7 @@ import ProdList from "./cms_components/ProdList";
 import UpdateProduct from "./components/products/UpdateProduct";
 import CMSNav from "./cms_components/CMSNav";
 import ForgotPassword from "./components/ForgotPassword";
-import Home from "./components/Home";
+import Home from "./components/home_sections/Home";
 import CreateProduct from './cms_components/CreateProduct'
 import Login from "./components/Login";
 import Logout from "./components/Logout";
@@ -57,7 +57,7 @@ const App = () => {
 									maxWidth: "calc(100vw - 240px)",
 									flexWrap: "wrap",
 								}
-								: { width: "100%" }
+								: { width: "100%", backgroundColor: 'white' }
 						}
 						className='p-0'
 					>

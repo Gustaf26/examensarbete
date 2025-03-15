@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import { Card, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Icon from "@mui/material/Icon";
-import Navigation from "../components/Navigation";
+import Navigation from "../Navigation";
 
-import { useMobile } from "../contexts/MobileContext";
-import { useAuth } from "../contexts/AuthContext";
-import useMobileStyles from "../hooks/useMobileStyles";
+import { useMobile } from "../../contexts/MobileContext";
+import { useAuth } from "../../contexts/AuthContext";
+import useMobileStyles from "../../hooks/useMobileStyles";
 
-import MobileList from "../cms_components/MobileList";
-import CardContainer from "./products/CardContainer";
+import MobileList from "../../cms_components/MobileList";
+import DesktopHome from '../../components/home_sections/DesktopHome'
 
 const Home = () => {
   const {
@@ -107,64 +107,14 @@ const Home = () => {
           )}
           {mobileDisplays && <MobileList />}
 
-          {/* <CardContainer> */}
-          <Card id="home-card"
-            onLoad={(e) => {
-              e.target.scrollIntoView({ block: 'end' });
-            }}
+          {!mobile && <DesktopHome onLoad={(e) => {
+            e.target.scrollIntoView({ block: 'end' });
+          }}
             onClick={() =>
               !admin && menuShowing && mobile ? setMenuShowing(false) : null
             }
-            style={!mobile ? {
-              padding: "10px",
-              // width: "60%",
-              minWidth: '800px',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: "fit-content",
-              margin: "5rem auto"
-            } : microMobile ? {
-              padding: "10px",
-              width: "calc(100%)",
-              height: "fit-content",
-              margin: "4rem auto"
-            } : {
-              padding: "10px",
-              width: "550px",
-              height: "fit-content",
-              margin: "20px auto"
-            }}
-            className='main-card col-sm-12 col-md-6 col-lg-6'
-          >
-            <h2
-              className='mb-3 mt-3'
-              style={mobile ? { fontSize: "1.2em" } : { display: 'none' }}
-            >
-              WELCOME TO WORK OUT!
-            </h2>
-            <Card.Img
-              lg={mobile ? 12 : 3}
-              className='col-sm-12 col-md-6 mx-auto p-0'
-              style={!mobile ? { width: '350px', height: 'fit-content' } : { border: "1px solid #ddd" }}
-              variant='top'
-              src='https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg'
-            />
-            <Card.Body>
-              <Card.Text id='home-card-text' className='text-muted mediums px-2'>
-                <b>WORK OUT</b> has you covered for all your work footwear and clothing
-                needs with well over 200 work brands to choose from. We believe we have
-                the most comprehensive selection of work clothes, boots, shoes, and
-                accessories. Choose from the best of the best for clothing, like
-                Carhartt or Wrangler. With over a thousand styles of Work Boots to
-                choose from, you willll find exactly what you need from great brands
-                like Wolverine Boots and Carolina Shoes. Our selection of FR workwear
-                and high visibility workwear is awesome.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          {/* </CardContainer> */}
+            style={{ overflowX: 'hidden', maxWidth: '100%' }}
+          />}
         </Row>
       </div>
     </>
