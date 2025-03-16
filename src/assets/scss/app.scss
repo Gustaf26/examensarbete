@@ -363,6 +363,16 @@ h2 {
   }
 }
 
+// HOME SLIDER
+
+#home-slider {
+
+  & svg:hover {
+    cursor: pointer;
+    color: orange;
+  }
+}
+
 //PRODUCTS
 
 #dummy-container-products {
