@@ -20,26 +20,31 @@ function DesktopHome() {
         slidesref.current.style.transform = 'none'
 
         let previousSlides = [...slides]
-        if (direction === 'right') {
 
-            // Just setting a maximum for the slider to have arrays of products
-            if (slides.length < 10) {
-                previousSlides.push(allProducts)
-            }
-            setRightMoves(prev => prev + 1)
+        if (rightMoves === 7 && direction === 'right') {
+            direction = 'left'
+        }
+
+        // Moves right and left in slider
+        if (direction === 'right') {
+            previousSlides.push(allProducts)
             setLeftMoves(0)
+            slidesref.current.style.transition = 'transform 1s linear'
+            slidesref.current.style.transform = `translateX(-${(rightMoves + 1) * 500}px)`
+            setRightMoves(prev => prev + 1)
         }
         else {
             if (rightMoves === 0) return
             setLeftMoves((prev) => prev + 1)
             setRightMoves(0)
-            setSlides([allProducts])
+            slidesref.current.style.transition = `transform ${rightMoves / 2}s linear`
+            slidesref.current.style.transform = `translateX(100px)`
+            setTimeout(() => {
+                setSlides([allProducts])
+            }, rightMoves * 1000 / 2)
             return
         }
         setSlides(previousSlides)
-
-        slidesref.current.style.transition = 'transform 1s linear'
-        slidesref.current.style.transform = direction === 'right' ? `translateX(-${rightMoves * 150}px)` : `translateX(0px)`
     }
 
     useEffect(() => {
