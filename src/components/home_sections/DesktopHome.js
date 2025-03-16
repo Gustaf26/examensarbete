@@ -12,37 +12,35 @@ function DesktopHome() {
     const [slides, setSlides] = useState()
     const slidesref = useRef()
     const [rightMoves, setRightMoves] = useState(0)
-    const [leftMoves, setLeftMoves] = useState(0)
-
 
     const moveSlides = (direction) => {
 
-        slidesref.current.style.transform = 'none'
-
         let previousSlides = [...slides]
 
-        if (rightMoves === 7 && direction === 'right') {
-            direction = 'left'
-        }
 
         // Moves right and left in slider
         if (direction === 'right') {
             previousSlides.push(allProducts)
-            setLeftMoves(0)
             slidesref.current.style.transition = 'transform 1s linear'
             slidesref.current.style.transform = `translateX(-${(rightMoves + 1) * 500}px)`
+
+            if (rightMoves === 7) {
+                slidesref.current.style.transition = `transform 2s ease-out`
+                slidesref.current.style.transform = `translateX(0px)`
+                setTimeout(() => {
+                    setSlides([allProducts])
+                    setRightMoves(0)
+                }, 2000)
+                return
+            }
             setRightMoves(prev => prev + 1)
         }
         else {
             if (rightMoves === 0) return
-            setLeftMoves((prev) => prev + 1)
-            setRightMoves(0)
-            slidesref.current.style.transition = `transform ${rightMoves / 2}s linear`
-            slidesref.current.style.transform = `translateX(100px)`
-            setTimeout(() => {
-                setSlides([allProducts])
-            }, rightMoves * 1000 / 2)
-            return
+            setRightMoves((prev) => prev - 1)
+            previousSlides.pop()
+            slidesref.current.style.transition = `transform 1s linear`
+            slidesref.current.style.transform = `translateX(-${(rightMoves - 1) * 500}px)`
         }
         setSlides(previousSlides)
     }

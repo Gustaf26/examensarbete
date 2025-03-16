@@ -367,6 +367,12 @@ h2 {
 
 #home-slider {
 
+  & img:hover {
+    z-index: 7;
+    transform: scale(1.025);
+    cursor: pointer;
+  }
+
   & svg:hover {
     cursor: pointer;
     color: orange;
