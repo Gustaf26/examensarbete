@@ -211,8 +211,8 @@ const ProductCard = ({ item, index, setLoading }) => {
                 bottom: '0', display: 'block',
                 left: (view === 'single') && mobile ? '0' : '',
                 alignText: 'center'
-            }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'block' }}>
-                    <span onClick={(e) => updateCart(item, 'plus')} style={{
+            }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}>
+                    {/* <span onClick={(e) => updateCart(item, 'plus')} style={{
                         fontSize: '1.2em', color: 'brown', width: '40px',
                         textAlign: 'center'
                     }}>+</span>
@@ -224,7 +224,16 @@ const ProductCard = ({ item, index, setLoading }) => {
                     <span onClick={(e) => updateCart(item, 'minus')} style={{
                         fontSize: '1.2em',
                         color: 'brown', width: '40px', textAlign: 'center'
-                    }}>-</span>
+                    }}>-</span> */}
+                    <button onClick={(e) => updateCart(item, 'plus')} style={{
+                        fontSize: '0.8em', color: 'rgb(227, 182, 133)', backgroundColor: 'brown', padding: '5px 20px',
+                        border: 'none', borderRadius: '25px', height: 'fit-content'
+                    }}>{item.qty === 0 ? 'Add To Cart' : `${item.qty} in Cart`}</button>
+                    {item.qty > 0 ? <button onClick={(e) => updateCart(item, 'minus')} style={{
+                        marginLeft: '20px',
+                        fontSize: '0.8em', color: 'white', backgroundColor: 'rgb(241, 103, 103)', padding: '5px 20px',
+                        border: 'none', borderRadius: '25px', height: 'fit-content'
+                    }}>Remove</button> : null}
                 </div>
             </CardFooter>}
         </Card.Body >

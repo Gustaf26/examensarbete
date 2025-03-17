@@ -1,22 +1,27 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { useCreate } from "../../contexts/CreateContext"
 import { useMobile } from '../../contexts/MobileContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 import useMobileStyles from '../../hooks/useMobileStyles';
 
 function HomeSections() {
 
-    const { allProducts } = useCreate()
+    const { allProducts, setSingleProduct } = useCreate()
     const [slides, setSlides] = useState()
     const slidesref = useRef()
     const [rightMoves, setRightMoves] = useState(0)
 
-    const { mobile, mobileWidth } = useMobile();
-    const { containerStyles, microMobile } = useMobileStyles();
+    const { mobile } = useMobile();
+    const { microMobile } = useMobileStyles();
+    const navigate = useNavigate()
+
+    const { admin } = useAuth()
 
     const moveSlides = (direction) => {
 
@@ -113,7 +118,11 @@ function HomeSections() {
                         {slides && slides.map((arr, i) => {
                             return (<div style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
                                 {arr.map(prod => (
-                                    <img style={{ margin: '0', padding: '0', width: microMobile ? '300px' : '200px', height: '300px', objectFit: 'cover' }}
+                                    <img onClick={() => {
+                                        setSingleProduct(prod); navigate(admin ? `/cms/products/${prod.category}/${prod.id}`
+                                            : `/products/${prod.category}/${prod.id}`, { replace: true })
+                                    }}
+                                        style={{ margin: '0', padding: '0', width: microMobile ? '300px' : '200px', height: '300px', objectFit: 'cover' }}
                                         alt={prod.description} src={prod.thumbnail} />
                                 ))
                                 }
