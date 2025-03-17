@@ -158,7 +158,7 @@ const CreateContextProvider = (props) => {
       });
       setSearchResults(prodsDummy);
     }
-  }, [searchString, allProducts]);
+  }, [searchString]);
 
 
 

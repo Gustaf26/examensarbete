@@ -24,7 +24,7 @@ const ProductCard = ({ item, index, setLoading }) => {
     const navigate = useNavigate();
     const { admin } = useAuth();
     const { setSingleProduct, productOption, setProductOption, allProducts } = useCreate();
-    const { mobile, mobileDisplays, setMobileDisplays, mobileWidth, mobileHeight } = useMobile()
+    const { mobile, mobileDisplays, setMobileDisplays, mobileWidth } = useMobile()
 
     const location = useLocation();
 
@@ -43,7 +43,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                 setLoading(false)
             }
         }
-        else if (location.pathname === admin ? `/cms/products/${productOption}` : `/products/${productOption}/`) {
+        if (location.pathname === admin ? `/cms/products/${productOption}` : `/products/${productOption}/`) {
             if (lastImgIndex === index) {
                 setLoading(false)
             }
@@ -213,11 +213,13 @@ const ProductCard = ({ item, index, setLoading }) => {
                 left: (view === 'single') && mobile ? '0' : '',
                 alignText: 'center'
             }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}>
-                    <button onClick={(e) => updateCart(item, 'plus')} style={{
+
+                    <button type="button" onClick={(e) => { e.stopPropagation(); updateCart(item, 'plus') }} style={{
                         fontSize: '0.8em', color: 'rgb(227, 182, 133)', backgroundColor: 'brown', padding: '5px 20px',
                         border: 'none', borderRadius: '25px', height: 'fit-content'
                     }}>{item.qty === 0 ? 'Add To Cart' : `${item.qty} in Cart`}</button>
-                    {item.qty > 0 ? <button onClick={(e) => updateCart(item, 'minus')} style={{
+
+                    {item.qty > 0 ? <button type="button" onClick={(e) => { e.stopPropagation(); updateCart(item, 'minus') }} style={{
                         marginLeft: '20px',
                         fontSize: '0.8em', color: 'white', backgroundColor: 'rgb(241, 103, 103)', padding: '5px 20px',
                         border: 'none', borderRadius: '25px', height: 'fit-content'
