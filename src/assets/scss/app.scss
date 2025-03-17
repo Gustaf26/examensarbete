@@ -19,7 +19,7 @@ body {
 // MAIN container 
 
 #main-div {
-  background-color: rgb(233, 227, 216);
+  background-color: white;
   height: 'fit-content'
 }
 
@@ -29,7 +29,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-size: auto;
-  background-color: rgb(233, 227, 216);
 }
 
 // NAVIGATION MENU
@@ -104,11 +103,6 @@ h2 {
     background-color: whitesmoke;
     cursor: pointer;
   }
-
-  // &:nth-child(2) a {
-  //   color: rgb(210, 129, 37) !important;
-  //   text-decoration: none;
-  // }
 
   &:nth-child(3) a {
     color: rgb(210, 129, 37) !important;
@@ -222,6 +216,8 @@ h2 {
   }
 }
 
+// SEARCH INPUT
+
 #product-search {
   // min-width: 300px;
   padding-left: 20px;
@@ -243,6 +239,8 @@ h2 {
   }
 }
 
+
+// BREADCRUMBS 
 
 .breadcrumb {
 
@@ -284,6 +282,8 @@ h2 {
     }
   }
 }
+
+// CART ICON
 
 #basket-icon {
   font-size: xx-large;
@@ -363,31 +363,88 @@ h2 {
   }
 }
 
-// HOME SLIDER
+// HOME
 
-#home-slider {
+#home-container {
 
-  & img:hover {
-    z-index: 7;
-    transform: scale(1.025);
-    cursor: pointer;
+  width: 100%;
+  overflow-x: hidden;
+
+  & #home-card2 {
+
+    & button {
+      margin: 0 auto;
+      width: fit-content;
+    }
+
+    // HOME SLIDER
+
+    & #home-slider {
+
+      & img:hover {
+        z-index: 7;
+        transform: scale(1.025);
+        cursor: pointer;
+      }
+
+      & .slider-arrow {
+        background-color: brown;
+        position: absolute;
+        z-index: 10;
+        height: 60px;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(216, 158, 0, 1);
+        padding: 10px;
+        border-radius: 50px;
+
+        & svg {
+          cursor: pointer;
+          margin-left: 10px;
+        }
+
+        &#right-arrow {
+          right: -40px;
+          top: 40%;
+          padding-right: 20px;
+        }
+
+        &#left-arrow {
+          left: -40px;
+          top: 40%;
+        }
+
+        &:hover {
+          background-color: rgba(216, 158, 0, 1);
+          color: brown;
+        }
+      }
+    }
   }
 
-  & svg:hover {
-    cursor: pointer;
-    color: orange;
+  & button {
+    padding: 10px 20px;
+    background-color: brown;
+    color: #D89E00;
+    border: none;
+    border-radius: 25px;
+
+    &:hover {
+      background-color: #D89E00;
+      color: brown;
+    }
   }
 }
+
 
 //PRODUCTS
 
 #dummy-container-products {
-  background-color: rgb(233, 227, 216);
-}
-
-#home-card {
   background-color: white;
 }
+
 
 .card {
   // border: 1px solid rgb(210, 129, 37);

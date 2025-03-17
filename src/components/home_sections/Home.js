@@ -10,7 +10,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import useMobileStyles from "../../hooks/useMobileStyles";
 
 import MobileList from "../../cms_components/MobileList";
-import DesktopHome from '../../components/home_sections/DesktopHome'
+import HomeSections from '../../components/home_sections/HomeSections'
 
 const Home = () => {
   const {
@@ -107,14 +107,14 @@ const Home = () => {
           )}
           {mobileDisplays && <MobileList />}
 
-          {!mobile && <DesktopHome onLoad={(e) => {
+          <HomeSections onLoad={(e) => {
             e.target.scrollIntoView({ block: 'end' });
           }}
             onClick={() =>
               !admin && menuShowing && mobile ? setMenuShowing(false) : null
             }
-            style={{ overflowX: 'hidden', maxWidth: '100%' }}
-          />}
+            style={{ overflowX: 'hidden' }}
+          />
         </Row>
       </div>
     </>

@@ -56,6 +56,7 @@ const App = () => {
 									marginLeft: "240px",
 									maxWidth: "calc(100vw - 240px)",
 									flexWrap: "wrap",
+									backgroundColor: 'white'
 								}
 								: { width: "100%", backgroundColor: 'white' }
 						}
