@@ -33,7 +33,7 @@ function HomeSections() {
         // Moves right and left in slider
         if (direction === 'right') {
             previousSlides.push(allProducts)
-            slidesref.current.style.transition = 'transform 0.5s linear'
+            slidesref.current.style.transition = 'transform 0.5s ease-out'
             slidesref.current.style.transform = `translateX(-${(rightMoves + 1) * slideDistance}px)`
 
             // Go back to start after 7 right moves
@@ -72,18 +72,21 @@ function HomeSections() {
             } : microMobile ? {
                 display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
                 borderRadius: '10px', width: '100%', margin: '5rem auto'
-            } : null}
+            } : mobile ? {
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center',
+                borderRadius: '10px', width: '100%', margin: '5rem auto'
+            } : {}}
         >
             <img alt="home-welcome-picture"
                 className='mx-auto p-0'
-                style={microMobile ? { width: '100%' } : { margin: '15px' }}
+                style={microMobile ? { width: '100%' } : mobile ? { width: '600px', margin: '0 auto' } : { margin: '15px' }}
                 variant='top'
                 src='https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg'
             />
             <div id='home-card-text' style={!mobile ? { margin: '15px', display: 'flex', flexDirection: 'column', alignItems: 'end' } :
-                { margin: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+                { margin: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
                 className='text-muted mediums px-2'>
-                <h3 style={{ color: 'brown', width: '100%' }}>Cheapest In The Market</h3>
+                <h3 style={{ color: 'brown', width: '100%', textAlign: mobile ? 'center' : '' }}>Cheapest In The Market</h3>
                 <div style={{ margin: '2rem auto', color: 'rgb(109, 44, 38)' }}>
                     <p>Work Hard, Not on Your Wallet. Discover our collection of
                         budget-friendly <b>workwear</b> that doesn't compromise on quality.
@@ -135,7 +138,10 @@ function HomeSections() {
                     </ArrowForwardIosIcon>
                 </div>
             </div>
-            <button>See all products</button>
+            <button onClick={() => {
+                localStorage.setItem("search", JSON.stringify(' '));
+                navigate(admin ? "/cms/search-results" : "/search-results", { replace: true })
+            }}>See all products</button>
         </div>
     </div >)
 }

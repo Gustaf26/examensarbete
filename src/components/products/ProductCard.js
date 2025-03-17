@@ -98,7 +98,8 @@ const ProductCard = ({ item, index, setLoading }) => {
             width: '800px', display: 'flex', marginTop: '0',
             flexDirection: 'row', height: '550px', alignItems: 'start', padding: '15px'
         } : mobile ? {
-            width: '100%', height: view === 'single' ? `${mobileHeight + 80}px` : 'fit-content', paddingTop: '15px',
+            width: '100%', height: view === 'single' ? `fit-content` : 'fit-content', paddingTop: '15px',
+            paddingBottom: view === 'single' ? '40px' : '10px',
             maxWidth: '330px', margin: '20px auto', display: 'flex', justifyContent: 'center'
         }
             : admin ? { width: '330px', height: '570px', margin: '15px', padding: '10px' } :
