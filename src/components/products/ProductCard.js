@@ -99,7 +99,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             flexDirection: 'row', height: '550px', alignItems: 'start', padding: '15px'
         } : mobile ? {
             width: '100%', height: view === 'single' ? `fit-content` : 'fit-content', paddingTop: '15px',
-            paddingBottom: view === 'single' ? '40px' : '10px',
+            paddingBottom: view === 'single' ? '40px' : '40px',
             maxWidth: '330px', margin: '20px auto', display: 'flex', justifyContent: 'center'
         }
             : admin ? { width: '330px', height: '570px', margin: '15px', padding: '10px' } :
@@ -207,10 +207,10 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </div>) : null}
             </div>
             {!admin && <CardFooter id="product-card-footer-container" style={{
-                width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: '10px auto',
-                position: (view === 'single') ? 'absolute' : 'relative',
+                width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: '0px auto',
+                position: 'absolute',
                 bottom: '0', display: 'block',
-                left: (view === 'single') && mobile ? '0' : '',
+                left: (view === 'single') && mobile ? '0' : view !== 'single' ? '0' : '',
                 alignText: 'center'
             }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}>
 
