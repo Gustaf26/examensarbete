@@ -12,7 +12,7 @@ import useMobileStyles from '../../hooks/useMobileStyles';
 
 function HomeSections() {
 
-    const { allProducts, setSingleProduct } = useCreate()
+    const { allProducts, setSingleProduct, setSearchResults } = useCreate()
     const [slides, setSlides] = useState()
     const slidesref = useRef()
     const [rightMoves, setRightMoves] = useState(0)
@@ -22,6 +22,13 @@ function HomeSections() {
     const navigate = useNavigate()
 
     const { admin } = useAuth()
+
+    const showCheapest = () => {
+
+        let cheapestProducts = allProducts.filter(prod => prod.price < 20)
+        setSearchResults(cheapestProducts)
+        navigate(admin ? `/cms/search-results` : `/search-results`, { replace: true })
+    }
 
     const moveSlides = (direction) => {
 
@@ -96,7 +103,7 @@ function HomeSections() {
                         reliable shirts, find the cheap work clothes you need for any job.
                         Quality and value, all in one place. Explore our budget-friendly selection.</p>
                 </div>
-                <button>Check cheapest now</button>
+                <button onClick={showCheapest}>Check cheapest now</button>
             </div>
         </div>
         <div id="home-card2"
@@ -111,10 +118,8 @@ function HomeSections() {
                 </div>
             </div>
             <div id="home-slider" style={{ display: 'flex', margin: '2rem auto', position: 'relative', width: microMobile ? '100%' : '80%', justifyContent: 'center' }}>
-                <div id="left-arrow" className="slider-arrow" style={microMobile ? { left: '10px' } : {}} >
-                    <ArrowBackIosIcon
-                        onClick={() => moveSlides('left')}
-                    ></ArrowBackIosIcon>
+                <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow" style={microMobile ? { left: '10px' } : {}} >
+                    <ArrowBackIosIcon></ArrowBackIosIcon>
                 </div>
                 <div style={{ width: 'calc(100vw - 20%)' }}>
                     <div style={{ display: 'flex', flexWrap: 'nowrap' }} ref={slidesref}>
@@ -133,9 +138,8 @@ function HomeSections() {
                         })}
                     </div>
                 </div>
-                <div id="right-arrow" className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
-                    <ArrowForwardIosIcon onClick={() => moveSlides('right')}>
-                    </ArrowForwardIosIcon>
+                <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
+                    <ArrowForwardIosIcon></ArrowForwardIosIcon>
                 </div>
             </div>
             <button onClick={() => {

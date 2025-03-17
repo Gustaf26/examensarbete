@@ -213,19 +213,6 @@ const ProductCard = ({ item, index, setLoading }) => {
                 left: (view === 'single') && mobile ? '0' : '',
                 alignText: 'center'
             }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}>
-                    {/* <span onClick={(e) => updateCart(item, 'plus')} style={{
-                        fontSize: '1.2em', color: 'brown', width: '40px',
-                        textAlign: 'center'
-                    }}>+</span>
-                    <input type="button" value={item.qty} style={{
-                        textAlign: 'center', color: 'brown', fontWeight: 'bold', outline: 'none',
-                        border: '1px solid rgb(246, 212, 212)', boxShadow: '1px 1px 2px rgb(246, 212, 212)',
-                        backgroundColor: 'white', margin: '0px 8px', width: '40px', borderRadius: '4px'
-                    }} />
-                    <span onClick={(e) => updateCart(item, 'minus')} style={{
-                        fontSize: '1.2em',
-                        color: 'brown', width: '40px', textAlign: 'center'
-                    }}>-</span> */}
                     <button onClick={(e) => updateCart(item, 'plus')} style={{
                         fontSize: '0.8em', color: 'rgb(227, 182, 133)', backgroundColor: 'brown', padding: '5px 20px',
                         border: 'none', borderRadius: '25px', height: 'fit-content'
