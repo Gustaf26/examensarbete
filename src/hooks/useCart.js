@@ -11,7 +11,7 @@ function useCart() {
 
         let singleProd = allProducts.filter(prod => prod.id === item.id)
 
-        if (singleProd.length) productToUpdate = singleProd[0]
+        if (singleProd.length > 0) productToUpdate = singleProd[0]
         else return
 
         // if (productToUpdate && action === 'plus') productToUpdate.qty = Number(productToUpdate.qty + 1)

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
-import { Card, CardFooter, Form } from "react-bootstrap";
+import { Card, CardFooter, Form, Alert } from "react-bootstrap";
 // import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 // import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
@@ -19,11 +19,12 @@ const ProductCard = ({ item, index, setLoading }) => {
     const [lastImgIndex, setLastImgIndex] = useState('')
     const [activeSize, setActiveSize] = useState()
     const [view, setView] = useState('')
+    const [sizeAlert, setSizeAlert] = useState(false)
     const updateCart = useCart()
 
     const navigate = useNavigate();
     const { admin } = useAuth();
-    const { setSingleProduct, productOption, setProductOption, allProducts } = useCreate();
+    const { setSingleProduct, productOption, setProductOption, allProducts, setProdId } = useCreate();
     const { mobile, mobileDisplays, setMobileDisplays, mobileWidth } = useMobile()
 
     const location = useLocation();
@@ -112,7 +113,6 @@ const ProductCard = ({ item, index, setLoading }) => {
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
                 <Card.Img onClick={() => {
-                    setSingleProduct(item);
                     navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
                 }}
                     onLoad={() => setLoading(prev => prev + 1)}
@@ -145,8 +145,9 @@ const ProductCard = ({ item, index, setLoading }) => {
                         if (i <= 3) {
                             return (<li>
                                 <img className="related-prods-pic" onClick={(e) => {
+                                    setProdId(prod.id)
                                     e.stopPropagation()
-                                    setSingleProduct(prod);
+                                    setSingleProduct(prod)
                                     navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
                                 }} alt={prod.description} src={prod.thumbnail} />
                                 <p>{prod.title}</p>
@@ -195,6 +196,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                                 return (<li>
                                     <img className="related-prods-pic" onClick={(e) => {
                                         e.stopPropagation()
+                                        setProdId(prod.id)
                                         setSingleProduct(prod);
                                         navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
                                     }} alt={prod.description} src={prod.thumbnail} />
@@ -206,14 +208,20 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </div>) : null}
             </div>
             {!admin && <CardFooter id="product-card-footer-container" style={{
-                width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: '0px auto',
+                backgroundColor: 'rgba(0,0,0,0)',
+                width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: (view === 'single') ? '10px auto' : '0 auto',
                 position: 'absolute',
                 bottom: '0', display: 'block',
                 left: (view === 'single') && mobile ? '0' : view !== 'single' ? '0' : '',
                 alignText: 'center'
-            }}><div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}>
+            }}>
+                <div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}>
 
-                    <button type="button" onClick={(e) => { e.stopPropagation(); updateCart(item, 'plus') }} style={{
+                    {!activeSize && sizeAlert ? <Alert style={{ position: "absolute", left: '0', top: '-120%', width: '100%', textAlign: 'center', fontSize: '0.8em' }} variant="danger">You need to pick a size</Alert> : null}
+
+                    <button type="button" onClick={(e) => {
+                        e.stopPropagation(); if (!activeSize) { setSizeAlert(true) } else { updateCart(item, 'plus') }
+                    }} style={{
                         fontSize: '0.8em', color: 'rgb(227, 182, 133)', backgroundColor: 'brown', padding: '5px 20px',
                         border: 'none', borderRadius: '25px', height: 'fit-content'
                     }}>{item.qty === 0 ? 'Add To Cart' : `${item.qty} in Cart`}</button>
