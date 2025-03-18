@@ -36,10 +36,10 @@ const Home = () => {
         style={
           admin
             ? {
-              position: "absolute",
-              left: mobile ? "0px" : "240px",
+              position: 'absolute',
+              left: microMobile ? '0' : mobile ? "40px" : "240px",
               padding: mobile ? '15px' : '0',
-              width: mobile ? "calc(100% - 70px)" : "calc(100% - 240px)",
+              width: mobile ? "calc(100% - 40px)" : "100%",
               justifyContent: mobile ? 'center' : '',
             }
             : mobile ? {
@@ -66,7 +66,7 @@ const Home = () => {
           className='dummy-container-mobile'
           style={
             mobile && admin
-              ? { ...containerStyles, marginTop: "60px" }
+              ? { ...containerStyles, marginTop: '40px' }
               : mobile
                 ? {
                   margin: "20px auto",
@@ -113,7 +113,7 @@ const Home = () => {
             onClick={() =>
               !admin && menuShowing && mobile ? setMenuShowing(false) : null
             }
-            style={{ overflowX: 'hidden' }}
+            style={{ overflowX: 'hidden', maxWidth: '100%' }}
           />
         </Row>
       </div>

@@ -49,9 +49,9 @@ const Navigation = () => {
     navigate(admin ? "/cms/search-results" : "/search-results", { replace: true });
   };
 
-  const showSubMenu = () => {
-    setSubMenu(true)
-  }
+  // const showSubMenu = () => {
+  //   setSubMenu(true)
+  // }
 
   useEffect(() => {
     if (admin === true) {
@@ -94,7 +94,7 @@ const Navigation = () => {
       position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0',
       width: microMobile ? '100%' : `${mobileWidth}px`
       , borderTopLeftRadius: !microMobile ? '20px' : '', borderTopRightRadius: !microMobile ? '15px' : '',
-      zIndex: '3', top: '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
+      zIndex: '3', top: microMobile ? '0' : '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
     } : admin ? { width: '100%' } : { zIndex: '10', position: 'sticky', top: '0', width: '100%', height: 'fit-content' }}>
 
       {!menuShowing ?

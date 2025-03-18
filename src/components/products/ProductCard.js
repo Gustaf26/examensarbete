@@ -90,7 +90,6 @@ const ProductCard = ({ item, index, setLoading }) => {
     }}
         style={mobile && admin ? {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
-            maxHeight: 'fit-content',
             marginBottom: '15px', padding: '15px'
         } : !mobile && view === 'single' ? {
             transform: 'scale(1)',
@@ -191,8 +190,8 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </Card.Text>
                 {view === 'single' && mobile ? (<div id="related-prods">
                     <ul>
-                        {allProducts.map(prod => {
-                            if (prod.category === item.category) {
+                        {allProducts.map((prod, i) => {
+                            if (prod.category === item.category && i <= 4) {
                                 return (<li>
                                     <img onClick={(e) => {
                                         e.stopPropagation()
