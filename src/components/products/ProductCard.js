@@ -141,10 +141,10 @@ const ProductCard = ({ item, index, setLoading }) => {
             {view === 'single' && !mobile ? (<div id="related-prods">
                 <p>Related Products</p>
                 <ul>
-                    {allProducts.map(prod => {
-                        if (prod.category === item.category) {
+                    {allProducts.filter(prod => prod.category === item.category && prod.id !== item.id).map((prod, i) => {
+                        if (i <= 3) {
                             return (<li>
-                                <img onClick={(e) => {
+                                <img className="related-prods-pic" onClick={(e) => {
                                     e.stopPropagation()
                                     setSingleProduct(prod);
                                     navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
@@ -190,10 +190,10 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </Card.Text>
                 {view === 'single' && mobile ? (<div id="related-prods">
                     <ul>
-                        {allProducts.map((prod, i) => {
-                            if (prod.category === item.category && i <= 4) {
+                        {allProducts.filter(prod => prod.category === item.category && prod.id !== item.id).map((prod, i) => {
+                            if (i <= 3) {
                                 return (<li>
-                                    <img onClick={(e) => {
+                                    <img className="related-prods-pic" onClick={(e) => {
                                         e.stopPropagation()
                                         setSingleProduct(prod);
                                         navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
