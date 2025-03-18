@@ -103,7 +103,7 @@ function HomeSections() {
                         reliable shirts, find the cheap work clothes you need for any job.
                         Quality and value, all in one place. Explore our budget-friendly selection.</p>
                 </div>
-                <button onClick={showCheapest}>Check cheapest now</button>
+                <button onClick={() => { setTimeout(() => { showCheapest() }, 500) }}>Check cheapest now</button>
             </div>
         </div>
         <div id="home-card2"
@@ -144,7 +144,9 @@ function HomeSections() {
             </div>
             <button onClick={() => {
                 localStorage.setItem("search", JSON.stringify(' '));
-                navigate(admin ? "/cms/search-results" : "/search-results", { replace: true })
+                setTimeout(() => {
+                    navigate(admin ? "/cms/search-results" : "/search-results", { replace: true })
+                }, 500)
             }}>See all products</button>
         </div>
     </div >)

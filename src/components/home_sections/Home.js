@@ -66,7 +66,7 @@ const Home = () => {
           className='dummy-container-mobile'
           style={
             mobile && admin
-              ? { ...containerStyles, marginTop: '40px' }
+              ? { ...containerStyles, marginTop: '72px' }
               : mobile
                 ? {
                   margin: "20px auto",
