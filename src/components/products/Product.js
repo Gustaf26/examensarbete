@@ -28,8 +28,11 @@ const Product = () => {
   const {
     singleProduct,
     productOption,
+    setSingleProduct,
     setLocation,
     setProdId,
+    allProducts,
+    setProductOption
   } = useCreate();
 
   const { admin } = useAuth();
@@ -40,15 +43,20 @@ const Product = () => {
   const { mobile, setMobile, mobileDisplays, setMobileDisplays } = useMobile()
   const { containerStyles, microMobile } = useMobileStyles()
 
+
+  // This effect is for when page is reloaded
+  // Updates location and context vars to get single prod 
   useEffect(() => {
     if (!singleProduct) {
       setLocation(location.pathname);
       setProdId(Number(productId));
+      let singleP = allProducts.filter(prod => prod.id === Number(productId))
+      console.log(singleP)
+      if (singleP[0]) { setSingleProduct(singleP[0]); setProductOption(singleP[0].category); }
       if (window.innerWidth <= 1000) setMobile(true)
     }
-    console.log(location.pathname)
 
-  }, []);
+  }, [allProducts]);
 
 
 

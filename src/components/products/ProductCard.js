@@ -198,7 +198,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                                         e.stopPropagation()
                                         setProdId(prod.id)
                                         setSingleProduct(prod);
-                                        navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
+                                        // navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
                                     }} alt={prod.description} src={prod.thumbnail} />
                                     <p>{prod.title}</p>
                                 </li>)

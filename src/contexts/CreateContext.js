@@ -28,31 +28,32 @@ const CreateContextProvider = (props) => {
 
   const { admin } = useAuth()
 
-  const getSingleProduct = (prodId, products) => {
+  // const getSingleProduct = (prodId, products) => {
 
-    let firstDash;
-    let secondDash;
-    let semiPath;
-    let category;
-
-
-    firstDash = location.indexOf("/");
-    secondDash = location.lastIndexOf("/");
-    semiPath = location.slice(firstDash, secondDash);
-    category = admin ? semiPath.replace("/cms/products/", "") : semiPath.replace("/products/", "");
+  //   let firstDash;
+  //   let secondDash;
+  //   let semiPath;
+  //   let category;
 
 
-    let preliminaryProd = products.filter(
-      (prod) => prod.id === Number(prodId)
-    );
+  //   firstDash = location.indexOf("/");
+  //   secondDash = location.lastIndexOf("/");
+  //   semiPath = location.slice(firstDash, secondDash);
+  //   category = admin ? semiPath.replace("/cms/products/", "") : semiPath.replace("/products/", "");
 
-    console.log(products)
 
-    if (preliminaryProd.length) {
-      setProductOption(category);
-      setSingleProduct(preliminaryProd[0]);
-    }
-  };
+  //   let preliminaryProd = products.filter(
+  //     (prod) => prod.id === Number(prodId)
+  //   );
+  //   let prodCategory = preliminaryProd[0].category
+  //   console.log(prodCategory)
+  //   console.log(products)
+
+  //   if (preliminaryProd.length) {
+  //     setProductOption(prodCategory);
+  //     setSingleProduct(preliminaryProd[0]);
+  //   }
+  // };
 
   let emptyArr = []
 
@@ -81,14 +82,14 @@ const CreateContextProvider = (props) => {
 
   }, [])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (prodId) {
-      getSingleProduct(prodId, allProducts);
-      setLoading(false);
-    }
+  //   if (prodId) {
+  //     getSingleProduct(prodId, allProducts);
+  //     setLoading(false);
+  //   }
 
-  }, [allProducts])
+  // }, [allProducts])
 
   useEffect(() => {
 
@@ -122,6 +123,11 @@ const CreateContextProvider = (props) => {
     ) {
       setSearchString(JSON.parse(window.localStorage.getItem("search")));
     }
+
+    // if (prodId) {
+    //   getSingleProduct(prodId, allProducts);
+    //   setLoading(false);
+    // }
 
 
     // setProducts([...emptyArr])
@@ -175,7 +181,7 @@ const CreateContextProvider = (props) => {
     allProducts,
     searchResults,
     setSearchResults,
-    getSingleProduct,
+    // getSingleProduct,
     setProdId,
     setLocation,
     searchString,
