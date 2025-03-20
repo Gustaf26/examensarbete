@@ -33,23 +33,7 @@ const Home = () => {
     <>
       <div
         id='dummy-container-home'
-        style={
-          admin
-            ? {
-              position: 'absolute',
-              left: microMobile ? '0' : mobile ? "40px" : "240px",
-              padding: mobile ? '15px' : '0',
-              width: mobile ? "calc(100% - 40px)" : "100%",
-              justifyContent: mobile ? 'center' : '',
-            }
-            : mobile ? {
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              marginLeft: '0px',
-              padding: '10px'
-            } : {}
-        }
+        className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}
         onClick={(e) => {
           if (e.target.id === "dummy-container-home") setMobileDisplays(false);
         }}
@@ -63,20 +47,8 @@ const Home = () => {
               }
               : null
           }
-          className='dummy-container-mobile'
-          style={
-            mobile && admin
-              ? { ...containerStyles, marginTop: '72px' }
-              : mobile
-                ? {
-                  margin: "20px auto",
-                  width: '100%',
-                  padding: "0px",
-                  display: "flex",
-                  justifyContent: "center",
-                }
-                : { margin: "0 auto" }
-          }
+          className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}
+          style={mobile && admin ? { ...containerStyles } : {}}
           lg={mobile ? 12 : 6}
         >
           {admin && <Navigation />}
@@ -85,24 +57,8 @@ const Home = () => {
               className='icon-mobile-displays'
               onClick={() => {
                 setMobileDisplays(!mobileDisplays);
-              }}
-              style={{
-                border: "1px solid lightgrey",
-                width: "40px",
-                height: "40px",
-                textAlign: "left",
-                zIndex: "5",
-                margin: "0 auto",
-                padding: "8px",
-                borderRadius: "5px",
-                position: "absolute",
-                top: `-20px`,
-                left: "45%",
-                backgroundColor: "rgb(255, 255, 255)",
-              }}
-              color='primary'
-            >
-              device_unknown
+              }} color='primary'
+            >device_unknown
             </Icon>
           )}
           {mobileDisplays && <MobileList />}

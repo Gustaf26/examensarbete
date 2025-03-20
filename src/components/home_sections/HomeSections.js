@@ -70,20 +70,9 @@ function HomeSections() {
     }, [allProducts])
 
 
-    return (<div id="home-container" style={{ width: '100%', margin: '0 auto', padding: '0' }}>
+    return (<div id="home-sections-container">
         <div id="home-card1"
-            className='main-cardp-1'
-            style={!mobile ? {
-                display: 'flex', justifyContent: 'space-between',
-                borderRadius: '10px', width: '80%', margin: '5rem auto'
-            } : microMobile ? {
-                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-                borderRadius: '10px', width: '100%', margin: '5rem auto'
-            } : mobile ? {
-                display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center',
-                borderRadius: '10px', width: '100%', margin: '5rem auto'
-            } : {}}
-        >
+            className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
             <img alt="home-welcome-picture"
                 className='mx-auto p-0'
                 style={microMobile ? { width: '100%' } : mobile ? { width: '600px', margin: '0 auto' } : { margin: '15px' }}
@@ -107,10 +96,7 @@ function HomeSections() {
             </div>
         </div>
         <div id="home-card2"
-            className='main-card mx-auto'
-            style={!mobile ? { display: 'flex', flexDirection: 'column', backgroundColor: 'white', borderRadius: '10px', width: '80%', margin: '5rem auto' } :
-                { margin: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: 'white', }}
-        >
+            className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
             <div id='home-card-text' style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }} className='text-muted mediums px-2'>
                 <h3 style={{ color: 'brown', width: '100%', textAlign: 'center' }}>Your Next Work Outfit Awaits</h3>
                 <div style={{ margin: '2rem auto', color: 'rgb(109, 44, 38)' }}>
