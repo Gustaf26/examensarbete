@@ -43,7 +43,7 @@ function HomeSections() {
             slidesref.current.style.transition = 'transform 0.5s ease-out'
             slidesref.current.style.transform = `translateX(-${(rightMoves + 1) * slideDistance}px)`
 
-            // Go back to start after 7 right moves
+            // Go back to start after 7 / 12 right moves
             if (rightMoves === maxMoves) {
                 slidesref.current.style.transition = `transform 2s ease-out`
                 slidesref.current.style.transform = `translateX(0px)`
@@ -79,10 +79,9 @@ function HomeSections() {
                 variant='top'
                 src='https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg'
             />
-            <div id='home-card-text' style={!mobile ? { margin: '15px', display: 'flex', flexDirection: 'column', alignItems: 'end' } :
-                { margin: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-                className='text-muted mediums px-2'>
-                <h3 style={{ color: 'brown', width: '100%', textAlign: mobile ? 'center' : '' }}>Cheapest In The Market</h3>
+            <div id='home-card-text'
+                className={mobile ? 'mobile home-card-text text-muted mediums px-2' : 'home-card-text text-muted mediums px-2'}>
+                <h3 style={{ textAlign: mobile ? 'center' : 'left' }}>Cheapest In The Market</h3>
                 <div style={{ margin: '2rem auto', color: 'rgb(109, 44, 38)' }}>
                     <p>Work Hard, Not on Your Wallet. Discover our collection of
                         budget-friendly <b>workwear</b> that doesn't compromise on quality.
@@ -97,13 +96,13 @@ function HomeSections() {
         </div>
         <div id="home-card2"
             className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
-            <div id='home-card-text' style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }} className='text-muted mediums px-2'>
-                <h3 style={{ color: 'brown', width: '100%', textAlign: 'center' }}>Your Next Work Outfit Awaits</h3>
+            <div id='home-card-text' className={mobile ? 'mobile home-card-text text-muted mediums px-2' : 'home-card-text text-muted mediums px-2'}>
+                <h3>Your Next Work Outfit Awaits</h3>
                 <div style={{ margin: '2rem auto', color: 'rgb(109, 44, 38)' }}>
                     <p>Discover Quality Workwear That Fits Your Budget. Find Your Perfect Work Outfit, Without the Premium Price.</p>
                 </div>
             </div>
-            <div id="home-slider" style={{ display: 'flex', margin: '2rem auto', position: 'relative', width: microMobile ? '100%' : '80%', justifyContent: 'center' }}>
+            <div id="home-slider" className={microMobile ? 'micromobile' : ''}>
                 <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow" style={microMobile ? { left: '10px' } : {}} >
                     <ArrowBackIosIcon></ArrowBackIosIcon>
                 </div>

@@ -363,7 +363,7 @@ h2 {
   }
 }
 
-// HOME
+// HOME VIEW
 
 #dummy-container-home {
 
@@ -428,115 +428,148 @@ h2 {
       background-color: rgb(255, 255, 255);
     }
   }
-}
 
-#home-sections-container {
 
-  width: 100%;
-  overflow-x: hidden;
-  margin: 0 auto;
-  padding: 0;
+  & #home-sections-container {
 
-  & #home-card1 {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0 auto;
+    padding: 0;
 
-    display: flex;
-    justify-content: space-between;
-    border-radius: 10px;
-    width: 80%;
-    margin: 5rem auto;
-    min-width: 900px;
+    & #home-card1 {
 
-    &.micromobile {
       display: flex;
-      flex-direction: column;
       justify-content: space-between;
       border-radius: 10px;
-      width: 100%;
+      width: 80%;
       margin: 5rem auto;
-      min-width: 0px;
+      min-width: 900px;
+
+      &.micromobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 10px;
+        width: 100%;
+        margin: 5rem auto;
+        min-width: 0px;
+      }
+
+      &.mobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 10px;
+        width: 100%;
+        margin: 5rem auto;
+        min-width: 0px;
+      }
     }
 
-    &.mobile {
+    & #home-card2 {
+
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
+      background-color: white;
       border-radius: 10px;
-      width: 100%;
+      width: 80%;
       margin: 5rem auto;
-      min-width: 0px;
+
+      &.mobile {
+        margin: 15px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+      }
+
+      & button {
+        margin: 0 auto;
+        width: fit-content;
+      }
+
+      // HOME SLIDER
+
+      & #home-slider {
+
+        display: flex;
+        margin: 2rem auto;
+        position: relative;
+        width: 80%;
+        justify-content: center;
+
+        &.microMobile {
+          width: 100%;
+        }
+
+        & img:hover {
+          z-index: 7;
+          transform: scale(1.025);
+          cursor: pointer;
+        }
+
+        & .slider-arrow {
+          background-color: brown;
+          position: absolute;
+          z-index: 10;
+          height: 60px;
+          width: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: rgba(216, 158, 0, 1);
+          padding: 10px;
+          border-radius: 50px;
+
+          & svg {
+            cursor: pointer;
+            margin-left: 10px;
+          }
+
+          &#right-arrow {
+            right: -40px;
+            top: 40%;
+            padding-right: 20px;
+          }
+
+          &#left-arrow {
+            left: -40px;
+            top: 40%;
+          }
+
+          &:hover {
+            background-color: rgba(216, 158, 0, 1);
+            color: brown;
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
 
-  & #home-card2 {
+  & .home-card-text {
 
+    margin: 15px;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    border-radius: 10px;
-    width: 80%;
-    margin: 5rem auto;
+    align-items: end;
 
     &.mobile {
       margin: 15px;
       display: flex;
-      width: 100%;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: white;
     }
 
-    & button {
-      margin: 0 auto;
-      width: fit-content;
-    }
-
-    // HOME SLIDER
-
-    & #home-slider {
-
-      & img:hover {
-        z-index: 7;
-        transform: scale(1.025);
-        cursor: pointer;
-      }
-
-      & .slider-arrow {
-        background-color: brown;
-        position: absolute;
-        z-index: 10;
-        height: 60px;
-        width: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: rgba(216, 158, 0, 1);
-        padding: 10px;
-        border-radius: 50px;
-
-        & svg {
-          cursor: pointer;
-          margin-left: 10px;
-        }
-
-        &#right-arrow {
-          right: -40px;
-          top: 40%;
-          padding-right: 20px;
-        }
-
-        &#left-arrow {
-          left: -40px;
-          top: 40%;
-        }
-
-        &:hover {
-          background-color: rgba(216, 158, 0, 1);
-          color: brown;
-          cursor: pointer;
-        }
-      }
+    & h3 {
+      color: brown;
+      width: 100%;
+      text-align: center;
     }
   }
 
