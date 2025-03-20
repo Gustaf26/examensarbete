@@ -1,5 +1,4 @@
 
-
 import { createContext, useContext, useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
 import { db } from '../firebase/index'
@@ -25,35 +24,8 @@ const CreateContextProvider = (props) => {
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
 
-
   const { admin } = useAuth()
 
-  // const getSingleProduct = (prodId, products) => {
-
-  //   let firstDash;
-  //   let secondDash;
-  //   let semiPath;
-  //   let category;
-
-
-  //   firstDash = location.indexOf("/");
-  //   secondDash = location.lastIndexOf("/");
-  //   semiPath = location.slice(firstDash, secondDash);
-  //   category = admin ? semiPath.replace("/cms/products/", "") : semiPath.replace("/products/", "");
-
-
-  //   let preliminaryProd = products.filter(
-  //     (prod) => prod.id === Number(prodId)
-  //   );
-  //   let prodCategory = preliminaryProd[0].category
-  //   console.log(prodCategory)
-  //   console.log(products)
-
-  //   if (preliminaryProd.length) {
-  //     setProductOption(prodCategory);
-  //     setSingleProduct(preliminaryProd[0]);
-  //   }
-  // };
 
   let emptyArr = []
 
@@ -82,38 +54,9 @@ const CreateContextProvider = (props) => {
 
   }, [])
 
-  // useEffect(() => {
 
-  //   if (prodId) {
-  //     getSingleProduct(prodId, allProducts);
-  //     setLoading(false);
-  //   }
-
-  // }, [allProducts])
 
   useEffect(() => {
-
-    // THIS FUNCTIONALITY ONLY FOR USING DB PRODS BEFORE 
-
-    // let snapshotProducts = []
-    // productCategories.forEach(async (category) => {
-
-    //   const querySnapshot = await getDocs(collection(db, category.name));
-
-    //   querySnapshot.forEach((doc) => {
-    //     snapshotProducts.push(doc.data())
-    //   })
-    //   let emptyArr;
-    //   emptyArr = [...snapshotProducts];
-
-
-    //   // Deleting duplicates from snapshots data
-    //   snapshotProducts.forEach((prod) => {
-    //     if (!emptyArr.includes(prod)) {
-    //       emptyArr.push(prod)
-    //     }
-    //   })
-    //   console.log(emptyArr);
 
     // Getting search string from local Storage on reload in search-results-route when all products available
     if (
@@ -124,24 +67,7 @@ const CreateContextProvider = (props) => {
       setSearchString(JSON.parse(window.localStorage.getItem("search")));
     }
 
-    // if (prodId) {
-    //   getSingleProduct(prodId, allProducts);
-    //   setLoading(false);
-    // }
 
-
-    // setProducts([...emptyArr])
-
-    // // Function to fetch product when reloading /products/{category}/:productId
-    // if (prodId) {
-    //   getSingleProduct([...allProducts]);
-    // }
-    // setLoading(false);
-
-    // })
-    // return () => {
-    //   snapshotProducts = [];
-    // };
   }, [prodId]);
 
   // SIDE EFFECT FOR UPDATING SEARCH RESULTS
