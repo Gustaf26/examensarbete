@@ -12,7 +12,7 @@ import useMobileStyles from '../../hooks/useMobileStyles';
 
 function HomeSections() {
 
-    const { allProducts, setSingleProduct, setSearchResults } = useCreate()
+    const { allProducts, setSingleProduct, setSearchResults, setSearchString } = useCreate()
     const [slides, setSlides] = useState()
     const slidesref = useRef()
     const [rightMoves, setRightMoves] = useState(0)
@@ -129,6 +129,7 @@ function HomeSections() {
             </div>
             <button onClick={() => {
                 localStorage.setItem("search", JSON.stringify(' '));
+                setSearchString(' ')
                 setTimeout(() => {
                     navigate(admin ? "/cms/search-results" : "/search-results", { replace: true })
                 }, 500)

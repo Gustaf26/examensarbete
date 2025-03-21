@@ -39,9 +39,9 @@ const Navigation = () => {
     setMenuShowing(!menuShowing)
   }
 
-  const omitReload = (e) => {
-    e.preventDefault();
-  };
+  // const omitReload = (e) => {
+  //   e.preventDefault();
+  // };
 
   const changeString = (val) => {
     setSearchString(val);

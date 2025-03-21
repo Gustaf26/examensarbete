@@ -24,7 +24,7 @@ const CreateContextProvider = (props) => {
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
 
-  const { admin } = useAuth()
+  // const { admin } = useAuth()
 
 
   let emptyArr = []
@@ -64,11 +64,12 @@ const CreateContextProvider = (props) => {
       (location === "/search-results" || location === "/cms/search-results") &&
       searchString === ""
     ) {
-      setSearchString(JSON.parse(window.localStorage.getItem("search")));
+      if (localStorage.getItem("search")) setSearchString(JSON.parse(localStorage.getItem("search")))
+      else { setSearchString(' ') }
     }
 
 
-  }, [prodId]);
+  }, [allProducts]);
 
   // SIDE EFFECT FOR UPDATING SEARCH RESULTS
 
@@ -76,7 +77,7 @@ const CreateContextProvider = (props) => {
 
     setSearchResults([]);
 
-    if (allProducts.length > 0 && searchString !== "") {
+    if (allProducts.length > 0 && searchString) {
       let prodsDummy = []
       allProducts.forEach((product) => {
         if (
@@ -88,6 +89,7 @@ const CreateContextProvider = (props) => {
           prodsDummy.push(product)
         }
       });
+      console.log(`search res: ${prodsDummy}`)
       setSearchResults(prodsDummy);
     }
   }, [searchString]);
