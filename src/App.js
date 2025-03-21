@@ -27,8 +27,9 @@ import { MobileContextProvider } from "./contexts/MobileContext";
 import "./assets/scss/app.scss";
 
 const App = () => {
-	const { productCategories, setGlobalCategories } = useCreate();
+	const { productCategories, setGlobalCategories, setLocation, setSearchString } = useCreate();
 	const { admin } = useAuth();
+
 
 	useEffect(() => {
 		const getProds = async () => {
@@ -41,6 +42,8 @@ const App = () => {
 
 		getProds();
 	}, []);
+
+
 
 	return (
 		<Router>

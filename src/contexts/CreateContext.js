@@ -4,7 +4,7 @@ import { BounceLoader } from "react-spinners";
 import { db } from '../firebase/index'
 import { collection, getDocs } from "firebase/firestore";
 
-import { useAuth } from './AuthContext'
+// import { useAuth } from './AuthContext'
 
 const CreateContext = createContext();
 
@@ -23,6 +23,7 @@ const CreateContextProvider = (props) => {
   const [searchString, setSearchString] = useState("");
   const [location, setLocation] = useState("");
   const [prodId, setProdId] = useState("");
+
 
   // const { admin } = useAuth()
 
@@ -95,6 +96,9 @@ const CreateContextProvider = (props) => {
   }, [searchString]);
 
 
+  // useEffect(() => {
+  //   if (location !== "/search-results" && location !== "/cms/search-results") setSearchString('')
+  // }, [location])
 
   const contextValues = {
     setImageUrl,

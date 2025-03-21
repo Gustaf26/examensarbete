@@ -38,6 +38,7 @@ const SearchResults = () => {
   const {
     searchResults,
     setLocation,
+    setSearchString
   } = useCreate();
 
   const { admin } = useAuth();
@@ -57,6 +58,14 @@ const SearchResults = () => {
       }
     })
   }, [searchResults, loading]);
+
+  useEffect(() => {
+
+    return () => {
+      setSearchString('')
+    }
+
+  }, [])
 
   return (
     <>
