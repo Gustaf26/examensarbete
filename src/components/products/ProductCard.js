@@ -32,6 +32,7 @@ const ProductCard = ({ item, index, setLoading }) => {
     const { productId } = useParams()
 
 
+    // Effect for showing pics only after loading them
     useEffect(() => {
         if ((location.pathname === `/cms/products/${productOption}/${Number(productId)}`) ||
             (location.pathname === '/cms/products/update') ||

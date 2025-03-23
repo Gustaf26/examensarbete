@@ -91,6 +91,7 @@ const CreateContextProvider = (props) => {
         }
       });
       console.log(`search res: ${prodsDummy}`)
+      // New search results matching new search string
       setSearchResults(prodsDummy);
     }
   }, [searchString]);

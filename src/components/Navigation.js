@@ -39,19 +39,11 @@ const Navigation = () => {
     setMenuShowing(!menuShowing)
   }
 
-  // const omitReload = (e) => {
-  //   e.preventDefault();
-  // };
-
   const changeString = (val) => {
     setSearchString(val);
     localStorage.setItem("search", JSON.stringify(val));
     navigate(admin ? "/cms/search-results" : "/search-results", { replace: true });
   };
-
-  // const showSubMenu = () => {
-  //   setSubMenu(true)
-  // }
 
   useEffect(() => {
     if (admin === true) {

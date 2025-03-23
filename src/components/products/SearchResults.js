@@ -38,7 +38,8 @@ const SearchResults = () => {
   const {
     searchResults,
     setLocation,
-    setSearchString
+    setSearchString,
+    searchString
   } = useCreate();
 
   const { admin } = useAuth();
@@ -89,21 +90,27 @@ const SearchResults = () => {
 
           {mobileDisplays && <MobileList />}
 
-          {loading < searchResults.length && (
+          {/* {loading < searchResults.length && (
             <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
               <BounceLoader color={"#888"} size={100} />
             </div>
-          )}
+          )} */}
           <CardContainer>
 
-            {searchResults.length > 0 ?
+            {searchResults.length > 0 &&
               searchResults.map((item, i) => (
                 <ProductCard setLoading={setLoading} key={item.id} onLoad={(e) => {
                   if (i === 0) e.target.scrollIntoView({ block: 'start' })
                 }} item={item} />
-              )) : <Alert variant="warning" style={{ marginTop: '2rem', maxWidth: '550px' }}>
-                No results on that search, try another one
-              </Alert>}
+              ))}
+
+            {!loaded ? (<div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
+              <BounceLoader color={"#888"} size={100} />
+            </div>) : null}
+
+            {/* {loaded && (searchString !== "") && (searchResults.length === 0) ? <Alert variant="warning" style={{ marginTop: '2rem', maxWidth: '550px' }}>
+              No results on that search, try another one
+            </Alert> : null} */}
 
           </CardContainer>
 
