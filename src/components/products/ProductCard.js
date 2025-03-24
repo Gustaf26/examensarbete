@@ -86,25 +86,13 @@ const ProductCard = ({ item, index, setLoading }) => {
         }
     }
 
-    return (<Card key={item.id} className="product-card" onClick={() => {
+    return (<Card key={item.id} className={!mobile && view === 'single' ? 'product-card single' : "product-card"} onClick={() => {
         setProductOption(item.category); setSingleProduct(item);
         mobileDisplays && setMobileDisplays(!mobileDisplays)
     }}
         style={mobile && admin ? {
-            width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`, height: 'fit-content',
-            marginBottom: '15px', padding: '15px'
-        } : !mobile && view === 'single' ? {
-            transform: 'scale(1)',
-            position: 'relative',
-            width: '800px', display: 'flex', marginTop: '0',
-            flexDirection: 'row', height: '550px', alignItems: 'start', padding: '15px'
-        } : mobile ? {
-            width: '100%', height: view === 'single' ? `fit-content` : 'fit-content', paddingTop: '15px',
-            paddingBottom: view === 'single' ? '40px' : '40px',
-            maxWidth: '330px', margin: '20px auto', display: 'flex', justifyContent: 'center'
-        }
-            : admin ? { width: '330px', height: '570px', margin: '15px', padding: '10px' } :
-                { width: '330px', height: '620px', margin: '15px', padding: '10px' }}>
+            width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`
+        } : {}}>
 
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' }
             : mobile ? { width: '100%', margin: '0 auto' }

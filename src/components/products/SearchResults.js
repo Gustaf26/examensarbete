@@ -70,18 +70,19 @@ const SearchResults = () => {
 
   return (
     <>
-      {!mobile && admin && <Navigation />}
+      {/* {!mobile && admin && <Navigation />} */}
 
-      <div id="dummy-container-products" style={admin ? {
-        position: 'absolute', top: mobile ? '60px' : '200px', left: microMobile ? '0' : mobile ? '40px' : '240px',
-        width: mobile ? 'calc(100% - 40px)' : 'calc(100%)', paddingRight: !mobile && admin ? '200px' : ''
-      } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+      <div id="dummy-container-products" className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
+        admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
+        onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
+        {(microMobile || (admin && !mobile)) && <Navigation />}
         {!mobile && <BreadcrumbContainer />}
 
-        <Row style={mobile && admin ? { ...containerStyles, padding: '10px 10px' }
-          : mobile ? { margin: '5rem auto', justifyContent: 'center' }
-            : { margin: '1rem auto', justifyContent: 'center' }}>
+        <Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
+          admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
+          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' }
+            : {}}>
           {admin && mobile && <Navigation />}
 
           {mobile && admin && !microMobile && <Icon className="icon-mobile-displays"
@@ -90,13 +91,7 @@ const SearchResults = () => {
 
           {mobileDisplays && <MobileList />}
 
-          {/* {loading < searchResults.length && (
-            <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
-              <BounceLoader color={"#888"} size={100} />
-            </div>
-          )} */}
           <CardContainer>
-
             {searchResults.length > 0 &&
               searchResults.map((item, i) => (
                 <ProductCard setLoading={setLoading} key={item.id} onLoad={(e) => {
@@ -107,11 +102,6 @@ const SearchResults = () => {
             {!loaded ? (<div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
               <BounceLoader color={"#888"} size={100} />
             </div>) : null}
-
-            {/* {loaded && (searchString !== "") && (searchResults.length === 0) ? <Alert variant="warning" style={{ marginTop: '2rem', maxWidth: '550px' }}>
-              No results on that search, try another one
-            </Alert> : null} */}
-
           </CardContainer>
 
         </Row>

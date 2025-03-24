@@ -52,6 +52,8 @@ body {
 
   &.mobile {
 
+    width: 100%;
+
     &.admin {
       position: absolute;
       left: 0;
@@ -263,7 +265,7 @@ h2 {
   background-color: #edf0f2 !important;
   border: 1px solid lightgrey;
   text-align: left;
-  z-index: 5;
+  z-index: 10;
   margin: 0 auto;
   padding: 0;
   border-radius: 5px;
@@ -745,8 +747,8 @@ h2 {
     }
 
     &.admin {
-      margin-top: 3rem;
-      // justify-content: center;
+      margin: 3rem auto;
+      width: 80%;
 
       &.mobile {
         padding: 10px 10px;
@@ -786,6 +788,61 @@ h2 {
     }
   }
 }
+
+.product-card {
+  width: 25%;
+  min-width: 270px;
+  max-width: 300px;
+  height: 620px;
+  margin: 15px;
+  padding: 10px;
+  margin-bottom: 15px;
+
+  padding: 15px;
+
+  &.single {
+    transform: scale(1);
+    position: relative;
+    width: 800px;
+    max-width: none;
+    display: flex;
+    margin-top: 0;
+    flex-direction: row;
+    height: fit-content;
+    align-items: start;
+    padding: 15px;
+  }
+
+  &.micromobile {
+
+    &.admin {}
+  }
+
+  &.mobile {
+
+    width: 100%;
+    height: fit-content;
+    padding-top: 15px;
+    padding-bottom: 40px;
+    max-width: 330px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+
+    &.admin {
+      height: fit-content
+    }
+  }
+
+  &.admin {
+
+    width: 330px;
+    height: 570px;
+    margin: 15px;
+    padding: 10px;
+  }
+}
+
 
 .card {
   // border: 1px solid rgb(210, 129, 37);
