@@ -35,45 +35,22 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 	return (
 		<>
 			<div
-				id='dummy-container-products'
-				style={
-					admin
-						? {
-							position: "absolute",
-							top: mobile ? "60px" : "226px",
-							left: microMobile ? '0' : mobile ? "40px" : "240px",
-							width: mobile ? "calc(100% - 40px)" : "calc(100%)",
-							paddingRight: !mobile && admin ? "200px" : "",
-						}
-						: {}
-				}
+				className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
+					admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
 				onClick={(e) => {
 					if (e.target.id === "dummy-container-products") setMobileDisplays(false);
 				}}
 			>
+				{microMobile && admin && <Navigation />}
 				{!(admin && mobile) && <BreadcrumbContainer />}
 
-				<Row
-					id='dummy-container-mobile'
+				<Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
+					admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
 					onLoad={(e) => {
 						setProductOption(type);
 					}}
-					style={
-						mobile && admin
-							? { ...containerStyles, padding: "10px 10px" }
-							: mobile
-								? {
-									margin: "0 auto",
-									padding: "0px",
-									display: "flex",
-									justifyContent: "center",
-								}
-								: admin
-									? { margin: "3rem auto", justifyContent: "center" }
-									: { margin: "3rem auto" }
-					}
-				>
-					{admin && mobile && <Navigation />}
+					style={mobile && admin ? { ...containerStyles } : {}}>
+					{admin && mobile && !microMobile && <Navigation />}
 
 					{mobile && admin && !microMobile && (
 						<Icon

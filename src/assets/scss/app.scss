@@ -591,8 +591,52 @@ h2 {
 
 //PRODUCTS
 
-#dummy-container-products {
+.dummy-container-products {
   background-color: white;
+
+  &.micromobile {
+    left: 0;
+  }
+
+  &.admin {
+
+    position: absolute;
+    left: 240px;
+    top: 226px;
+    width: 100%;
+    padding-right: 200px;
+
+    &.mobile {
+      left: 40px;
+      top: 60px;
+      width: calc(100% - 40px);
+      display: flex;
+      justify-content: center;
+      padding-right: 0;
+    }
+  }
+
+  & .dummy-container-products-row {
+    margin: 3rem auto;
+
+    &.micromobile {}
+
+    &.mobile {
+      margin: 0 auto;
+      padding: 0px;
+      display: flex;
+      justify-content: center;
+    }
+
+    &.admin {
+      margin: 3rem auto;
+      justify-content: center;
+
+      &.mobile {
+        padding: 10px 10px;
+      }
+    }
+  }
 }
 
 

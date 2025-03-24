@@ -77,12 +77,12 @@ const ProductCard = ({ item, index, setLoading }) => {
 
     const handleImgResize = (e) => {
 
-        if (e.target.value > 50) {
+        if (e.target.value > 0) {
             console.log((1 + Number(e.target.value) / 100).toFixed(1))
-            document.getElementById('update-product-image').style.transform = `scale(${((1 + Number(e.target.value) / 100).toFixed(1)).toString()})`
+            document.getElementById('update-product-image').style.transform = `scale(${((1 + (Number(e.target.value) / 100)).toFixed(1)).toString()})`
         }
         else {
-            document.getElementById('update-product-image').style.transform = `scale(${(1 - ((50 - Number(e.target.value)) / 100)).toFixed(1).toString()})`
+            document.getElementById('update-product-image').style.transform = `scale(${(1).toFixed(1).toString()})`
         }
     }
 
@@ -120,7 +120,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
                         { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
             </div>
-            {!mobile && admin && view === 'single' && (<Form.Range style={{ display: 'block', margin: '0 auto', width: '200px', left: '12%' }}
+            {!mobile && admin && view === 'single' && (<Form.Range defaultValue={0} style={{ display: 'block', margin: '0 auto', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
             <div id="single-product-sizes">
                 <ul>
