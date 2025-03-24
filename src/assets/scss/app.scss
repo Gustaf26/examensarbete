@@ -89,7 +89,7 @@ body {
 }
 
 
-// SUBMENU product categories
+// Subnavigation product categories
 
 #basic-nav-dropdown {
   text-align: center;
@@ -118,8 +118,8 @@ body {
   }
 
   &.admin {
-    margin-left: 120px;
-    max-width: calc(100% - 120px);
+    // margin-left: 120px;
+    max-width: calc(100%);
   }
 
   & a {
@@ -671,7 +671,7 @@ h2 {
   }
 
   &.admin {
-    width: 100%;
+    width: calc(100% - 120px);
     margin-left: 120px;
 
     &.mobile {
