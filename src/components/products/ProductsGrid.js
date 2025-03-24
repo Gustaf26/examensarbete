@@ -34,14 +34,14 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 
 	return (
 		<>
-			<div
+			<div id="dummy-container-products"
 				className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
 					admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
 				onClick={(e) => {
 					if (e.target.id === "dummy-container-products") setMobileDisplays(false);
 				}}
 			>
-				{microMobile && admin && <Navigation />}
+				{(microMobile || (admin && !mobile)) && <Navigation />}
 				{!(admin && mobile) && <BreadcrumbContainer />}
 
 				<Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :

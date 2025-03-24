@@ -70,10 +70,6 @@ const Product = () => {
       <div id="dummy-container-products"
         className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
           admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
-        // style={admin ? {
-        //   position: 'absolute', top: mobile ? '60px' : admin ? '0' : '120px', left: microMobile ? 0 : mobile ? '40px' : '240px',
-        //   width: mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
-        // } : {}} 
         onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
         {microMobile && admin && <Navigation />}

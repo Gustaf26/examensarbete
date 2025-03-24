@@ -82,12 +82,11 @@ const Navigation = () => {
   }, [mobile]);
 
   return (
-    <div style={mobile && admin ? {
-      position: 'absolute', backgroundColor: 'rgba(231, 229, 229, 0.7)', height: menuShowing ? 'fit-content' : '0',
-      width: microMobile ? '100%' : `${mobileWidth}px`
-      , borderTopLeftRadius: !microMobile ? '20px' : '', borderTopRightRadius: !microMobile ? '15px' : '',
-      zIndex: '3', top: microMobile ? '0' : '0', left: '0', right: '0', padding: !menuShowing ? '0' : ''
-    } : admin ? { width: '100%' } : { zIndex: '10', position: 'sticky', top: '0', width: '100%', height: 'fit-content' }}>
+    <div id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+      admin ? ' admin' : mobile ? ' mobile' : ''} style={{
+        height: 'fit-content',
+        width: microMobile ? '100%' : mobile ? `${mobileWidth}px` : '', padding: !menuShowing ? '0' : ''
+      }}>
 
       {!menuShowing ?
         (<div style={{
@@ -106,11 +105,13 @@ const Navigation = () => {
 
           </div>
         </div>) :
-        (<Row id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+        (<Row id="navigation-container-row" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
           admin ? ' admin' : mobile ? ' mobile' : ''}>
-          <Nav id="navigation" style={mobile && admin ? {
-            width: microMobile ? '100%' : `${mobileWidth}px`
-          } : {}}>
+          <Nav id="navigation" className={microMobile ? 'navigation micromobile' : admin && mobile ? 'navigation admin mobile' :
+            admin ? 'navigation admin' : mobile ? 'navigation mobile' : ''}
+            style={mobile && admin ? {
+              width: microMobile ? '100%' : `${mobileWidth}px`
+            } : {}}>
 
             <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } :
               mobile ? { width: '100%', padding: '10px', justifyContent: 'center' } : {

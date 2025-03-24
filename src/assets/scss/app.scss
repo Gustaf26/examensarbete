@@ -36,6 +36,42 @@ body {
 
 #navigation-container {
 
+  z-index: 10;
+  position: sticky;
+  height: fit-content;
+
+  &.micromobile {
+
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    &.admin {}
+  }
+
+  &.mobile {
+
+    &.admin {
+      position: absolute;
+      left: 0;
+      background-color: rgba(231, 229, 229, 0.7);
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+
+  &.admin {
+
+    width: calc(100% - 120px);
+    margin-left: 120px;
+  }
+
+
+}
+
+#navigation-container-row {
+
   & #navigation {
     background-color: rgb(165, 42, 42);
     position: relative;
@@ -48,6 +84,8 @@ body {
   }
 
   &.micromobile {
+
+    width: 100%;
 
     &.admin {}
   }
@@ -78,7 +116,7 @@ body {
     justify-content: end;
     flex-direction: row;
     height: 80px;
-    margin-left: 120px;
+    width: 100%;
   }
 }
 
@@ -439,12 +477,12 @@ h2 {
 #dummy-container-home {
 
   &.admin {
-    position: absolute;
-    left: 240px;
     padding: 0;
-    width: calc(100% - 240px);
+    width: calc(100% - 110px);
+    margin-left: 110px;
 
     &.mobile {
+      position: absolute;
       left: 40px;
       padding: 15px;
       width: calc(100% - 40px);
@@ -505,7 +543,7 @@ h2 {
 
     width: 100%;
     overflow-x: hidden;
-    margin: 0 auto;
+    margin: 3rem auto;
     padding: 0;
 
     & #home-card1 {
@@ -570,7 +608,7 @@ h2 {
         display: flex;
         margin: 2rem auto;
         position: relative;
-        width: 80%;
+        width: 100%;
         justify-content: center;
 
         &.microMobile {
@@ -702,11 +740,13 @@ h2 {
       padding: 0px;
       display: flex;
       justify-content: center;
+
+      &.admin {}
     }
 
     &.admin {
       margin-top: 3rem;
-      justify-content: center;
+      // justify-content: center;
 
       &.mobile {
         padding: 10px 10px;
@@ -853,7 +893,8 @@ h2 {
 
 .singleCard {
   margin-bottom: 5rem;
-  width: 400px;
+  width: 25%;
+  min-width: 250px;
   padding: 15px;
   display: flex;
   justify-content: center;

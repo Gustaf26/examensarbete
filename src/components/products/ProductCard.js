@@ -86,7 +86,7 @@ const ProductCard = ({ item, index, setLoading }) => {
         }
     }
 
-    return (<Card key={item.id} onClick={() => {
+    return (<Card key={item.id} className="product-card" onClick={() => {
         setProductOption(item.category); setSingleProduct(item);
         mobileDisplays && setMobileDisplays(!mobileDisplays)
     }}
