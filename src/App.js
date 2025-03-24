@@ -78,12 +78,12 @@ const App = () => {
 												<Route
 													path={`${category.name}`}
 													key={category.name}
-													element={<Products key='products' type={`${category.name}`} />}
+													element={<Products onLoad={(e) => { e.target.scrollIntoView() }} key='products' type={`${category.name}`} />}
 												/>
 												<Route
 													path={`${category.name}/:productId`}
 													key={`${category.name}/:productId`}
-													element={<Product key='single-prod' />}
+													element={<Product onLoad={(e) => { e.target.scrollIntoView() }} key='single-prod' />}
 												/>
 												{admin && (
 													<Route
