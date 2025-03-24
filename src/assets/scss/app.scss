@@ -118,6 +118,19 @@ h2 {
 
 .icon-mobile-displays {
   background-color: #edf0f2 !important;
+  border: 1px solid lightgrey;
+  text-align: left;
+  z-index: 5;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 5px;
+  position: absolute;
+  top: -10px;
+  left: 45%;
+  background-color: rgb(255, 255, 255);
+  width: 50px !important;
+  height: 50px !important;
+  line-height: 2.25;
 
   &:hover {
     cursor: pointer;
@@ -618,8 +631,13 @@ h2 {
 
   & .dummy-container-products-row {
     margin: 3rem auto;
+    width: 100%;
 
-    &.micromobile {}
+    &.micromobile {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
 
     &.mobile {
       margin: 0 auto;
@@ -639,6 +657,37 @@ h2 {
   }
 }
 
+/* PRODUCT CARDS*/
+
+
+.card-container {
+
+  &.micromobile {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &.admin {
+      height: fit-content;
+      margin: 7.5rem auto;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  &.mobile {
+    width: 100vw;
+    justify-content: center;
+  }
+
+  &.admin {
+
+    &.mobile {
+      margin: 7.5rem auto;
+    }
+  }
+}
 
 .card {
   // border: 1px solid rgb(210, 129, 37);
