@@ -109,7 +109,7 @@ const ProductCard = ({ item, index, setLoading }) => {
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' }
             : mobile ? { width: '100%', margin: '0 auto' }
                 : view === 'single' ? { width: '50%', height: 'fit-content' } : {}} >
-            <div style={!mobile && admin && view === 'single' ? {
+            <div style={admin && view === 'single' ? {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
@@ -120,7 +120,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
                         { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
             </div>
-            {!mobile && admin && view === 'single' && (<Form.Range defaultValue={0} style={{ display: 'block', margin: '0 auto', width: '200px', left: '12%' }}
+            {admin && view === 'single' && (<Form.Range defaultValue={0} style={{ display: 'block', margin: '10px auto', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
             <div id="single-product-sizes">
                 <ul>

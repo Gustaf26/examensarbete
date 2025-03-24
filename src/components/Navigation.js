@@ -106,21 +106,11 @@ const Navigation = () => {
 
           </div>
         </div>) :
-        (<Row className="px-0">
-          <Nav id="navigation" className="mx-auto" style={mobile && admin ? {
-            display: 'flex', height: 'fit-content', width: microMobile ? '100%' : `${mobileWidth}px`,
-            borderTopLeftRadius: '20px', borderTopRightRadius: '20px',
-            alignItems: 'center', justifyContent: 'center', padding: '10px', flexDirection: 'column'
-          } : mobile ? {
-            flexDirection: 'column', width: '100%',
-            justifyContent: 'space-evenly', height: 'fit-content', alignItems: 'center'
-          } : admin ? {
-            display: 'flex', alignItems: 'center', justifyContent: 'end', flexDirection: 'row',
-            height: '80px'
-          } : {
-            display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row',
-            height: '80px'
-          }}>
+        (<Row id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+          admin ? ' admin' : mobile ? ' mobile' : ''}>
+          <Nav id="navigation" style={mobile && admin ? {
+            width: microMobile ? '100%' : `${mobileWidth}px`
+          } : {}}>
 
             <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } :
               mobile ? { width: '100%', padding: '10px', justifyContent: 'center' } : {
@@ -190,8 +180,9 @@ const Navigation = () => {
               {!admin && !mobile && <CartIcon />}
             </div>
           </Nav>
-          {subMenu && (<NavItem id="basic-nav-dropdown" style={mobile && admin ? { maxWidth: microMobile ? '100%' : `${mobileWidth}px` }
-            : { zIndex: '3' }}>
+          {subMenu && (<NavItem id="basic-nav-dropdown" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+            admin ? ' admin' : mobile ? ' mobile' : ''} style={mobile && admin ? { maxWidth: microMobile ? '100%' : `${mobileWidth}px` }
+              : {}}>
             <NavLink
               to={admin ? '/cms/products/troussers' : "/products/troussers"}
               className="dropdown-item"

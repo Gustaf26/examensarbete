@@ -49,22 +49,22 @@ const App = () => {
 		<Router>
 			<div id='main-div' style={{ width: "100vw", position: "relative" }}>
 				<MobileContextProvider>
-					{admin && <CMSNav />}
 					{!admin && <Navigation />}
 					<Container
 						id='container'
 						style={
 							admin
 								? {
-									marginLeft: "240px",
-									maxWidth: "calc(100vw - 240px)",
-									flexWrap: "wrap",
-									backgroundColor: 'white'
+									maxWidth: '100vw',
+									minWidth: '100vw',
+									width: '100vw',
+									margin: '0'
 								}
 								: { width: "100%", backgroundColor: 'white' }
 						}
 						className='p-0'
 					>
+						{admin && <CMSNav />}
 						<Routes>
 							<Route path='/' element={<Home />} />
 							<Route path={admin ? "cms/*" : "/*"}>

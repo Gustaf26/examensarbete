@@ -25,18 +25,61 @@ body {
 
 #container {
   height: fit-content;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   min-height: 100vh;
   background-size: auto;
+  justify-content: start;
 }
 
 // NAVIGATION MENU
 
-#navigation {
-  background-color: rgb(165, 42, 42);
-  position: relative;
-  border-bottom: 0.5px solid brown;
+#navigation-container {
+
+  & #navigation {
+    background-color: rgb(165, 42, 42);
+    position: relative;
+    border-bottom: 0.5px solid brown;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    height: 80px;
+  }
+
+  &.micromobile {
+
+    &.admin {}
+  }
+
+  &.mobile {
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-evenly;
+    height: fit-content;
+    align-items: center;
+
+    &.admin {
+      display: flex;
+      height: fit-content;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      align-items: start;
+      // justify-content: center;
+      padding: 10px;
+      flex-direction: column;
+      margin-left: 0;
+    }
+  }
+
+  &.admin {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-direction: row;
+    height: 80px;
+    margin-left: 120px;
+  }
 }
 
 #nav-container {
@@ -44,6 +87,68 @@ body {
   margin: 0;
   width: 100%;
 }
+
+
+// SUBMENU product categories
+
+#basic-nav-dropdown {
+  text-align: center;
+  margin: 0px auto;
+  // width: 100% !important;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: brown;
+  flex-direction: row;
+  background-color: rgb(224, 191, 153);
+  border: 0.5px solid rgb(210, 129, 37);
+  margin-left: 0;
+
+  &.micromobile {
+
+    &.admin {}
+  }
+
+  &.mobile {
+
+    &.admin {
+      margin-left: 0;
+    }
+  }
+
+  &.admin {
+    margin-left: 120px;
+    max-width: calc(100% - 120px);
+  }
+
+  & a {
+    max-width: 180px;
+    text-align: center;
+    // color: rgb(255, 255, 255) !important;
+    color: rgb(161, 79, 25);
+    font-weight: 600;
+    height: 100%;
+    padding: 15px;
+    border-bottom: 3px solid rgba(234, 212, 187, 0);
+
+    &:hover {
+      color: brown !important;
+      background-color: rgb(237, 208, 176);
+      transition: all 0.25s ease-in-out;
+      border-bottom: 3px solid brown;
+    }
+
+    &.active {
+      color: brown !important;
+      text-shadow: 1px 1px 3px rgb(246, 212, 212);
+      background-color: rgb(244, 222, 198);
+      transition: all 0.25s ease-in-out;
+      border-bottom: 3px solid brown;
+    }
+  }
+}
+
 
 
 // Mobile menu icon
@@ -178,53 +283,6 @@ h2 {
 
     & svg {
       color: brown !important;
-    }
-  }
-}
-
-// DROPDOWN product categories
-
-#basic-nav-dropdown {
-  // position: absolute !important;
-  text-align: center;
-  margin: 0px auto;
-  // left: 0;
-  // top: 140px;
-  width: 100% !important;
-  height: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: brown;
-  // z-index: 3;
-  flex-direction: row;
-  background-color: rgb(224, 191, 153);
-  border: 0.5px solid rgb(210, 129, 37);
-
-
-  & a {
-    max-width: 180px;
-    text-align: center;
-    // color: rgb(255, 255, 255) !important;
-    color: rgb(161, 79, 25);
-    font-weight: 600;
-    height: 100%;
-    padding: 15px;
-    border-bottom: 3px solid rgba(234, 212, 187, 0);
-
-    &:hover {
-      color: brown !important;
-      background-color: rgb(237, 208, 176);
-      transition: all 0.25s ease-in-out;
-      border-bottom: 3px solid brown;
-    }
-
-    &.active {
-      color: brown !important;
-      text-shadow: 1px 1px 3px rgb(246, 212, 212);
-      background-color: rgb(244, 222, 198);
-      transition: all 0.25s ease-in-out;
-      border-bottom: 3px solid brown;
     }
   }
 }
@@ -602,30 +660,29 @@ h2 {
 }
 
 
-//PRODUCTS
+//PRODUCTS CONTAINERS
 
 .dummy-container-products {
   background-color: white;
 
   &.micromobile {
+    position: relative;
     left: 0;
   }
 
   &.admin {
-
-    position: absolute;
-    left: 240px;
-    top: 226px;
     width: 100%;
-    padding-right: 200px;
+    margin-left: 120px;
 
     &.mobile {
+      position: absolute;
       left: 40px;
       top: 60px;
       width: calc(100% - 40px);
       display: flex;
       justify-content: center;
       padding-right: 0;
+      margin-left: 0;
     }
   }
 
@@ -648,7 +705,7 @@ h2 {
     }
 
     &.admin {
-      margin: 3rem auto;
+      margin-top: 3rem;
       justify-content: center;
 
       &.mobile {
