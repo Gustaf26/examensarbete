@@ -62,15 +62,17 @@ const UpdateProfile = () => {
 
   }
   return (
-    <>{admin && !mobile && <Navigation />}
-      <Row id="dummy-container-products" style={admin ? {
-        position: 'absolute', top: mobile ? '60px' : '220px', left: microMobile ? '0' : mobile ? '40px' : '240px',
-        width: microMobile ? '100%' : mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)', justifyContent: 'center'
-      } : {}} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+    <>
+      {((admin && microMobile) || (admin && !mobile)) && <Navigation />}
 
-        <Row style={mobile && admin ? { ...containerStyles, margin: '0 auto', left: '12px' }
-          : mobile ? { width: '100%', marginTop: '3rem' } : { marginTop: '1rem' }}>
-          {admin && mobile && <Navigation />}
+      <Row id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+        <Row id="dummy-container-products-row" className={microMobile ? 'dummy-container-products-row micromobile' :
+          admin && mobile ? 'dummy-container-products-row admin mobile' :
+            admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
+          style={mobile && admin && !microMobile ? { ...containerStyles, margin: '0 auto', left: '12px' }
+            : {}}>
+
+          {admin && mobile && !microMobile && <Navigation />}
 
           {!mobile && <Breadcrumb className="mx-5 pt-5">
 
@@ -89,65 +91,64 @@ const UpdateProfile = () => {
             color='primary'>device_unknown</Icon>}
 
           {mobileDisplays && <MobileList />}
-          <CardContainer>
-            <Card onClick={() => {
-              mobileDisplays && setMobileDisplays(!mobileDisplays);
-              if ((window.innerWidth < 1100 || mobile) && menuShowing) setMenuShowing(false);
-            }}
-              id="update-profile-form"
-              style={mobile & admin ? { maxWidth: '100%', width: `calc(${mobileWidth}px - 40px)`, margin: '10px 10px' } :
-                mobile ? { width: '400px' } : admin ? { margin: '0 auto', padding: '0' } : { margin: '0 auto', width: '600px' }}>
 
-              <Card.Body style={mobile & admin ? { width: '100%' } : {}}>
-                <Card.Title>Update Profile</Card.Title>
+          <Card onClick={() => {
+            mobileDisplays && setMobileDisplays(!mobileDisplays);
+            if ((window.innerWidth < 1100 || mobile) && menuShowing) setMenuShowing(false);
+          }}
+            id="update-profile-form"
+            style={mobile & admin ? { maxWidth: '100%', width: `calc(${mobileWidth}px - 40px)`, margin: '2rem auto' } :
+              mobile ? { width: '400px' } : admin ? { margin: '0 auto', padding: '0' } : { margin: '0 auto' }}>
 
-                {error && <Alert variant="danger">{error}</Alert>}
-                {message && <Alert variant="success">{message}</Alert>}
+            <Card.Body style={mobile & admin ? { width: '100%' } : {}}>
+              <Card.Title>Update Profile</Card.Title>
 
-                <Form onSubmit={handleSubmit} onChange={() => { setMessage(''); setError(null); setLoading(false) }}>
-                  <Form.Group id="displayName">
-                    <Form.Label className="mt-3">Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Gustaf Sverdrup"
-                      defaultValue={currentUser.display_name}
-                    />
-                  </Form.Group>
+              {error && <Alert variant="danger">{error}</Alert>}
+              {message && <Alert variant="success">{message}</Alert>}
 
-                  <Form.Group id="email">
-                    <Form.Label className="mt-2">Email</Form.Label>
-                    <Form.Control
-                      type="email"
-                      defaultValue={currentUser.email}
-                      required
-                    />
-                  </Form.Group>
+              <Form onSubmit={handleSubmit} onChange={() => { setMessage(''); setError(null); setLoading(false) }}>
+                <Form.Group id="displayName">
+                  <Form.Label className="mt-3">Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Gustaf Sverdrup"
+                    defaultValue={currentUser.display_name}
+                  />
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label className="mt-2" type="password">Password</Form.Label>
-                    <Form.Control
-                      id="password"
-                      placeholder="Enter a new password"
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="mt-2">Password Confirmation</Form.Label>
-                    <Form.Control
-                      id="password-confirm"
-                      type="password"
-                      placeholder="Confirm the new password"
-                      // defaultValue={currentPassword}
-                      required
-                    />
-                  </Form.Group>
-                  <Button className="mt-5" disabled={loading} type="submit">
-                    Update
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
-          </CardContainer>
+                <Form.Group id="email">
+                  <Form.Label className="mt-2">Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    defaultValue={currentUser.email}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label className="mt-2" type="password">Password</Form.Label>
+                  <Form.Control
+                    id="password"
+                    placeholder="Enter a new password"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label className="mt-2">Password Confirmation</Form.Label>
+                  <Form.Control
+                    id="password-confirm"
+                    type="password"
+                    placeholder="Confirm the new password"
+                    // defaultValue={currentPassword}
+                    required
+                  />
+                </Form.Group>
+                <Button className="mt-5" disabled={loading} type="submit">
+                  Update
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
         </Row>
       </Row>
     </>

@@ -20,7 +20,8 @@ body {
 
 #main-div {
   background-color: white;
-  height: 'fit-content'
+  height: fit-content;
+  width: calc(100vw - 10px);
 }
 
 #container {
@@ -440,10 +441,11 @@ h2 {
 #login-form,
 #signup-form,
 #update-profile-form {
-  // background-color: rgba(243, 234, 234, 0.9) !important;
   margin: 8rem auto;
   color: rgb(193, 150, 150);
   background-color: rgb(224, 191, 153);
+  max-width: 500px;
+  min-width: 400px;
 
   & div.card-title {
     color: white !important;

@@ -49,7 +49,7 @@ const App = () => {
 
 	return (
 		<Router>
-			<div id='main-div' style={{ width: "100vw", position: "relative" }}>
+			<div id='main-div'>
 				<MobileContextProvider>
 					{!admin && <Navigation />}
 					<Container

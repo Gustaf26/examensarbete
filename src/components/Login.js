@@ -74,8 +74,8 @@ const Login = () => {
 
   return (
     <>
-      <Row className="mt-5">
-        <Col md={{ span: 6, offset: 3 }}>
+      <Row>
+        <Col>
           <Card id="login-form">
             <Card.Title style={{
               textAlign: 'center', width: '100%', height: 'fit-content', padding: '20px',
