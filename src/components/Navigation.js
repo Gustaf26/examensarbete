@@ -85,7 +85,7 @@ const Navigation = () => {
     <div id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
       admin ? ' admin' : mobile ? ' mobile' : ''} style={{
         height: 'fit-content',
-        width: microMobile ? '100%' : mobile && admin ? `${mobileWidth}px` : '', padding: !menuShowing ? '0' : ''
+        width: microMobile ? '100%' : mobile && admin ? `${mobileWidth}px` : '', padding: !menuShowing ? '0' : '0'
       }}>
 
       {!menuShowing ?
