@@ -72,14 +72,13 @@ const Product = () => {
           admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
         onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
-        {microMobile && admin && <Navigation />}
+        {((admin && microMobile) || (admin && !mobile)) && <Navigation />}
 
-        {location.pathname === `/cms/products/${productOption}/${productId}` && admin && !mobile && <Navigation />}
         {!(admin && mobile) && <BreadCrumbContainer />}
 
         <Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
           admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
-          style={mobile && admin ? { ...containerStyles } : {}}>
+          style={mobile && admin && !microMobile ? { ...containerStyles } : {}}>
 
           {admin && mobile && !microMobile && <Navigation />}
 

@@ -62,15 +62,14 @@ body {
 
   &.admin {
 
-    width: calc(100% - 120px);
-    margin-left: 120px;
+    width: calc(100%);
+    // margin-left: 120px;
   }
 
 
 }
 
 #navigation-container-row {
-
 
 
   & #navigation {
@@ -503,11 +502,11 @@ h2 {
 
   &.admin {
     padding: 0;
-    width: calc(100% - 110px);
-    margin-left: 110px;
+    width: calc(100% - 240px);
+    margin-left: 240px;
 
     &.mobile {
-      position: absolute;
+      position: relative;
       left: 40px;
       padding: 15px;
       width: calc(100% - 40px);
@@ -727,6 +726,7 @@ h2 {
 
 .dummy-container-products {
   background-color: white;
+  height: fit-content;
 
   &.micromobile {
     position: relative;
@@ -734,8 +734,8 @@ h2 {
   }
 
   &.admin {
-    width: calc(100% - 120px);
-    margin-left: 120px;
+    width: calc(100% - 240px);
+    margin-left: 240px;
 
     &.mobile {
       position: absolute;
@@ -752,12 +752,13 @@ h2 {
   & .dummy-container-products-row {
     margin: 3rem auto;
     width: 100%;
+    height: fit-content;
 
     &.micromobile {
       width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 40% !important;
+      margin: 3rem auto;
     }
 
     &.mobile {
@@ -771,7 +772,7 @@ h2 {
 
     &.admin {
       margin: 3rem auto;
-      width: 80%;
+      // width: 80%;
 
       &.mobile {
         padding: 10px 10px;
@@ -789,6 +790,7 @@ h2 {
     width: 100%;
     display: flex;
     justify-content: center;
+    // overflow: hidden;
 
     &.admin {
       height: fit-content;
@@ -818,7 +820,7 @@ h2 {
   padding: 10px;
   margin-bottom: 15px;
   padding: 15px;
-  max-width: 400px;
+  max-width: 380px;
   height: 650px;
 
   &.single {
@@ -835,7 +837,6 @@ h2 {
   }
 
   &.micromobile {
-
 
     &.admin {}
   }

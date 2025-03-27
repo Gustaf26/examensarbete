@@ -44,7 +44,7 @@ const useMobileStyles = () => {
     }
 
 
-    return { containerStyles, microMobile }
+    return { containerStyles, microMobile, setMicro }
 }
 
 export default useMobileStyles 

@@ -41,7 +41,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 					if (e.target.id === "dummy-container-products") setMobileDisplays(false);
 				}}
 			>
-				{((admin && !mobile) || (admin && microMobile)) && <Navigation />}
+				{((admin && microMobile) || (admin && !mobile)) && <Navigation />}
 				{!(admin && mobile) && <BreadcrumbContainer />}
 
 				<Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
@@ -49,8 +49,8 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 					onLoad={(e) => {
 						setProductOption(type);
 					}}
-					style={mobile && admin ? { ...containerStyles } : {}}>
-					{admin && mobile && !microMobile && <Navigation />}
+					style={mobile && admin & !microMobile ? { ...containerStyles } : {}}>
+					{(admin && mobile && !microMobile) && <Navigation />}
 
 					{mobile && admin && !microMobile && (
 						<Icon

@@ -32,7 +32,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth, setFullScreen, fullScreen } = useMobile()
   const [subMenu, setSubMenu] = useState(true)
-  const { microMobile } = useMobileStyles()
+  const { microMobile, setMicro } = useMobileStyles()
 
 
   const showMenu = () => {
@@ -69,17 +69,20 @@ const Navigation = () => {
       }
       if (window.innerWidth < 1110) {
         setCustMenu(true);
-        setMenuShowing(false)
         setMobile(true)
+
+        if (window.innerWidth <= 500) {
+          setMicro(true)
+          setMenuShowing(false)
+        }
       }
       else {
         setMenuShowing(true)
         setMobile(false)
       }
     });
-    // let inputEl = document.getElementById("product-search");
-    // inputEl.focus();
-  }, [mobile]);
+
+  }, []);
 
   return (
     <div id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
@@ -88,7 +91,7 @@ const Navigation = () => {
         width: microMobile ? '100%' : mobile && admin ? `${mobileWidth}px` : '', padding: !menuShowing ? '0' : '0'
       }}>
 
-      {!menuShowing ?
+      {menuShowing === false ?
         (<div style={{
           color: 'grey', borderTopLeftRadius: !microMobile ? '15px' : '0px', borderTopRightRadius: !microMobile ? '15px' : '0px', width: `100%`,
           padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
