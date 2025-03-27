@@ -48,7 +48,7 @@ const Home = () => {
               : null
           }
           className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}
-          style={mobile && admin ? { ...containerStyles } : {}}
+          style={mobile && admin && !microMobile ? { ...containerStyles } : {}}
           lg={mobile ? 12 : 6}
         >
           {admin && <Navigation />}

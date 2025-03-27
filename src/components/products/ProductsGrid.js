@@ -41,7 +41,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 					if (e.target.id === "dummy-container-products") setMobileDisplays(false);
 				}}
 			>
-				{(microMobile || (admin && !mobile)) && <Navigation />}
+				{((admin && !mobile) || (admin && microMobile)) && <Navigation />}
 				{!(admin && mobile) && <BreadcrumbContainer />}
 
 				<Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :

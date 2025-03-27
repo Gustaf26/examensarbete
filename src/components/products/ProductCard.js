@@ -113,16 +113,16 @@ const ProductCard = ({ item, index, setLoading }) => {
                 onChange={handleImgResize}></Form.Range>)}
             <div id="single-product-sizes">
                 <ul>
-                    <li className={activeSize === 0 ? 'active' : ''} onClick={() => { setActiveSize(0) }}>
+                    <li className={activeSize === 1 ? 'active' : ''} onClick={() => { setActiveSize(1) }}>
                         S
                     </li>
-                    <li className={activeSize === 1 ? 'active' : ''} onClick={() => { setActiveSize(1) }}>
+                    <li className={activeSize === 2 ? 'active' : ''} onClick={() => { setActiveSize(2) }}>
                         M
                     </li>
-                    <li className={activeSize === 2 ? 'active' : ''} onClick={() => { setActiveSize(2) }}>
+                    <li className={activeSize === 3 ? 'active' : ''} onClick={() => { setActiveSize(3) }}>
                         L
                     </li>
-                    <li className={activeSize === 3 ? 'active' : ''} onClick={() => { setActiveSize(3) }}>
+                    <li className={activeSize === 4 ? 'active' : ''} onClick={() => { setActiveSize(4) }}>
                         XL
                     </li>
 

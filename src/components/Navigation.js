@@ -126,8 +126,10 @@ const Navigation = () => {
                 { margin: '0 auto' }}>
                 <span>Work</span>{" "}<span>Out</span>
               </NavLink>
+
             </Nav.Item>
-            <div style={{ width: '50%', display: 'flex', justifyContent: 'center', aignItems: 'center' }}>
+            <Nav.Item id="subnavigation" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+              admin ? ' admin' : mobile ? ' mobile' : ''} style={{ width: '50%', display: 'flex', justifyContent: 'center', aignItems: 'center' }}>
               <Nav.Item
                 id="clothes-select"
                 className="navitem"
@@ -179,7 +181,7 @@ const Navigation = () => {
                 </NavItem>
               )}
               {!admin && !mobile && <CartIcon />}
-            </div>
+            </Nav.Item>
           </Nav>
           {subMenu && (<NavItem id="basic-nav-dropdown" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
             admin ? ' admin' : mobile ? ' mobile' : ''} style={mobile && admin ? { maxWidth: microMobile ? '100%' : `${mobileWidth}px` }

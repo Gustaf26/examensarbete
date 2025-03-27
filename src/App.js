@@ -25,10 +25,12 @@ import { useAuth } from "./contexts/AuthContext";
 import { MobileContextProvider } from "./contexts/MobileContext";
 
 import "./assets/scss/app.scss";
+import useMobileStyles from "./hooks/useMobileStyles";
 
 const App = () => {
 	const { productCategories, setGlobalCategories, setLocation, setSearchString } = useCreate();
 	const { admin } = useAuth();
+	// const { microMobile } = useMobileStyles()
 
 
 	useEffect(() => {

@@ -41,11 +41,8 @@ body {
   height: fit-content;
 
   &.micromobile {
-    position: absolute;
     width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
+    height: 160px;
 
     &.admin {}
   }
@@ -82,7 +79,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
     flex-direction: row;
-    height: 80px;
+    height: fit-content;
   }
 
   &.micromobile {
@@ -119,6 +116,19 @@ body {
     flex-direction: row;
     height: 80px;
     width: 100%;
+  }
+
+  &#subnavigation {
+
+
+    &.micromobile {}
+
+    &.mobile {
+
+      &.admin {}
+    }
+
+    &.admin {}
   }
 }
 
@@ -478,6 +488,8 @@ h2 {
 
 #dummy-container-home {
 
+  height: fit-content;
+
   &.admin {
     padding: 0;
     width: calc(100% - 110px);
@@ -507,14 +519,14 @@ h2 {
   & #home-row {
 
     margin: 0 auto;
+    height: fit-content;
+
 
     &.admin.mobile {
       margin-top: 72px;
     }
 
-    &.micromobile {
-      margin-top: 69px !important;
-    }
+    &.micromobile {}
 
     &.mobile {
       margin: 20px auto;
@@ -642,7 +654,7 @@ h2 {
           }
 
           &#right-arrow {
-            right: -40px;
+            right: 0px;
             top: 40%;
             padding-right: 20px;
           }
@@ -804,7 +816,7 @@ h2 {
     width: 800px;
     max-width: none;
     display: flex;
-    margin-top: 0;
+    margin-top: 2rem;
     flex-direction: row;
     height: fit-content;
     align-items: start;
