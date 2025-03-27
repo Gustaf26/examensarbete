@@ -25,7 +25,7 @@ const ProductCard = ({ item, index, setLoading }) => {
     const navigate = useNavigate();
     const { admin } = useAuth();
     const { setSingleProduct, productOption, setProductOption, allProducts, setProdId } = useCreate();
-    const { mobile, mobileDisplays, setMobileDisplays, mobileWidth } = useMobile()
+    const { mobile, mobileDisplays, setMobileDisplays, mobileWidth, microMobile } = useMobile()
 
     const location = useLocation();
 
@@ -86,10 +86,11 @@ const ProductCard = ({ item, index, setLoading }) => {
         }
     }
 
-    return (<Card key={item.id} className={!mobile && view === 'single' ? 'product-card single' : "product-card"} onClick={() => {
-        setProductOption(item.category); setSingleProduct(item);
-        mobileDisplays && setMobileDisplays(!mobileDisplays)
-    }}
+    return (<Card key={item.id} className={!mobile && view === 'single' ? 'product-card single' : microMobile ? 'product-card micromobile' :
+        mobile && admin ? 'product-card mobile admin' : mobile ? 'product-card mobile' : "product-card"} onClick={() => {
+            setProductOption(item.category); setSingleProduct(item);
+            mobileDisplays && setMobileDisplays(!mobileDisplays)
+        }}
         style={mobile && admin ? {
             width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`
         } : {}}>
