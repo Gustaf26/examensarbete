@@ -18,7 +18,7 @@ import CheckroomIcon from '@mui/icons-material/Checkroom';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
-import { Fullscreen } from '@mui/icons-material';
+// import { Fullscreen } from '@mui/icons-material';
 // import { MenuItem } from '@mui/material';
 
 const mainListItems = [
@@ -38,7 +38,7 @@ export default function MenuContent() {
 
     const navigate = useNavigate()
     const [itemSelected, setItemSelected] = React.useState(0)
-    const { fullScreen, setFullScreen } = useMobile()
+    const { fullScreen, setFullScreen, setMobile } = useMobile()
 
     // React.useEffect(() => {
 
@@ -52,6 +52,7 @@ export default function MenuContent() {
                 {mainListItems.map((item, index) => (
                     <ListItem key={index} disablePadding sx={{ display: 'block' }}>
                         <ListItemButton selected={index === itemSelected} onClick={() => {
+                            if (item.text === 'Products' && window.innerWidth > 900) setMobile(false)
                             setItemSelected(index); navigate(item.url); fullScreen && setFullScreen(false)
                         }}>
                             <ListItemIcon>{item.icon}</ListItemIcon>

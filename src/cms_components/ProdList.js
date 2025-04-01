@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 
 import { useCreate } from "../contexts/CreateContext"
-import { useAuth } from '../contexts/AuthContext'
+// import { useAuth } from '../contexts/AuthContext'
 
 import { BounceLoader } from "react-spinners";
 
@@ -19,12 +19,12 @@ import { useMobile } from "../contexts/MobileContext";
 const ProdList = () => {
 
     const { allProducts, setSingleProduct, setProductOption } = useCreate();
-    const { admin } = useAuth()
+    // const { admin } = useAuth()
     const [editable, setEditable] = useState('')
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
     const { mobile } = useMobile()
-    const { containerStyles, microMobile } = useMobileStyles()
+    const { microMobile } = useMobileStyles()
 
     return (
         <>{loading && (
@@ -37,7 +37,7 @@ const ProdList = () => {
                 maxWidth: microMobile ? '100vw' : 'calc(100vw - 60px)'
             } :
                 {
-                    margin: '3rem auto', width: 'calc(100vw - 360px)',
+                    margin: '3rem 0 0 calc(100vw - 75%)', width: 'calc(100vw - 30%)',
                     maxWidth: '900px', border: '1px solid rgb(220,220,220) !important'
                 }}>
                 {!loading && (<TableHead>
