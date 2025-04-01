@@ -598,7 +598,14 @@ h2 {
       border-radius: 10px;
       width: 80%;
       margin: 5rem auto;
-      min-width: 900px;
+      min-width: 850px;
+
+      & img {
+        margin: 15px;
+        width: 425px;
+        height: 425px;
+        object-fit: cover;
+      }
 
       &.micromobile {
         display: flex;
@@ -608,6 +615,10 @@ h2 {
         width: 100%;
         margin: 5rem auto;
         min-width: 0px;
+
+        & img {
+          width: 100%;
+        }
       }
 
       &.mobile {
@@ -619,6 +630,15 @@ h2 {
         width: 100%;
         margin: 5rem auto;
         min-width: 0px;
+
+        & img {
+          width: 600px;
+          margin: 0 auto;
+        }
+      }
+
+      & #home-card1-text {
+        margin: 3rem auto;
       }
     }
 
@@ -1042,6 +1062,10 @@ table {
 th {
   background-color: rgb(255, 255, 255);
   max-height: fit-content;
+
+  & b {
+    color: rgb(104, 57, 23);
+  }
 }
 
 
@@ -1056,6 +1080,38 @@ tr {
       color: rgb(117, 68, 22) !important;
     }
   }
+
+  & .prod-list-icon {
+    width: 30px;
+    padding: 5px;
+    height: 30px;
+    border-radius: 3px;
+    margin: 8px;
+    position: absolute;
+
+    &.visit-prod-icon {
+      color: rgb(58, 132, 57);
+      top: calc(50% - 20px);
+      right: calc(51% + 40px);
+      border: 1px solid rgb(58, 132, 57);
+    }
+
+    &.delete-prod-icon {
+      color: rgb(113, 47, 47);
+      top: calc(50% - 20px);
+      right: 51%;
+      border: 1px solid rgb(113, 47, 47);
+    }
+
+    &.edit-prod-icon {
+      color: rgb(67, 153, 252);
+      top: calc(50% - 20px);
+      right: calc(51% - 40px);
+      border: 1px solid rgb(67, 153, 252);
+    }
+  }
+
+
 }
 
 .mobile-displays-item:hover,

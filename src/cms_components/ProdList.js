@@ -32,8 +32,8 @@ const ProdList = () => {
                 <BounceLoader color={"#888"} size={100} />
             </div>
         )}
-            <Table style={loading ? { visibility: 'hidden' } : mobile ? {
-                position: 'absolute', left: microMobile ? '0' : '70px', width: microMobile ? '100vw' : 'calc(100vw - 60px)',
+            <Table id="products-list-table" style={loading ? { visibility: 'hidden' } : mobile ? {
+                position: 'absolute', left: microMobile ? '0' : 'calc(15vw + 30px)', width: microMobile ? '100vw' : '65vw',
                 maxWidth: microMobile ? '100vw' : 'calc(100vw - 60px)'
             } :
                 {
@@ -41,9 +41,9 @@ const ProdList = () => {
                     maxWidth: '900px', border: '1px solid rgb(220,220,220) !important'
                 }}>
                 {!loading && (<TableHead>
-                    <TableCell style={{ color: 'rgb(104, 57, 23)' }}><b>Name</b></TableCell>
-                    <TableCell style={{ color: 'rgb(104, 57, 23)' }}><b>Category</b></TableCell>
-                    <TableCell style={{ color: 'rgb(104, 57, 23)' }}><b>Price</b></TableCell>
+                    <TableCell><b>Name</b></TableCell>
+                    <TableCell><b>Category</b></TableCell>
+                    <TableCell><b>Price</b></TableCell>
                 </TableHead>)}
                 {allProducts.map((prod, i) => {
                     return (<TableRow key={prod.id} onMouseOver={(e) => setEditable(prod.id)}
@@ -54,7 +54,7 @@ const ProdList = () => {
                         <TableCell
                             onClick={(e) => {
                                 setProductOption(prod.category); setSingleProduct(prod);
-                                if (e.target.id === 'visit-prod-icon') navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true })
+                                if (e.target.id === `visit-prod-icon-${prod.id}`) navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true })
                                 else navigate(`/cms/products/update`, { replace: true })
                             }} style={mobile ? { display: 'flex', flexDirection: 'column' } : { paddingLeft: '18px' }} >
 
@@ -66,22 +66,15 @@ const ProdList = () => {
 
                             <span>{prod.name}</span>
 
-                            {Number(editable) === prod.id && (<div style={{
-                                position: 'absolute', top: '0', left: '0', width: '100%',
-                                height: '100%', backgroundColor: 'rgba(255,255,255,0.8)'
-                            }}><VisibilityIcon id="visit-prod-icon" style={{
-                                width: '30px', padding: '5px', height: '30px', color: 'rgb(58, 132, 57)', borderRadius: '3px', margin: '8px',
-                                position: 'absolute', top: 'calc(50% - 20px)', right: 'calc(51% + 40px)', border: '1px solid rgb(58, 132, 57)'
-                            }} />
-                                <DeleteIcon style={{
-                                    width: '30px', padding: '5px', height: '30px', color: 'rgb(113, 47, 47)', borderRadius: '3px', margin: '8px',
-                                    position: 'absolute', top: 'calc(50% - 20px)', right: '51%', border: '1px solid rgb(113, 47, 47)'
-                                }}
-                                /><ModeEditIcon id={`edit-icon-${prod.id}`} style={{
-                                    width: '30px', padding: '5px', height: '30px', color: 'rgb(67, 153, 252)', borderRadius: '3px', margin: '8px',
-                                    position: 'absolute', top: 'calc(50% - 20px)', right: 'calc(51% - 40px)', border: '1px solid rgb(67, 153, 252)'
-                                }} />
-                            </div>)}
+                            {Number(editable) === prod.id && (
+                                <div style={{
+                                    position: 'absolute', top: '0', left: '0', width: '100%',
+                                    height: '100%', backgroundColor: 'rgba(255,255,255,0.8)'
+                                }}>
+                                    <VisibilityIcon className="visit-prod-icon prod-list-icon" id={`visit-prod-icon-${prod.id}`} />
+                                    <DeleteIcon className="delete-prod-icon prod-list-icon" />
+                                    <ModeEditIcon className="edit-prod-icon prod-list-icon" id={`edit-icon-${prod.id}`} />
+                                </div>)}
                         </TableCell>
                         <TableCell>{prod.category}</TableCell>
                         <TableCell>{prod.price}</TableCell>

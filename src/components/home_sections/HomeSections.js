@@ -74,12 +74,11 @@ function HomeSections() {
         <div id="home-card1"
             className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
             <img alt="home-welcome-picture"
-                className='mx-auto p-0'
-                style={microMobile ? { width: '100%' } : mobile ? { width: '600px', margin: '0 auto' } : { margin: '15px' }}
+                className='p-0'
                 variant='top'
                 src='https://cdn.pixabay.com/photo/2017/09/17/19/43/woman-2759503__340.jpg'
             />
-            <div id='home-card-text'
+            <div id='home-card1-text'
                 className={mobile ? 'mobile home-card-text text-muted mediums px-2' : 'home-card-text text-muted mediums px-2'}>
                 <h3 style={{ textAlign: mobile ? 'center' : 'left' }}>Cheapest In The Market</h3>
                 <div style={{ margin: '2rem auto', color: 'rgb(109, 44, 38)' }}>
@@ -96,7 +95,7 @@ function HomeSections() {
         </div>
         <div id="home-card2"
             className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
-            <div id='home-card-text' className={mobile ? 'mobile home-card-text text-muted mediums px-2' : 'home-card-text text-muted mediums px-2'}>
+            <div id='home-card2-text' className={mobile ? 'mobile home-card-text text-muted mediums px-2' : 'home-card-text text-muted mediums px-2'}>
                 <h3>Your Next Work Outfit Awaits</h3>
                 <div style={{ margin: '2rem auto', color: 'rgb(109, 44, 38)' }}>
                     <p>Discover Quality Workwear That Fits Your Budget. Find Your Perfect Work Outfit, Without the Premium Price.</p>
