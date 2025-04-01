@@ -447,6 +447,24 @@ h2 {
   max-width: 500px;
   min-width: 400px;
 
+  &.micromobile {
+
+    margin: 3rem auto;
+
+    &.admin {}
+  }
+
+  &.mobile {
+
+    &.admin {
+      margin: 8rem auto;
+    }
+  }
+
+  &.admin {
+    margin: 3rem auto;
+  }
+
   & div.card-title {
     color: white !important;
     border: 4px solid rgb(210, 129, 37);
@@ -482,16 +500,17 @@ h2 {
   }
 
   & button {
-    background-color: rgb(104, 171, 237);
+    color: brown;
+    background-color: rgb(229, 152, 64);
     margin: 1rem auto;
     min-width: 120px;
     display: block;
-    color: brown;
     border: 1px solid brown;
     font-weight: 600;
 
     &:hover {
-      background-color: rgb(158, 202, 246);
+      background-color: white;
+      ;
     }
   }
 }

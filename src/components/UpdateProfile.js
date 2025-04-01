@@ -63,13 +63,13 @@ const UpdateProfile = () => {
   }
   return (
     <>
-      {((admin && microMobile) || (admin && !mobile)) && <Navigation />}
-
-      <Row id="dummy-container-products" onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+      <Row id="dummy-container-products" className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
+        admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
+        {((admin && microMobile) || (admin && !mobile)) && <Navigation />}
         <Row id="dummy-container-products-row" className={microMobile ? 'dummy-container-products-row micromobile' :
           admin && mobile ? 'dummy-container-products-row admin mobile' :
             admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
-          style={mobile && admin && !microMobile ? { ...containerStyles, margin: '0 auto', left: '12px' }
+          style={mobile && admin && !microMobile ? { ...containerStyles }
             : {}}>
 
           {admin && mobile && !microMobile && <Navigation />}
@@ -95,10 +95,9 @@ const UpdateProfile = () => {
           <Card onClick={() => {
             mobileDisplays && setMobileDisplays(!mobileDisplays);
             if ((window.innerWidth < 1100 || mobile) && menuShowing) setMenuShowing(false);
-          }}
-            id="update-profile-form"
-            style={mobile & admin ? { maxWidth: '100%', width: `calc(${mobileWidth}px - 40px)`, margin: '2rem auto' } :
-              mobile ? { width: '400px' } : admin ? { margin: '0 auto', padding: '0' } : { margin: '0 auto' }}>
+          }} id="update-profile-form" className={microMobile ? 'micromobile' :
+            admin && mobile ? 'admin mobile' :
+              admin ? 'admin' : mobile ? 'mobile' : ''}>
 
             <Card.Body style={mobile & admin ? { width: '100%' } : {}}>
               <Card.Title>Update Profile</Card.Title>

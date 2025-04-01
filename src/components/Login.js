@@ -106,7 +106,7 @@ const Login = () => {
                 </Form.Group>
                 <Form.Group className="login-form-group mt-2" controlId="formBasicCheckbox">
                   <Form.Label>Be sure it´s you</Form.Label>
-                  <Button style={{ backgroundColor: 'rgb(13,110,253)', color: 'white', margin: '0' }} type="submit">
+                  <Button type="submit">
                     Log In
                   </Button>
                   <Form.Check
