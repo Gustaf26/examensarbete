@@ -58,11 +58,7 @@ const ProdList = () => {
                                 else navigate(`/cms/products/update`, { replace: true })
                             }} style={mobile ? { display: 'flex', flexDirection: 'column' } : { paddingLeft: '18px' }} >
 
-                            <img onLoad={() => { if (i === allProducts.length - 1) setLoading(false) }} alt={prod.name} src={prod.thumbnail} style={{
-                                width: '40px', height: '40px',
-                                border: !mobile ? '1px solid rgb(220,220,220)' : '',
-                                borderRadius: '3px', padding: '5px', marginRight: '15px', verticalAlign: 'middle'
-                            }} />
+                            <img onLoad={() => { if (i === allProducts.length - 1) setLoading(false) }} alt={prod.name} src={prod.thumbnail} />
 
                             <span>{prod.name}</span>
 

@@ -70,7 +70,7 @@ function HomeSections() {
     }, [allProducts])
 
 
-    return (<div id="home-sections-container">
+    return (<div id="home-sections-container" className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
         <div id="home-card1"
             className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
             <img alt="home-welcome-picture"
@@ -80,7 +80,7 @@ function HomeSections() {
             />
             <div id='home-card1-text'
                 className={mobile ? 'mobile home-card-text text-muted mediums px-2' : 'home-card-text text-muted mediums px-2'}>
-                <h3 style={{ textAlign: mobile ? 'center' : 'left' }}>Cheapest In The Market</h3>
+                <h3 style={{ textAlign: mobile ? 'center' : 'left' }}>The Most Affordable In The Market</h3>
                 <div style={{ margin: '2rem auto', color: 'rgb(109, 44, 38)' }}>
                     <p>Work Hard, Not on Your Wallet. Discover our collection of
                         budget-friendly <b>workwear</b> that doesn't compromise on quality.
