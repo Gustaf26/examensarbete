@@ -18,13 +18,19 @@ import { useMobile } from "../contexts/MobileContext";
 
 const ProdList = () => {
 
-    const { allProducts, setSingleProduct, setProductOption } = useCreate();
+    const { allProducts, setSingleProduct, setProducts, setProductOption } = useCreate();
     // const { admin } = useAuth()
     const [editable, setEditable] = useState('')
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
     const { mobile } = useMobile()
     const { microMobile } = useMobileStyles()
+
+    const deleteProd = (product) => {
+        let otherProds = allProducts.filter(prod => prod.id !== product.id)
+        setProducts(otherProds)
+        navigate(`/cms/products/${product.category}`, { replace: true })
+    }
 
     return (
         <>{loading && (
@@ -54,8 +60,7 @@ const ProdList = () => {
                         <TableCell
                             onClick={(e) => {
                                 setProductOption(prod.category); setSingleProduct(prod);
-                                if (e.target.id === `visit-prod-icon-${prod.id}`) navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true })
-                                else navigate(`/cms/products/update`, { replace: true })
+                                navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true })
                             }} style={mobile ? { display: 'flex', flexDirection: 'column' } : { paddingLeft: '18px' }} >
 
                             <img onLoad={() => { if (i === allProducts.length - 1) setLoading(false) }} alt={prod.name} src={prod.thumbnail} />
@@ -67,9 +72,9 @@ const ProdList = () => {
                                     position: 'absolute', top: '0', left: '0', width: '100%',
                                     height: '100%', backgroundColor: 'rgba(255,255,255,0.8)'
                                 }}>
-                                    <VisibilityIcon className="visit-prod-icon prod-list-icon" id={`visit-prod-icon-${prod.id}`} />
-                                    <DeleteIcon className="delete-prod-icon prod-list-icon" />
-                                    <ModeEditIcon className="edit-prod-icon prod-list-icon" id={`edit-icon-${prod.id}`} />
+                                    <VisibilityIcon onClick={(e) => { e.stopPropagation(); setSingleProduct(prod); navigate(`/cms/products/${prod.category}/${prod.id}`, { replace: true }) }} className="visit-prod-icon prod-list-icon" id={`visit-prod-icon-${prod.id}`} />
+                                    <DeleteIcon onClick={(e) => { e.stopPropagation(); deleteProd(prod) }} className="delete-prod-icon prod-list-icon" />
+                                    <ModeEditIcon onClick={(e) => { e.stopPropagation(); setSingleProduct(prod); navigate(`/cms/products/update`, { replace: true }) }} className="edit-prod-icon prod-list-icon" id={`edit-icon-${prod.id}`} />
                                 </div>)}
                         </TableCell>
                         <TableCell>{prod.category}</TableCell>
