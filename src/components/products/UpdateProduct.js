@@ -132,12 +132,12 @@ const UpdateProduct = () => {
   }, []);
 
   const handleImgResize = (e) => {
-    if (e.target.value > 50) {
+    if (e.target.value > 0) {
       console.log((1 + Number(e.target.value) / 100).toFixed(1))
-      document.getElementById('update-product-image').style.transform = `scale(${((1 + Number(e.target.value) / 100).toFixed(1)).toString()})`
+      document.getElementById('update-product-image').style.transform = `scale(${((1 + (Number(e.target.value) / 100)).toFixed(1)).toString()})`
     }
     else {
-      document.getElementById('update-product-image').style.transform = `scale(${(1 - ((50 - Number(e.target.value)) / 100)).toFixed(1).toString()})`
+      document.getElementById('update-product-image').style.transform = `scale(${(1).toFixed(1).toString()})`
     }
   }
 
@@ -204,7 +204,7 @@ const UpdateProduct = () => {
                         {}} src={prodImg ? prodImg : singleProduct.thumbnail} />
                     </div>
 
-                    {!mobile && admin && <Form.Range style={{ position: 'absolute', top: '65%', width: '30%' }}
+                    {!mobile && admin && <Form.Range defaultValue={0} style={{ position: 'absolute', top: '65%', width: '30%' }}
                       onChange={handleImgResize}></Form.Range>}
                     <Form onSubmit={uploadImg} style={!mobile ? {
                       left: `calc(15% - 45px)`,
