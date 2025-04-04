@@ -29,7 +29,7 @@ const ProdList = () => {
     const deleteProd = (product) => {
         let otherProds = allProducts.filter(prod => prod.id !== product.id)
         setProducts(otherProds)
-        navigate(`/cms/products/${product.category}`, { replace: true })
+        // navigate(`/cms/products/${product.category}`, { replace: true })
     }
 
     return (
