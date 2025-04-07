@@ -72,16 +72,16 @@ export default function BreadCrumbContainer({ qty }) {
 				breadcrumbs.map((bread, i) => {
 					return bread === "Home" ? (
 						<Breadcrumb.Item>
-							<Link to={admin ? "/cms/index" : "/"}>Home</Link>
+							<Link className="link" to={admin ? "/cms/index" : "/"}>Home</Link>
 						</Breadcrumb.Item>
 					) : dummyProdCategories.includes(bread.toLowerCase()) ? (
 						<Breadcrumb.Item>
-							<Link to={admin ? `/cms/products/${bread}` : `/products/${bread}`}>
+							<Link className="link" to={admin ? `/cms/products/${bread}` : `/products/${bread}`}>
 								{bread}
 							</Link>
 						</Breadcrumb.Item>
 					) : (
-						<Breadcrumb.Item>{bread}</Breadcrumb.Item>
+						<Breadcrumb.Item className="link">{bread}</Breadcrumb.Item>
 					);
 				})}
 		</Breadcrumb>
