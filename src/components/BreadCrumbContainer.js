@@ -81,7 +81,7 @@ export default function BreadCrumbContainer({ qty }) {
 							</Link>
 						</Breadcrumb.Item>
 					) : (
-						<Breadcrumb.Item className="link">{bread}</Breadcrumb.Item>
+						<Breadcrumb.Item><span className="link">{bread}</span></Breadcrumb.Item>
 					);
 				})}
 		</Breadcrumb>
