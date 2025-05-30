@@ -4,7 +4,7 @@ import { useMobile } from './../contexts/MobileContext'
 
 const useMobileStyles = () => {
 
-    const { mobile, mobileWidth, mobileHeight, fullScreen } = useMobile()
+    const { mobile, mobileWidth, mobileHeight } = useMobile()
     const [microMobile, setMicro] = useState(window.innerWidth < 500 ? true : false)
 
 
@@ -35,11 +35,7 @@ const useMobileStyles = () => {
         position: microMobile ? 'absolute' : 'relative',
         backgroundColor: mobile ? 'rgb(255, 255, 255)' : '',
         transition: '0.5s',
-        overflowX: 'hidden',
-        // overflowY: microMobile ? 'scroll' : mobile ? 'scroll' : 'none',
-        // webkitScrollbarTrack: {
-        //     webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)'
-        // }
+        overflowX: 'hidden'
 
     }
 

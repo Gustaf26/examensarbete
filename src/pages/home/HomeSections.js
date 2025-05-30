@@ -30,6 +30,20 @@ function HomeSections() {
         navigate(admin ? `/cms/search-results` : `/search-results`, { replace: true })
     }
 
+    const goToAllProducts = () => {
+
+        localStorage.setItem("search", JSON.stringify(' '));
+        setSearchString(' ')
+        setTimeout(() => {
+            navigate(admin ? "/cms/search-results" : "/search-results", { replace: true })
+        }, 500)
+    }
+
+    const goToSingleProduct = (prod) => {
+        setSingleProduct(prod);
+        navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
+    }
+
     const moveSlides = (direction) => {
 
         let slideDistance = microMobile ? 300 : 500
@@ -110,10 +124,7 @@ function HomeSections() {
                         {slides && slides.map((arr, i) => {
                             return (<div style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
                                 {arr.map(prod => (
-                                    <img onClick={() => {
-                                        setSingleProduct(prod); navigate(admin ? `/cms/products/${prod.category}/${prod.id}`
-                                            : `/products/${prod.category}/${prod.id}`, { replace: true })
-                                    }}
+                                    <img onClick={() => { goToSingleProduct(prod) }}
                                         style={{ margin: '0', padding: '0', width: microMobile ? '300px' : '200px', height: '300px', objectFit: 'cover' }}
                                         alt={prod.description} src={prod.thumbnail} />
                                 ))
@@ -126,13 +137,7 @@ function HomeSections() {
                     <ArrowForwardIosIcon></ArrowForwardIosIcon>
                 </div>
             </div>
-            <button onClick={() => {
-                localStorage.setItem("search", JSON.stringify(' '));
-                setSearchString(' ')
-                setTimeout(() => {
-                    navigate(admin ? "/cms/search-results" : "/search-results", { replace: true })
-                }, 500)
-            }}>See all products</button>
+            <button onClick={goToAllProducts}>See all products</button>
         </div>
     </div >)
 }
