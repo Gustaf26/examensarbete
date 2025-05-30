@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
-import ProdList from "./cms_components/ProdList";
+import ProdList from "./pages/cms_specific/ProdList";
 import UpdateProduct from "./components/products/UpdateProduct";
 import CMSNav from "./cms_components/CMSNav";
-import ForgotPassword from "./components/ForgotPassword";
+import ForgotPassword from "./pages/password-forgot/ForgotPassword";
 import Home from "./pages/home/Home";
-import CreateProduct from './cms_components/CreateProduct'
+import CreateProduct from './pages/cms_specific/CreateProduct'
 import Login from "./pages/login/Login";
 import Logout from "./pages/logout/Logout";
 import Navigation from "./components/Navigation";

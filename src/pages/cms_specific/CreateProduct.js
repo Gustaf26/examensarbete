@@ -6,15 +6,15 @@ import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { BounceLoader } from "react-spinners";
 import Icon from '@mui/material/Icon';
 
-import MobileList from '../cms_components/MobileList'
+import MobileList from '../../cms_components/MobileList'
 
 
-import { useAuth } from "../contexts/AuthContext";
-import { useCreate } from "../contexts/CreateContext";
-import { useMobile } from "../contexts/MobileContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { useCreate } from "../../contexts/CreateContext";
+import { useMobile } from "../../contexts/MobileContext";
 
-import useMobileStyles from "../hooks/useMobileStyles";
-import BreadCrumbContainer from '../components/BreadCrumbContainer'
+import useMobileStyles from "../../hooks/useMobileStyles";
+import BreadCrumbContainer from '../../components/BreadCrumbContainer'
 
 
 const originalImgSize = '100%'

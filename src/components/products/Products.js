@@ -22,7 +22,6 @@ const Products = ({ type }) => {
 
   return (
     <>
-      {/* {!mobile && admin && <Navigation />} */}
 
       <ProductsGrid loading={loading} setLoading={setLoading} type={type} products={products} />
 

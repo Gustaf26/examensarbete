@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-// import { db } from "../../firebase/index";
-// import { doc, setDoc } from "firebase/firestore";
 
 import BreadCrumbContainer from '../BreadCrumbContainer'
 
@@ -110,24 +107,19 @@ const UpdateProduct = () => {
 
     if (singleProduct) {
       localStorage.setItem('singleProduct', JSON.stringify(singleProduct))
-
-      setProductOption(singleProduct.category);
-      setName(singleProduct.name);
-      setDescription(singleProduct.description);
-      setPrice(singleProduct.price);
-      setImageUrl(singleProduct.thumbnail);
     }
 
-    else {
+    let product = !singleProduct && JSON.parse(localStorage.getItem('singleProduct'))
 
-      let existingProduct = JSON.parse(localStorage.getItem('singleProduct'))
-      setSingleProduct(existingProduct)
-      setProductOption(existingProduct.category);
-      setName(existingProduct.name);
-      setDescription(existingProduct.description);
-      setPrice(existingProduct.price);
-      setImageUrl(existingProduct.thumbnail);
-    }
+    console.log(product)
+
+    setProductOption(product.category);
+    setName(product.name);
+    setDescription(product.description);
+    setPrice(product.price);
+    setImageUrl(product.thumbnail);
+
+    if (product !== singleProduct) setSingleProduct(product)
 
   }, []);
 
@@ -158,7 +150,6 @@ const UpdateProduct = () => {
         left: microMobile ? '0' : mobile ? '40px' : '240px', width: microMobile ? '100vw' : mobile ? 'calc(100% - 40px)' : 'calc(100% - 240px)'
       } : {}}
         onClick={(e) => { if (e.target.id === "dummy-container-update") setMobileDisplays(false) }}>
-        {/* {!mobile && admin && <Navigation />} */}
 
         {!mobile && <BreadCrumbContainer />}
 
@@ -168,7 +159,6 @@ const UpdateProduct = () => {
             justifyContent: 'center', alignItems: 'start'
           }}>
 
-          {/* {admin && mobile && <Navigation />} */}
           {mobile && admin && !microMobile && <Icon className="icon-mobile-displays" onClick={() => setMobileDisplays(!mobileDisplays)} style={{ border: '1px solid lightgrey', width: '40px', height: '40px', textAlign: 'left', zIndex: '5', margin: '0 auto', padding: '8px', borderRadius: '5px', position: 'absolute', top: `-20px`, left: '45%', backgroundColor: 'rgb(255, 255, 255)' }} color='primary'>device_unknown</Icon>}
           {mobileDisplays && <MobileList />}
 
@@ -261,7 +251,6 @@ const UpdateProduct = () => {
                     <Form.Group controlId="exampleForm.ControlSelect2" style={!mobile && admin ? { marginRight: '15px', width: '31%' } : {}}>
                       <Form.Label>Choose product category</Form.Label>
                       <Form.Control
-                        // id="inlineFormCustomSelect"
                         custom
                         as="select"
                         required
