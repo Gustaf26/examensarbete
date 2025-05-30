@@ -104,14 +104,13 @@ const UpdateProduct = () => {
 
   useEffect(() => {
 
+    // We get product from context or from localStorage
 
     if (singleProduct) {
       localStorage.setItem('singleProduct', JSON.stringify(singleProduct))
     }
 
     let product = !singleProduct && JSON.parse(localStorage.getItem('singleProduct'))
-
-    console.log(product)
 
     setProductOption(product.category);
     setName(product.name);

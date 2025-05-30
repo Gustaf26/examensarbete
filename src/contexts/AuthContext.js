@@ -1,15 +1,18 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { BounceLoader } from "react-spinners";
+
+// Firebase Functions
+
 // import {
 //   signInWithEmailAndPassword,
 //   createUserWithEmailAndPassword,
 //   signOut
 // } from "firebase/auth";
 
-import { getAuth } from '../firebase/index'
+// import { getAuth } from '../firebase/index'
 
-const auth = getAuth()
+// const auth = getAuth() // To be used with firebase
 
 const AuthContext = createContext();
 
