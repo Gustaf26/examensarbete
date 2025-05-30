@@ -2,8 +2,8 @@
 import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { useMobile } from "../contexts/MobileContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { useMobile } from "../../contexts/MobileContext";
 
 const Login = () => {
   const emailRef = useRef();
