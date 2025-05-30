@@ -3,14 +3,14 @@ import { useNavigate } from "react-router";
 
 import { Row } from "react-bootstrap";
 import Icon from "@mui/material/Icon";
-import Navigation from "../Navigation";
+import Navigation from "../../components/Navigation";
 
 import { useMobile } from "../../contexts/MobileContext";
 import { useAuth } from "../../contexts/AuthContext";
 import useMobileStyles from "../../hooks/useMobileStyles";
 
 import MobileList from "../../cms_components/MobileList";
-import HomeSections from '../../components/home_sections/HomeSections'
+import HomeSections from './HomeSections'
 
 const Home = () => {
   const {

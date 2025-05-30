@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";
-import ProdList from "./cms_components/ProdList";
+import ProdList from "./pages/cms_specific/ProdList";
 import UpdateProduct from "./components/products/UpdateProduct";
 import CMSNav from "./cms_components/CMSNav";
-import ForgotPassword from "./components/ForgotPassword";
-import Home from "./components/home_sections/Home";
-import CreateProduct from './cms_components/CreateProduct'
-import Login from "./components/Login";
-import Logout from "./components/Logout";
+import ForgotPassword from "./pages/password-forgot/ForgotPassword";
+import Home from "./pages/home/Home";
+import CreateProduct from './pages/cms_specific/CreateProduct'
+import Login from "./pages/login/Login";
+import Logout from "./pages/logout/Logout";
 import Navigation from "./components/Navigation";
-import SearchResults from "./components/products/SearchResults";
+import SearchResults from "./pages/search-page/SearchResults";
 import NotFound from "./components/NotFound";
-import Signup from "./components/Signup";
-import UpdateProfile from "./components/UpdateProfile";
+import Signup from "./pages/signup/Signup";
+import UpdateProfile from "./pages/update-profile/UpdateProfile";
 import Footer from "./components/Footer";
 
 import { useCreate } from "./contexts/CreateContext";
@@ -25,12 +25,10 @@ import { useAuth } from "./contexts/AuthContext";
 import { MobileContextProvider } from "./contexts/MobileContext";
 
 import "./assets/scss/app.scss";
-import useMobileStyles from "./hooks/useMobileStyles";
 
 const App = () => {
-	const { productCategories, setGlobalCategories, setLocation, setSearchString } = useCreate();
+	const { productCategories, setGlobalCategories } = useCreate();
 	const { admin } = useAuth();
-	// const { microMobile } = useMobileStyles()
 
 
 	useEffect(() => {
@@ -97,9 +95,7 @@ const App = () => {
 											</>
 										))}
 								</Route>
-								{admin && (<Route key={"create"}
-									path={`create`}
-									element={<CreateProduct key='createProd' />}></Route>)}
+								{admin && (<Route key={"create"} path={`create`} element={<CreateProduct key='createProd' />}></Route>)}
 								<Route path='forgot-password' element={<ForgotPassword />} />
 								<Route path='login' element={<Login />} />
 								<Route path='logout' element={<Logout />} />

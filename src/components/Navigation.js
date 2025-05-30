@@ -1,13 +1,11 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useState, useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Nav,
   NavDropdown,
-  Form,
-  FormControl,
   Row,
   NavItem
 } from "react-bootstrap";

@@ -1,23 +1,18 @@
-import React, { useEffect, useState, useTransition } from "react";
-// import { db } from "../../firebase";
-// import { Suspense, lazy } from "react";
+import { useEffect, useState, useTransition } from "react";
+
 
 import { useLocation } from "react-router-dom";
-import { Row, Alert } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 import { BounceLoader } from "react-spinners";
 
-
 import Icon from '@mui/material/Icon';
-// import ArrowBack from '@mui/icons-material/ArrowBack';
 
-
-import Navigation from '../Navigation'
+import Navigation from '../../components/Navigation'
 import MobileList from '../../cms_components/MobileList'
-import CardContainer from '../products/CardContainer'
-// import ProductCard from "../products/ProductCard";
-import BreadcrumbContainer from "../BreadCrumbContainer";
-import ProductCard from "../products//ProductCard";
+import CardContainer from '../../components/products/CardContainer'
+import BreadcrumbContainer from "../../components/BreadCrumbContainer";
+import ProductCard from "../../components/products/ProductCard";
 
 
 import { useCreate } from "../../contexts/CreateContext";
@@ -30,7 +25,7 @@ import useMobileStyles from '../../hooks/useMobileStyles'
 
 
 const SearchResults = () => {
-  // const navigate = useNavigate();
+
   const [loading, setLoading] = useState(0)
   const [loaded, setLoaded] = useState(false)
   const [isPending, startTransition] = useTransition()
@@ -39,7 +34,6 @@ const SearchResults = () => {
     searchResults,
     setLocation,
     setSearchString,
-    searchString
   } = useCreate();
 
   const { admin } = useAuth();
@@ -47,8 +41,6 @@ const SearchResults = () => {
 
   const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
   const { containerStyles, microMobile } = useMobileStyles()
-
-
 
   useEffect(() => {
     setLocation(location.pathname);

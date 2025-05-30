@@ -7,14 +7,14 @@ import { Breadcrumb } from "react-bootstrap";
 import HomeIcon from '@mui/icons-material/Home';
 
 
-import Navigation from '../components/Navigation'
-import CardContainer from '../components/products/CardContainer'
+import Navigation from '../../components/Navigation'
+import CardContainer from '../../components/products/CardContainer'
 
-import { useAuth } from "../contexts/AuthContext";
-import { useMobile } from "../contexts/MobileContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { useMobile } from "../../contexts/MobileContext";
 
-import MobileList from '../cms_components/MobileList'
-import useMobileStyles from '../hooks/useMobileStyles'
+import MobileList from '../../cms_components/MobileList'
+import useMobileStyles from '../../hooks/useMobileStyles'
 
 const UpdateProfile = () => {
   // const { updateProfileData, admin } = useAuth();
