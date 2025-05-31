@@ -19,6 +19,7 @@ function HomeSections() {
 
     const { mobile } = useMobile();
     const { microMobile } = useMobileStyles();
+
     const navigate = useNavigate()
 
     const { admin } = useAuth()
@@ -27,6 +28,7 @@ function HomeSections() {
 
         let cheapestProducts = allProducts.filter(prod => prod.price < 20)
         setSearchResults(cheapestProducts)
+
         navigate(admin ? `/cms/search-results` : `/search-results`, { replace: true })
     }
 
@@ -40,8 +42,10 @@ function HomeSections() {
     }
 
     const goToSingleProduct = (prod) => {
+
         setSingleProduct(prod);
         navigate(admin ? `/cms/products/${prod.category}/${prod.id}` : `/products/${prod.category}/${prod.id}`, { replace: true })
+
     }
 
     const moveSlides = (direction) => {
@@ -80,7 +84,47 @@ function HomeSections() {
     }
 
     useEffect(() => {
-        setSlides([allProducts])
+        // setSlides(allProducts)
+
+        function loadImages() {
+            return allProducts.map(async (prod) => {
+
+                return await new Promise((resolve, reject) => {
+
+                    let imageEl = document.createElement('img')
+                    imageEl.style.margin = '0'
+                    imageEl.style.padding = '0'
+                    imageEl.style.width = microMobile ? '300px' : '200px'
+                    imageEl.style.height = '300px'
+                    imageEl.style.objectFit = 'cover'
+
+                    imageEl.src = prod.thumbnail
+                    imageEl.alt = prod.description
+                    imageEl.addEventListener('click', () => {
+                        goToSingleProduct(prod)
+                    })
+
+                    let imageWrapper = document.createElement('div')
+                    imageWrapper.style.display = 'inline flex'
+                    imageWrapper.style.flexWrap = 'nowrap'
+                    imageWrapper.style.width = 'fit-content'
+                    imageWrapper.append(imageEl)
+
+                    imageEl.addEventListener('load', (e) => {
+                        if (imageEl.complete) resolve(imageWrapper)
+                    })
+
+                })
+
+            })
+
+        }
+
+        let imagesPromises = loadImages()
+        let allFulfilledPromises = Promise.all(imagesPromises)
+
+        allFulfilledPromises.then(res => { res.forEach(slide => slidesref.current.append(slide)) })
+
     }, [allProducts])
 
 
@@ -121,16 +165,9 @@ function HomeSections() {
                 </div>
                 <div style={{ width: 'calc(100vw - 20%)' }}>
                     <div style={{ display: 'flex', flexWrap: 'nowrap' }} ref={slidesref}>
-                        {slides && slides.map((arr, i) => {
-                            return (<div style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
-                                {arr.map(prod => (
-                                    <img onClick={() => { goToSingleProduct(prod) }}
-                                        style={{ margin: '0', padding: '0', width: microMobile ? '300px' : '200px', height: '300px', objectFit: 'cover' }}
-                                        alt={prod.description} src={prod.thumbnail} />
-                                ))
-                                }
-                            </div>)
-                        })}
+                        {/* <div style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
+
+                        </div> */}
                     </div>
                 </div>
                 <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>

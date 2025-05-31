@@ -25,6 +25,15 @@ const Home = () => {
   const navigate = useNavigate();
   const { admin } = useAuth();
 
+  const toggleMobileDisplays = (e) => {
+
+    let { id } = e.target
+
+    if (id === "dummy-container-home") { setMobileDisplays(false); return }
+    else if (id === 'icon-mobile-displays') setMobileDisplays(!mobileDisplays);
+
+  }
+
   useEffect(() => {
     if (admin) navigate("/cms/index", { replace: true });
   }, [admin]);
@@ -34,9 +43,7 @@ const Home = () => {
       <div
         id='dummy-container-home'
         className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}
-        onClick={(e) => {
-          if (e.target.id === "dummy-container-home") setMobileDisplays(false);
-        }}
+        onClick={(e) => { admin && mobile && toggleMobileDisplays(e) }}
       >
         <Row
           id='home-row'
@@ -54,10 +61,9 @@ const Home = () => {
           {admin && <Navigation />}
           {mobile && admin && !microMobile && (
             <Icon
+              id="icon-mobile-displays"
               className='icon-mobile-displays'
-              onClick={() => {
-                setMobileDisplays(!mobileDisplays);
-              }} color='primary'
+              onClick={(e) => { toggleMobileDisplays(e) }} color='primary'
             >device_unknown
             </Icon>
           )}

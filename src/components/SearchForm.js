@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-
 import {
     Form,
     FormControl,
@@ -18,7 +17,7 @@ import useMobileStyles from '../hooks/useMobileStyles'
 const SearchForm = () => {
 
     const { admin } = useAuth();
-    const { mobile, mobileWidth } = useMobile()
+    const { mobile } = useMobile()
     const { microMobile } = useMobileStyles()
     const { setSearchString } = useCreate();
     const navigate = useNavigate();
