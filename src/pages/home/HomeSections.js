@@ -13,7 +13,7 @@ import useMobileStyles from '../../hooks/useMobileStyles';
 function HomeSections() {
 
     const { allProducts, setSingleProduct, setSearchResults, setSearchString } = useCreate()
-    const [slides, setSlides] = useState()
+    const [slides, setSlides] = useState([])
     const slidesref = useRef()
     const [rightMoves, setRightMoves] = useState(0)
 
@@ -123,7 +123,9 @@ function HomeSections() {
         let imagesPromises = loadImages()
         let allFulfilledPromises = Promise.all(imagesPromises)
 
-        allFulfilledPromises.then(res => { res.forEach(slide => slidesref.current.append(slide)) })
+        allFulfilledPromises.then(res => {
+            res.forEach(slide => { setSlides(prev => [...prev, slide]); slidesref.current.append(slide) })
+        })
 
     }, [allProducts])
 
