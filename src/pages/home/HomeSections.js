@@ -126,10 +126,10 @@ function HomeSections() {
         let allFulfilledPromises = Promise.all(imagesPromises)
 
         allFulfilledPromises.then(res => {
-            res.forEach(slide => { setSlides(prev => [...prev, slide]); slidesref.current.append(slide) })
+            res.forEach(slide => { setSlides(prev => [...prev, slide]); slidesref.current?.append(slide) })
         })
 
-    }, [allProducts])
+    }, [allProducts, slidesref])
 
 
     return (<div id="home-sections-container" className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
