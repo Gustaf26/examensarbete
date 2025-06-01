@@ -740,6 +740,30 @@ h2 {
             cursor: pointer;
           }
         }
+
+        & #home-slider-placeholder-container {
+
+          & img {
+            width: 200px;
+            height: 300px;
+            filter: blur(25px);
+            animation: pulse 0.75s infinite;
+
+            @keyframes pulse {
+              0% {
+                opacity: 0.45
+              }
+
+              50% {
+                opacity: 0.9
+              }
+
+              100% {
+                opacity: 0.45
+              }
+            }
+          }
+        }
       }
     }
   }

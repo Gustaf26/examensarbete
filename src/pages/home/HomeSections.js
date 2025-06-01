@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+import verkstadImg from '../../assets/images/verkstad.jpg'
+
 import { useCreate } from "../../contexts/CreateContext"
 import { useMobile } from '../../contexts/MobileContext';
 import { useAuth } from '../../contexts/AuthContext';
@@ -167,9 +169,11 @@ function HomeSections() {
                 </div>
                 <div style={{ width: 'calc(100vw - 20%)' }}>
                     <div style={{ display: 'flex', flexWrap: 'nowrap' }} ref={slidesref}>
-                        {/* <div style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
-
-                        </div> */}
+                        {!slides.length ? [0, 1, 2, 3, 4, 5, 6, 7].map(num => {
+                            return (<div key={'placeholder' + num} id="home-slider-placeholder-container" style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
+                                <img alt="blurry placeholder" src={verkstadImg} />
+                            </div>)
+                        }) : null}
                     </div>
                 </div>
                 <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
