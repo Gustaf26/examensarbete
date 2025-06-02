@@ -110,7 +110,7 @@ const UpdateProduct = () => {
       localStorage.setItem('singleProduct', JSON.stringify(singleProduct))
     }
 
-    let product = !singleProduct && JSON.parse(localStorage.getItem('singleProduct'))
+    let product = !singleProduct ? JSON.parse(localStorage.getItem('singleProduct')) : singleProduct
 
     setProductOption(product.category);
     setName(product.name);
