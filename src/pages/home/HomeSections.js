@@ -166,7 +166,9 @@ function HomeSections() {
                 </div>
             </div>
             <div id="home-slider" className={microMobile ? 'micromobile' : ''}>
-                <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow" style={microMobile ? { left: '10px' } : {}} >
+                <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow"
+                // style={microMobile ? { left: '10px' } : {}}
+                >
                     <ArrowBackIosIcon></ArrowBackIosIcon>
                 </div>
                 <div style={{ width: 'calc(100vw - 20%)' }}>

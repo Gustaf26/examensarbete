@@ -598,15 +598,14 @@ h2 {
     margin: 0rem auto;
     padding: 0;
 
-    &.mobile {
-
-      &.admin {}
-    }
-
     &.micromobile {}
 
     &.admin {
       margin: 6rem auto;
+
+      &.mobile {
+        margin: 6rem auto;
+      }
     }
 
     & #home-card1 {
@@ -667,23 +666,33 @@ h2 {
       flex-direction: column;
       background-color: white;
       border-radius: 10px;
-      width: 80%;
-      margin: 5rem auto 5rem 20px;
+      // width: 80%;
+      margin: 5rem auto;
       ;
 
       &.mobile {
-        margin: 15px;
+        // margin: 15px;
         display: flex;
-        width: 100%;
+        width: calc(100% - 15px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         background-color: white;
         overflow-x: hidden;
+
+        // & #right-arrow {
+        //   right: 40px;
+        //   padding-right: 20px;
+        // }
       }
 
       &.admin {
         overflow-x: visible;
+
+        & #home-card2-text {
+          margin: 0 auto;
+          width: 100%;
+        }
       }
 
       & button {
@@ -699,17 +708,17 @@ h2 {
         margin: 2rem auto;
         position: relative;
         width: 100%;
-        justify-content: center;
+        justify-content: start;
         // overflow-x: hidden;
 
-        &.mobile {
-          width: 80%;
+        // &.mobile {
+        //   width: 80%;
 
-          & .slider-arrow {
-            height: 30px;
-            width: 30px;
-          }
-        }
+        //   & .slider-arrow {
+        //     height: 30px;
+        //     width: 30px;
+        //   }
+        // }
 
         &.microMobile {
           width: 100%;
@@ -734,6 +743,7 @@ h2 {
           color: rgba(216, 158, 0, 1);
           padding: 10px;
           border-radius: 50px;
+          top: 40%;
 
           & svg {
             cursor: pointer;
@@ -741,14 +751,12 @@ h2 {
           }
 
           &#right-arrow {
-            right: 0px;
-            top: 40%;
+            right: 4%;
             padding-right: 20px;
           }
 
           &#left-arrow {
-            left: -40px;
-            top: 40%;
+            left: 0%;
           }
 
           &:hover {
