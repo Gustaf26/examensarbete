@@ -594,7 +594,7 @@ h2 {
   & #home-sections-container {
 
     width: 100%;
-    overflow-x: hidden;
+    // overflow-x: hidden;
     margin: 0rem auto;
     padding: 0;
 
@@ -668,7 +668,8 @@ h2 {
       background-color: white;
       border-radius: 10px;
       width: 80%;
-      margin: 5rem auto;
+      margin: 5rem auto 5rem 20px;
+      ;
 
       &.mobile {
         margin: 15px;
@@ -678,6 +679,11 @@ h2 {
         justify-content: center;
         align-items: center;
         background-color: white;
+        overflow-x: hidden;
+      }
+
+      &.admin {
+        overflow-x: visible;
       }
 
       & button {
@@ -694,9 +700,20 @@ h2 {
         position: relative;
         width: 100%;
         justify-content: center;
+        // overflow-x: hidden;
+
+        &.mobile {
+          width: 80%;
+
+          & .slider-arrow {
+            height: 30px;
+            width: 30px;
+          }
+        }
 
         &.microMobile {
           width: 100%;
+          max-width: 400px;
         }
 
         & img:hover {

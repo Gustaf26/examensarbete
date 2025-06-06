@@ -15,9 +15,11 @@ import useMobileStyles from '../../hooks/useMobileStyles';
 function HomeSections() {
 
     const { allProducts, setSingleProduct, setSearchResults, setSearchString } = useCreate()
+
     const [slides, setSlides] = useState([])
-    const slidesref = useRef()
     const [rightMoves, setRightMoves] = useState(0)
+
+    const slidesref = useRef()
 
     const { mobile } = useMobile();
     const { microMobile } = useMobileStyles();
@@ -53,13 +55,12 @@ function HomeSections() {
     const moveSlides = (direction) => {
 
         let slideDistance = microMobile ? 300 : 500
-        let maxMoves = mobile ? 12 : 7
+        let maxMoves = microMobile ? 7 : mobile ? 3 : 2
 
-        let previousSlides = [...slides]
+        // let previousSlides = [...slides]
 
         // Moves right and left in slider
         if (direction === 'right') {
-            previousSlides.push(allProducts)
             slidesref.current.style.transition = 'transform 0.5s ease-out'
             slidesref.current.style.transform = `translateX(-${(rightMoves + 1) * slideDistance}px)`
 
@@ -68,7 +69,6 @@ function HomeSections() {
                 slidesref.current.style.transition = `transform 2s ease-out`
                 slidesref.current.style.transform = `translateX(0px)`
                 setTimeout(() => {
-                    setSlides([allProducts])
                     setRightMoves(0)
                 }, 2000)
                 return
@@ -78,16 +78,16 @@ function HomeSections() {
         else {
             if (rightMoves === 0) return
             setRightMoves((prev) => prev - 1)
-            previousSlides.pop()
+            // previousSlides.pop()
             slidesref.current.style.transition = `transform 1s linear`
             slidesref.current.style.transform = `translateX(-${(rightMoves - 1) * slideDistance}px)`
         }
-        setSlides(previousSlides)
+        // setSlides(previousSlides)
     }
 
     useEffect(() => {
-        // setSlides(allProducts)
 
+        // Fuction for lazy loading of images in slider through a promise for every image
         function loadImages() {
             return allProducts.map(async (prod) => {
 
@@ -122,14 +122,16 @@ function HomeSections() {
 
         }
 
-        let imagesPromises = loadImages()
-        let allFulfilledPromises = Promise.all(imagesPromises)
+        if (slides.length === 0) {
+            let imagesPromises = loadImages()
+            let allFulfilledPromises = Promise.all(imagesPromises)
 
-        allFulfilledPromises.then(res => {
-            res.forEach(slide => { setSlides(prev => [...prev, slide]); slidesref.current?.append(slide) })
-        })
+            allFulfilledPromises.then(res => {
+                res.forEach(slide => { setSlides(prev => [...prev, slide]); slidesref.current?.append(slide) })
+            })
+        }
 
-    }, [allProducts, slidesref])
+    }, [allProducts, slides])
 
 
     return (<div id="home-sections-container" className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
