@@ -1,7 +1,7 @@
 
 //import firebase from "firebase/app";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router";
 
 import { Card, CardFooter, Form, Alert } from "react-bootstrap";
 // import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router";
 
 import { useAuth } from "../../contexts/AuthContext";
 // import { db } from "../../firebase";

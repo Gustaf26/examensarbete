@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 import Product from "./components/products/Product";
 import Products from "./components/products/Products";

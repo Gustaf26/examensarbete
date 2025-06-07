@@ -16,7 +16,7 @@ import MenuButton from './MenuButton';
 import { useAuth } from '../../contexts/AuthContext'
 import { useMobile } from '../../contexts/MobileContext';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 // import zIndex from '@mui/material/styles/zIndex';
 
 const MenuItem = styled(MuiMenuItem)({

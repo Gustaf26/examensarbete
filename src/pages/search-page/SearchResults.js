@@ -1,7 +1,7 @@
 import { useEffect, useState, useTransition } from "react";
 
 
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { Row } from "react-bootstrap";
 
 import { BounceLoader } from "react-spinners";

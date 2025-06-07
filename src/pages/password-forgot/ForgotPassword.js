@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Row, Col, Form, Button, Card, Alert } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { useAuth } from '../../contexts/AuthContext'
 
 const ForgotPassword = () => {

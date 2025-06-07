@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
