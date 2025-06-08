@@ -42,8 +42,8 @@ const SearchForm = () => {
             { display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center', height: '100%', padding: '20px' }}>
         <NavItem className="d-flex align-items-center my-0 navitem"
             style={mobile && admin ? {
-                width: '60%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
-            } : mobile ? { width: '60%' } : { width: '500px' }}>
+                width: '40%', textAlign: 'center', margin: '0', padding: '20px 0px', height: '100%',
+            } : mobile ? { width: '300px' } : { width: '500px' }}>
             <Form style={mobile & admin ? {
                 width: microMobile ? '100%' : '100%', textAlign: 'center', padding: '15px', display: 'flex', alignItems: 'center',
                 margin: '0', height: '100%'

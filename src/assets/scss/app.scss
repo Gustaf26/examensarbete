@@ -10,6 +10,7 @@ body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
+  max-height: fit-content;
 }
 
 * {
@@ -29,6 +30,7 @@ body {
   // display: flex;
   // flex-direction: column;
   min-height: 100vh;
+  max-width: 100vw;
   background-size: auto;
   justify-content: start;
 }
@@ -42,7 +44,7 @@ body {
   height: fit-content;
 
   &.micromobile {
-    width: 100%;
+    width: 100vw;
     height: 160px;
 
     &.admin {}
@@ -50,7 +52,7 @@ body {
 
   &.mobile {
 
-    width: 100%;
+    width: 107vw;
 
     &.admin {
       position: absolute;
@@ -72,6 +74,7 @@ body {
 
 #navigation-container-row {
 
+  width: 107vw;
 
   & #navigation {
     background-color: rgb(165, 42, 42);
@@ -82,6 +85,7 @@ body {
     justify-content: space-evenly;
     flex-direction: row;
     height: fit-content;
+    width: 100%;
 
     &.mobile {
 
@@ -94,14 +98,12 @@ body {
 
   &.micromobile {
 
-    width: 100%;
-
     &.admin {}
   }
 
   &.mobile {
     flex-direction: column;
-    width: 100%;
+    // width: 100%;
     justify-content: space-evenly;
     height: fit-content;
     align-items: center;
@@ -334,7 +336,8 @@ h2 {
   position: relative;
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  justify-content: center;
+  // margin-left: 20px;
   border-radius: 5px;
   padding: 7px 10px;
 
@@ -368,6 +371,10 @@ h2 {
 
   &::placeholder {
     color: rgba(165, 42, 42, 0.7);
+  }
+
+  @media screen and (max-width:900px) {
+    width: 40%;
   }
 }
 
@@ -453,6 +460,7 @@ h2 {
   background-color: rgb(224, 191, 153);
   max-width: 500px;
   min-width: 400px;
+  padding: 20px;
 
   &.micromobile {
 
@@ -593,12 +601,14 @@ h2 {
 
   & #home-sections-container {
 
-    width: 100%;
+    width: calc(100% - 20px);
     // overflow-x: hidden;
     margin: 0rem auto;
     padding: 0;
 
-    &.micromobile {}
+    &.micromobile {
+      width: calc(100% - 40px);
+    }
 
     &.admin {
       margin: 6rem auto;
@@ -620,8 +630,8 @@ h2 {
 
       & img {
         margin: 15px;
-        width: 425px;
-        height: 425px;
+        // width: 425px;
+        // height: 425px;
         object-fit: cover;
       }
 
@@ -630,12 +640,14 @@ h2 {
         flex-direction: column;
         justify-content: space-between;
         border-radius: 10px;
-        width: 100%;
+        width: calc(100% - 20px);
         margin: 5rem auto;
         min-width: 0px;
 
         & img {
-          width: 100%;
+          width: 300px;
+          max-width: 100%;
+          margin: 0 auto;
         }
       }
 
@@ -650,7 +662,9 @@ h2 {
         min-width: 0px;
 
         & img {
-          width: 600px;
+          width: 300px;
+          // height: 400px;
+          // max-height: 0;
           margin: 0 auto;
         }
       }
@@ -720,9 +734,10 @@ h2 {
         //   }
         // }
 
-        &.microMobile {
+        &.micromobile {
           width: 100%;
-          max-width: 400px;
+          padding: 0;
+          justify-content: center;
         }
 
         & img:hover {
@@ -1250,10 +1265,12 @@ tr {
   #login-form,
   #signup-form,
   #update-profile-form {
+    min-width: 0;
     width: 300px;
+    padding: 10px;
 
     & input {
-      max-width: calc(100% - 30px);
+      width: 280px;
     }
 
     & input[type=checkbox] {

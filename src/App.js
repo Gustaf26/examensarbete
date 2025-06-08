@@ -105,7 +105,7 @@ const App = () => {
 							</Route>
 						</Routes>
 					</Container>
-					<Footer />
+					{/* <Footer /> */}
 				</MobileContextProvider>
 			</div>
 		</Router>

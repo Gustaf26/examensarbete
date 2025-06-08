@@ -96,7 +96,7 @@ function HomeSections() {
                     let imageEl = document.createElement('img')
                     imageEl.style.margin = '0'
                     imageEl.style.padding = '0'
-                    imageEl.style.width = microMobile ? '300px' : '200px'
+                    imageEl.style.width = microMobile ? '100%' : mobile ? '100%' : '100%'
                     imageEl.style.height = '300px'
                     imageEl.style.objectFit = 'cover'
 
@@ -109,7 +109,8 @@ function HomeSections() {
                     let imageWrapper = document.createElement('div')
                     imageWrapper.style.display = 'inline flex'
                     imageWrapper.style.flexWrap = 'nowrap'
-                    imageWrapper.style.width = 'fit-content'
+                    imageWrapper.style.minWidth = microMobile ? '200px' : mobile ? '75%' : '400px'
+                    imageWrapper.style.maxWidth = microMobile ? '200px' : mobile ? '75%' : '400px'
                     imageWrapper.append(imageEl)
 
                     imageEl.addEventListener('load', (e) => {
@@ -166,13 +167,13 @@ function HomeSections() {
                 </div>
             </div>
             <div id="home-slider" className={microMobile ? 'micromobile' : ''}>
-                <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow"
+                {!microMobile && !mobile ? <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow"
                 // style={microMobile ? { left: '10px' } : {}}
                 >
                     <ArrowBackIosIcon></ArrowBackIosIcon>
-                </div>
-                <div style={{ width: 'calc(100vw - 20%)' }}>
-                    <div style={{ display: 'flex', flexWrap: 'nowrap' }} ref={slidesref}>
+                </div> : null}
+                <div style={{ width: 'calc(100vw)' }}>
+                    <div style={{ display: 'flex', flexWrap: 'nowrap', width: '100%', overflowX: 'hidden' }} ref={slidesref}>
                         {!slides.length ? [0, 1, 2, 3, 4, 5, 6, 7].map(num => {
                             return (<div key={'placeholder' + num} id="home-slider-placeholder-container" style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
                                 <img alt="blurry placeholder" src={verkstadImg} />
@@ -180,9 +181,9 @@ function HomeSections() {
                         }) : null}
                     </div>
                 </div>
-                <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
+                {!microMobile && !mobile ? <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
                     <ArrowForwardIosIcon></ArrowForwardIosIcon>
-                </div>
+                </div> : null}
             </div>
             <button onClick={goToAllProducts}>See all products</button>
         </div>

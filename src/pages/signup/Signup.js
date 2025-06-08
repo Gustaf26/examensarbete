@@ -52,36 +52,36 @@ const Signup = () => {
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Card id="signup-form">
-            <Card.Body>
-              <Card.Title>Sign Up</Card.Title>
+            {/* <Card.Body> */}
+            <Card.Title>Sign Up</Card.Title>
 
-              {error && <Alert variant="danger">{error}</Alert>}
+            {error && <Alert variant="danger">{error}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group id="email">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" name='emailRef' required />
-                </Form.Group>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group id="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" name='emailRef' required />
+              </Form.Group>
 
-                <Form.Group id="password">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" name='passwordRef' required />
-                </Form.Group>
+              <Form.Group id="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" name='passwordRef' required />
+              </Form.Group>
 
-                <Form.Group id="password-confirm">
-                  <Form.Label>Password Confirmation</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name='passwordConfirmRef'
-                    required
-                  />
-                </Form.Group>
+              <Form.Group id="password-confirm">
+                <Form.Label>Password Confirmation</Form.Label>
+                <Form.Control
+                  type="password"
+                  name='passwordConfirmRef'
+                  required
+                />
+              </Form.Group>
 
-                <Button disabled={loading} type="submit">
-                  Create Account
-                </Button>
-              </Form>
-            </Card.Body>
+              <Button disabled={loading} type="submit">
+                Create Account
+              </Button>
+            </Form>
+            {/* </Card.Body> */}
           </Card>
           <div className="text-center mt-2">
             Already have an account? <Link to="/login">Log In</Link>

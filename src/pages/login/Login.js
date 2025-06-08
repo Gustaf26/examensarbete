@@ -81,58 +81,58 @@ const Login = () => {
               textAlign: 'center', width: '100%', height: 'fit-content', padding: '20px',
               backgroundColor: 'rgb(255, 255, 255)'
             }}>Please Log In</Card.Title>
-            <Card.Body>
-              {error && <Alert variant="danger">{error}</Alert>}
-              <Form style={!mobile ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'start' } : { minWidth: '300px' }}
-                onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
-                <Form.Group className="login-form-group mt-2" id="email">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    ref={emailRef}
-                    onChange={restoreAlerts}
-                    placeholder={'Ex. admin@email.se'}
-                    required
-                  />
-                  <Form.Label className="mt-2">Password</Form.Label>
-                  <Form.Control id="password"
-                    type="password"
-                    onChange={restoreAlerts}
-                    placeholder={'adminPass'}
-                    required
-                  /><div className=" mt-3">
-                    <Link to="/forgot-password">Forgot Password?</Link>
-                  </div>
-                </Form.Group>
-                <Form.Group className="login-form-group mt-2" controlId="formBasicCheckbox">
-                  <Form.Label>Be sure it´s you</Form.Label>
-                  <Button type="submit">
-                    Log In
-                  </Button>
-                  <Form.Check
-                    className="mt-4"
-                    type="checkbox"
-                    label="I am the administrator"
-                    style={{ marginTop: '10px' }}
-                    onChange={() => setChecked(!adminChecked)}
-                  />
-                  <div className="mt-1">
-                    Need an account? <Link to="/signup">Sign Up</Link>
-                  </div>
-                </Form.Group>
-              </Form>
-              {alert === true ? (
-                <Alert variant="danger" className="mt-3">
-                  You don´t have admin permissions
-                </Alert>
-              ) : null}
+            {/* <Card.Body> */}
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form style={!mobile ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'start' } : { minWidth: '300px' }}
+              onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
+              <Form.Group className="login-form-group mt-2" id="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  ref={emailRef}
+                  onChange={restoreAlerts}
+                  placeholder={'Ex. admin@email.se'}
+                  required
+                />
+                <Form.Label className="mt-2">Password</Form.Label>
+                <Form.Control id="password"
+                  type="password"
+                  onChange={restoreAlerts}
+                  placeholder={'adminPass'}
+                  required
+                /><div className=" mt-3">
+                  <Link to="/forgot-password">Forgot Password?</Link>
+                </div>
+              </Form.Group>
+              <Form.Group className="login-form-group mt-2" controlId="formBasicCheckbox">
+                <Form.Label>Be sure it´s you</Form.Label>
+                <Button type="submit">
+                  Log In
+                </Button>
+                <Form.Check
+                  className="mt-4"
+                  type="checkbox"
+                  label="I am the administrator"
+                  style={{ marginTop: '10px' }}
+                  onChange={() => setChecked(!adminChecked)}
+                />
+                <div className="mt-1">
+                  Need an account? <Link to="/signup">Sign Up</Link>
+                </div>
+              </Form.Group>
+            </Form>
+            {alert === true ? (
+              <Alert variant="danger" className="mt-3">
+                You don´t have admin permissions
+              </Alert>
+            ) : null}
 
-              {adminAlert === true ? (
-                <Alert variant="warning" className="mt-3">
-                  You are admin. Please check the admin-box
-                </Alert>
-              ) : null}
-            </Card.Body>
+            {adminAlert === true ? (
+              <Alert variant="warning" className="mt-3">
+                You are admin. Please check the admin-box
+              </Alert>
+            ) : null}
+            {/* </Card.Body> */}
           </Card>
         </Col>
       </Row >
