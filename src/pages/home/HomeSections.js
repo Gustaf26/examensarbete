@@ -99,22 +99,21 @@ function HomeSections() {
         // Fuction for lazy loading of images in slider through a promise for every image
         function loadImages() {
 
-            let maxSlides = microMobile ? 0 : mobile && !admin ? 5 : mobile && admin ? 0 : 8
+            let maxSlides = microMobile ? 0 : mobile && !admin ? 7 : mobile && admin ? 0 : admin ? 7 : 8
             return allProducts.map(async (prod, i) => {
 
                 return await new Promise((resolve, reject) => {
 
                     let imageEl = document.createElement('img')
-                    imageEl.style.margin = '0 auto'
-                    imageEl.style.padding = '0'
-                    imageEl.style.width = microMobile ? '100vw' : mobile ? '170px' : '200px'
-                    imageEl.style.maxWidth = microMobile ? '100vw' : mobile ? '170px' : '200px'
+                    imageEl.style.padding = '0 20px 0 auto'
+                    imageEl.style.width = microMobile ? '100vw' : mobile & admin ? '160px' : mobile ? '170px' : '200px'
+                    imageEl.style.maxWidth = microMobile ? '100vw' : mobile & admin ? '160px' : mobile ? '170px' : '200px'
                     imageEl.style.height = '200px'
                     // imageEl.style.maxWidth = '120px'
-                    imageEl.style.transform = 'skew(0deg, 4deg) rotateY(50deg)'
+                    imageEl.style.transform = microMobile ? 'none' : mobile && admin ? 'skew(0deg, 4deg) rotateY(30deg)' : 'skew(0deg, 4deg) rotateY(50deg)'
                     imageEl.style.objectFit = 'cover'
                     imageEl.style.zIndex = `${i + 1}`
-                    imageEl.style.marginLeft = !microMobile ? '-90px' : '0'
+                    imageEl.style.marginLeft = microMobile ? '0' : mobile && admin ? '-35px' : '-90px'
 
                     imageEl.src = prod.thumbnail
                     imageEl.alt = prod.description
@@ -183,8 +182,12 @@ function HomeSections() {
                 >
                     <ArrowBackIosIcon></ArrowBackIosIcon>
                 </div> : null} */}
-                <div style={{ width: 'calc(100vw)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'nowrap', width: '100%', margin: admin && !mobile & !microMobile ? ' 0 auto 0 120px' : '0 auto' }} ref={slidesref}>
+                <div style={{ width: microMobile ? '100%' : mobile && admin ? '400px' : admin ? 'calc(100% - 180px)' : '100%', }}>
+                    <div style={{
+                        display: 'flex', justifyContent: 'center', flexWrap: 'nowrap',
+                        width: microMobile ? '100%' : mobile && admin ? '400px' : admin ? 'calc(100%)' : '100%',
+                        margin: admin && !mobile & !microMobile ? ' 0 auto' : '0 auto'
+                    }} ref={slidesref}>
                         {!slides.length ? [0, 1, 2, 3, 4, 5, 6, 7].map(num => {
                             return (<div key={'placeholder' + num} id="home-slider-placeholder-container" style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
                                 <img alt="blurry placeholder" src={verkstadImg} />
