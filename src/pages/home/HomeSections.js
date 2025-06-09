@@ -28,6 +28,15 @@ function HomeSections() {
 
     const { admin } = useAuth()
 
+    const [currentDevice, setCurrentDevice] = useState()
+    const deviceChanging = useRef(microMobile ? 'micromobile' : admin && mobile ? 'admin-mobile' : mobile ? 'mobile' : 'desktop')
+
+    useEffect(() => {
+
+        setCurrentDevice(microMobile ? 'micromobile' : admin && mobile ? 'admin-mobile' : mobile ? 'mobile' : 'desktop')
+
+    }, [mobile, microMobile, admin])
+
     const showCheapest = () => {
 
         let cheapestProducts = allProducts.filter(prod => prod.price < 20)
@@ -89,16 +98,23 @@ function HomeSections() {
 
         // Fuction for lazy loading of images in slider through a promise for every image
         function loadImages() {
-            return allProducts.map(async (prod) => {
+
+            let maxSlides = microMobile ? 0 : mobile && !admin ? 5 : mobile && admin ? 0 : 8
+            return allProducts.map(async (prod, i) => {
 
                 return await new Promise((resolve, reject) => {
 
                     let imageEl = document.createElement('img')
-                    imageEl.style.margin = '0'
+                    imageEl.style.margin = '0 auto'
                     imageEl.style.padding = '0'
-                    imageEl.style.width = microMobile ? '100%' : mobile ? '100%' : '100%'
-                    imageEl.style.height = '300px'
+                    imageEl.style.width = microMobile ? '100vw' : mobile ? '170px' : '200px'
+                    imageEl.style.maxWidth = microMobile ? '100vw' : mobile ? '170px' : '200px'
+                    imageEl.style.height = '200px'
+                    // imageEl.style.maxWidth = '120px'
+                    imageEl.style.transform = 'skew(0deg, 4deg) rotateY(50deg)'
                     imageEl.style.objectFit = 'cover'
+                    imageEl.style.zIndex = `${i + 1}`
+                    imageEl.style.marginLeft = !microMobile ? '-90px' : '0'
 
                     imageEl.src = prod.thumbnail
                     imageEl.alt = prod.description
@@ -106,33 +122,28 @@ function HomeSections() {
                         goToSingleProduct(prod)
                     })
 
-                    let imageWrapper = document.createElement('div')
-                    imageWrapper.style.display = 'inline flex'
-                    imageWrapper.style.flexWrap = 'nowrap'
-                    imageWrapper.style.minWidth = microMobile ? '200px' : mobile ? '75%' : '400px'
-                    imageWrapper.style.maxWidth = microMobile ? '200px' : mobile ? '75%' : '400px'
-                    imageWrapper.append(imageEl)
+                    let dummyDiv = document.createElement('div')
 
                     imageEl.addEventListener('load', (e) => {
-                        if (imageEl.complete) resolve(imageWrapper)
+                        if (imageEl.complete) resolve(i <= maxSlides ? imageEl : dummyDiv)
                     })
-
                 })
-
             })
-
         }
 
-        if (slides.length === 0) {
+        if (slides.length === 0 || currentDevice !== deviceChanging.current) {
+
+            if (currentDevice !== deviceChanging.current) deviceChanging.current = currentDevice
             let imagesPromises = loadImages()
             let allFulfilledPromises = Promise.all(imagesPromises)
 
+            if (slides.length > 0) slidesref.current.innerHTML = ""
             allFulfilledPromises.then(res => {
-                res.forEach(slide => { setSlides(prev => [...prev, slide]); slidesref.current?.append(slide) })
+                res.forEach(slide => { setSlides((prev) => [...prev, slide]); slidesref.current?.append(slide) })
             })
         }
-
-    }, [allProducts, slides])
+        // eslint-disable-next-line
+    }, [allProducts, currentDevice])
 
 
     return (<div id="home-sections-container" className={microMobile ? 'micromobile' : admin && mobile ? 'admin mobile' : admin ? 'admin' : mobile ? 'mobile' : ''}>
@@ -167,13 +178,13 @@ function HomeSections() {
                 </div>
             </div>
             <div id="home-slider" className={microMobile ? 'micromobile' : ''}>
-                {!microMobile && !mobile ? <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow"
+                {/* {!microMobile && !mobile ? <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow"
                 // style={microMobile ? { left: '10px' } : {}}
                 >
                     <ArrowBackIosIcon></ArrowBackIosIcon>
-                </div> : null}
+                </div> : null} */}
                 <div style={{ width: 'calc(100vw)' }}>
-                    <div style={{ display: 'flex', flexWrap: 'nowrap', width: '100%', overflowX: 'hidden' }} ref={slidesref}>
+                    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'nowrap', width: '100%', margin: admin && !mobile & !microMobile ? ' 0 auto 0 120px' : '0 auto' }} ref={slidesref}>
                         {!slides.length ? [0, 1, 2, 3, 4, 5, 6, 7].map(num => {
                             return (<div key={'placeholder' + num} id="home-slider-placeholder-container" style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
                                 <img alt="blurry placeholder" src={verkstadImg} />
@@ -181,9 +192,9 @@ function HomeSections() {
                         }) : null}
                     </div>
                 </div>
-                {!microMobile && !mobile ? <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
+                {/* {!microMobile && !mobile ? <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
                     <ArrowForwardIosIcon></ArrowForwardIosIcon>
-                </div> : null}
+                </div> : null} */}
             </div>
             <button onClick={goToAllProducts}>See all products</button>
         </div>

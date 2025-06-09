@@ -44,7 +44,7 @@ body {
   height: fit-content;
 
   &.micromobile {
-    width: 100vw;
+    width: 100%;
     height: 160px;
 
     &.admin {}
@@ -52,7 +52,7 @@ body {
 
   &.mobile {
 
-    width: 107vw;
+    width: 100%;
 
     &.admin {
       position: absolute;
@@ -74,7 +74,7 @@ body {
 
 #navigation-container-row {
 
-  width: 107vw;
+  width: 100vw;
 
   & #navigation {
     background-color: rgb(165, 42, 42);
@@ -721,9 +721,8 @@ h2 {
         display: flex;
         margin: 2rem auto;
         position: relative;
-        width: 100%;
+        width: 100vw;
         justify-content: start;
-        // overflow-x: hidden;
 
         // &.mobile {
         //   width: 80%;
@@ -740,10 +739,18 @@ h2 {
           justify-content: center;
         }
 
+        & img {
+          box-shadow: 1px 1px 6px rgb(219, 187, 187);
+        }
+
         & img:hover {
-          z-index: 7;
-          transform: scale(1.025);
+          z-index: 200 !important;
+          transform: rotateX(0deg) scale(1.20) !important;
+          transition: all 1s ease-in-out;
           cursor: pointer;
+          margin: 0 calc(50% - 80px);
+          background-color: rgba(0, 0, 0, 0.3);
+
         }
 
         & .slider-arrow {
