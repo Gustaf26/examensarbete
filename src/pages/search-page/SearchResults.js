@@ -83,7 +83,7 @@ const SearchResults = () => {
 
           {mobileDisplays && <MobileList />}
 
-          <CardContainer>
+          <CardContainer style={{ margin: microMobile && admin ? '5rem auto' : '3rem auto' }}>
             {searchResults.length > 0 &&
               searchResults.map((item, i) => (
                 <ProductCard setLoading={setLoading} key={item.id} onLoad={(e) => {
