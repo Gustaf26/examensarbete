@@ -18,7 +18,6 @@ import SearchResults from "./pages/search-page/SearchResults";
 import NotFound from "./components/NotFound";
 import Signup from "./pages/signup/Signup";
 import UpdateProfile from "./pages/update-profile/UpdateProfile";
-// import Footer from "./components/Footer";
 
 import { useCreate } from "./contexts/CreateContext";
 import { useAuth } from "./contexts/AuthContext";

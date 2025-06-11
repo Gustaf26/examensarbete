@@ -33,7 +33,7 @@ function HomeSections() {
 
     useEffect(() => {
 
-        setCurrentDevice(microMobile ? 'micromobile' : admin && mobile ? 'admin-mobile' : mobile ? 'mobile' : 'desktop')
+        setCurrentDevice(microMobile ? 'micromobile' : admin && mobile ? 'admin-mobile' : admin ? 'admin' : mobile ? 'mobile' : 'desktop')
 
     }, [mobile, microMobile, admin])
 
@@ -110,9 +110,10 @@ function HomeSections() {
                     imageEl.style.maxWidth = microMobile ? '100vw' : mobile & admin ? '160px' : mobile ? '170px' : '200px'
                     imageEl.style.height = '200px'
                     // imageEl.style.maxWidth = '120px'
-                    imageEl.style.transform = microMobile ? 'none' : mobile && admin ? 'skew(0deg, 4deg) rotateY(30deg)' : 'skew(0deg, 4deg) rotateY(50deg)'
+                    imageEl.style.transform = microMobile ? 'none' : mobile && admin ? 'skew(0deg, 4deg) rotateY(30deg)' : 'skew(0deg, 4deg)'
                     imageEl.style.objectFit = 'cover'
                     imageEl.style.zIndex = `${i + 1}`
+                    // imageEl.style.animation = 'rotating 2s linear forwards'
                     imageEl.style.marginLeft = microMobile ? '0' : mobile && admin ? '-35px' : '-90px'
 
                     imageEl.src = prod.thumbnail
