@@ -68,14 +68,14 @@ const SearchResults = () => {
         admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
         onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
 
-        {(microMobile || (admin && !mobile)) && <Navigation />}
+        {((admin && !mobile) || (admin && microMobile)) && <Navigation />}
         {!mobile && <BreadcrumbContainer />}
 
         <Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
           admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
           style={mobile && admin ? { ...containerStyles, padding: '10px 10px' }
             : {}}>
-          {admin && mobile && <Navigation />}
+          {admin && mobile && !microMobile && <Navigation />}
 
           {mobile && admin && !microMobile && <Icon className="icon-mobile-displays"
             onClick={() => setMobileDisplays(!mobileDisplays)}
