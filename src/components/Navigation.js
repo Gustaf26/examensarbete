@@ -91,7 +91,8 @@ const Navigation = () => {
 
       {menuShowing === false ?
         (<div style={{
-          color: 'grey', borderTopLeftRadius: !microMobile ? '15px' : '0px', borderTopRightRadius: !microMobile ? '15px' : '0px', width: `100%`,
+          color: 'grey', borderTopLeftRadius: !(mobile && admin) ? '0px' : '15px', borderTopRightRadius: !(admin && mobile) ? '0px' : '15px',
+          width: `calc(100% - 10px)`,
           padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
         }}>
           <div style={{ height: '50px' }}>
@@ -130,7 +131,7 @@ const Navigation = () => {
 
             </Nav.Item>
             <Nav.Item id="subnavigation" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
-              admin ? ' admin' : mobile ? ' mobile' : ''} style={{ width: '50%', display: 'flex', justifyContent: 'center', aignItems: 'center' }}>
+              admin ? ' admin' : mobile ? ' mobile' : ''}>
               <Nav.Item
                 id="clothes-select"
                 className="navitem"
@@ -168,13 +169,13 @@ const Navigation = () => {
                 </NavDropdown>
               ) : (
                 <NavItem className="navitem" style={mobile ? {
-                  width: '100%', margin: '0', padding: '20px',
-                  height: '100%', borderTop: '1px solid rgb(234, 215, 215)'
-                } : { width: '180px' }}>
+                  width: '100%', padding: '20px',
+                  height: '100%'
+                } : { width: '180px', marginLeft: !microMobile && !mobile ? '600px' : '0' }}>
                   <NavLink
-                    style={admin && mobile ? { width: '100%', textAlign: 'center' } : mobile ? { width: 'fit-content' } : { maxWidth: '80px' }}
+                    className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+                      admin ? ' admin' : mobile ? ' mobile' : ''}
                     to={admin ? 'cms/login' : "/login"}
-                    className="signin ml-3"
                     id="login-link"
                   >
                     Sign In / Register

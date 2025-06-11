@@ -33,7 +33,7 @@ function HomeSections() {
 
     useEffect(() => {
 
-        setCurrentDevice(microMobile ? 'micromobile' : admin && mobile ? 'admin-mobile' : admin ? 'admin' : mobile ? 'mobile' : 'desktop')
+        setCurrentDevice(microMobile ? 'micromobile' : mobile ? 'mobile' : 'desktop')
 
     }, [mobile, microMobile, admin])
 

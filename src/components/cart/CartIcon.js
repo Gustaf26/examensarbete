@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from "../../contexts/MobileContext";
 
+import useMobileStyles from "../../hooks/useMobileStyles";
+
 import { NavItem } from "react-bootstrap";
 
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
@@ -11,10 +13,12 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 
 const CartIcon = () => {
 
-    const { allProducts } = useCreate()
+    const { allProducts, admin } = useCreate()
     const [prodsIncart, setProdsInCart] = useState(0)
 
     const { mobile } = useMobile()
+
+    const { microMobile } = useMobileStyles()
 
     useEffect(() => {
 
@@ -24,8 +28,9 @@ const CartIcon = () => {
 
     }, [allProducts])
 
-    return (<NavItem id="cart-icon" style={{ border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)', }}>
-        {prodsIncart ? (<span style={{ border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)' }} id="cartProdsQty">{prodsIncart}</span>) : null}
+    return (<NavItem id="cart-icon" style={{ marginLeft: !(mobile && admin) && !microMobile ? '20px' : '', border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)', }}>
+        {prodsIncart ? (<span style={{ border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)' }}
+            id="cartProdsQty">{prodsIncart}</span>) : null}
         <ShoppingCart style={{ color: mobile ? 'brown' : 'rgb(210, 129, 37)' }} />
     </NavItem>)
 
