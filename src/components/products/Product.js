@@ -47,8 +47,10 @@ const Product = () => {
   // Updates location and context vars to get single prod 
   useEffect(() => {
     if (!singleProduct) {
+
       setLocation(location.pathname);
       setProdId(Number(productId));
+
       let singleP = allProducts.filter(prod => prod.id === Number(productId))
       console.log(singleP)
       if (singleP[0]) { setSingleProduct(singleP[0]); setProductOption(singleP[0].category); }

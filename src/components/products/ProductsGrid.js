@@ -57,6 +57,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 							className='icon-mobile-displays'
 							onClick={() => setMobileDisplays(!mobileDisplays)}
 							color='primary'
+							style={{ zIndex: '1000 !important' }}
 						>
 							device_unknown
 						</Icon>

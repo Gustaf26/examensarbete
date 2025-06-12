@@ -98,7 +98,7 @@ const CreateContextProvider = (props) => {
     if (location !== currentLocation.current) {
       currentLocation.current = location; setYScrolling(true); setTimeout(() => {
         setYScrolling(false)
-      }, 2000)
+      }, 1000)
     }
   }, [location])
 
