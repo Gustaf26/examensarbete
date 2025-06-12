@@ -1,5 +1,4 @@
-// import firebaseLocalStorage from "../firebase";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
@@ -7,7 +6,6 @@ import { useMobile } from "../../contexts/MobileContext";
 
 const Login = () => {
   const emailRef = useRef();
-  // const passwordRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { login, checkIfAdmin, setAdmin } = useAuth();

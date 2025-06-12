@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router";
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -23,14 +23,21 @@ import SearchForm from "./SearchForm";
 import CartIcon from '../components/cart/CartIcon'
 
 const Navigation = () => {
-  const { currentUser, admin, setAdmin, setCurrentUser } = useAuth();
+
+
   const [createLink, setCreate] = useState(false);
   const [customMenu, setCustMenu] = useState(false);
-  const { setSearchString } = useCreate();
+
+  const { setSearchString, yScrolling } = useCreate();
+
   const navigate = useNavigate();
+
+  const { currentUser, admin, setAdmin, setCurrentUser } = useAuth();
   const { mobile, setMobile, menuShowing, setMenuShowing, mobileWidth, setFullScreen, fullScreen } = useMobile()
-  const [subMenu, setSubMenu] = useState(true)
   const { microMobile, setMicro } = useMobileStyles()
+
+  const [subMenu, setSubMenu] = useState(true)
+  const navRef = useRef()
 
 
   const showMenu = () => {
@@ -82,8 +89,13 @@ const Navigation = () => {
 
   }, []);
 
+  useEffect(() => {
+    navRef.current?.scrollIntoView({ block: 'start' })
+  }, [yScrolling])
+
+
   return (
-    <div id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+    <div ref={navRef} id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
       admin ? ' admin' : mobile ? ' mobile' : ''} style={{
         height: 'fit-content',
         width: microMobile ? '100vw' : mobile && admin ? `${mobileWidth}px` : '', padding: !menuShowing ? '0' : '0'
@@ -142,7 +154,7 @@ const Navigation = () => {
                 style={mobile ? { display: 'none', width: '100%', textAlign: 'center', margin: '0', padding: '20px', height: '100%' } : {
                   width: '130px', borderRadius: '15px'
                 }}
-              > <NavLink id="all-clothes-select" >
+              > <NavLink id="all-clothes-select">
                   All clothes
                 </NavLink>
               </Nav.Item>
@@ -195,12 +207,13 @@ const Navigation = () => {
               Troussers
             </NavLink>
             <NavDropdown.Divider className="m-0" />
-            <NavLink to={admin ? '/cms/products/jackets' : "/products/jackets"} className="dropdown-item">
+            <NavLink
+              to={admin ? '/cms/products/jackets' : "/products/jackets"} className="dropdown-item"
+            >
               Jackets
             </NavLink>
             <NavDropdown.Divider className="m-0" />
             <NavLink
-
               to={admin ? '/cms/products/t-shirts' : "/products/t-shirts"}
               className="dropdown-item"
             >

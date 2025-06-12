@@ -1,7 +1,6 @@
 import { useEffect, useState, useTransition } from "react";
-
-
 import { useLocation } from "react-router";
+
 import { Row } from "react-bootstrap";
 
 import { BounceLoader } from "react-spinners";
@@ -42,6 +41,7 @@ const SearchResults = () => {
   const { mobile, mobileDisplays, setMobileDisplays } = useMobile()
   const { containerStyles, microMobile } = useMobileStyles()
 
+
   useEffect(() => {
     setLocation(location.pathname);
 
@@ -60,6 +60,10 @@ const SearchResults = () => {
 
   }, [])
 
+  useEffect(() => {
+    setLocation(location.pathname)
+  }, [location])
+
   return (
     <>
       {/* {!mobile && admin && <Navigation />} */}
@@ -73,7 +77,7 @@ const SearchResults = () => {
 
         <Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
           admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
-          style={mobile && admin ? { ...containerStyles, padding: '10px 10px' }
+          style={microMobile ? { marginTop: '3rem', top: '0px' } : mobile && admin ? { ...containerStyles, padding: '10px 10px' }
             : {}}>
           {admin && mobile && !microMobile && <Navigation />}
 

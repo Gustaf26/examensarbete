@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router";
 
 import { Row } from "react-bootstrap";
 import Icon from "@mui/material/Icon";
 import Navigation from "../../components/Navigation";
 
+//Contexts
 import { useMobile } from "../../contexts/MobileContext";
 import { useAuth } from "../../contexts/AuthContext";
+import { useCreate } from "../../contexts/CreateContext";
+
+// Hooks
 import useMobileStyles from "../../hooks/useMobileStyles";
 
 import MobileList from "../../cms_components/MobileList";
@@ -20,7 +25,12 @@ const Home = () => {
     menuShowing,
     setMenuShowing,
   } = useMobile();
+
+  const { setLocation } = useCreate()
+
   const { containerStyles, microMobile } = useMobileStyles();
+
+  const location = useLocation()
 
   const navigate = useNavigate();
   const { admin } = useAuth();
@@ -37,6 +47,10 @@ const Home = () => {
   useEffect(() => {
     if (admin) navigate("/cms/index", { replace: true });
   }, [admin]);
+
+  useEffect(() => {
+    setLocation(location.pathname)
+  }, [location])
 
   return (
     <>

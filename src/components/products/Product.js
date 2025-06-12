@@ -27,7 +27,6 @@ const Product = () => {
 
   const {
     singleProduct,
-    productOption,
     setSingleProduct,
     setLocation,
     setProdId,
@@ -58,7 +57,9 @@ const Product = () => {
 
   }, [allProducts]);
 
-
+  useEffect(() => {
+    setLocation(location.pathname)
+  }, [location])
 
   return (
     <>

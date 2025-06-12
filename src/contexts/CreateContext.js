@@ -1,5 +1,5 @@
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { BounceLoader } from "react-spinners";
 import { db } from '../firebase/index'
 import { collection, getDocs } from "firebase/firestore";
@@ -19,8 +19,11 @@ const CreateContextProvider = (props) => {
   const [allProducts, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState();
   const [prodId, setProdId] = useState("");
+  const [yScrolling, setYScrolling] = useState(false)
+
+  const currentLocation = useRef('')
 
 
   let emptyArr = []
@@ -91,6 +94,13 @@ const CreateContextProvider = (props) => {
     }
   }, [searchString]);
 
+  useEffect(() => {
+    if (location !== currentLocation.current) {
+      currentLocation.current = location; setYScrolling(true); setTimeout(() => {
+        setYScrolling(false)
+      }, 2000)
+    }
+  }, [location])
 
   const contextValues = {
     setImageUrl,
@@ -108,8 +118,12 @@ const CreateContextProvider = (props) => {
     setProdId,
     setLocation,
     searchString,
-    setProducts
+    setProducts,
+    location, setYScrolling,
+    yScrolling,
+    loading
   };
+
 
   return (
     <CreateContext.Provider value={contextValues}>

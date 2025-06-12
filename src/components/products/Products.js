@@ -1,16 +1,20 @@
-import React from "react";
-
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import ProductsGrid from "./ProductsGrid";
 
 import { useCreate } from "../../contexts/CreateContext";
 
-
 const Products = ({ type }) => {
 
-  const [loading, setLoading] = React.useState(0);
-  const { allProducts } = useCreate()
+  const [loading, setLoading] = useState(0);
+  const { allProducts, setLocation } = useCreate()
+  const location = useLocation()
 
   const products = allProducts.filter(prod => prod.category === type)
+
+  useEffect(() => {
+    setLocation(location.pathname)
+  }, [location])
 
   return (
     <>
