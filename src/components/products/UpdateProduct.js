@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router";
+import { productReducer } from '../../hooks/handleProduct'
 
 
 import BreadCrumbContainer from '../BreadCrumbContainer'
@@ -22,43 +23,30 @@ const UpdateProduct = () => {
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [prodPrice, setPrice] = useState("");
+
   const { admin } = useAuth()
+
   const originalImgSize = '100%'
   const [prodImgSize, setImgSize] = useState({ width: `${originalImgSize}px`, height: 'auto' })
-  const [prodImg, setImg] = useState()
 
   const {
-    imageUrl,
-    productOption,
-    setProductOption,
     setSingleProduct,
     singleProduct,
     productCategories,
-    setImageUrl,
     allProducts,
     setProducts
   } = useCreate();
 
+  const [state, dispatch] = useReducer(productReducer, { ...singleProduct });
+
   const navigate = useNavigate();
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const handlePrice = (e) => {
-    const newPrice = e.target.value;
-    setPrice(newPrice);
-  };
+  const handleProduct = (typeAction) => {
+    dispatch(typeAction)
+  }
 
   const deleteProd = (e) => {
-    let otherProds = allProducts.filter(prod => prod.id !== singleProduct.id)
+    let otherProds = allProducts.filter(prod => prod.id !== state.id)
     setProducts(otherProds)
     navigate(admin ? `/cms/products/${singleProduct.category}` : `/products/${singleProduct.category}`, { replace: true })
   }
@@ -66,7 +54,7 @@ const UpdateProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name.length < 4 || description < 20 || !imageUrl) {
+    if (state.name.length < 4 || state.description < 20 || !state.thumbnail) {
       setError("You are missing some of the required upload parameters");
       return;
     }
@@ -75,36 +63,24 @@ const UpdateProduct = () => {
     setLoading(true);
 
 
-
-    let updatedProduct = {
-      name: name,
-      description: description,
-      thumbnail: imageUrl,
-      price: prodPrice,
-      id: singleProduct.id,
-      category: productOption,
-      qty: 0,
-    }
-
     // FOR REAL DATABASE UPDATE USE:
     // await setDoc(doc(db, productOption, singleProduct.id.toString()), updatedProduct)
 
-    let otherProducts = allProducts.filter(prod => prod.id !== singleProduct.id)
+    let otherProducts = allProducts.filter(prod => prod.id !== state.id)
 
-    otherProducts.push(updatedProduct)
+    otherProducts.push(state)
 
     setProducts(otherProducts)
 
     setTimeout(() => {
-      setSingleProduct(updatedProduct)
-      navigate(`/cms/products/${productOption}/${singleProduct.id}`, { replace: true });
+      setSingleProduct(state)
+      navigate(`/cms/products/${state.category}/${singleProduct.id}`, { replace: true });
     }, 1000);
 
   }
 
+  // We get product from context or from localStorage
   useEffect(() => {
-
-    // We get product from context or from localStorage
 
     if (singleProduct) {
       localStorage.setItem('singleProduct', JSON.stringify(singleProduct))
@@ -112,17 +88,14 @@ const UpdateProduct = () => {
 
     let product = !singleProduct ? JSON.parse(localStorage.getItem('singleProduct')) : singleProduct
 
-    setProductOption(product.category);
-    setName(product.name);
-    setDescription(product.description);
-    setPrice(product.price);
-    setImageUrl(product.thumbnail);
-
-    if (product !== singleProduct) setSingleProduct(product)
+    // Updating singleProduct && setting initial value to singleproduct reducer when reloading page
+    if (product !== singleProduct) { setSingleProduct(product); dispatch({ singleProduct: product }) }
 
   }, []);
 
   const handleImgResize = (e) => {
+
+    // No state involved, just changing the image styles
     if (e.target.value > 0) {
       console.log((1 + Number(e.target.value) / 100).toFixed(1))
       document.getElementById('update-product-image').style.transform = `scale(${((1 + (Number(e.target.value) / 100)).toFixed(1)).toString()})`
@@ -132,10 +105,6 @@ const UpdateProduct = () => {
     }
   }
 
-  const updateImg = (e) => {
-    setImageUrl(URL.createObjectURL(e.target.files[0]))
-    setImg(URL.createObjectURL(e.target.files[0]))
-  }
 
   const uploadImg = (e) => {
     e.preventDefault()
@@ -190,17 +159,18 @@ const UpdateProduct = () => {
                       alignItems: 'center', width: '100%', maxHeight: '300px', overflow: 'hidden'
                     } : {}}>
                       <Card.Img id="update-product-image" style={!mobile && admin ? { zIndex: '4', width: prodImgSize.width } :
-                        {}} src={prodImg ? prodImg : singleProduct.thumbnail} />
+                        {}} src={state.thumbnail} />
                     </div>
 
                     {!mobile && admin && <Form.Range defaultValue={0} style={{ position: 'absolute', top: '65%', width: '30%' }}
                       onChange={handleImgResize}></Form.Range>}
+
                     <Form onSubmit={uploadImg} style={!mobile ? {
                       left: `calc(15% - 45px)`,
                       width: '90px', textAlign: 'center', position: 'absolute', top: '72%'
                     } : { position: 'relative', width: '100%', display: 'inline-block', margin: '10px auto' }}>
                       <div style={{ height: '0px', width: '0px', overflow: 'hidden' }}>
-                        <input id="upfile" type="file" onChange={updateImg} />
+                        <input id="upfile" type="file" onChange={(e) => handleProduct({ type: 'prod-image', thumbnail: URL.createObjectURL(e.target.files[0]) })} />
                       </div>
                       <input style={!mobile ? {
                         display: 'block', marginLeft: '20px', backgroundColor: 'rgb(13,110,253)', color: 'white', padding: '5px 15px',
@@ -217,12 +187,11 @@ const UpdateProduct = () => {
                       <Form.Label className="py-2">Product name</Form.Label>
                       <Form.Control
                         type="title"
-                        onChange={handleNameChange}
-                        // value={name}
-                        defaultValue={singleProduct.name}
+                        onChange={(e) => handleProduct({ type: 'prod-name', name: e.target.value })}
+                        defaultValue={state.name}
                         required
                       />
-                      {name && name.length < 4 && (
+                      {state.name && state.name.length < 4 && (
                         <Form.Text className="text-danger">
                           Please enter a name at least 4 characters long.
                         </Form.Text>
@@ -232,9 +201,9 @@ const UpdateProduct = () => {
                       <Form.Label className="py-2">Description</Form.Label>
                       <textarea className="p-2" style={{ width: '100%', height: '200px', overflowY: 'scroll', border: '0.5px solid lightgrey', borderRadius: '8px' }}
                         type="title"
-                        onChange={handleDescriptionChange}
+                        onChange={(e) => handleProduct({ type: 'prod-description', description: e.target.value })}
                         // value={description}
-                        defaultValue={singleProduct.description}
+                        defaultValue={state.description}
                         required
                       ></textarea>
                       {singleProduct.description &&
@@ -253,9 +222,7 @@ const UpdateProduct = () => {
                         custom
                         as="select"
                         required
-                        onClick={(e) =>
-                          setProductOption(e.target.value.toLowerCase())
-                        }
+                        onClick={(e) => handleProduct({ type: 'prod-category', category: e.target.value.toLowerCase() })}
                       >
                         {productCategories &&
                           productCategories.map((category, i) => {
@@ -283,12 +250,12 @@ const UpdateProduct = () => {
                       <Form.Label>Price</Form.Label>
                       <Form.Control
                         type="title"
-                        onChange={handlePrice}
+                        onChange={(e) => handleProduct({ type: 'prod-price', price: e.target.value })}
                         // value={prodPrice}
-                        defaultValue={singleProduct.price}
+                        defaultValue={state.price}
                         required
                       />
-                      {prodPrice && prodPrice === "0" && (
+                      {state.price && state.price === "0" && (
                         <Form.Text className="text-danger">
                           Please set the product price.
                         </Form.Text>
