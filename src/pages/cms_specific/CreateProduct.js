@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router";
 // import UploadImageDropzone from "./UploadImageDropzone";
 
@@ -7,7 +7,7 @@ import { BounceLoader } from "react-spinners";
 import Icon from '@mui/material/Icon';
 
 import MobileList from '../../cms_components/MobileList'
-
+import { productReducer } from '../../hooks/handleProduct'
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
@@ -23,21 +23,18 @@ const CreateProduct = () => {
 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [prodPrice, setPrice] = useState("");
   const [prodImgSize, setImgSize] = useState({ width: `${originalImgSize}px`, height: 'auto' })
-  const [prodImg, setImg] = useState('')
+
+
+  const [state, dispatch] = useReducer(productReducer, {})
 
   const { currentUser } = useAuth();
   const {
-    imageUrl,
-    productOption,
     setProductOption,
     singleProduct,
     productCategories,
     setProducts,
-    setImageUrl,
     setSingleProduct
   } = useCreate();
 
@@ -47,77 +44,32 @@ const CreateProduct = () => {
 
   const navigate = useNavigate();
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const handlePrice = (e) => {
-    const newPrice = e.target.value;
-    setPrice(newPrice);
-  };
+  const handleProduct = (typeAction) => {
+    dispatch(typeAction)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name.length < 4 || description < 20) {
+    if (state.name.length < 4 || state.description < 20) {
       setError("You are missing some of the required upload parameters");
       return;
     }
 
-    if (!prodImg) { setError('Sorry, you need to choose a product image'); return }
+    if (!state.thumbnail) { setError('Sorry, you need to choose a product image'); return }
 
     setError(false);
     setLoading(true);
-    const ranNumber = Math.floor(Math.random() * 10000);
 
-    let newProduct = {
-      name: name,
-      description: description,
-      thumbnail: imageUrl,
-      price: prodPrice,
-      id: ranNumber,
-      category: productOption,
-      qty: 0,
-    }
+    const prodId = Math.floor(Math.random() * 10000);
 
-    setProducts((prev) => [...prev, newProduct])
-    setSingleProduct(newProduct)
+    setProducts((prev) => [...prev, { ...state, id: prodId }])
+    setSingleProduct(state)
+
     setTimeout(() => {
-      navigate(`/cms/products/${productOption}/${ranNumber}`, { replace: true })
+      navigate(`/cms/products/${state.category}/${prodId}`, { replace: true })
     }, 1000)
 
-
-
-    // fetch('http://127.0.0.1:8000/products/create-prod', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${currentUser.token}`
-    //   },
-    //   body: JSON.stringify({
-    //     name: name,
-    //     description: description,
-    //     thumbnail: imageUrl,
-    //     price: prodPrice,
-    //     id: ranNumber,
-    //     category: productOption,
-    //   }),
-    // })
-    // .then(res => res.json())
-    // .then(res => {
-    //   // if (res) {
-    //   //   setSingleProduct(res.product);
-    //   //   navigate(`/products/${productOption}/${ranNumber}`);
-    //   //   setLoading(false);
-    //   //   // clearInterval(timingFunction);
-    //   // }
-    //   console.log(res)
-    // })
-    // .catch(err => console.log(err))
   };
 
   const handleImgResize = (e) => {
@@ -130,10 +82,6 @@ const CreateProduct = () => {
     }
   }
 
-  const updateImg = (e) => {
-    setImageUrl(URL.createObjectURL(e.target.files[0]))
-    setImg(URL.createObjectURL(e.target.files[0]))
-  }
 
   const uploadImg = (e) => {
     e.preventDefault()
@@ -191,7 +139,7 @@ const CreateProduct = () => {
                     alignItems: 'center', width: '100%', maxHeight: '300px', overflow: 'hidden'
                   } : {}}>
                     <Card.Img id="update-product-image" style={!mobile && admin ? { zIndex: '4', width: prodImgSize.width } :
-                      {}} src={prodImg ? prodImg : singleProduct.thumbnail} />
+                      {}} src={state.thumbnail} />
                   </div>
 
                   {!mobile && admin && <Form.Range style={{ position: 'absolute', top: '65%', width: '30%' }}
@@ -201,7 +149,7 @@ const CreateProduct = () => {
                     width: '90px', textAlign: 'center', position: 'absolute', top: '72%'
                   } : { position: 'relative', width: '100%', display: 'inline-block', margin: '10px auto' }}>
                     <div style={{ height: '0px', width: '0px', overflow: 'hidden' }}>
-                      <input id="upfile" type="file" onChange={updateImg} />
+                      <input id="upfile" type="file" onChange={(e) => handleProduct({ type: 'prod-image', thumbnail: URL.createObjectURL(e.target.files[0]) })} />
                     </div>
                     <input style={!mobile ? {
                       display: 'block', marginLeft: '20px', backgroundColor: 'rgb(13,110,253)', color: 'white', padding: '5px 15px',
@@ -218,11 +166,11 @@ const CreateProduct = () => {
                     <Form.Label className="py-2">Product name</Form.Label>
                     <Form.Control
                       type="title"
-                      onChange={handleNameChange}
+                      onChange={(e) => handleProduct({ type: 'prod-name', name: e.target.value })}
                       placeholder="Enter a valid product name"
                       required
                     />
-                    {name && name.length < 4 && (
+                    {state.name && state.name.length < 4 && (
                       <Form.Text className="text-danger">
                         Please enter a name at least 4 characters long.
                       </Form.Text>
@@ -232,7 +180,7 @@ const CreateProduct = () => {
                     <Form.Label className="py-2">Description</Form.Label>
                     <textarea className="p-2" style={{ width: '100%', height: '200px', overflowY: 'scroll', border: '0.5px solid lightgrey', borderRadius: '8px' }}
                       type="title"
-                      onChange={handleDescriptionChange}
+                      onChange={(e) => handleProduct({ type: 'prod-description', description: e.target.value })}
                       placeholder="Enter a valid description (20 chars min)"
                       required
                     ></textarea>
@@ -254,10 +202,7 @@ const CreateProduct = () => {
                       as="select"
                       required
                       defaultValue={'t-shirts'}
-                      onChange={(e) => {
-                        setProductOption(e.target.value.toLowerCase())
-                      }}
-
+                      onChange={(e) => handleProduct({ type: 'prod-category', category: e.target.value.toLowerCase() })}
                     >
                       {productCategories &&
                         productCategories.map((category, i) => {
@@ -274,7 +219,7 @@ const CreateProduct = () => {
                     <Form.Label>Price</Form.Label>
                     <Form.Control
                       type="title"
-                      onChange={handlePrice}
+                      onChange={(e) => handleProduct({ type: 'prod-price', price: e.target.value })}
                       // value={prodPrice}
                       defaultValue={singleProduct.price}
                       required
