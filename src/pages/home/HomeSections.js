@@ -1,8 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router'
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import verkstadImg from '../../assets/images/verkstad.jpg'
 
@@ -17,7 +15,6 @@ function HomeSections() {
     const { allProducts, setSingleProduct, setSearchResults, setSearchString } = useCreate()
 
     const [slides, setSlides] = useState([])
-    const [rightMoves, setRightMoves] = useState(0)
 
     const slidesref = useRef()
 
@@ -28,8 +25,8 @@ function HomeSections() {
 
     const { admin } = useAuth()
 
-    const [currentDevice, setCurrentDevice] = useState()
-    const deviceChanging = useRef(microMobile ? 'micromobile' : admin && mobile ? 'admin-mobile' : mobile ? 'mobile' : 'desktop')
+    const [currentDevice, setCurrentDevice] = useState(microMobile ? 'micromobile' : mobile ? 'mobile' : 'desktop')
+    const deviceChanging = useRef('')
 
     useEffect(() => {
 
@@ -61,46 +58,17 @@ function HomeSections() {
 
     }
 
-    const moveSlides = (direction) => {
+    // Fuction for lazy loading of images in slider through a promise for every image
+    const loadImages = () => {
 
-        let slideDistance = microMobile ? 300 : 500
-        let maxMoves = microMobile ? 7 : mobile ? 3 : 2
+        let maxSlides = currentDevice === 'micromobile' ? 0 : (currentDevice === 'mobile') && admin ? 0 :
+            currentDevice === 'mobile' ? 7 : 8
 
-        // let previousSlides = [...slides]
+        console.log('callback')
 
-        // Moves right and left in slider
-        if (direction === 'right') {
-            slidesref.current.style.transition = 'transform 0.5s ease-out'
-            slidesref.current.style.transform = `translateX(-${(rightMoves + 1) * slideDistance}px)`
+        return allProducts.map(async (prod, i) => {
 
-            // Go back to start after 7 / 12 right moves
-            if (rightMoves === maxMoves) {
-                slidesref.current.style.transition = `transform 2s ease-out`
-                slidesref.current.style.transform = `translateX(0px)`
-                setTimeout(() => {
-                    setRightMoves(0)
-                }, 2000)
-                return
-            }
-            setRightMoves(prev => prev + 1)
-        }
-        else {
-            if (rightMoves === 0) return
-            setRightMoves((prev) => prev - 1)
-            // previousSlides.pop()
-            slidesref.current.style.transition = `transform 1s linear`
-            slidesref.current.style.transform = `translateX(-${(rightMoves - 1) * slideDistance}px)`
-        }
-        // setSlides(previousSlides)
-    }
-
-    useEffect(() => {
-
-        // Fuction for lazy loading of images in slider through a promise for every image
-        function loadImages() {
-
-            let maxSlides = microMobile ? 0 : mobile && !admin ? 7 : mobile && admin ? 0 : admin ? 7 : 8
-            return allProducts.map(async (prod, i) => {
+            if (i <= maxSlides) {
 
                 return await new Promise((resolve, reject) => {
 
@@ -121,26 +89,43 @@ function HomeSections() {
                     imageEl.addEventListener('click', () => {
                         goToSingleProduct(prod)
                     })
-
-                    let dummyDiv = document.createElement('div')
-
                     imageEl.addEventListener('load', (e) => {
-                        if (imageEl.complete) resolve(i <= maxSlides ? imageEl : dummyDiv)
+                        if (imageEl.complete) resolve(imageEl)
                     })
                 })
-            })
-        }
+            }
+            else {
+                let dummyDiv = document.createElement('div')
+                return await new Promise((resolve, reject) => { resolve(dummyDiv) })
+            }
+        })
 
-        if (slides.length === 0 || currentDevice !== deviceChanging.current) {
+    }
 
+    useEffect(() => {
+
+        const showSlides = () => {
             if (currentDevice !== deviceChanging.current) deviceChanging.current = currentDevice
             let imagesPromises = loadImages()
+
             let allFulfilledPromises = Promise.all(imagesPromises)
 
             if (slides.length > 0) slidesref.current.innerHTML = ""
             allFulfilledPromises.then(res => {
-                res.forEach(slide => { setSlides((prev) => [...prev, slide]); slidesref.current?.append(slide) })
+                res.forEach(slide => {
+                    if (!slides.includes(slide)) {
+                        setSlides((prev) => [...prev, slide]); slidesref.current?.append(slide)
+                    }
+                })
             })
+        }
+
+        if (currentDevice !== deviceChanging.current) {
+
+            showSlides()
+        }
+        else if (slides.length === 0) {
+            showSlides()
         }
         // eslint-disable-next-line
     }, [allProducts, currentDevice])
@@ -178,11 +163,7 @@ function HomeSections() {
                 </div>
             </div>
             <div id="home-slider" className={microMobile ? 'micromobile' : ''}>
-                {/* {!microMobile && !mobile ? <div onClick={() => moveSlides('left')} id="left-arrow" className="slider-arrow"
-                // style={microMobile ? { left: '10px' } : {}}
-                >
-                    <ArrowBackIosIcon></ArrowBackIosIcon>
-                </div> : null} */}
+
                 <div style={{ width: microMobile ? '100%' : mobile && admin ? '400px' : admin ? 'calc(100% - 180px)' : '100%', }}>
                     <div style={{
                         display: 'flex', justifyContent: 'center', flexWrap: 'nowrap',
@@ -196,9 +177,7 @@ function HomeSections() {
                         }) : null}
                     </div>
                 </div>
-                {/* {!microMobile && !mobile ? <div id="right-arrow" onClick={() => moveSlides('right')} className="slider-arrow" style={microMobile ? { right: '10px' } : {}}>
-                    <ArrowForwardIosIcon></ArrowForwardIosIcon>
-                </div> : null} */}
+
             </div>
             <button onClick={goToAllProducts}>See all products</button>
         </div>

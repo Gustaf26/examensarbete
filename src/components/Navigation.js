@@ -103,7 +103,7 @@ const Navigation = () => {
 
       {menuShowing === false ?
         (<div style={{
-          color: 'grey', borderTopLeftRadius: !(mobile && admin) ? '0px' : '15px', borderTopRightRadius: !(admin && mobile) ? '0px' : '15px',
+          color: 'grey', borderTopLeftRadius: '0px', borderTopRightRadius: '0px',
           width: ``,
           padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
         }}>

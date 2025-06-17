@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useAuth, currentUser } from "../../contexts/AuthContext";
