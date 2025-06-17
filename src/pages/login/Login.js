@@ -74,16 +74,16 @@ const Login = () => {
     <>
       <Row>
         <Col>
-          <Card id="login-form">
+          <div id="login-form">
             <Card.Title style={{
               textAlign: 'center', width: '100%', height: 'fit-content', padding: '20px',
               backgroundColor: 'rgb(255, 255, 255)'
             }}>Please Log In</Card.Title>
             {/* <Card.Body> */}
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form style={!mobile ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'start' } : { minWidth: '300px' }}
+            <Form style={!mobile ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'start' } : { minWidth: '' }}
               onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
-              <Form.Group className="login-form-group mt-2" id="email">
+              <Form.Group className="form-div mt-2" id="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
@@ -102,7 +102,7 @@ const Login = () => {
                   <Link to="/forgot-password">Forgot Password?</Link>
                 </div>
               </Form.Group>
-              <Form.Group className="login-form-group mt-2" controlId="formBasicCheckbox">
+              <Form.Group className="form-div" controlId="formBasicCheckbox">
                 <Form.Label>Be sure it´s you</Form.Label>
                 <Button type="submit">
                   Log In
@@ -131,7 +131,7 @@ const Login = () => {
               </Alert>
             ) : null}
             {/* </Card.Body> */}
-          </Card>
+          </div>
         </Col>
       </Row >
     </>

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router'
 
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
+
 import Icon from '@mui/material/Icon';
 import { Breadcrumb } from "react-bootstrap";
 import HomeIcon from '@mui/icons-material/Home';
 
 
 import Navigation from '../../components/Navigation'
-import CardContainer from '../../components/products/CardContainer'
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useMobile } from "../../contexts/MobileContext";
@@ -52,12 +52,6 @@ const UpdateProfile = () => {
       navigate(admin ? '/cms/index' : '/index', { replace: true })
     }, 2000)
 
-
-    // profit!
-    // const msg = await updateProfileData(mail, password1, name)
-    // if (msg.error) setError(msg.error)
-    // else setMessage(msg.msg)
-
     setLoading(false);
 
   }
@@ -66,7 +60,7 @@ const UpdateProfile = () => {
       <Row id="dummy-container-products" className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
         admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'} onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
         {((admin && microMobile) || (admin && !mobile)) && <Navigation />}
-        <Row id="dummy-container-products-row" className={microMobile ? 'dummy-container-products-row micromobile' :
+        <div id="dummy-container-products-row" className={microMobile ? 'dummy-container-products-row micromobile' :
           admin && mobile ? 'dummy-container-products-row admin mobile' :
             admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
           style={mobile && admin && !microMobile ? { ...containerStyles }
@@ -106,7 +100,7 @@ const UpdateProfile = () => {
               {message && <Alert variant="success">{message}</Alert>}
 
               <Form onSubmit={handleSubmit} onChange={() => { setMessage(''); setError(null); setLoading(false) }}>
-                <Form.Group id="displayName">
+                <Form.Group id="displayName" className="form-div">
                   <Form.Label className="mt-3">Name</Form.Label>
                   <Form.Control
                     type="text"
@@ -115,7 +109,7 @@ const UpdateProfile = () => {
                   />
                 </Form.Group>
 
-                <Form.Group id="email">
+                <Form.Group id="email" className="form-div">
                   <Form.Label className="mt-2">Email</Form.Label>
                   <Form.Control
                     type="email"
@@ -124,7 +118,7 @@ const UpdateProfile = () => {
                   />
                 </Form.Group>
 
-                <Form.Group>
+                <Form.Group className="form-div">
                   <Form.Label className="mt-2" type="password">Password</Form.Label>
                   <Form.Control
                     id="password"
@@ -132,7 +126,7 @@ const UpdateProfile = () => {
                     required
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="form-div">
                   <Form.Label className="mt-2">Password Confirmation</Form.Label>
                   <Form.Control
                     id="password-confirm"
@@ -148,7 +142,7 @@ const UpdateProfile = () => {
               </Form>
             </Card.Body>
           </Card>
-        </Row>
+        </div>
       </Row>
     </>
   );

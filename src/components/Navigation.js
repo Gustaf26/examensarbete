@@ -98,13 +98,13 @@ const Navigation = () => {
     <div ref={navRef} id="navigation-container" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
       admin ? ' admin' : mobile ? ' mobile' : ''} style={{
         height: 'fit-content',
-        width: microMobile ? '100vw' : mobile && admin ? `${mobileWidth}px` : '', padding: !menuShowing ? '0' : '0'
+        width: microMobile ? '' : mobile && admin ? `${mobileWidth}px` : '', padding: !menuShowing ? '0' : '0'
       }}>
 
       {menuShowing === false ?
         (<div style={{
           color: 'grey', borderTopLeftRadius: !(mobile && admin) ? '0px' : '15px', borderTopRightRadius: !(admin && mobile) ? '0px' : '15px',
-          width: `calc(100% - 10px)`,
+          width: ``,
           padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
         }}>
           <div style={{ height: '50px' }}>
@@ -119,12 +119,12 @@ const Navigation = () => {
 
           </div>
         </div>) :
-        (<Row id="navigation-container-row" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
+        (<div id="navigation-container-row" className={microMobile ? ' micromobile' : admin && mobile ? 'admin mobile' :
           admin ? ' admin' : mobile ? ' mobile' : ''}>
           <Nav id="navigation" className={microMobile ? 'navigation micromobile' : admin && mobile ? 'navigation admin mobile' :
             admin ? 'navigation admin' : mobile ? 'navigation mobile' : ''}
             style={mobile && admin ? {
-              width: microMobile ? '100%' : `${mobileWidth}px`
+              width: microMobile ? '' : `100%`
             } : {}}>
 
             <Nav.Item style={mobile && admin ? { width: '100%', padding: '10px', justifyContent: 'center' } :
@@ -224,7 +224,7 @@ const Navigation = () => {
           <div style={{ padding: '0', width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center', height: '60px' }}>
             <SearchForm />
           </div>
-        </Row>)
+        </div>)
       }
     </div >
   );

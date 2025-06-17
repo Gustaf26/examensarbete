@@ -40,11 +40,11 @@ body {
 #navigation-container {
 
   z-index: 10;
-  position: sticky;
+  // position: sticky;
   height: fit-content;
 
   &.micromobile {
-    width: 100%;
+    // width: 100%;
     height: 160px;
 
     &.admin {}
@@ -61,21 +61,21 @@ body {
       width: 100%;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
+      min-width: 0px;
     }
   }
 
   &.admin {
 
     width: calc(100%);
-    // margin-left: 120px;
+    justify-content: center;
+    // min-width: calc(100vw - 120px);
   }
 
 
 }
 
 #navigation-container-row {
-
-  width: 100vw;
 
 
   & #navigation {
@@ -87,7 +87,12 @@ body {
     justify-content: space-evenly;
     flex-direction: row;
     height: fit-content;
-    width: 100%;
+
+    &.admin {
+      width: calc(100vw - 120px);
+      justify-content: center;
+      gap: 20%;
+    }
 
     &.mobile {
 
@@ -102,6 +107,7 @@ body {
   }
 
   &.micromobile {
+    width: 100%;
 
     &.admin {}
   }
@@ -120,8 +126,6 @@ body {
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
       align-items: start;
-      // justify-content: center;
-      // padding: 10px;
       width: 100%;
       flex-direction: column;
       margin-left: 0;
@@ -132,8 +136,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: end;
-    flex-direction: row;
-    height: 80px;
+    flex-direction: column;
     width: 100%;
   }
 
@@ -202,8 +205,7 @@ body {
   }
 
   &.admin {
-    // margin-left: 120px;
-    max-width: calc(100%);
+    width: calc(100%);
   }
 
   & a {
@@ -484,6 +486,10 @@ h2 {
   min-width: 400px;
   padding: 20px;
 
+  & div.form-div {
+    width: calc(100%);
+  }
+
   &.micromobile {
 
     margin: 3rem auto;
@@ -515,6 +521,7 @@ h2 {
     color: brown;
     border: 1px solid rgb(167, 120, 120);
     background-color: rgb(224, 191, 153);
+    width: 100%;
 
     &::placeholder {
       color: rgb(193, 150, 150);
@@ -901,7 +908,6 @@ h2 {
   }
 
   &.admin {
-    width: calc(100% - 240px);
     margin-left: 240px;
 
     &.mobile {
@@ -918,7 +924,8 @@ h2 {
 
   & .dummy-container-products-row {
     margin: 3rem auto;
-    width: 100%;
+    width: calc(100% - 40px);
+    max-width: calc(100% - 40px);
     height: fit-content;
 
     &.micromobile {
@@ -1311,9 +1318,9 @@ tr {
     width: 300px;
     padding: 10px;
 
-    & input {
-      width: 280px;
-    }
+    // & input {
+    //   width: 280px;
+    // }
 
     & input[type=checkbox] {
       width: 10px;

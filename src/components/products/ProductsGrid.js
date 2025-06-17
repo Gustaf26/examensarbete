@@ -44,7 +44,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 				{((admin && microMobile) || (admin && !mobile)) && <Navigation />}
 				{!(admin && mobile) && <BreadcrumbContainer />}
 
-				<Row className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
+				<div className={microMobile ? 'dummy-container-products-row micromobile' : admin && mobile ? 'dummy-container-products-row admin mobile' :
 					admin ? 'dummy-container-products-row admin' : mobile ? 'dummy-container-products-row mobile' : 'dummy-container-products-row'}
 					onLoad={(e) => {
 						setProductOption(type);
@@ -84,7 +84,7 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 								/>
 							))}
 					</CardContainer>
-				</Row>
+				</div>
 			</div>
 		</>
 	);
