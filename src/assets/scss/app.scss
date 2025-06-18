@@ -408,6 +408,8 @@ h2 {
 
   display: flex;
   min-width: 200px;
+  margin-left: 5%;
+  align-items: center;
 
   &:hover {
     cursor: pointer;
@@ -415,10 +417,14 @@ h2 {
 
   & svg {
     color: brown !important;
+
+    @media screen and (max-width:600px) {
+      font-size: 0.9em;
+    }
   }
 
   & li {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     margin: 0;
 
     & a {
@@ -444,6 +450,10 @@ h2 {
       padding-bottom: 1px;
       border-bottom: 1px solid rgb(108, 55, 55);
       padding: 3px 5px;
+
+      @media screen and (max-width:600px) {
+        font-size: 0.9em;
+      }
 
       &:hover {
         color: white;

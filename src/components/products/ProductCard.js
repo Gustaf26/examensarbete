@@ -92,7 +92,7 @@ const ProductCard = ({ item, index, setLoading }) => {
             mobileDisplays && setMobileDisplays(!mobileDisplays)
         }}
         style={mobile && admin ? {
-            width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 50px)`
+            width: (view === 'single') ? `calc(${mobileWidth}px - 35px)` : `calc(${mobileWidth}px - 80px)`
         } : {}}>
 
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' }
