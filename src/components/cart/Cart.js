@@ -38,31 +38,37 @@ export default function Cart() {
 
     return (<>
         {cartProds ? <div id="cart-container">
-            <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE DELIVERY</span></h6>
-            <ul>
-                {cartProds ? cartProds.map(prod => {
-                    return (<li>
-                        <div className="cart-prod-img-and-info">
-                            <img alt="product-image" src={prod.thumbnail} />
-                            <div className="cart-product-info">
-                                <p className="prod-in-cart-name">{prod.name}</p>
-                                <p>Product Category: {prod.category}</p>
+            <div>
+                <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE DELIVERY</span></h6>
+                <ul>
+                    {cartProds ? cartProds.map(prod => {
+                        return (<li>
+                            <div className="cart-prod-img-and-info">
+                                <img alt="product-image" src={prod.thumbnail} />
+                                <div className="cart-product-info">
+                                    <p className="prod-in-cart-name">{prod.name}</p>
+                                    <p>Product Category: {prod.category}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="cart-product-price-qty">
-                            <span className="prod-in-cart-price">{prod.price}€</span>
-                            <span className="prod-in-cart-qty"><span>-</span>{prod.qty}<span>+</span></span>
-                        </div>
-                    </li>)
-                }) : null}
-            </ul>
-            <div id="total-container">
-                <p>{prodsQty} products</p>
-                <p> <span id="total-word">TOTAL</span> {totalPrice} €</p>
+                            <div className="cart-product-price-qty">
+                                <span className="prod-in-cart-price">{prod.price}€</span>
+                                <span className="prod-in-cart-qty"><span>-</span>{prod.qty}<span>+</span></span>
+                            </div>
+                        </li>)
+                    }) : null}
+                </ul>
             </div>
-            <div id="cart-buttons-container">
-                <button>Go To Checkout</button>
-                <button>Keep Buying</button>
+            <div>
+
+
+                <div id="total-container">
+                    <p>{prodsQty} products</p>
+                    <p> <span id="total-word">TOTAL</span> {totalPrice} €</p>
+                </div>
+                <div id="cart-buttons-container">
+                    <button>Go To Checkout</button>
+                    <button>Keep Buying</button>
+                </div>
             </div>
         </div> : null}
     </>)
