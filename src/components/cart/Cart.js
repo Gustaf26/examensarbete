@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 import { useCreate } from "../../contexts/CreateContext"
 
@@ -9,6 +9,8 @@ export default function Cart() {
     const { allProducts } = useCreate()
 
     const [cartProds, setCartProds] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [prodsQty, setProdsQty] = useState(0)
 
     useEffect(() => {
 
@@ -19,7 +21,16 @@ export default function Cart() {
                 return (prod.qty > 0)
             })
 
+            let totalPriceDummy = 0
+            if (cartProdsDummy) cartProdsDummy.forEach(prod => totalPriceDummy += (prod.price * prod.qty))
+
+            let dummyQty = 0
+
+            if (cartProdsDummy) cartProdsDummy.forEach(prod => dummyQty += prod.qty)
+
             setCartProds(cartProdsDummy)
+            setTotalPrice(totalPriceDummy)
+            setProdsQty(dummyQty)
         }
 
     }, [allProducts])
@@ -27,13 +38,16 @@ export default function Cart() {
 
     return (<>
         {cartProds ? <div id="cart-container">
+            <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE DELIVERY</span></h6>
             <ul>
                 {cartProds ? cartProds.map(prod => {
                     return (<li>
-                        <img alt="product-image" src={prod.thumbnail} />
-                        <div className="cart-product-info">
-                            <p className="prod-in-cart-name">{prod.name}</p>
-                            <p>Product Category: {prod.category}</p>
+                        <div className="cart-prod-img-and-info">
+                            <img alt="product-image" src={prod.thumbnail} />
+                            <div className="cart-product-info">
+                                <p className="prod-in-cart-name">{prod.name}</p>
+                                <p>Product Category: {prod.category}</p>
+                            </div>
                         </div>
                         <div className="cart-product-price-qty">
                             <span className="prod-in-cart-price">{prod.price}€</span>
@@ -42,6 +56,14 @@ export default function Cart() {
                     </li>)
                 }) : null}
             </ul>
+            <div id="total-container">
+                <p>{prodsQty} products</p>
+                <p> <span id="total-word">TOTAL</span> {totalPrice} €</p>
+            </div>
+            <div id="cart-buttons-container">
+                <button>Go To Checkout</button>
+                <button>Keep Buying</button>
+            </div>
         </div> : null}
     </>)
 }
