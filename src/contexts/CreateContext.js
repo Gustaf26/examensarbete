@@ -19,9 +19,11 @@ const CreateContextProvider = (props) => {
   const [allProducts, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
+  const [cartShowing, setCartShowing] = useState(false)
   const [location, setLocation] = useState();
   const [prodId, setProdId] = useState("");
   const [yScrolling, setYScrolling] = useState(false)
+
 
   const currentLocation = useRef('')
 
@@ -121,7 +123,9 @@ const CreateContextProvider = (props) => {
     setProducts,
     location, setYScrolling,
     yScrolling,
-    loading
+    loading,
+    cartShowing,
+    setCartShowing
   };
 
 

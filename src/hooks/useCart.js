@@ -23,7 +23,7 @@ function useCart() {
             }
             return prod
         })
-        console.log(allProdsDummy)
+
         setProducts(allProdsDummy)
     }
 

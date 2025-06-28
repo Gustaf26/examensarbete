@@ -13,7 +13,7 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 
 const CartIcon = () => {
 
-    const { allProducts, admin } = useCreate()
+    const { allProducts, admin, setCartShowing, cartShowing } = useCreate()
     const [prodsIncart, setProdsInCart] = useState(0)
 
     const { mobile } = useMobile()
@@ -28,7 +28,7 @@ const CartIcon = () => {
 
     }, [allProducts])
 
-    return (<NavItem id="cart-icon" style={{ marginLeft: !(mobile && admin) && !microMobile ? '20px' : '', border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)', }}>
+    return (<NavItem id="cart-icon" onClick={() => setCartShowing(!cartShowing)} style={{ marginLeft: !(mobile && admin) && !microMobile ? '20px' : '', border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)', }}>
         {prodsIncart ? (<span style={{ border: mobile ? '1px solid brown' : '1px solid rgb(210, 129, 37)' }}
             id="cartProdsQty">{prodsIncart}</span>) : null}
         <ShoppingCart style={{ color: mobile ? 'brown' : 'rgb(210, 129, 37)' }} />

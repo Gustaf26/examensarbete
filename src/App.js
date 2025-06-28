@@ -18,15 +18,17 @@ import SearchResults from "./pages/search-page/SearchResults";
 import NotFound from "./components/NotFound";
 import Signup from "./pages/signup/Signup";
 import UpdateProfile from "./pages/update-profile/UpdateProfile";
+import Cart from "./components/cart/Cart";
 
 import { useCreate } from "./contexts/CreateContext";
 import { useAuth } from "./contexts/AuthContext";
 import { MobileContextProvider } from "./contexts/MobileContext";
+// import { CartContextProvider } from "./contexts/CartContext";
 
 import "./assets/scss/app.scss";
 
 const App = () => {
-	const { productCategories, setGlobalCategories } = useCreate();
+	const { productCategories, setGlobalCategories, cartShowing } = useCreate();
 	const { admin } = useAuth();
 
 
@@ -49,6 +51,7 @@ const App = () => {
 		<Router>
 			<div id='main-div'>
 				<MobileContextProvider>
+					{/* <CartContextProvider> */}
 					{!admin && <Navigation />}
 					<Container
 						id='container'
@@ -104,11 +107,13 @@ const App = () => {
 								<Route path='*' element={<NotFound />} />
 							</Route>
 						</Routes>
+						{!admin && cartShowing ? <Cart /> : null}
 					</Container>
-					{/* <Footer /> */}
+
+					{/* </CartContextProvider> */}
 				</MobileContextProvider>
 			</div>
-		</Router>
+		</Router >
 	);
 };
 
