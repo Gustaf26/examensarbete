@@ -1,18 +1,26 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
+import { Link } from 'react-router'
 
 import { useCreate } from "../../contexts/CreateContext"
 import useMobileStyles from "../../hooks/useMobileStyles"
+
+import useCart from '../../hooks/useCart'
+
+import CloseIcon from '@mui/icons-material/Close';
 
 import '../../assets/scss/cart.scss'
 
 export default function Cart() {
 
-    const { allProducts } = useCreate()
+    const { allProducts, setCartShowing } = useCreate()
+    const { microMobile } = useMobileStyles()
+    const updateCart = useCart()
 
     const [cartProds, setCartProds] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
     const [prodsQty, setProdsQty] = useState(0)
-    const { microMobile } = useMobileStyles()
+
+
 
     useEffect(() => {
 
@@ -41,6 +49,7 @@ export default function Cart() {
     return (<>
         {cartProds ? <div id="cart-container" className={microMobile ? 'micromobile' : ''}>
             <div>
+                <CloseIcon onClick={() => setCartShowing(false)} id="close-cart-icon"></CloseIcon>
                 <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE </span>DELIVERY</h6>
                 <ul>
                     {cartProds ? cartProds.map(prod => {
@@ -54,7 +63,11 @@ export default function Cart() {
                             </div>
                             <div className="cart-product-price-qty">
                                 <span className="prod-in-cart-price">{prod.price}€</span>
-                                <span className="prod-in-cart-qty"><span>-</span>{prod.qty}<span>+</span></span>
+                                <span className="prod-in-cart-qty">
+                                    <span onClick={() => updateCart(prod, 'one-less')}>-</span>
+                                    {prod.qty}
+                                    <span onClick={() => updateCart(prod, 'plus')}>+</span>
+                                </span>
                             </div>
                         </li>)
                     }) : null}
@@ -68,8 +81,8 @@ export default function Cart() {
                     <p id="total-word-and-price"> <span id="total-word">TOTAL</span> <span id="total-price">{totalPrice} €</span></p>
                 </div>
                 <div id="cart-buttons-container">
-                    <button>Go To Checkout</button>
-                    <button>Keep Buying</button>
+                    <button onClick={() => setCartShowing(false)}><Link to={"/"}>Go To Checkout</Link></button>
+                    <button onClick={() => setCartShowing(false)}><Link to={"/"}>Keep Buying</Link></button>
                 </div>
             </div>
         </div> : null}

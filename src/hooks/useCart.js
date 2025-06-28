@@ -19,6 +19,7 @@ function useCart() {
         allProdsDummy = allProdsDummy.map(prod => {
             if (prod.id === productToUpdate.id) {
                 if (action === 'plus') prod.qty += 1;
+                else if (action === 'one-less') prod.qty -= 1
                 else if (action === 'minus' && prod.qty !== 0) prod.qty = 0
             }
             return prod
