@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 
 import { useCreate } from "../../contexts/CreateContext"
+import useMobileStyles from "../../hooks/useMobileStyles"
 
 import '../../assets/scss/cart.scss'
 
@@ -11,6 +12,7 @@ export default function Cart() {
     const [cartProds, setCartProds] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
     const [prodsQty, setProdsQty] = useState(0)
+    const { microMobile } = useMobileStyles()
 
     useEffect(() => {
 
@@ -37,9 +39,9 @@ export default function Cart() {
 
 
     return (<>
-        {cartProds ? <div id="cart-container">
+        {cartProds ? <div id="cart-container" className={microMobile ? 'micromobile' : ''}>
             <div>
-                <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE DELIVERY</span></h6>
+                <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE </span>DELIVERY</h6>
                 <ul>
                     {cartProds ? cartProds.map(prod => {
                         return (<li>
@@ -62,8 +64,8 @@ export default function Cart() {
 
 
                 <div id="total-container">
-                    <p>{prodsQty} products</p>
-                    <p> <span id="total-word">TOTAL</span> {totalPrice} €</p>
+                    <p id="total-products-qty">You are ordering {prodsQty} products</p>
+                    <p id="total-word-and-price"> <span id="total-word">TOTAL</span> <span id="total-price">{totalPrice} €</span></p>
                 </div>
                 <div id="cart-buttons-container">
                     <button>Go To Checkout</button>
