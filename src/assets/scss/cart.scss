@@ -15,6 +15,7 @@
     background-color: white;
     padding: 15px 40px;
     border-left: 0.5px solid rgb(127, 64, 25);
+    animation: to-left 1s linear forwards;
 
     &.micromobile {
         width: 100vw;
@@ -203,5 +204,15 @@
                 background-color: rgb(178, 72, 72);
             }
         }
+    }
+}
+
+@keyframes to-left {
+    0% {
+        right: -100%;
+    }
+
+    100% {
+        right: 0;
     }
 }
