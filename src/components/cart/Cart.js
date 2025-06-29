@@ -48,7 +48,7 @@ export default function Cart() {
 
     return (<>
         {cartProds ? <div id="cart-container" className={microMobile ? 'micromobile' : ''}>
-            <div>
+            <div id="main-cart-info-container">
                 <CloseIcon onClick={() => setCartShowing(false)} id="close-cart-icon"></CloseIcon>
                 <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE </span>DELIVERY</h6>
                 <ul>
