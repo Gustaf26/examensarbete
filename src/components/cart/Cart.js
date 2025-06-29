@@ -62,7 +62,7 @@ export default function Cart() {
                                 </div>
                             </div>
                             <div className="cart-product-price-qty">
-                                <span className="prod-in-cart-price">{prod.price}€</span>
+                                <span className="prod-in-cart-price">{prod.price * prod.qty}€</span>
                                 <span className="prod-in-cart-qty">
                                     <span onClick={() => updateCart(prod, 'one-less')}>-</span>
                                     {prod.qty}
