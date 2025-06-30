@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
-
 
 import verkstadImg from '../../assets/images/verkstad.jpg'
 
@@ -64,8 +63,6 @@ function HomeSections() {
         let maxSlides = currentDevice === 'micromobile' ? 0 : (currentDevice === 'mobile') && admin ? 0 :
             currentDevice === 'mobile' ? 7 : 8
 
-        console.log('callback')
-
         return allProducts.map(async (prod, i) => {
 
             if (i <= maxSlides) {
@@ -77,11 +74,9 @@ function HomeSections() {
                     imageEl.style.width = microMobile ? '100vw' : mobile & admin ? '160px' : mobile ? '170px' : '200px'
                     imageEl.style.maxWidth = microMobile ? '100vw' : mobile & admin ? '160px' : mobile ? '170px' : '200px'
                     imageEl.style.height = '200px'
-                    // imageEl.style.maxWidth = '120px'
                     imageEl.style.transform = microMobile ? 'none' : mobile && admin ? 'skew(0deg, 4deg) rotateY(30deg)' : 'skew(0deg, 4deg)'
                     imageEl.style.objectFit = 'cover'
                     imageEl.style.zIndex = `${i + 1}`
-                    // imageEl.style.animation = 'rotating 2s linear forwards'
                     imageEl.style.marginLeft = microMobile ? '0' : mobile && admin ? '-35px' : '-90px'
 
                     imageEl.src = prod.thumbnail
@@ -99,7 +94,6 @@ function HomeSections() {
                 return await new Promise((resolve, reject) => { resolve(dummyDiv) })
             }
         })
-
     }
 
     useEffect(() => {
@@ -121,7 +115,6 @@ function HomeSections() {
         }
 
         if (currentDevice !== deviceChanging.current) {
-
             showSlides()
         }
         else if (slides.length === 0) {
@@ -163,7 +156,6 @@ function HomeSections() {
                 </div>
             </div>
             <div id="home-slider" className={microMobile ? 'micromobile' : ''}>
-
                 <div style={{ width: microMobile ? '100%' : mobile && admin ? '400px' : admin ? 'calc(100% - 180px)' : '100%', }}>
                     <div style={{
                         display: 'flex', justifyContent: 'center', flexWrap: 'nowrap',
@@ -177,7 +169,6 @@ function HomeSections() {
                         }) : null}
                     </div>
                 </div>
-
             </div>
             <button onClick={goToAllProducts}>See all products</button>
         </div>

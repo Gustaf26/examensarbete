@@ -23,7 +23,6 @@ import Cart from "./components/cart/Cart";
 import { useCreate } from "./contexts/CreateContext";
 import { useAuth } from "./contexts/AuthContext";
 import { MobileContextProvider } from "./contexts/MobileContext";
-// import { CartContextProvider } from "./contexts/CartContext";
 
 import "./assets/scss/app.scss";
 
@@ -42,7 +41,6 @@ const App = () => {
 		};
 
 		getProds();
-		// eslint-disable-next-line
 	}, []);
 
 
@@ -51,7 +49,6 @@ const App = () => {
 		<Router>
 			<div id='main-div'>
 				<MobileContextProvider>
-					{/* <CartContextProvider> */}
 					{!admin && <Navigation />}
 					<Container
 						id='container'
@@ -109,8 +106,6 @@ const App = () => {
 						</Routes>
 						{!admin && cartShowing ? <Cart /> : null}
 					</Container>
-
-					{/* </CartContextProvider> */}
 				</MobileContextProvider>
 			</div>
 		</Router >

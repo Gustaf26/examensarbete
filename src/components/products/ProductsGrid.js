@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import Icon from "@mui/material/Icon";
 
 import { BounceLoader } from "react-spinners";

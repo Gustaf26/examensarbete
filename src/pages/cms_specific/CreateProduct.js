@@ -1,6 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router";
-// import UploadImageDropzone from "./UploadImageDropzone";
 
 import { Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { BounceLoader } from "react-spinners";
@@ -29,7 +28,6 @@ const CreateProduct = () => {
 
   const [state, dispatch] = useReducer(productReducer, {})
 
-  const { currentUser } = useAuth();
   const {
     setProductOption,
     singleProduct,
@@ -197,7 +195,6 @@ const CreateProduct = () => {
                   <Form.Group controlId="exampleForm.ControlSelect2" style={!mobile && admin ? { marginRight: '15px', width: '31%' } : {}}>
                     <Form.Label>Choose product category</Form.Label>
                     <Form.Control
-                      // id="inlineFormCustomSelect"
                       custom
                       as="select"
                       required
@@ -220,7 +217,6 @@ const CreateProduct = () => {
                     <Form.Control
                       type="title"
                       onChange={(e) => handleProduct({ type: 'prod-price', price: e.target.value })}
-                      // value={prodPrice}
                       defaultValue={singleProduct.price}
                       required
                     />

@@ -2,15 +2,11 @@ export const productReducer = (state, action) => {
 
     switch (action.type) {
         case ('prod-name'):
-
-            console.log(action.name)
             return {
                 ...state,
                 name: action.name,
-
             }
         case ('prod-description'):
-
             return {
                 ...state,
                 description: action.description

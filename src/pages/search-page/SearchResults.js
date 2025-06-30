@@ -20,9 +20,6 @@ import { useMobile } from "../../contexts/MobileContext";
 
 import useMobileStyles from '../../hooks/useMobileStyles'
 
-
-
-
 const SearchResults = () => {
 
   const [loading, setLoading] = useState(0)
@@ -66,8 +63,6 @@ const SearchResults = () => {
 
   return (
     <>
-      {/* {!mobile && admin && <Navigation />} */}
-
       <div id="dummy-container-products" className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
         admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
         onClick={(e) => { if (e.target.id === "dummy-container-products") setMobileDisplays(false) }}>
@@ -99,7 +94,6 @@ const SearchResults = () => {
               <BounceLoader color={"#888"} size={100} />
             </div>) : null}
           </CardContainer>
-
         </Row>
       </div>
     </>

@@ -19,7 +19,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
     let email = e.target[0].value
     let passOne = e.target[1].value
     let adminCheck = e.target[2].checked
@@ -27,8 +26,6 @@ const Login = () => {
     setError(null);
 
     // try to log in the user with the specified credentials
-
-
     setLoading(true);
     const user = login(email, passOne);
 
@@ -37,7 +34,6 @@ const Login = () => {
       setLoading(false)
 
       // Check if user is admin manually
-
       let admin = checkIfAdmin(user.email)
       if (admin) {
         console.log(adminCheck)
@@ -79,7 +75,6 @@ const Login = () => {
               textAlign: 'center', width: '100%', height: 'fit-content', padding: '20px',
               backgroundColor: 'rgb(255, 255, 255)'
             }}>Please Log In</Card.Title>
-            {/* <Card.Body> */}
             {error && <Alert variant="danger">{error}</Alert>}
             <Form style={!mobile ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'start' } : { minWidth: '' }}
               onSubmit={handleSubmit} onChange={() => { setError(null); setAlert('') }}>
@@ -130,7 +125,6 @@ const Login = () => {
                 You are admin. Please check the admin-box
               </Alert>
             ) : null}
-            {/* </Card.Body> */}
           </div>
         </Col>
       </Row >

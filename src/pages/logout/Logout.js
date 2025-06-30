@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { useAuth, currentUser } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Logout = () => {
-  const { logout, currentUser, admin } = useAuth();
+  const { currentUser, admin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,8 +12,6 @@ const Logout = () => {
     setTimeout(() => {
       (!admin || !currentUser) && navigate("/", { replace: true });
     }, 1000)
-
-
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -25,7 +23,6 @@ const Logout = () => {
           <Card>
             <Card.Body>
               <Card.Title>Log Out</Card.Title>
-
               <Card.Text>
                 Please wait while you're being logged out...
               </Card.Text>

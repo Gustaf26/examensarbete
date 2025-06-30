@@ -67,14 +67,19 @@ body {
 
     width: calc(100%);
     justify-content: center;
-    // min-width: calc(100vw - 120px);
   }
 
-
+  & #closed-nav-menu-and-search {
+    color: grey;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 0px;
+    background-color: brown;
+    transition: 2s ease-in-out;
+  }
 }
 
 #navigation-container-row {
-
 
   & #navigation {
     background-color: rgb(165, 42, 42);
@@ -101,6 +106,13 @@ body {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
       }
+    }
+
+    & .close-nav-icon {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      color: rgb(210, 129, 37);
     }
   }
 
@@ -319,7 +331,7 @@ h2 {
   background-color: rgb(255, 255, 255);
   width: 50px !important;
   height: 60px !important;
-  line-height: 2.25;
+  line-height: 50px;
   padding: 10px 0px !important;
 
   &:hover {

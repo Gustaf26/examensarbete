@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router'
 
 import { useCreate } from "../../contexts/CreateContext"
-// import { useAuth } from '../contexts/AuthContext'
 
 import { BounceLoader } from "react-spinners";
 
 import useMobileStyles from '../../hooks/useMobileStyles'
-// import Navigation from '../components/Navigation'
+
 import { TableHead, TableRow, Table, TableCell } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
@@ -19,7 +18,6 @@ import { useMobile } from "../../contexts/MobileContext";
 const ProdList = () => {
 
     const { allProducts, setSingleProduct, setProducts, setProductOption } = useCreate();
-    // const { admin } = useAuth()
     const [editable, setEditable] = useState('')
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
@@ -29,7 +27,6 @@ const ProdList = () => {
     const deleteProd = (product) => {
         let otherProds = allProducts.filter(prod => prod.id !== product.id)
         setProducts(otherProds)
-        // navigate(`/cms/products/${product.category}`, { replace: true })
     }
 
     return (
@@ -82,11 +79,8 @@ const ProdList = () => {
                     </TableRow>)
                 })}
             </Table>
-
-
         </>
     )
-
 }
 
 export default ProdList

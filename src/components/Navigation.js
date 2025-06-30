@@ -23,8 +23,6 @@ import CartIcon from '../components/cart/CartIcon'
 
 const Navigation = () => {
 
-
-  const [createLink, setCreate] = useState(false);
   const [customMenu, setCustMenu] = useState(false);
 
   const { setSearchString, yScrolling } = useCreate();
@@ -38,7 +36,6 @@ const Navigation = () => {
   const [subMenu, setSubMenu] = useState(true)
   const navRef = useRef()
 
-
   const showMenu = () => {
     setMenuShowing(!menuShowing)
   }
@@ -48,15 +45,6 @@ const Navigation = () => {
     localStorage.setItem("search", JSON.stringify(val));
     navigate(admin ? "/cms/search-results" : "/search-results", { replace: true });
   };
-
-  useEffect(() => {
-    if (admin === true) {
-      setCreate(true);
-    } else {
-      setCreate(false);
-    }
-  }, [admin, currentUser]);
-
 
   // This effect closes or opens the main categories menu when mobile
   // && addas listener to adapt menu showing to device
@@ -91,6 +79,8 @@ const Navigation = () => {
 
   }, []);
 
+
+  // We scroll to start of page (navigation start) with this effect  
   useEffect(() => {
     navRef.current?.scrollIntoView({ block: 'start' })
   }, [yScrolling])
@@ -104,11 +94,7 @@ const Navigation = () => {
       }}>
 
       {menuShowing === false ?
-        (<div style={{
-          color: 'grey', borderTopLeftRadius: '0px', borderTopRightRadius: '0px',
-          width: ``,
-          padding: '0px', backgroundColor: 'brown', transition: '2s ease-in-out'
-        }}>
+        (<div id="closed-nav-menu-and-search">
           <div style={{ height: '50px' }}>
             <MenuIcon style={{ margin: '10px 20px', color: 'rgb(210, 129, 37)' }} className="mobile-nav-icon" onClick={showMenu} />
             {microMobile && admin && <AdminPanelSettingsIcon style={{ margin: '10px 20px', color: 'white' }} className="mobile-nav-icon" onClick={() => { setFullScreen(!fullScreen) }} />}
@@ -134,9 +120,7 @@ const Navigation = () => {
                 justifyContent: 'center', alignItems: 'center', width: '50%', textAlign: 'center'
               }} className="d-flex align-items-center my-3 navitem">
 
-              {mobile && <CloseIcon onClick={() => setMenuShowing(false)} style={!admin ?
-                { position: 'absolute', left: '40px', top: '20px', color: 'rgb(210, 129, 37)' } :
-                { position: 'absolute', left: '20px', top: '20px', color: 'rgb(210, 129, 37)' }} />}
+              {mobile && <CloseIcon className="close-nav-icon" onClick={() => setMenuShowing(false)} />}
 
               <NavLink to={"/"} id="logo" className="navbar-brand" style={!mobile && admin ? { marginLeft: '' } :
                 { margin: '0 auto' }}>
@@ -152,7 +136,6 @@ const Navigation = () => {
                 onClick={(e) => {
                   if (e.target.id === 'all-clothes-select') e.preventDefault(); changeString(' ');
                 }}
-                // variant="disabled"
                 style={mobile ? { display: 'none', width: '100%', textAlign: 'center', margin: '0', padding: '20px', height: '100%' } : {
                   width: '130px', borderRadius: '15px'
                 }}
@@ -174,7 +157,6 @@ const Navigation = () => {
                   >
                     Update Profile
                   </NavLink>
-                  {/* <NavDropdown.Divider /> */}
                   <NavLink style={mobile ? { width: '100%', textAlign: 'center' } : {}}
                     onClick={() => { setAdmin(false); setCurrentUser(null); localStorage.removeItem('currentUser') }}
                     to={"/logout"} className="mx-auto dropdown-item">
@@ -223,9 +205,9 @@ const Navigation = () => {
             </NavLink>
           </NavItem>
           )}
-          <div style={{ padding: '0', width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center', height: '60px' }}>
-            <SearchForm />
-          </div>
+          {/* <div style={{ padding: '0', width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center', height: '60px' }}> */}
+          <SearchForm />
+          {/* </div> */}
         </div>)
       }
     </div >

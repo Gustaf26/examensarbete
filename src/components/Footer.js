@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 import { useMobile } from "../contexts/MobileContext";
-import { useAuth } from "../contexts/AuthContext";
 
 
 
