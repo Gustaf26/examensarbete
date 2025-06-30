@@ -9,7 +9,6 @@ body {
   background-color: rgb(255, 255, 255);
   padding: 0;
   margin: 0;
-  overflow-x: hidden;
   max-height: fit-content;
 }
 
@@ -22,7 +21,7 @@ body {
 #main-div {
   background-color: white;
   height: fit-content;
-  width: calc(100vw - 10px);
+  width: 100vw;
 }
 
 #container {
