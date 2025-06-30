@@ -1154,20 +1154,30 @@ h2 {
     margin: 0 auto;
     display: flex;
 
+    & .size-alert-message {
+      position: absolute;
+      left: 0;
+      top: -120%;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8em;
+    }
+
     & button {
       padding: 5px 20px;
       border: none;
       border-radius: 25px;
       height: 40px;
-      font-size: 0.9em;
+      font-size: 0.85em;
     }
 
-    & button:first-child {
+    & button.add-to-cart-button {
       color: rgb(227, 182, 133);
       background-color: brown;
+      margin-left: 0px;
     }
 
-    & button:nth-child(even) {
+    & button.remove-from-cart-button {
       margin-left: 20px;
       color: white;
       background-color: rgb(241, 103, 103);

@@ -57,6 +57,9 @@ const Navigation = () => {
     }
   }, [admin, currentUser]);
 
+
+  // This effect closes or opens the main categories menu when mobile
+  // && addas listener to adapt menu showing to device
   useEffect(() => {
 
     if (mobile) {
@@ -67,7 +70,7 @@ const Navigation = () => {
     }
 
     window.addEventListener("resize", function (e) {
-      if (window.innerWidth > 1110) {
+      if (window.innerWidth >= 1110) {
         setCustMenu(false);
         setMobile(false)
       }

@@ -6,10 +6,7 @@ import { useMobile } from "../../contexts/MobileContext";
 import useMobileStyles from "../../hooks/useMobileStyles";
 
 import { NavItem } from "react-bootstrap";
-
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-
-
 
 const CartIcon = () => {
 

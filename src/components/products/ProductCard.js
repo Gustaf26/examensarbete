@@ -1,11 +1,8 @@
 
-//import firebase from "firebase/app";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router";
 
 import { Card, CardFooter, Form, Alert } from "react-bootstrap";
-// import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-// import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
@@ -186,13 +183,13 @@ const ProductCard = ({ item, index, setLoading }) => {
             }}>
                 <div id="product-card-footer">
 
-                    {!activeSize && sizeAlert ? <Alert style={{ position: "absolute", left: '0', top: '-120%', width: '100%', textAlign: 'center', fontSize: '0.8em' }} variant="danger">You need to pick a size</Alert> : null}
+                    {!activeSize && sizeAlert ? <Alert className="size-alert-message" variant="danger">You need to pick a size</Alert> : null}
 
-                    <button type="button" onClick={(e) => {
+                    <button type="button" className="add-to-cart-button" onClick={(e) => {
                         e.stopPropagation(); if (!activeSize) { setSizeAlert(true) } else { updateCart(item, 'plus', activeSize) }
                     }}>{item.qty === 0 ? 'Add To Cart' : `${item.qty} in Cart`}</button>
 
-                    {item.qty > 0 ? <button type="button" onClick={(e) => { e.stopPropagation(); updateCart(item, 'minus', activeSize) }}>Remove</button> : null}
+                    {item.qty > 0 ? <button className="remove-from-cart-button" type="button" onClick={(e) => { e.stopPropagation(); updateCart(item, 'minus', activeSize) }}>Remove</button> : null}
                 </div>
             </CardFooter>}
         </Card.Body >

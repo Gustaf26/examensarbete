@@ -8,8 +8,6 @@ import { useAuth } from "../contexts/AuthContext";
 export default function Footer() {
 
     const { mobile } = useMobile()
-    const { admin } = useAuth()
-
 
     useEffect(() => {
         window.addEventListener("scroll", (e) => {

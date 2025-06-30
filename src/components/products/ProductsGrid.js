@@ -1,8 +1,5 @@
-//import firebase from "firebase/app";
-import React, { useEffect } from "react";
-// import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
-import { Row } from "react-bootstrap";
 import Icon from "@mui/material/Icon";
 
 import { BounceLoader } from "react-spinners";
@@ -20,17 +17,12 @@ import CardContainer from "../products/CardContainer";
 import BreadcrumbContainer from "../BreadCrumbContainer";
 
 const ProductsGrid = ({ products, type, loading, setLoading }) => {
-	// const navigate = useNavigate();
+
 	const { admin } = useAuth();
 	const { setProductOption } = useCreate();
 	const { mobile, mobileDisplays, setMobileDisplays } = useMobile();
 
 	const { containerStyles, microMobile } = useMobileStyles();
-
-
-	useEffect(() => {
-		console.log(loading)
-	}, [loading])
 
 	return (
 		<>

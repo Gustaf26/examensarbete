@@ -75,8 +75,6 @@ export default function Cart() {
                 </ul>
             </div>
             <div>
-
-
                 <div id="total-container">
                     <p id="total-products-qty">You are ordering {prodsQty} products</p>
                     <p id="total-word-and-price"> <span id="total-word">TOTAL</span> <span id="total-price">{totalPrice} €</span></p>

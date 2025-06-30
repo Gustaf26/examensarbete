@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams, useLocation } from "react-router";
 
-import { useAuth } from "../../contexts/AuthContext";
-// import { db } from "../../firebase";
-
 import { BounceLoader } from "react-spinners";
 import { Row } from "react-bootstrap";
 
@@ -14,6 +11,7 @@ import BreadCrumbContainer from "../BreadCrumbContainer";
 
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from './../../contexts/MobileContext'
+import { useAuth } from "../../contexts/AuthContext";
 
 import "../../assets/scss/app.scss";
 import Icon from '@mui/material/Icon';
@@ -46,13 +44,13 @@ const Product = () => {
   // This effect is for when page is reloaded
   // Updates location and context vars to get single prod 
   useEffect(() => {
-    if (!singleProduct) {
+    if (!singleProduct && productId) {
 
       setLocation(location.pathname);
       setProdId(Number(productId));
 
       let singleP = allProducts.filter(prod => prod.id === Number(productId))
-      console.log(singleP)
+
       if (singleP[0]) { setSingleProduct(singleP[0]); setProductOption(singleP[0].category); }
       if (window.innerWidth <= 1000) setMobile(true)
     }
