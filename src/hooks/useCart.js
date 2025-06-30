@@ -5,7 +5,7 @@ function useCart() {
 
     const { allProducts, setProducts } = useCreate()
 
-    const updateCart = (item, action) => {
+    const updateCart = (item, action, size) => {
 
         let productToUpdate
 
@@ -18,10 +18,11 @@ function useCart() {
 
         allProdsDummy = allProdsDummy.map(prod => {
             if (prod.id === productToUpdate.id) {
-                if (action === 'plus') prod.qty += 1;
-                else if (action === 'one-less') prod.qty -= 1
-                else if (action === 'minus' && prod.qty !== 0) prod.qty = 0
+                if (action === 'plus') { prod.qty += 1; prod.size = size; }
+                else if (action === 'one-less') { prod.qty -= 1; prod.size = size }
+                else if (action === 'minus' && prod.qty !== 0) { prod.qty = 0; prod.size = size }
             }
+
             return prod
         })
 

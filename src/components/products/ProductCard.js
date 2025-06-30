@@ -54,27 +54,6 @@ const ProductCard = ({ item, index, setLoading }) => {
     }, [location, productOption, lastImgIndex])
 
 
-    // FIREBASE DELETING PRODUCT
-
-    // const handleUpdateProduct = (product) => {
-
-    //     navigate(`cms/products/update`, { replace: true });
-    // };
-
-    // const handleDeleteProduct = (product) => {
-    //     try {
-    //         const deletion = () => {
-    //             console.log("ddeleteing " + product.name);
-    //             alert('I don´t want to delete products, sorry')
-    //             // await db.collection(`${type}`).doc(`${product.id}`).delete();
-    //         };
-
-    //         deletion();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
     const handleImgResize = (e) => {
 
         if (e.target.value > 0) {
@@ -113,16 +92,16 @@ const ProductCard = ({ item, index, setLoading }) => {
                 onChange={handleImgResize}></Form.Range>)}
             <div id="single-product-sizes">
                 <ul>
-                    <li className={activeSize === 1 ? 'active' : ''} onClick={() => { setActiveSize(1) }}>
+                    <li className={activeSize === 'S' ? 'active' : ''} onClick={() => { setActiveSize('S') }}>
                         S
                     </li>
-                    <li className={activeSize === 2 ? 'active' : ''} onClick={() => { setActiveSize(2) }}>
+                    <li className={activeSize === 'M' ? 'active' : ''} onClick={() => { setActiveSize('M') }}>
                         M
                     </li>
-                    <li className={activeSize === 3 ? 'active' : ''} onClick={() => { setActiveSize(3) }}>
+                    <li className={activeSize === 'L' ? 'active' : ''} onClick={() => { setActiveSize('L') }}>
                         L
                     </li>
-                    <li className={activeSize === 4 ? 'active' : ''} onClick={() => { setActiveSize(4) }}>
+                    <li className={activeSize === 'XL' ? 'active' : ''} onClick={() => { setActiveSize('XL') }}>
                         XL
                     </li>
 
@@ -205,22 +184,15 @@ const ProductCard = ({ item, index, setLoading }) => {
                 left: (view === 'single') && mobile ? '0' : view !== 'single' ? '0' : '',
                 alignText: 'center'
             }}>
-                <div id="product-card-footer" style={{ width: 'fit-content', margin: '0 auto', display: 'flex' }}>
+                <div id="product-card-footer">
 
                     {!activeSize && sizeAlert ? <Alert style={{ position: "absolute", left: '0', top: '-120%', width: '100%', textAlign: 'center', fontSize: '0.8em' }} variant="danger">You need to pick a size</Alert> : null}
 
                     <button type="button" onClick={(e) => {
-                        e.stopPropagation(); if (!activeSize) { setSizeAlert(true) } else { updateCart(item, 'plus') }
-                    }} style={{
-                        fontSize: '0.8em', color: 'rgb(227, 182, 133)', backgroundColor: 'brown', padding: '5px 20px',
-                        border: 'none', borderRadius: '25px', height: 'fit-content'
+                        e.stopPropagation(); if (!activeSize) { setSizeAlert(true) } else { updateCart(item, 'plus', activeSize) }
                     }}>{item.qty === 0 ? 'Add To Cart' : `${item.qty} in Cart`}</button>
 
-                    {item.qty > 0 ? <button type="button" onClick={(e) => { e.stopPropagation(); updateCart(item, 'minus') }} style={{
-                        marginLeft: '20px',
-                        fontSize: '0.8em', color: 'white', backgroundColor: 'rgb(241, 103, 103)', padding: '5px 20px',
-                        border: 'none', borderRadius: '25px', height: 'fit-content'
-                    }}>Remove</button> : null}
+                    {item.qty > 0 ? <button type="button" onClick={(e) => { e.stopPropagation(); updateCart(item, 'minus', activeSize) }}>Remove</button> : null}
                 </div>
             </CardFooter>}
         </Card.Body >

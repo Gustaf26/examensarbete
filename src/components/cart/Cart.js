@@ -53,20 +53,21 @@ export default function Cart() {
                 <h6>302 SEK LEFT TO <span id="free-delivery-msg">FREE </span>DELIVERY</h6>
                 <ul>
                     {cartProds ? cartProds.map(prod => {
-                        return (<li>
+                        return (<li key={prod.id}>
                             <div className="cart-prod-img-and-info">
                                 <img alt="product-image" src={prod.thumbnail} />
                                 <div className="cart-product-info">
                                     <p className="prod-in-cart-name">{prod.name}</p>
                                     <p>Product Category: {prod.category}</p>
+                                    <p>Size: <b>{prod.size}</b></p>
                                 </div>
                             </div>
                             <div className="cart-product-price-qty">
                                 <span className="prod-in-cart-price">{prod.price * prod.qty}€</span>
                                 <span className="prod-in-cart-qty">
-                                    <span onClick={() => updateCart(prod, 'one-less')}>-</span>
+                                    <span onClick={() => updateCart(prod, 'one-less', prod.size)}>-</span>
                                     {prod.qty}
-                                    <span onClick={() => updateCart(prod, 'plus')}>+</span>
+                                    <span onClick={() => updateCart(prod, 'plus', prod.size)}>+</span>
                                 </span>
                             </div>
                         </li>)
@@ -82,7 +83,7 @@ export default function Cart() {
                 </div>
                 <div id="cart-buttons-container">
                     <button onClick={() => setCartShowing(false)}><Link to={"/"}>Go To Checkout</Link></button>
-                    <button onClick={() => setCartShowing(false)}><Link to={"/"}>Keep Buying</Link></button>
+                    <button onClick={() => setCartShowing(false)}>Keep Buying</button>
                 </div>
             </div>
         </div> : null}
