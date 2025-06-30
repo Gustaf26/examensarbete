@@ -10,7 +10,6 @@ import { useMobile } from "../../contexts/MobileContext";
 
 import useCart from '../../hooks/useCart'
 
-
 const ProductCard = ({ item, index, setLoading }) => {
 
     const [lastImgIndex, setLastImgIndex] = useState('')
@@ -105,7 +104,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </ul>
             </div>
             {view === 'single' && !mobile ? (<div id="related-prods">
-                <p>Related Products</p>
+                <p>Same Category</p>
                 <ul>
                     {allProducts.filter(prod => prod.category === item.category && prod.id !== item.id).map((prod, i) => {
                         if (i <= 3) {
@@ -142,20 +141,21 @@ const ProductCard = ({ item, index, setLoading }) => {
                 <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
                     <b>{(view !== 'single') ? item.name.slice(0, item.name.slice(0, 30).lastIndexOf(' ')) : item.name}</b>
                 </Card.Text>
-                <Card.Text className="text-muted small">
-                    <b>Price: </b> {item.price} €
+                <Card.Text className=" small">
+                    <b className="small">Price: </b> {item.price} €
                 </Card.Text>
-                {item.attribution && <Card.Text className="text-muted small">
-                    <a href={item.attLink}>{item.attribution}</a>
+                {item.attribution && <Card.Text className=" small">
+                    <a className="small" href={item.attLink}>{item.attribution}</a>
                 </Card.Text>}
-                <Card.Text className="text-muted small">
-                    <b>Description: </b>{" "}
-                    <span>
+                <Card.Text className=" small">
+                    <b className="small">Description: </b>{" "}
+                    <span className="small">
                         {(view !== 'single') ? <>{item.description.slice(0, item.description.slice(0, 80).lastIndexOf(' '))}<b> (Read more)</b></>
                             : item.description}
                     </span>
                 </Card.Text>
                 {view === 'single' && mobile ? (<div id="related-prods">
+                    <b className="small">Same Category</b>
                     <ul>
                         {allProducts.filter(prod => prod.category === item.category && prod.id !== item.id).map((prod, i) => {
                             if (i <= 3) {
@@ -174,12 +174,9 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </div>) : null}
             </div>
             {!admin && <CardFooter id="product-card-footer-container" style={{
-                backgroundColor: 'rgba(0,0,0,0)',
-                width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)', margin: (view === 'single') ? '10px auto' : '0 auto',
-                position: 'absolute',
-                bottom: '0', display: 'block',
+                width: (view === 'single') && !mobile ? 'calc(50% - 40px)' : 'calc(100%)',
+                margin: (view === 'single') ? '10px auto' : '10px auto',
                 left: (view === 'single') && mobile ? '0' : view !== 'single' ? '0' : '',
-                alignText: 'center'
             }}>
                 <div id="product-card-footer">
 
@@ -193,7 +190,6 @@ const ProductCard = ({ item, index, setLoading }) => {
                 </div>
             </CardFooter>}
         </Card.Body >
-
     </Card >)
 }
 

@@ -1161,6 +1161,16 @@ h2 {
     }
   }
 
+  & #product-card-footer-container {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-top: 20px;
+  }
+
   & #product-card-footer {
     width: fit-content;
     margin: 0 auto;
