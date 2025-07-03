@@ -1,9 +1,8 @@
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { Row, Card } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
-import dummyCard from '../../assets/images/dumy-card.png'
 
 import Navigation from '../../components/Navigation'
 import MobileList from '../../cms_components/MobileList'
@@ -23,7 +22,6 @@ const SearchResults = () => {
 
   const [loading, setLoading] = useState(0)
   const [loaded, setLoaded] = useState(false)
-  const [isPending, startTransition] = useTransition()
 
   const {
     searchResults,
@@ -41,11 +39,6 @@ const SearchResults = () => {
   useEffect(() => {
     setLocation(location.pathname);
 
-    // startTransition(() => {
-    //   if (loading === searchResults.length) {
-    //     setLoaded(true)
-    //   }
-    // })
   }, [searchResults, loading]);
 
   useEffect(() => {
@@ -87,44 +80,14 @@ const SearchResults = () => {
 
           {mobileDisplays && <MobileList />}
 
-          {loaded ? <CardContainer style={{ margin: microMobile && admin ? '5rem auto' : '3rem auto' }}>
+          <CardContainer style={{ margin: microMobile && admin ? '5rem auto' : '3rem auto' }}>
             {searchResults.length > 0 &&
               searchResults.map((item, i) => (
                 <ProductCard setLoading={setLoading} key={item.id} onLoad={(e) => {
                   if (i === 0) e.target.scrollIntoView({ block: 'start' })
                 }} item={item} />
               ))}
-          </CardContainer> :
-            /* Blurred cards for lazy loading of images */
-            (<CardContainer className='category-products-placeholder'>
-
-              {searchResults.map((prod, i) => {
-                return (
-                  <Card className="product-card blurred">
-                    <img alt="blurred product" src={dummyCard} />
-                    <Card.Body style={{ display: 'block' }} className="py-0">
-                      <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
-                        <b>{prod.name}</b>
-                      </Card.Text>
-                      <Card.Text className=" small">
-                        <b className="small">Price: </b> {prod.price} €
-                      </Card.Text>
-                      {prod.attribution && <Card.Text className=" small">
-                        <a className="small" href={prod.attLink}>{prod.attribution}</a>
-                      </Card.Text>}
-                      <Card.Text className=" small">
-                        <b className="small">Description: </b>{" "}
-                        <span className="small">
-                          {prod.description}
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                )
-              })}
-            </CardContainer>
-            )
-          }
+          </CardContainer>
         </Row>
       </div>
     </>

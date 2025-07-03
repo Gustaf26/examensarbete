@@ -1,7 +1,4 @@
 
-import { useEffect, useState, useRef } from "react";
-import { BounceLoader } from "react-spinners";
-
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
 import { useMobile } from "../../contexts/MobileContext";
@@ -14,9 +11,7 @@ import ProductCard from "../products/ProductCard";
 import CardContainer from "../products/CardContainer";
 import BreadcrumbContainer from "../BreadCrumbContainer";
 
-import { Card } from "react-bootstrap";
 import Icon from "@mui/material/Icon";
-import dummyCard from '../../assets/images/dumy-card.png'
 
 
 const ProductsGrid = ({ products, type }) => {
@@ -25,25 +20,7 @@ const ProductsGrid = ({ products, type }) => {
 	const { setProductOption } = useCreate();
 	const { mobile, mobileDisplays, setMobileDisplays } = useMobile();
 
-	const imagePromise = useRef(0)
-	const [allPromisesFulfilled, setAllPromisesFulfilled] = useState(false)
-
 	const { containerStyles, microMobile } = useMobileStyles();
-
-	useEffect(() => {
-
-		if (imagePromise.current >= products.length - 1) {
-			console.log(imagePromise.current)
-			imagePromise.current = 0
-			setAllPromisesFulfilled(true)
-		}
-
-	}, [imagePromise.current])
-
-	useEffect(() => {
-
-		return () => { setAllPromisesFulfilled(false); imagePromise.current = 0 }
-	}, [])
 
 	return (
 		<>
@@ -111,13 +88,10 @@ const ProductsGrid = ({ products, type }) => {
 						{products &&
 							products.map((item, i) => (
 								<ProductCard
-									allPromisesFulfilled={allPromisesFulfilled}
 									index={i}
-									productsLength={products.length}
 									id={`${item.id}`}
 									key={item.id}
 									item={item}
-									imagePromise={imagePromise}
 								/>
 							))}
 					</CardContainer>
