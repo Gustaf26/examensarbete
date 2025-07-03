@@ -163,7 +163,9 @@ function HomeSections() {
                         margin: admin && !mobile & !microMobile ? ' 0 auto' : '0 auto'
                     }} ref={slidesref}>
                         {!slides.length ? [0, 1, 2, 3, 4, 5, 6, 7].map(num => {
-                            return (<div key={'placeholder' + num} id="home-slider-placeholder-container" style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}>
+                            return (<div key={'placeholder' + num} id="home-slider-placeholder-container"
+                            //  style={{ display: 'inline flex', flexWrap: 'nowrap', width: 'fit-content' }}
+                            >
                                 <img alt="blurry placeholder" src={verkstadImg} />
                             </div>)
                         }) : null}

@@ -1,5 +1,5 @@
-import Icon from "@mui/material/Icon";
 
+import { useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -14,13 +14,26 @@ import ProductCard from "../products/ProductCard";
 import CardContainer from "../products/CardContainer";
 import BreadcrumbContainer from "../BreadCrumbContainer";
 
-const ProductsGrid = ({ products, type, loading, setLoading }) => {
+import verkstadImg from '../../assets/images/verkstad.jpg'
+import Icon from "@mui/material/Icon";
+
+const ProductsGrid = ({ products, type }) => {
 
 	const { admin } = useAuth();
 	const { setProductOption } = useCreate();
 	const { mobile, mobileDisplays, setMobileDisplays } = useMobile();
+	const [contentLoaded, setContentLoaded] = useState(false)
 
 	const { containerStyles, microMobile } = useMobileStyles();
+
+	useEffect(() => {
+
+		setTimeout(() => {
+			setContentLoaded(true)
+		}, 1000)
+
+		return () => setContentLoaded(false)
+	}, [])
 
 	return (
 		<>
@@ -54,26 +67,28 @@ const ProductsGrid = ({ products, type, loading, setLoading }) => {
 					)}
 
 					{mobileDisplays && <MobileList />}
-					{loading < products.length && (
-						<div
-							style={{ marginTop: "10%" }}
-							className='d-flex justify-content-center align-items-center'
-						>
-							<BounceLoader color={"#888"} size={100} />
-						</div>
-					)}
-					<CardContainer style={{ visibility: loading !== products.length ? 'none' : 'visible' }}>
+					{!contentLoaded ? (
+						products.map(prod => {
+							return (<div
+								style={{ marginTop: "10%" }}
+								className='category-products-placeholder'
+							>
+								<img alt="dummy-placeholder for products" src={verkstadImg} />
+							</div>)
+						})
+					) : null}
+					{contentLoaded ? <CardContainer>
 						{products &&
 							products.map((item, i) => (
 								<ProductCard
-									setLoading={setLoading}
 									index={i}
 									id={`${item.id}`}
 									key={item.id}
 									item={item}
+									className='category-product-placeholder'
 								/>
 							))}
-					</CardContainer>
+					</CardContainer> : null}
 				</div>
 			</div>
 		</>

@@ -6,7 +6,6 @@ import { useCreate } from "../../contexts/CreateContext";
 
 const Products = ({ type }) => {
 
-  const [loading, setLoading] = useState(0);
   const { allProducts, setLocation } = useCreate()
   const location = useLocation()
 
@@ -18,7 +17,7 @@ const Products = ({ type }) => {
 
   return (
     <>
-      <ProductsGrid loading={loading} setLoading={setLoading} type={type} products={products} />
+      <ProductsGrid type={type} products={products} />
     </>
   );
 };

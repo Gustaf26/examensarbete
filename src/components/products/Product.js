@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, useLocation } from "react-router";
 
 import { BounceLoader } from "react-spinners";
@@ -20,8 +20,6 @@ import MobileList from '../../cms_components/MobileList'
 import useMobileStyles from '../../hooks/useMobileStyles'
 
 const Product = () => {
-
-  const [loading, setLoading] = React.useState(true)
 
   const {
     singleProduct,
@@ -63,11 +61,6 @@ const Product = () => {
 
   return (
     <>
-      {loading === 0 && (
-        <div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
-          <BounceLoader color={"#888"} size={100} />
-        </div>
-      )}
       <div id="dummy-container-products"
         className={microMobile ? 'dummy-container-products micromobile' : admin && mobile ? 'dummy-container-products admin mobile' :
           admin ? 'dummy-container-products admin' : mobile ? 'dummy-container-products mobile' : 'dummy-container-products'}
@@ -88,10 +81,10 @@ const Product = () => {
           {mobileDisplays && <MobileList />}
 
           {!singleProduct && <BounceLoader color={"#888"} size={20} />}
-          <CardContainer style={{ visibility: loading !== 1 ? 'hidden' : 'visible' }} onLoad={(e) => { mobile && e.target.scrollIntoView({ block: 'start', behaviour: 'smooth' }) }}>
-            {singleProduct && (
-              <ProductCard setLoading={setLoading} index={0} item={singleProduct} />
-            )}
+          <CardContainer onLoad={(e) => { mobile && e.target.scrollIntoView({ block: 'start', behaviour: 'smooth' }) }}>
+            {singleProduct ? (
+              <ProductCard index={0} item={singleProduct} />
+            ) : null}
           </CardContainer>
         </Row>
       </div >

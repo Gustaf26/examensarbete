@@ -10,7 +10,7 @@ import { useMobile } from "../../contexts/MobileContext";
 
 import useCart from '../../hooks/useCart'
 
-const ProductCard = ({ item, index, setLoading }) => {
+const ProductCard = ({ item, index }) => {
 
     const [lastImgIndex, setLastImgIndex] = useState('')
     const [activeSize, setActiveSize] = useState()
@@ -28,7 +28,7 @@ const ProductCard = ({ item, index, setLoading }) => {
     const { productId } = useParams()
 
 
-    // Effect for showing pics only after loading them
+    // Effect for setting single product view if some urls are reloaded
     useEffect(() => {
         if ((location.pathname === `/cms/products/${productOption}/${Number(productId)}`) ||
             (location.pathname === '/cms/products/update') ||
@@ -36,16 +36,6 @@ const ProductCard = ({ item, index, setLoading }) => {
             (location.pathname === '/products/update')) { setView('single'); }
         else { setView('') }
 
-        if (location.pathname === admin ? "/cms/search-results" : "/search-results") {
-            if (lastImgIndex === index) {
-                setLoading(false)
-            }
-        }
-        if (location.pathname === admin ? `/cms/products/${productOption}` : `/products/${productOption}/`) {
-            if (lastImgIndex === index) {
-                setLoading(false)
-            }
-        }
 
     }, [location, productOption, lastImgIndex])
 
@@ -53,7 +43,6 @@ const ProductCard = ({ item, index, setLoading }) => {
     const handleImgResize = (e) => {
 
         if (e.target.value > 0) {
-            console.log((1 + Number(e.target.value) / 100).toFixed(1))
             document.getElementById('update-product-image').style.transform = `scale(${((1 + (Number(e.target.value) / 100)).toFixed(1)).toString()})`
         }
         else {
@@ -80,7 +69,6 @@ const ProductCard = ({ item, index, setLoading }) => {
                 <Card.Img onClick={() => {
                     navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
                 }}
-                    onLoad={() => setLoading(prev => prev + 1)}
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
                         { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
             </div>
@@ -107,6 +95,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                 <p>Same Category</p>
                 <ul>
                     {allProducts.filter(prod => prod.category === item.category && prod.id !== item.id).map((prod, i) => {
+                        // Showing only 3 related products
                         if (i <= 3) {
                             return (<li>
                                 <img className="related-prods-pic" onClick={(e) => {
@@ -158,6 +147,7 @@ const ProductCard = ({ item, index, setLoading }) => {
                     <b className="small">Same Category</b>
                     <ul>
                         {allProducts.filter(prod => prod.category === item.category && prod.id !== item.id).map((prod, i) => {
+                            // Showing only 4 related products
                             if (i <= 3) {
                                 return (<li>
                                     <img className="related-prods-pic" onClick={(e) => {

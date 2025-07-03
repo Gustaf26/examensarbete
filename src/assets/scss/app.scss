@@ -844,6 +844,9 @@ h2 {
         }
 
         & #home-slider-placeholder-container {
+          display: inline flex;
+          flex-wrap: nowrap;
+          width: fit-content;
 
           & img {
             width: 200px;
@@ -928,6 +931,7 @@ h2 {
   background-color: white;
   height: fit-content;
 
+
   &.micromobile {
     position: relative;
     left: 0;
@@ -977,6 +981,36 @@ h2 {
         padding: 10px 10px;
       }
     }
+
+    // Below is an attempt for lazy loading with styles of a placeholder
+
+    & .category-products-placeholder {
+      display: flex;
+      flex-wrap: nowrap;
+      width: 100%;
+
+      & img {
+        width: 200px;
+        height: 300px;
+        filter: blur(25px) !important;
+        margin: 0 auto;
+        animation: pulse 0.75s infinite;
+
+        @keyframes pulse {
+          0% {
+            opacity: 0.45
+          }
+
+          50% {
+            opacity: 0.9
+          }
+
+          100% {
+            opacity: 0.45
+          }
+        }
+      }
+    }
   }
 }
 
@@ -984,6 +1018,7 @@ h2 {
 
 
 .card-container {
+
 
   &.micromobile {
     width: 100%;
