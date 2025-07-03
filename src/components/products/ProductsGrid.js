@@ -14,6 +14,7 @@ import ProductCard from "../products/ProductCard";
 import CardContainer from "../products/CardContainer";
 import BreadcrumbContainer from "../BreadCrumbContainer";
 
+import { Card } from "react-bootstrap";
 import verkstadImg from '../../assets/images/verkstad.jpg'
 import Icon from "@mui/material/Icon";
 
@@ -67,15 +68,33 @@ const ProductsGrid = ({ products, type }) => {
 					)}
 
 					{mobileDisplays && <MobileList />}
-					{!contentLoaded ? (
-						products.map(prod => {
-							return (<div
-								style={{ marginTop: "10%" }}
-								className='category-products-placeholder'
-							>
-								<img alt="dummy-placeholder for products" src={verkstadImg} />
-							</div>)
-						})
+					{!contentLoaded ? (<CardContainer className='category-products-placeholder'>
+
+						{products.map((prod, i) => {
+							return (
+								<Card className="product-card blurred">
+									<img alt="blurred product" src={prod.thumbnail} />
+									<Card.Body style={{ display: 'block' }} className="py-0">
+										<Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
+											<b>{prod.name}</b>
+										</Card.Text>
+										<Card.Text className=" small">
+											<b className="small">Price: </b> {prod.price} €
+										</Card.Text>
+										{prod.attribution && <Card.Text className=" small">
+											<a className="small" href={prod.attLink}>{prod.attribution}</a>
+										</Card.Text>}
+										<Card.Text className=" small">
+											<b className="small">Description: </b>{" "}
+											<span className="small">
+												{prod.description}
+											</span>
+										</Card.Text>
+									</Card.Body>
+								</Card>
+							)
+						})}
+					</CardContainer>
 					) : null}
 					{contentLoaded ? <CardContainer>
 						{products &&
@@ -85,7 +104,6 @@ const ProductsGrid = ({ products, type }) => {
 									id={`${item.id}`}
 									key={item.id}
 									item={item}
-									className='category-product-placeholder'
 								/>
 							))}
 					</CardContainer> : null}
