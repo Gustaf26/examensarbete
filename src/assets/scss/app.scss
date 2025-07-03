@@ -981,36 +981,6 @@ h2 {
         padding: 10px 10px;
       }
     }
-
-    // Below is an attempt for lazy loading with styles of a placeholder
-
-    // & .category-products-placeholder {
-    //   display: flex;
-    //   flex-wrap: nowrap;
-    //   width: 100%;
-
-    //   & img {
-    //     // width: 200px;
-    //     // height: 300px;
-    //     filter: blur(25px) !important;
-    //     margin: 0 auto;
-    //     animation: pulse 0.75s infinite;
-
-    //     @keyframes pulse {
-    //       0% {
-    //         opacity: 0.45
-    //       }
-
-    //       50% {
-    //         opacity: 0.9
-    //       }
-
-    //       100% {
-    //         opacity: 0.45
-    //       }
-    //     }
-    //   }
-    // }
   }
 }
 
@@ -1057,10 +1027,12 @@ h2 {
   max-width: 380px;
   height: 650px;
 
+
+  // Below is an effect for lazy loading product cards
   &.blurred {
 
     & img {
-      filter: blur(65px) !important;
+      filter: blur(15px) !important;
       width: 100%;
       height: 300px;
       object-fit: cover;

@@ -19,6 +19,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useMobile } from "../../contexts/MobileContext";
 
 import useMobileStyles from '../../hooks/useMobileStyles'
+import { Card } from "react-bootstrap";
+
 
 const SearchResults = () => {
 
@@ -51,11 +53,17 @@ const SearchResults = () => {
 
   useEffect(() => {
 
+    setTimeout(() => {
+      setLoaded(true)
+    }, 1000)
+
+
     return () => {
-      setSearchString('')
+      setSearchString(''); setLoaded(false)
     }
 
   }, [])
+
 
   useEffect(() => {
     setLocation(location.pathname)
@@ -82,18 +90,43 @@ const SearchResults = () => {
 
           {mobileDisplays && <MobileList />}
 
-          <CardContainer style={{ margin: microMobile && admin ? '5rem auto' : '3rem auto' }}>
+          {loaded ? <CardContainer style={{ margin: microMobile && admin ? '5rem auto' : '3rem auto' }}>
             {searchResults.length > 0 &&
               searchResults.map((item, i) => (
                 <ProductCard setLoading={setLoading} key={item.id} onLoad={(e) => {
                   if (i === 0) e.target.scrollIntoView({ block: 'start' })
                 }} item={item} />
               ))}
+          </CardContainer> :
+            (<CardContainer className='category-products-placeholder'>
 
-            {!loaded ? (<div style={{ marginTop: '10%' }} className="d-flex justify-content-center align-items-center">
-              <BounceLoader color={"#888"} size={100} />
-            </div>) : null}
-          </CardContainer>
+              {searchResults.map((prod, i) => {
+                return (
+                  <Card className="product-card blurred">
+                    <img alt="blurred product" src={prod.thumbnail} />
+                    <Card.Body style={{ display: 'block' }} className="py-0">
+                      <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
+                        <b>{prod.name}</b>
+                      </Card.Text>
+                      <Card.Text className=" small">
+                        <b className="small">Price: </b> {prod.price} €
+                      </Card.Text>
+                      {prod.attribution && <Card.Text className=" small">
+                        <a className="small" href={prod.attLink}>{prod.attribution}</a>
+                      </Card.Text>}
+                      <Card.Text className=" small">
+                        <b className="small">Description: </b>{" "}
+                        <span className="small">
+                          {prod.description}
+                        </span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                )
+              })}
+            </CardContainer>
+            )
+          }
         </Row>
       </div>
     </>

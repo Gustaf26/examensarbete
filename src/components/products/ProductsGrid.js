@@ -15,7 +15,6 @@ import CardContainer from "../products/CardContainer";
 import BreadcrumbContainer from "../BreadCrumbContainer";
 
 import { Card } from "react-bootstrap";
-import verkstadImg from '../../assets/images/verkstad.jpg'
 import Icon from "@mui/material/Icon";
 
 const ProductsGrid = ({ products, type }) => {
