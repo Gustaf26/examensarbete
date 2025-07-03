@@ -1,11 +1,9 @@
 import { useEffect, useState, useTransition } from "react";
 import { useLocation } from "react-router";
 
-import { Row } from "react-bootstrap";
-
-import { BounceLoader } from "react-spinners";
-
+import { Row, Card } from "react-bootstrap";
 import Icon from '@mui/material/Icon';
+import dummyCard from '../../assets/images/dumy-card.png'
 
 import Navigation from '../../components/Navigation'
 import MobileList from '../../cms_components/MobileList'
@@ -19,7 +17,6 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useMobile } from "../../contexts/MobileContext";
 
 import useMobileStyles from '../../hooks/useMobileStyles'
-import { Card } from "react-bootstrap";
 
 
 const SearchResults = () => {
@@ -44,18 +41,18 @@ const SearchResults = () => {
   useEffect(() => {
     setLocation(location.pathname);
 
-    startTransition(() => {
-      if (loading === searchResults.length) {
-        setLoaded(true)
-      }
-    })
+    // startTransition(() => {
+    //   if (loading === searchResults.length) {
+    //     setLoaded(true)
+    //   }
+    // })
   }, [searchResults, loading]);
 
   useEffect(() => {
 
     setTimeout(() => {
       setLoaded(true)
-    }, 1000)
+    }, 2500)
 
 
     return () => {
@@ -98,12 +95,13 @@ const SearchResults = () => {
                 }} item={item} />
               ))}
           </CardContainer> :
+            /* Blurred cards for lazy loading of images */
             (<CardContainer className='category-products-placeholder'>
 
               {searchResults.map((prod, i) => {
                 return (
                   <Card className="product-card blurred">
-                    <img alt="blurred product" src={prod.thumbnail} />
+                    <img alt="blurred product" src={dummyCard} />
                     <Card.Body style={{ display: 'block' }} className="py-0">
                       <Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
                         <b>{prod.name}</b>

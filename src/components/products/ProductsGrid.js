@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BounceLoader } from "react-spinners";
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -16,23 +16,33 @@ import BreadcrumbContainer from "../BreadCrumbContainer";
 
 import { Card } from "react-bootstrap";
 import Icon from "@mui/material/Icon";
+import dummyCard from '../../assets/images/dumy-card.png'
+
 
 const ProductsGrid = ({ products, type }) => {
 
 	const { admin } = useAuth();
 	const { setProductOption } = useCreate();
 	const { mobile, mobileDisplays, setMobileDisplays } = useMobile();
-	const [contentLoaded, setContentLoaded] = useState(false)
+
+	const imagePromise = useRef(0)
+	const [allPromisesFulfilled, setAllPromisesFulfilled] = useState(false)
 
 	const { containerStyles, microMobile } = useMobileStyles();
 
 	useEffect(() => {
 
-		setTimeout(() => {
-			setContentLoaded(true)
-		}, 1000)
+		if (imagePromise.current >= products.length - 1) {
+			console.log(imagePromise.current)
+			imagePromise.current = 0
+			setAllPromisesFulfilled(true)
+		}
 
-		return () => setContentLoaded(false)
+	}, [imagePromise.current])
+
+	useEffect(() => {
+
+		return () => { setAllPromisesFulfilled(false); imagePromise.current = 0 }
 	}, [])
 
 	return (
@@ -67,12 +77,14 @@ const ProductsGrid = ({ products, type }) => {
 					)}
 
 					{mobileDisplays && <MobileList />}
-					{!contentLoaded ? (<CardContainer className='category-products-placeholder'>
+
+					{/* Blurred cards for lazy loading of images */}
+					{/* {!contentLoaded ? (<CardContainer className='category-products-placeholder'>
 
 						{products.map((prod, i) => {
 							return (
 								<Card className="product-card blurred">
-									<img alt="blurred product" src={prod.thumbnail} />
+									<img alt="blurred product" src={dummyCard} />
 									<Card.Body style={{ display: 'block' }} className="py-0">
 										<Card.Text style={{ color: 'rgb(79, 48, 48)' }} className="small">
 											<b>{prod.name}</b>
@@ -94,18 +106,21 @@ const ProductsGrid = ({ products, type }) => {
 							)
 						})}
 					</CardContainer>
-					) : null}
-					{contentLoaded ? <CardContainer>
+					) : null} */}
+					<CardContainer>
 						{products &&
 							products.map((item, i) => (
 								<ProductCard
+									allPromisesFulfilled={allPromisesFulfilled}
 									index={i}
+									productsLength={products.length}
 									id={`${item.id}`}
 									key={item.id}
 									item={item}
+									imagePromise={imagePromise}
 								/>
 							))}
-					</CardContainer> : null}
+					</CardContainer>
 				</div>
 			</div>
 		</>

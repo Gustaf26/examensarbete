@@ -1,8 +1,9 @@
 
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router";
 
 import { Card, CardFooter, Form, Alert } from "react-bootstrap";
+import dummyCard from '../../assets/images/dumy-card.png'
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useCreate } from "../../contexts/CreateContext";
@@ -10,7 +11,7 @@ import { useMobile } from "../../contexts/MobileContext";
 
 import useCart from '../../hooks/useCart'
 
-const ProductCard = ({ item, index }) => {
+const ProductCard = ({ item, index, imagePromise, allPromisesFulfilled }) => {
 
     const [lastImgIndex, setLastImgIndex] = useState('')
     const [activeSize, setActiveSize] = useState()
@@ -26,6 +27,43 @@ const ProductCard = ({ item, index }) => {
     const location = useLocation();
 
     const { productId } = useParams()
+    const imgContainerRef = useRef();
+
+    useEffect(() => {
+
+        const loadImg = new Promise(function (resolve, reject) {
+
+            let imageEl = document.createElement('img')
+
+            imageEl.src = allPromisesFulfilled ? item.thumbnail : dummyCard
+            imageEl.alt = item.description
+
+            let specialStyles = !mobile && admin && view === 'single' ? true : false
+
+            imageEl.style.zIndex = specialStyles ? '4' : ''
+            imageEl.style.width = '100%'
+            imageEl.style.height = '300px';
+            imageEl.style.objectFit = 'cover'
+
+            imageEl.addEventListener('click', () => {
+                navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
+            })
+
+            imageEl.addEventListener('load', (e) => {
+
+                if (imageEl.complete) resolve(imageEl)
+            })
+        })
+
+        loadImg.then((res) => { imagePromise.current += 1; imgContainerRef.current.append(res) })
+
+
+        return () => {
+            if (imgContainerRef.current) imgContainerRef.current.innerHTML = ""
+        }
+
+    }, [allPromisesFulfilled]);
+
 
 
     // Effect for setting single product view if some urls are reloaded
@@ -62,15 +100,15 @@ const ProductCard = ({ item, index }) => {
         <div style={!mobile && admin && view === 'single' ? { width: '400px', height: '100%' }
             : mobile ? { width: '100%', margin: '0 auto' }
                 : view === 'single' ? { width: '50%', height: 'fit-content' } : {}} >
-            <div style={admin && view === 'single' ? {
+            <div ref={imgContainerRef} style={admin && view === 'single' ? {
                 zIndex: '5', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', width: '100%', height: '300px', overflow: 'hidden'
             } : {}}>
-                <Card.Img onClick={() => {
+                {/* <Card.Img onClick={() => {
                     navigate(admin ? `/cms/products/${item.category}/${item.id}` : `/products/${item.category}/${item.id}`, { replace: true })
                 }}
                     id="update-product-image" style={!mobile && admin && view === 'single' ? { zIndex: '4', width: '100%' } :
-                        { width: '100%', height: '300px', objectFit: 'cover' }} src={item.thumbnail} />
+                        { width: '100%', height: '300px', objectFit: 'cover' }} /> */}
             </div>
             {admin && view === 'single' && (<Form.Range defaultValue={0} style={{ display: 'block', margin: '10px auto', width: '200px', left: '12%' }}
                 onChange={handleImgResize}></Form.Range>)}
