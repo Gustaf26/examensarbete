@@ -1,8 +1,7 @@
-
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { BounceLoader } from "react-spinners";
-import { db } from '../firebase/index'
-import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../firebase/index";
+// import { collection, getDocs } from "firebase/firestore";
 
 const CreateContext = createContext();
 
@@ -19,78 +18,73 @@ const CreateContextProvider = (props) => {
   const [allProducts, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [cartShowing, setCartShowing] = useState(false)
+  const [cartShowing, setCartShowing] = useState(false);
   const [location, setLocation] = useState();
   const [prodId, setProdId] = useState("");
-  const [yScrolling, setYScrolling] = useState(false)
+  const [yScrolling, setYScrolling] = useState(false);
 
+  const currentLocation = useRef("");
 
-  const currentLocation = useRef('')
-
-
-  let emptyArr = []
+  let emptyArr = [];
 
   useEffect(() => {
+    let categories = ["t-shirts", "troussers", "jackets"];
 
-    let categories = ['t-shirts', 'troussers', 'jackets']
+    const getData = new Promise((resolve, reject) => {
+      resolve(fetch(`/assets/products.json`));
+    });
 
-    categories.forEach(cat => {
-
-      const getData = new Promise((resolve, reject) => {
-        resolve(getDocs(collection(db, cat)))
+    getData
+      .then((res) => res.json())
+      .then((res) => {
+        categories.forEach((category) => {
+          res.products[category].forEach((product) => {
+            emptyArr.push(product);
+          });
+        });
       })
-
-
-      getData
-        .then(res => res.forEach((doc) => {
-          if (!emptyArr.includes(doc.data())) emptyArr.push({ ...doc.data(), qty: 0 })
-        }))
-        .then(res => setProducts(emptyArr))
-        .catch(err => console.log(err))
-    })
+      .then((res) => setProducts(emptyArr))
+      .catch((err) => console.log(err));
 
     return () => {
-      emptyArr = []
-    }
-
-  }, [])
-
-
+      emptyArr = [];
+    };
+  }, []);
 
   useEffect(() => {
-
     // Getting search string from local Storage on reload in search-results-route when all products available
     if (
       allProducts.length > 10 &&
       (location === "/search-results" || location === "/cms/search-results") &&
       searchString === ""
     ) {
-      if (localStorage.getItem("search")) setSearchString(JSON.parse(localStorage.getItem("search")))
-      else { setSearchString(' ') }
+      if (localStorage.getItem("search"))
+        setSearchString(JSON.parse(localStorage.getItem("search")));
+      else {
+        setSearchString(" ");
+      }
     }
-
-
   }, [allProducts]);
 
   // SIDE EFFECT FOR UPDATING SEARCH RESULTS
 
   useEffect(() => {
-
     setSearchResults([]);
 
     if (allProducts.length > 0 && searchString) {
-      let prodsDummy = []
+      let prodsDummy = [];
       allProducts.forEach((product) => {
         if (
-          (product.name.includes(searchString.toLowerCase())) ||
-          (product.description.toLowerCase()
-            .includes(searchString.toLowerCase())) ||
-          (product.category.toLowerCase().includes(searchString.toLowerCase()))
+          product.name.includes(searchString.toLowerCase()) ||
+          product.description
+            .toLowerCase()
+            .includes(searchString.toLowerCase()) ||
+          product.category.toLowerCase().includes(searchString.toLowerCase())
         ) {
-          prodsDummy.push(product)
+          prodsDummy.push(product);
         }
       });
-      console.log(`search res: ${prodsDummy}`)
+      console.log(`search res: ${prodsDummy}`);
       // New search results matching new search string
       setSearchResults(prodsDummy);
     }
@@ -98,11 +92,13 @@ const CreateContextProvider = (props) => {
 
   useEffect(() => {
     if (location !== currentLocation.current) {
-      currentLocation.current = location; setYScrolling(true); setTimeout(() => {
-        setYScrolling(false)
-      }, 1000)
+      currentLocation.current = location;
+      setYScrolling(true);
+      setTimeout(() => {
+        setYScrolling(false);
+      }, 1000);
     }
-  }, [location])
+  }, [location]);
 
   const contextValues = {
     setImageUrl,
@@ -121,18 +117,18 @@ const CreateContextProvider = (props) => {
     setLocation,
     searchString,
     setProducts,
-    location, setYScrolling,
+    location,
+    setYScrolling,
     yScrolling,
     loading,
     cartShowing,
-    setCartShowing
+    setCartShowing,
   };
-
 
   return (
     <CreateContext.Provider value={contextValues}>
       {loading && (
-        <div className="d-flex justify-content-center my-5">
+        <div className='d-flex justify-content-center my-5'>
           <BounceLoader color={"#888"} size={100} />
         </div>
       )}
