@@ -59,7 +59,7 @@ const CreateContextProvider = (props) => {
       searchString === ""
     ) {
       if (localStorage.getItem("search"))
-        setSearchString(JSON.parse(localStorage.getItem("search")));
+        setSearchString(localStorage.getItem("search"));
       else {
         setSearchString(" ");
       }
@@ -69,6 +69,7 @@ const CreateContextProvider = (props) => {
   // SIDE EFFECT FOR UPDATING SEARCH RESULTS
 
   useEffect(() => {
+    // New search results matching new search string
     setSearchResults([]);
 
     if (allProducts.length > 0 && searchString) {
@@ -79,7 +80,8 @@ const CreateContextProvider = (props) => {
           product.description
             .toLowerCase()
             .includes(searchString.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchString.toLowerCase())
+          product.category.toLowerCase().includes(searchString.toLowerCase()) ||
+          product.campaign.toLowerCase().includes(searchString.toLowerCase())
         ) {
           prodsDummy.push(product);
         }
